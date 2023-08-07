@@ -1,0 +1,168 @@
+1
+00:00:05,200 --> 00:00:10,687
+Hi, guys. In this lesson I'm going to cover EC2 user data and metadata.
+
+2
+00:00:10,823 --> 00:00:14,025
+These are both really important features of EC2.
+
+3
+00:00:14,050 --> 00:00:17,706
+So firstly, let's have a look at what user data is.
+
+4
+00:00:18,100 --> 00:00:22,736
+So let's say we go into the management console and we're going to launch an instance.
+
+5
+00:00:23,230 --> 00:00:31,540
+Now, when we do so on the configuration page, we're able to enter some code and this can be our code.
+
+6
+00:00:31,600 --> 00:00:35,637
+Now, don't worry, you don't need to understand this particular code here,
+
+7
+00:00:36,028 --> 00:00:39,168
+but this particular code is actually installing a Web service.
+
+8
+00:00:39,540 --> 00:00:46,800
+Now, the point is that you're able to run this code and it runs the first time the instance starts up.
+
+9
+00:00:47,213 --> 00:00:52,611
+So you can configure certain things to happen through these commands on your instance
+
+10
+00:00:52,635 --> 00:00:53,883
+when it first boots.
+
+11
+00:00:53,980 --> 00:00:59,390
+So in this case, it's actually going to install a Web service on our EC2 instance.
+
+12
+00:00:59,500 --> 00:01:03,490
+Now, EC2 user data is limited to 16 kilobytes.
+
+13
+00:01:03,490 --> 00:01:06,340
+So there's a certain amount of code that you're able to run.
+
+14
+00:01:07,300 --> 00:01:13,550
+If you're using a Windows instance, then you can run Batch scripts and PowerShell scripts as well.
+
+15
+00:01:13,840 --> 00:01:18,329
+And what we're doing here is, as you can see, we're entering the text.
+
+16
+00:01:18,400 --> 00:01:20,350
+You can also upload a file as well.
+
+17
+00:01:20,540 --> 00:01:21,580
+So that's user data.
+
+18
+00:01:21,610 --> 00:01:23,316
+Now, what is metadata?
+
+19
+00:01:23,890 --> 00:01:31,681
+Metadata is some information about your EC2 instance, and it's available at this particular address.
+
+20
+00:01:32,080 --> 00:01:38,414
+So this address, you can run this from a command window on your computer and it's a local address.
+
+21
+00:01:38,800 --> 00:01:42,363
+This IP address here corresponds to your local computer.
+
+22
+00:01:42,490 --> 00:01:44,771
+It doesn't actually connect over a network.
+
+23
+00:01:44,796 --> 00:01:50,650
+It's just finding this information on the computer that you're actually running this on, on your EC2
+
+24
+00:01:50,650 --> 00:01:51,393
+instance.
+
+25
+00:01:51,790 --> 00:02:03,688
+So the path is HTTP://169.254 and then it repeats 169.254/latest/meta-data.
+
+26
+00:02:03,910 --> 00:02:09,211
+Now, don't worry, you won't have to remember that for the exam, but it's a very useful path to know.
+
+27
+00:02:09,639 --> 00:02:13,551
+So what do you find when you actually put in this URL?
+
+28
+00:02:14,050 --> 00:02:17,078
+Well, this is some of the information you can return.
+
+29
+00:02:17,503 --> 00:02:22,270
+Here we're using a command called curl, which just checks this URL.
+
+30
+00:02:22,600 --> 00:02:27,870
+And if we just put in this path here, we get a list of information.
+
+31
+00:02:28,143 --> 00:02:31,084
+And this is data about our instance.
+
+32
+00:02:31,150 --> 00:02:37,095
+So we can query any of these different pieces of data and we'll find some information.
+
+33
+00:02:37,120 --> 00:02:40,662
+So let's have a look at some examples of what you might find.
+
+34
+00:02:41,385 --> 00:02:48,761
+Well, in this case, we're putting in the path we saw before and then we're adding local-IPv4 on the end.
+
+35
+00:02:48,850 --> 00:02:55,268
+And that actually returns the IPv4 private IP address of this instance.
+
+36
+00:02:55,293 --> 00:02:58,544
+And you can see it here just before the command prompt.
+
+37
+00:02:58,569 --> 00:03:04,432
+If we run another command here, you can see this time we're asking for the public IPv4 address
+
+38
+00:03:04,619 --> 00:03:07,234
+and it's showing us the public address.
+
+39
+00:03:07,540 --> 00:03:11,674
+So remember the difference between user data and metadata.
+
+40
+00:03:11,860 --> 00:03:19,753
+User data gives you the ability to run commands when the system is starting and metadata can return
+
+41
+00:03:19,778 --> 00:03:22,930
+information about the instance that's recorded locally.
+
+42
+00:03:23,290 --> 00:03:25,890
+And that's really about as much as you need to know for the exam.
+

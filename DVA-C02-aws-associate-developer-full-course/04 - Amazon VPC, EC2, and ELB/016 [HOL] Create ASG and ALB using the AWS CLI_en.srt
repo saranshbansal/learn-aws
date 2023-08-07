@@ -1,0 +1,552 @@
+1
+00:00:05,100 --> 00:00:09,300
+Hi guys, in this lesson we're going to use the Command Line Interface to create
+
+2
+00:00:09,300 --> 00:00:12,950
+an Auto Scaling group and an Application Load Balancer.
+
+3
+00:00:13,080 --> 00:00:16,411
+Now it does rely on the fact that you performed the
+
+4
+00:00:16,435 --> 00:00:20,960
+lessons using the management console earlier on because we're going to use the same
+
+5
+00:00:20,960 --> 00:00:24,560
+launch template and target group that we created earlier.
+
+6
+00:00:24,940 --> 00:00:26,000
+In the course download,
+
+7
+00:00:26,000 --> 00:00:33,060
+you'll find the EC2 directory and you'll find this file, create-asg-alb-cli.md.
+
+8
+00:00:33,440 --> 00:00:37,040
+Now, in here you're going to find the commands that we need to run.
+
+9
+00:00:37,540 --> 00:00:41,490
+So what we need to do is make sure that the information in here is correct
+
+10
+00:00:41,629 --> 00:00:43,360
+before we run these commands.
+
+11
+00:00:44,140 --> 00:00:47,160
+So the first one is to create the Auto Scaling group.
+
+12
+00:00:47,540 --> 00:00:53,020
+So we use the command AWS Auto Scaling group, create Auto Scaling group.
+
+13
+00:00:53,050 --> 00:00:56,750
+We give it a name. I'm going to call mine ASG2.
+
+14
+00:00:57,140 --> 00:00:58,920
+We give it a launch template.
+
+15
+00:00:59,440 --> 00:01:02,890
+I already called my launch template My EC2 Web App.
+
+16
+00:01:02,890 --> 00:01:04,985
+So I'm going to use the same name here.
+
+17
+00:01:05,009 --> 00:01:09,060
+I want the minimum size to be one, max to be three,
+
+18
+00:01:09,290 --> 00:01:11,460
+and the desired capacity to be two.
+
+19
+00:01:12,020 --> 00:01:17,470
+And I want to use two availability zones, us-east-1A and us-east-1B.
+
+20
+00:01:17,640 --> 00:01:22,080
+Now for those availability zones we need to specify the zone identifiers.
+
+21
+00:01:22,080 --> 00:01:23,910
+That's the subnet IDs.
+
+22
+00:01:24,040 --> 00:01:25,910
+So let's make sure those are correct.
+
+23
+00:01:26,010 --> 00:01:29,460
+In the VPC management console, I'm going to go to subnets,
+
+24
+00:01:30,040 --> 00:01:31,750
+choose public-1A,
+
+25
+00:01:32,240 --> 00:01:34,660
+and then copy the subnet ID.
+
+26
+00:01:35,000 --> 00:01:35,750
+Come back,
+
+27
+00:01:36,240 --> 00:01:41,570
+paste that in, mine was already correct and then do the same for public-1B.
+
+28
+00:01:41,580 --> 00:01:44,650
+So just make sure you got the correct subnets IDs.
+
+29
+00:01:45,240 --> 00:01:48,500
+Mine's already done so there shouldn't be any change there.
+
+30
+00:01:48,820 --> 00:01:49,860
+That's all ready to go.
+
+31
+00:01:50,440 --> 00:01:54,190
+So now I can copy this whole command to my clipboard,
+
+32
+00:01:54,550 --> 00:01:58,160
+and on a command prompt, I'm going to run this command.
+
+33
+00:01:58,260 --> 00:02:02,680
+You know how to use profiles. We did that earlier on in this course.
+
+34
+00:02:02,840 --> 00:02:06,560
+And what I'm going to use is a profile which is called cloud labs.
+
+35
+00:02:06,790 --> 00:02:12,360
+And that profile has access keys associated with my user account.
+
+36
+00:02:12,540 --> 00:02:16,560
+So make sure you have your CLI set up with your user credentials,
+
+37
+00:02:16,560 --> 00:02:18,960
+not the ones we used for Paul earlier on.
+
+38
+00:02:19,440 --> 00:02:24,010
+And if you need to either delete the credentials file and recreate it by
+
+39
+00:02:24,020 --> 00:02:29,060
+running AWS Configure or just create a profile for your specific user name.
+
+40
+00:02:29,540 --> 00:02:32,320
+So let's try and run enter and see if this works.
+
+41
+00:02:32,680 --> 00:02:37,920
+And we didn't get any response in terms of error messages so it looks like it worked.
+
+42
+00:02:38,040 --> 00:02:40,360
+Let's go to the EC2 management console,
+
+43
+00:02:41,040 --> 00:02:43,160
+go to Auto Scaling groups,
+
+44
+00:02:44,040 --> 00:02:45,280
+give it a refresh.
+
+45
+00:02:45,520 --> 00:02:47,550
+And there we go. We've got the ASG2.
+
+46
+00:02:48,040 --> 00:02:50,260
+And we can see the desired capacity of two.
+
+47
+00:02:51,040 --> 00:02:55,120
+So we should find that means that our instances are going to be launched.
+
+48
+00:02:55,380 --> 00:02:57,060
+Let's refresh EC2.
+
+49
+00:02:57,320 --> 00:02:59,860
+And we've got two pending instances here.
+
+50
+00:02:59,885 --> 00:03:00,910
+So that worked.
+
+51
+00:03:01,240 --> 00:03:07,110
+Next we need to create the load balancer, create a listener and then attach TG1,
+
+52
+00:03:07,110 --> 00:03:09,923
+the target group one to ASG2.
+
+53
+00:03:10,016 --> 00:03:13,620
+So the first one is the create load balancer command.
+
+54
+00:03:13,620 --> 00:03:18,360
+Note that this is AWS ELBV2 create load balancer.
+
+55
+00:03:18,740 --> 00:03:20,450
+We're going to call it ALB2.
+
+56
+00:03:21,040 --> 00:03:23,530
+Now, I've already added my subnet IDs.
+
+57
+00:03:23,740 --> 00:03:26,460
+So, you can copy yours down from the first command
+
+58
+00:03:27,140 --> 00:03:29,250
+and then --security groups.
+
+59
+00:03:29,470 --> 00:03:32,350
+And I've specified my security group ID.
+
+60
+00:03:32,570 --> 00:03:35,538
+For that, you can go back to the management console
+
+61
+00:03:35,562 --> 00:03:37,890
+and simply copy the security group ID
+
+62
+00:03:37,890 --> 00:03:40,465
+for the web access security group that you're using.
+
+63
+00:03:40,489 --> 00:03:41,790
+So that's all set up.
+
+64
+00:03:41,790 --> 00:03:43,610
+Let's copy this to my clipboard.
+
+65
+00:03:43,910 --> 00:03:45,070
+I'm going to paste that in.
+
+66
+00:03:45,200 --> 00:03:48,150
+Again, I'm going to use my profile, hit enter,
+
+67
+00:03:48,700 --> 00:03:50,470
+and that should create the load balancer.
+
+68
+00:03:51,040 --> 00:03:54,010
+And we can see some information about what's being created.
+
+69
+00:03:54,540 --> 00:03:59,250
+Back in the EC2 management console, we should now be able to go down to load balancers
+
+70
+00:03:59,510 --> 00:04:03,160
+and if we give this a refresh we should soon see our load balancer.
+
+71
+00:04:03,160 --> 00:04:05,060
+I need to remove this filter.
+
+72
+00:04:05,620 --> 00:04:09,440
+And there we go. We've got ALB2 and that's being created.
+
+73
+00:04:09,450 --> 00:04:10,890
+It's in a provisioning state.
+
+74
+00:04:11,340 --> 00:04:14,478
+The next command is to create the listener, so we need a listener
+
+75
+00:04:14,609 --> 00:04:18,290
+and we need to specify the ports that we're going to listen on the
+
+76
+00:04:18,290 --> 00:04:21,560
+protocol and also what we're going to do for forwarding.
+
+77
+00:04:22,040 --> 00:04:27,650
+So in this case, we create a listener using AWS ELBV2 create listener.
+
+78
+00:04:28,140 --> 00:04:31,760
+And then we have --load-balancer-ARN.
+
+79
+00:04:32,140 --> 00:04:34,690
+And this is the ARN of our load balancer.
+
+80
+00:04:34,720 --> 00:04:38,990
+So simply come back to the management console, copy the ARN
+
+81
+00:04:38,990 --> 00:04:41,260
+for your load balancer, come back here.
+
+82
+00:04:41,740 --> 00:04:43,150
+I need to update mine.
+
+83
+00:04:43,370 --> 00:04:44,650
+So let's paste this in.
+
+84
+00:04:45,440 --> 00:04:47,750
+Now I've got my ARN correctly set.
+
+85
+00:04:48,430 --> 00:04:51,550
+The protocol is HTTP the port is 80
+
+86
+00:04:51,940 --> 00:04:55,860
+and the default actions are to forward to a target group
+
+87
+00:04:56,240 --> 00:04:58,850
+And we need to get the ARN for our target group.
+
+88
+00:04:59,340 --> 00:05:01,160
+So let's find our target group.
+
+89
+00:05:02,040 --> 00:05:03,150
+Copy the ARN,
+
+90
+00:05:03,740 --> 00:05:04,938
+and then paste it in.
+
+91
+00:05:04,962 --> 00:05:10,110
+So let's go here to target group ARN equals, remove this,
+
+92
+00:05:10,840 --> 00:05:12,890
+paste it in, and we've got our command.
+
+93
+00:05:13,370 --> 00:05:14,760
+So let's create our listener.
+
+94
+00:05:15,340 --> 00:05:18,960
+I'll paste that onto my command line and again specify my profile
+
+95
+00:05:19,603 --> 00:05:20,650
+and hit enter.
+
+96
+00:05:20,675 --> 00:05:21,756
+So that's done.
+
+97
+00:05:22,040 --> 00:05:23,960
+So if we go back to the management console,
+
+98
+00:05:23,960 --> 00:05:25,910
+we should be able to see this configuration.
+
+99
+00:05:26,180 --> 00:05:29,150
+Let's look at our load balancer, click on listeners,
+
+100
+00:05:29,300 --> 00:05:31,290
+and that's the listener we just created.
+
+101
+00:05:31,400 --> 00:05:33,560
+That's forwarding to target group one.
+
+102
+00:05:33,940 --> 00:05:37,245
+Now the only thing to do now is we need to attach
+
+103
+00:05:37,269 --> 00:05:39,460
+the target group to the load balancer.
+
+104
+00:05:39,940 --> 00:05:44,800
+For that, we're using the AWS Auto Scaling attach low balancer target groups.
+
+105
+00:05:45,340 --> 00:05:47,950
+The Auto Scaling group name is ASG2.
+
+106
+00:05:48,440 --> 00:05:50,740
+And then the target group ARN
+
+107
+00:05:50,940 --> 00:05:55,160
+is the ARN of our target group, so I'm going to copy that from up here
+
+108
+00:05:55,540 --> 00:05:57,910
+and then just override that information.
+
+109
+00:05:58,340 --> 00:06:02,060
+So now I have the correct ARN for my target group.
+
+110
+00:06:02,540 --> 00:06:06,260
+Copy to the clipboard, paste it in, add my profile information,
+
+111
+00:06:07,240 --> 00:06:08,260
+and hit enter.
+
+112
+00:06:08,850 --> 00:06:09,910
+And I think that's worked.
+
+113
+00:06:10,190 --> 00:06:12,960
+So now if we go back to our Auto Scaling group,
+
+114
+00:06:13,540 --> 00:06:16,150
+choose ASG2, scroll down
+
+115
+00:06:16,540 --> 00:06:21,030
+and we can see that we have the target group one attached to the load balancer.
+
+116
+00:06:21,220 --> 00:06:23,860
+So let's go and grab the ARN
+
+117
+00:06:24,440 --> 00:06:26,660
+for our load balancer, in fact the DNS name.
+
+118
+00:06:27,240 --> 00:06:32,360
+Let's copy the DNS name, go to a new tab in my browser and hit enter.
+
+119
+00:06:32,623 --> 00:06:33,640
+And there we go.
+
+120
+00:06:33,850 --> 00:06:36,850
+Just as before we now have instances running.
+
+121
+00:06:37,340 --> 00:06:41,380
+So that's how we can do this all using the Command Line Interface.
+
+122
+00:06:41,856 --> 00:06:44,731
+If you want to delete your load balancer, an auto scaling group
+
+123
+00:06:44,755 --> 00:06:48,560
+using the command line, you can do that using these commands here.
+
+124
+00:06:48,940 --> 00:06:51,190
+I do need my load balancer at ARN.
+
+125
+00:06:51,840 --> 00:06:54,060
+So let's take that from here.
+
+126
+00:06:54,510 --> 00:06:58,630
+Copy and then I'll paste it into this command.
+
+127
+00:06:58,810 --> 00:07:02,160
+And lastly we only need the ASG2 name.
+
+128
+00:07:02,160 --> 00:07:04,970
+So it just requires the name of the Auto Scaling group.
+
+129
+00:07:05,030 --> 00:07:07,230
+So first let's delete our load balancer.
+
+130
+00:07:07,560 --> 00:07:08,465
+And that's done.
+
+131
+00:07:08,489 --> 00:07:11,260
+And then I'm going to delete my Auto Scaling group as well.
+
+132
+00:07:20,370 --> 00:07:21,495
+And that's done.
+
+133
+00:07:21,520 --> 00:07:26,250
+So now if we come back to the EC2 management console, refresh,
+
+134
+00:07:26,940 --> 00:07:28,350
+load balancer has gone.
+
+135
+00:07:29,240 --> 00:07:32,840
+And if I go down to Auto Scaling groups, we can already see
+
+136
+00:07:33,020 --> 00:07:34,360
+that it's in a deleting state.
+
+137
+00:07:35,040 --> 00:07:36,890
+So that should remove the load balancer,
+
+138
+00:07:37,090 --> 00:07:40,260
+the Auto Scaling Group and the EC2 instances.
+

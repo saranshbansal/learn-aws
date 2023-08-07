@@ -1,0 +1,300 @@
+1
+00:00:05,260 --> 00:00:11,020
+In this lesson, I'm going to cover the different types of Elastic Load Balancer available on AWS
+
+2
+00:00:11,030 --> 00:00:16,120
+and you do need to understand for the exam which one to use for specific use cases.
+
+3
+00:00:16,750 --> 00:00:20,350
+The first type is the Application Load Balancer, of the ALB.
+
+4
+00:00:20,800 --> 00:00:25,150
+The ALB will listen at the request level, so it's listening at layer seven.
+
+5
+00:00:25,720 --> 00:00:34,690
+That means the actual listener is using the HTTP or HTTPS protocol, and the ALB can route connections
+
+6
+00:00:34,690 --> 00:00:37,540
+based on information at that level.
+
+7
+00:00:38,110 --> 00:00:41,220
+So, for example, it supports path-based routing.
+
+8
+00:00:41,230 --> 00:00:46,900
+That means the path in the URL can be used to determine where to send the connection.
+
+9
+00:00:46,900 --> 00:00:51,070
+So which group of instances on the backend to send the connection to.
+
+10
+00:00:51,550 --> 00:00:53,800
+It also supports host-based routing.
+
+11
+00:00:53,800 --> 00:00:57,940
+That means it's checking the domain name and making a routing decision there.
+
+12
+00:00:58,540 --> 00:01:04,959
+Query string parameter-based routing checks the query strings in the URL and will then route-based on
+
+13
+00:01:04,959 --> 00:01:05,770
+that information.
+
+14
+00:01:05,980 --> 00:01:11,200
+So the ALB is quite intelligent in how it can check this information and make routing decisions.
+
+15
+00:01:11,950 --> 00:01:18,850
+The ALB supports instances, IP addresses, Lambda functions and containers as targets.
+
+16
+00:01:19,330 --> 00:01:26,290
+Next, we have the Network Load Balancer, the NLB. This operates at the connection level, so it's
+
+17
+00:01:26,290 --> 00:01:27,760
+more around layer four.
+
+18
+00:01:28,120 --> 00:01:32,080
+It's using IP protocol data to make routing decisions.
+
+19
+00:01:32,800 --> 00:01:39,370
+The NLB will listen on TCP, TLS, UDP and TCP_UDP.
+
+20
+00:01:39,970 --> 00:01:44,440
+Both the ALB and the NLB are the newer generation of load balancers.
+
+21
+00:01:44,770 --> 00:01:51,250
+Now that an NLB is really good for when you need ultra-high performance and extremely low latency, or
+
+22
+00:01:51,250 --> 00:01:53,620
+if you need TLS offloading at scale.
+
+23
+00:01:53,920 --> 00:01:59,560
+So that means it's processing the encryption for TLS connections and offloading that from your back
+
+24
+00:01:59,560 --> 00:02:00,580
+end instances.
+
+25
+00:02:01,030 --> 00:02:07,600
+So, if you see exam questions asking for a very low latency load balancer, it's likely to be the NLB.
+
+26
+00:02:07,990 --> 00:02:12,520
+And then the other key piece of information is going to help you determine which type of load balancer
+
+27
+00:02:12,520 --> 00:02:12,970
+to use
+
+28
+00:02:12,970 --> 00:02:15,130
+out of these two is the protocol.
+
+29
+00:02:15,490 --> 00:02:21,940
+So if you're looking for UDP or TCP or TLS, then that's going to be a Network Load Balancer. If you
+
+30
+00:02:21,940 --> 00:02:26,680
+need to route based on information at the http or https level,
+
+31
+00:02:26,920 --> 00:02:29,200
+that's going to be the ALB. Next
+
+32
+00:02:29,200 --> 00:02:32,890
+we have the Classic Load Balancer, the CLB. Now
+
+33
+00:02:32,890 --> 00:02:35,380
+you really shouldn't see this on the exam anymore.
+
+34
+00:02:35,380 --> 00:02:40,420
+There could very occasionally be a reference to it, but it's very unlikely to be the correct answer.
+
+35
+00:02:41,090 --> 00:02:44,020
+AWS don't really want you to be using this anymore.
+
+36
+00:02:44,200 --> 00:02:49,480
+They'd prefer you to use an ALB or an NLB for the same sort of use cases
+
+37
+00:02:49,480 --> 00:02:54,880
+you might have used a CLB for in the old days before the newer generations came along.
+
+38
+00:02:55,300 --> 00:03:01,660
+The CLB performs routing at layer four and layer seven, but it doesn't have anywhere near the intelligence
+
+39
+00:03:01,660 --> 00:03:03,490
+of the ALB or the NLB.
+
+40
+00:03:03,910 --> 00:03:07,180
+Lastly, we have the Gateway Load Balancer, the GLB.
+
+41
+00:03:07,420 --> 00:03:13,300
+This is very new and it has just started appearing on the exam recently, so you may see some questions.
+
+42
+00:03:13,810 --> 00:03:20,680
+The GLB is used in front of virtual appliances such as firewalls, intrusion detection systems, intrusion
+
+43
+00:03:20,680 --> 00:03:24,130
+prevention systems, and deep packet inspection systems.
+
+44
+00:03:24,520 --> 00:03:28,720
+It operates on layer three and it listens for all packets on all ports.
+
+45
+00:03:29,450 --> 00:03:36,310
+It then forwards the incoming traffic to the target group specified in listener rules. And it exchanges
+
+46
+00:03:36,310 --> 00:03:41,290
+traffic with appliances using the GENEVE Protocol on port 6081.
+
+47
+00:03:41,530 --> 00:03:45,130
+Now I just want to cover the ALB and the NLB side by side.
+
+48
+00:03:45,430 --> 00:03:50,350
+For most load balancing use cases, these are going to be the ones that you're going to use, so you
+
+49
+00:03:50,350 --> 00:03:54,640
+really need to know how to determine which one you should be using for your use case.
+
+50
+00:03:55,270 --> 00:04:00,970
+So remember, with the OSI layer, the ALB is at layer seven and the NLB is at layer four.
+
+51
+00:04:01,270 --> 00:04:07,300
+That means these two load balancers are using different information to make their decisions on where
+
+52
+00:04:07,300 --> 00:04:08,410
+to forward connections.
+
+53
+00:04:09,190 --> 00:04:15,490
+The targets type for an ALB can be an IP address, an instance, a Lambda function or a container.
+
+54
+00:04:16,060 --> 00:04:21,519
+With the NLB it can be an IP address or an EC2 instance. For protocol listeners
+
+55
+00:04:21,529 --> 00:04:31,660
+The ALB supports http and https. And GLB is supported through http too. The NLB listens on TCP, UDP
+
+56
+00:04:31,660 --> 00:04:36,160
+and TLS. For private link, which we'll cover later in the VPC section
+
+57
+00:04:36,160 --> 00:04:41,170
+there's no support for the ALB but there is for the NLB. For static IP addresses
+
+58
+00:04:41,170 --> 00:04:46,090
+the ALB does not have them, whereas the NLB does support static IP addresses.
+
+59
+00:04:46,330 --> 00:04:51,760
+That means the actual nodes of your load balancer that run in your subnets can have static addresses.
+
+60
+00:04:51,940 --> 00:04:54,790
+That's good for whitelisting and firewalls and we'll cover that more
+
+61
+00:04:54,790 --> 00:05:02,020
+later on. You get http header-based routing with the ALB but you do not with the NLB. For source IP
+
+62
+00:05:02,020 --> 00:05:04,450
+preservation, the ALB uses x-forwarded-for.
+
+63
+00:05:04,650 --> 00:05:10,650
+That means the information about the IP address of the client is forwarded in the x-forwarded-for
+
+64
+00:05:10,650 --> 00:05:17,130
+header, whereas it's native in the protocol data with the NLB. For SSL termination
+
+65
+00:05:17,400 --> 00:05:23,010
+you have load balancer terminate with the ALB. And load balancer or a target with the NLB.
+
+66
+00:05:23,280 --> 00:05:27,120
+Let's finish off going over a few use cases. For the ALB
+
+67
+00:05:27,150 --> 00:05:33,240
+you'd use this when you have web applications and a layer seven routing, microservices architectures such
+
+68
+00:05:33,240 --> 00:05:41,970
+as Docker Containers and lambda targets. For the NLB, TCP and UDP based applications where you need
+
+69
+00:05:41,970 --> 00:05:45,840
+ultra-low latency and you might need static IP addresses.
+
+70
+00:05:46,110 --> 00:05:49,080
+It's also used with VPC endpoint services.
+
+71
+00:05:49,410 --> 00:05:54,840
+And then lastly, for the Gateway Load Balancer, you'd use this for load balancing virtual appliances
+
+72
+00:05:55,260 --> 00:06:02,040
+such as intrusion detection systems, intrusion prevention systems, next generation firewalls, web
+
+73
+00:06:02,040 --> 00:06:06,300
+application firewalls, and distributed denial of service protection systems.
+
+74
+00:06:06,630 --> 00:06:12,870
+It also integrates with Auto Scaling groups for elasticity, and you can apply network monitoring and
+
+75
+00:06:12,870 --> 00:06:14,130
+logging for analytics.
+

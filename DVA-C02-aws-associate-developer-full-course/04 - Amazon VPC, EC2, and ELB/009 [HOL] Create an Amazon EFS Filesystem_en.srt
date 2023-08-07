@@ -1,0 +1,588 @@
+1
+00:00:05,010 --> 00:00:06,960
+Welcome to another hands on lesson.
+
+2
+00:00:06,960 --> 00:00:13,500
+In this lesson, we're going to create an Amazon FS file system and mount it to two instances across
+
+3
+00:00:13,500 --> 00:00:15,330
+two availability zones.
+
+4
+00:00:15,450 --> 00:00:22,440
+Now remember that the FS file systems are mounted to Linux instances and we'll need to run some commands
+
+5
+00:00:22,440 --> 00:00:23,280
+on Linux.
+
+6
+00:00:23,280 --> 00:00:26,940
+The first one here is where we make a mount point.
+
+7
+00:00:26,940 --> 00:00:32,580
+This is a directory on the Linux instance to which we will mount the file system.
+
+8
+00:00:32,940 --> 00:00:39,120
+Then there's a couple of ways that we can install the utilities we need and mount the file system.
+
+9
+00:00:39,120 --> 00:00:46,950
+The first is using the standard NFS client and for that we would install the NFS utils and then run
+
+10
+00:00:46,950 --> 00:00:47,850
+this command.
+
+11
+00:00:47,850 --> 00:00:56,040
+Now this command specifies the file system some parameters and then in red here we can see the DNS name
+
+12
+00:00:56,040 --> 00:00:59,490
+for the file system and it gets mounted to the mount point.
+
+13
+00:00:59,580 --> 00:01:05,790
+That means that if you write some files to this location, you will see those written to the FS file
+
+14
+00:01:05,790 --> 00:01:06,450
+system.
+
+15
+00:01:06,780 --> 00:01:13,140
+Now, the other way, and what we're going to do is to use the AWS fs utils for that.
+
+16
+00:01:13,140 --> 00:01:19,350
+We install the Amazon FS utils package and then we use the Mount Helper command to actually mount the
+
+17
+00:01:19,350 --> 00:01:20,190
+file system.
+
+18
+00:01:20,190 --> 00:01:23,790
+And that's what we're going to do when we're ready to mount our file system.
+
+19
+00:01:23,790 --> 00:01:25,560
+So let's head over to the console.
+
+20
+00:01:25,770 --> 00:01:31,470
+I'm in the easy to management console and first what we're going to do is create a security group and
+
+21
+00:01:31,470 --> 00:01:39,120
+then our instances I'm going to click on Create Security group call this one FS access and add the same
+
+22
+00:01:39,120 --> 00:01:40,290
+into the description.
+
+23
+00:01:40,290 --> 00:01:44,070
+It can stay in the default VPC for inbound rules.
+
+24
+00:01:44,070 --> 00:01:50,070
+We'll need to manage our instances using SSH, and I'll need to allow that from anywhere.
+
+25
+00:01:50,370 --> 00:01:56,340
+Now I do need to add another rule for FS, but at this point I won't be able to do it the way I want
+
+26
+00:01:56,340 --> 00:01:56,490
+to.
+
+27
+00:01:56,490 --> 00:01:57,540
+I'll show you what I mean.
+
+28
+00:01:57,810 --> 00:02:03,960
+If I type NFS before the network file system, we get the port range specified.
+
+29
+00:02:03,960 --> 00:02:10,560
+But what I want to do is I want to secure it to the security group itself and I can't see the security
+
+30
+00:02:10,560 --> 00:02:11,340
+group when I type.
+
+31
+00:02:11,340 --> 00:02:12,120
+SG.
+
+32
+00:02:12,150 --> 00:02:19,020
+I can see other security groups in here, but I can't see the ID of this security group, so I can't
+
+33
+00:02:19,020 --> 00:02:19,680
+do that one yet.
+
+34
+00:02:19,680 --> 00:02:22,950
+What I have to do is create the security group.
+
+35
+00:02:23,190 --> 00:02:24,720
+Then we're going to run.
+
+36
+00:02:24,720 --> 00:02:33,270
+EDIT inbound rules, add a new inbound rule again, Type NFS protocol is correct, and then let's type
+
+37
+00:02:33,270 --> 00:02:36,090
+SG This time we can see the group.
+
+38
+00:02:36,390 --> 00:02:41,760
+This security group will be attached to our instances, but it will also be attached to the file system.
+
+39
+00:02:41,760 --> 00:02:49,410
+And this rule we've just added will allow inbound traffic on the NFS port from the instances that have
+
+40
+00:02:49,410 --> 00:02:51,210
+this security group attached.
+
+41
+00:02:51,210 --> 00:02:52,920
+So let's click on Save Rules.
+
+42
+00:02:52,920 --> 00:02:54,000
+That one's done.
+
+43
+00:02:54,180 --> 00:02:58,050
+Let's go to instances and it's launched two instances.
+
+44
+00:02:58,620 --> 00:03:06,240
+Now what I'm going to do is use the Linux to Amy so defaults there t to micro don't need a key pair.
+
+45
+00:03:06,270 --> 00:03:07,170
+That's fine.
+
+46
+00:03:07,620 --> 00:03:12,780
+We're going to select an existing security group, we're going to choose FS access.
+
+47
+00:03:12,960 --> 00:03:17,070
+And the only other thing I want to do is click on, edit and select my subnet.
+
+48
+00:03:17,070 --> 00:03:21,750
+This one will go into USSD one A and that's basically it.
+
+49
+00:03:21,750 --> 00:03:23,550
+Let's just launch that instance.
+
+50
+00:03:23,700 --> 00:03:31,920
+Then we're going to go back, launch a second instance, and it will have the same settings except it's
+
+51
+00:03:31,920 --> 00:03:40,590
+going to be in US East one B So let's add the security group, come in to subnets and there's one B
+
+52
+00:03:40,590 --> 00:03:41,070
+there.
+
+53
+00:03:41,640 --> 00:03:43,410
+Okay, So they're in different subnets.
+
+54
+00:03:44,180 --> 00:03:44,750
+And that's it.
+
+55
+00:03:44,750 --> 00:03:46,400
+The instances are launching.
+
+56
+00:03:46,790 --> 00:03:47,240
+Great.
+
+57
+00:03:47,240 --> 00:03:51,590
+So let's go over to FS and create our file system.
+
+58
+00:03:51,590 --> 00:03:53,270
+So I'm going to search for FS.
+
+59
+00:03:53,750 --> 00:03:55,370
+Open it up in a new tab.
+
+60
+00:03:55,460 --> 00:04:02,630
+And this is the console page for FS and all we need to do here is simply create a file system.
+
+61
+00:04:02,750 --> 00:04:07,880
+We can optionally give it a name, I just call it my FS file system.
+
+62
+00:04:07,970 --> 00:04:13,760
+We'll leave it in the default VPC the same as our instances and we'll leave the standard storage class,
+
+63
+00:04:13,760 --> 00:04:16,760
+selected it and we'll just create our file system.
+
+64
+00:04:16,760 --> 00:04:21,860
+There are more options if you want to customize the performance and other characteristics, but we'll
+
+65
+00:04:21,860 --> 00:04:22,670
+just create.
+
+66
+00:04:24,190 --> 00:04:24,490
+All right.
+
+67
+00:04:24,490 --> 00:04:28,030
+So that is being created and that will take a couple of minutes.
+
+68
+00:04:28,670 --> 00:04:38,030
+Now, if we click on the file system and we come in here and then go to network, what you'll see is
+
+69
+00:04:38,030 --> 00:04:44,030
+that it's creating these mount targets in all of these different availability zones.
+
+70
+00:04:44,030 --> 00:04:46,730
+But there's also a DNS name here.
+
+71
+00:04:47,120 --> 00:04:52,030
+Now we're going to copy that DNS name and use it for our commands.
+
+72
+00:04:52,040 --> 00:04:54,330
+So I have this document open.
+
+73
+00:04:54,350 --> 00:04:58,500
+This is in the course download, which you find at the end of section one of the course.
+
+74
+00:04:58,520 --> 00:05:05,180
+Unzip the file and then in the code Amazon FS directory you'll find this document called Amazon FS commands
+
+75
+00:05:05,390 --> 00:05:06,020
+MD.
+
+76
+00:05:06,650 --> 00:05:11,120
+What I need to do is delete out this DNS name here.
+
+77
+00:05:12,000 --> 00:05:16,690
+So we should be left with just this colon and a slash and then paste in the correct one.
+
+78
+00:05:16,710 --> 00:05:20,790
+So now I have the correct ID for my file system.
+
+79
+00:05:20,880 --> 00:05:22,780
+So make sure your document looks like this.
+
+80
+00:05:22,800 --> 00:05:24,510
+We'll be using this shortly.
+
+81
+00:05:24,540 --> 00:05:28,080
+Now we're going to run these commands in order, so I'll copy the first one.
+
+82
+00:05:28,080 --> 00:05:29,800
+Let's go to EC two.
+
+83
+00:05:29,820 --> 00:05:35,820
+I'm going to refresh the page, so I've got my two instances and I'm going to open easy, to instance,
+
+84
+00:05:35,820 --> 00:05:38,990
+connect for each of these instances.
+
+85
+00:05:39,000 --> 00:05:47,130
+So just open up instance, connect for each one and we're going to run the same commands on each instance.
+
+86
+00:05:47,980 --> 00:05:50,120
+Okay, so let's paste in this command here.
+
+87
+00:05:50,140 --> 00:05:52,570
+This is going to run the update manager.
+
+88
+00:05:53,080 --> 00:05:55,510
+Do the same for the second instance.
+
+89
+00:05:55,660 --> 00:06:00,370
+While that's happening, I'm going to go and get the other command.
+
+90
+00:06:00,700 --> 00:06:02,800
+Let's come back to the first instance.
+
+91
+00:06:03,770 --> 00:06:05,830
+There was nothing to update, which is good.
+
+92
+00:06:05,840 --> 00:06:11,450
+Let's just make that directory that's been done and do the same for the second instance.
+
+93
+00:06:11,540 --> 00:06:14,630
+Then we're going to install the fs utils.
+
+94
+00:06:14,630 --> 00:06:21,230
+So let's copy this command, go back to my first instance, paste the command that's installing very
+
+95
+00:06:21,230 --> 00:06:24,500
+quickly, do the same for the second instance.
+
+96
+00:06:24,800 --> 00:06:28,400
+So we're ready to mount now, but we need to do a couple of things first.
+
+97
+00:06:28,400 --> 00:06:30,110
+So let's go back to FS.
+
+98
+00:06:30,110 --> 00:06:31,550
+Let's refresh the page.
+
+99
+00:06:31,580 --> 00:06:36,230
+Now you can see that the security group is default and we don't want that.
+
+100
+00:06:36,230 --> 00:06:39,770
+We want to click on Manage because we have our own security group.
+
+101
+00:06:39,770 --> 00:06:41,360
+This one is not going to work.
+
+102
+00:06:41,390 --> 00:06:48,380
+Now our instances are in UX, one, A and B, So for ease, let's remove these other points.
+
+103
+00:06:48,380 --> 00:06:49,280
+We don't need them.
+
+104
+00:06:49,640 --> 00:06:56,630
+I'll get rid of the default security group and then I'm going to add in FS access to each of these.
+
+105
+00:06:56,780 --> 00:07:05,120
+So now we've enabled the mount points only in the US s1a and one B availability zones and we have a
+
+106
+00:07:05,120 --> 00:07:13,250
+security group attached and that security group will allow inbound access on the NFS port from the instances
+
+107
+00:07:13,250 --> 00:07:15,350
+because they are in the security group.
+
+108
+00:07:15,620 --> 00:07:18,860
+All right, let's go down and we're going to save this.
+
+109
+00:07:18,860 --> 00:07:22,760
+And we now have the DNS name in our command.
+
+110
+00:07:22,760 --> 00:07:25,520
+So we should be able to mount this file system.
+
+111
+00:07:25,610 --> 00:07:32,450
+So back in the document, I'm going to copy the entire Mount Command and I've already updated my DNS
+
+112
+00:07:32,450 --> 00:07:34,130
+name, so it is correct.
+
+113
+00:07:34,220 --> 00:07:38,300
+Let's come back to our first instance here and I'm going to clear the screen and bring this down so
+
+114
+00:07:38,300 --> 00:07:39,620
+you can see what's going on.
+
+115
+00:07:39,800 --> 00:07:41,210
+Let's click on Mount.
+
+116
+00:07:41,360 --> 00:07:42,470
+And that's done.
+
+117
+00:07:42,470 --> 00:07:45,920
+So the fact that we don't get an error message is good news.
+
+118
+00:07:46,010 --> 00:07:47,300
+I'll do the same here.
+
+119
+00:07:47,330 --> 00:07:48,680
+Let's run this command.
+
+120
+00:07:48,680 --> 00:07:50,900
+And again, we've mounted the file system.
+
+121
+00:07:51,680 --> 00:07:59,150
+So we should be able to change directory to the FS mount point now and then create data there and we
+
+122
+00:07:59,150 --> 00:08:02,240
+should be able to see that data from the other instance.
+
+123
+00:08:02,630 --> 00:08:04,920
+So we have our file system mounted.
+
+124
+00:08:04,940 --> 00:08:12,470
+Now if I change directory to the mount point, which should be in my current folder so I can change
+
+125
+00:08:12,470 --> 00:08:15,620
+directory to FS, Mount Point and then run LHS.
+
+126
+00:08:15,650 --> 00:08:17,420
+Of course there's nothing in there.
+
+127
+00:08:17,420 --> 00:08:25,310
+So what I'm going to do is run sudo make directory test directory and now we have a directory and I
+
+128
+00:08:25,310 --> 00:08:31,970
+could run sudo touch test file and then I have a file as well.
+
+129
+00:08:32,429 --> 00:08:32,640
+Okay.
+
+130
+00:08:32,690 --> 00:08:33,700
+So that's all I'm going to do.
+
+131
+00:08:33,710 --> 00:08:38,669
+Just add a couple of things and hopefully when we mount the directory from the instance in the alpha
+
+132
+00:08:38,690 --> 00:08:42,289
+availability zone, it should see the same information.
+
+133
+00:08:42,320 --> 00:08:48,770
+So back on my second instance, I'm going to change directory to the FS Mount Point run LS and of course
+
+134
+00:08:48,770 --> 00:08:49,940
+there are my files.
+
+135
+00:08:49,970 --> 00:08:50,740
+So that's it.
+
+136
+00:08:50,750 --> 00:08:57,170
+We have launched two instances and attach them to an RFS file system and we can read and write data
+
+137
+00:08:57,170 --> 00:09:01,100
+from multiple availability zones to the same FS file system.
+
+138
+00:09:01,490 --> 00:09:03,520
+So that's it for this lesson.
+
+139
+00:09:03,530 --> 00:09:09,350
+What I'm going to do is I'm going to go back and I'm going to terminate my two instances.
+
+140
+00:09:10,080 --> 00:09:16,650
+And then I'm going to also delete my FS file system so the instances are going down.
+
+141
+00:09:16,650 --> 00:09:25,110
+Let's go back to FS, click on file systems, select the file system, choose delete, and then we just
+
+142
+00:09:25,110 --> 00:09:30,810
+need to enter the idea of the file system, which I can just copy from here and then confirm.
+
+143
+00:09:31,630 --> 00:09:32,290
+And that's it.
+
+144
+00:09:32,290 --> 00:09:34,050
+That should start deleting fairly soon.
+
+145
+00:09:34,060 --> 00:09:34,860
+Just keep an eye on it.
+
+146
+00:09:34,870 --> 00:09:35,880
+Make sure it does.
+
+147
+00:09:35,890 --> 00:09:37,870
+And I will see you in the next lesson.
+

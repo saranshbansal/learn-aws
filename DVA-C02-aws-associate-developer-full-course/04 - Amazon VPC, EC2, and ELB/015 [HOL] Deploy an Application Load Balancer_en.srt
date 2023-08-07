@@ -1,0 +1,452 @@
+1
+00:00:05,040 --> 00:00:06,900
+Welcome to another hands-on lesson.
+
+2
+00:00:07,040 --> 00:00:10,251
+In this one we're going to launch an application load balancer
+
+3
+00:00:10,276 --> 00:00:12,560
+and attach it to our Auto Scaling group.
+
+4
+00:00:13,040 --> 00:00:18,510
+In the EC2 management console we already have our Auto Scaling group ASG1.
+
+5
+00:00:18,630 --> 00:00:23,150
+And it has a desired capacity of two and there are actually two running instances.
+
+6
+00:00:23,640 --> 00:00:26,030
+Now if I click on instances and if I
+
+7
+00:00:26,030 --> 00:00:29,230
+select one of these instances and click on networking,
+
+8
+00:00:29,440 --> 00:00:32,759
+we can see the subnet is public-1B.
+
+9
+00:00:33,240 --> 00:00:35,380
+Let's have a look at the other instance.
+
+10
+00:00:35,540 --> 00:00:36,770
+Go to networking.
+
+11
+00:00:36,980 --> 00:00:38,340
+And it's in public-1A.
+
+12
+00:00:38,570 --> 00:00:40,430
+Great, that's exactly what I wanted.
+
+13
+00:00:40,560 --> 00:00:44,160
+Next, I'm going to create a target group for our load balancer.
+
+14
+00:00:44,540 --> 00:00:46,360
+So I'm going to select crate target group.
+
+15
+00:00:47,100 --> 00:00:50,298
+Now, the target type for this is going to be instances
+
+16
+00:00:50,322 --> 00:00:52,680
+because we already have our EC2 instances.
+
+17
+00:00:53,140 --> 00:00:58,110
+Alternatively, you can use IP addresses, you can direct traffic to Lambda functions
+
+18
+00:00:58,300 --> 00:00:59,830
+and even other ALBs.
+
+19
+00:01:00,540 --> 00:01:02,490
+Now I'm going to call this TG1.
+
+20
+00:01:03,030 --> 00:01:06,980
+The protocol is going to be HTTP, the port is going to be 80.
+
+21
+00:01:07,440 --> 00:01:11,831
+So this is where traffic is going to be directed to from the load balancer.
+
+22
+00:01:11,855 --> 00:01:17,250
+And of course we have a web application, a simple Apache website running on Port 80.
+
+23
+00:01:17,840 --> 00:01:20,360
+I need to make sure my VPC is correct.
+
+24
+00:01:20,460 --> 00:01:24,440
+I'm using this VPC for the Auto Scaling group and the instances.
+
+25
+00:01:24,840 --> 00:01:27,240
+So I need to have the same one for my load balancer.
+
+26
+00:01:27,420 --> 00:01:29,160
+I'm going to leave the protocol version.
+
+27
+00:01:29,640 --> 00:01:33,140
+For health check, we've got either HTTP or HTTPS.
+
+28
+00:01:33,410 --> 00:01:39,140
+HTTP is fine. We don't have a certificate on the instance so we can't use HTTPS.
+
+29
+00:01:39,410 --> 00:01:40,630
+We can click next.
+
+30
+00:01:40,740 --> 00:01:45,410
+And you can see that there are instances. I could directly add the instances
+
+31
+00:01:45,580 --> 00:01:47,610
+to the target group but I don't want to do that.
+
+32
+00:01:47,620 --> 00:01:50,360
+So let's just click on create target group.
+
+33
+00:01:50,640 --> 00:01:53,191
+So that is the target group created.
+
+34
+00:01:53,215 --> 00:01:56,340
+Next, we're going to create the load balancer.
+
+35
+00:01:56,380 --> 00:01:58,120
+So let's create a load balancer.
+
+36
+00:01:58,180 --> 00:02:01,770
+Now I'm going to choose an Application Load Balancer. Click on create.
+
+37
+00:02:01,780 --> 00:02:03,620
+I'm going to call it ALB 1.
+
+38
+00:02:03,670 --> 00:02:06,040
+It's going to be an internet-facing load balancer
+
+39
+00:02:06,040 --> 00:02:09,945
+so we can connect to it from the internet using IPv4.
+
+40
+00:02:09,969 --> 00:02:14,450
+I don't want to use dual stack which means you get IPv4 and six.
+
+41
+00:02:14,840 --> 00:02:18,650
+Again, I want to make sure that my VPC is correctly selected.
+
+42
+00:02:19,740 --> 00:02:24,460
+And I'm going to select us-east-1A and 1B.
+
+43
+00:02:24,660 --> 00:02:29,220
+And in those two I want to make sure that I've got my public subnets, so public-1A.
+
+44
+00:02:29,530 --> 00:02:32,660
+In this case it's chosen the wrong one. So public-1B.
+
+45
+00:02:33,040 --> 00:02:36,220
+For security groups, I don't want to use this one.
+
+46
+00:02:36,560 --> 00:02:42,280
+I want to select my web access security group which already has HTTP enabled.
+
+47
+00:02:42,420 --> 00:02:43,850
+For listeners and routing,
+
+48
+00:02:43,850 --> 00:02:48,850
+we're going to create a listener which listens on port 80, that's HTTP
+
+49
+00:02:49,340 --> 00:02:52,430
+and then it forwards traffic to target group one, and remember
+
+50
+00:02:52,430 --> 00:02:56,560
+target group one also then is listening on port 80.
+
+51
+00:02:57,040 --> 00:03:01,150
+So the traffic comes straight through to the web application running on that port.
+
+52
+00:03:01,930 --> 00:03:03,820
+Now we don't need a global accelerator,
+
+53
+00:03:04,010 --> 00:03:06,740
+let's just come down and select create load balancer.
+
+54
+00:03:06,900 --> 00:03:09,160
+So that's the load balancer being created.
+
+55
+00:03:09,540 --> 00:03:11,570
+And you can see it's in a provisioning status.
+
+56
+00:03:12,240 --> 00:03:16,930
+But we haven't actually connected the instances to the target group.
+
+57
+00:03:16,940 --> 00:03:19,980
+We've connected the target group to the load balancer
+
+58
+00:03:20,340 --> 00:03:22,860
+but the Auto Scaling group is currently detached.
+
+59
+00:03:23,440 --> 00:03:26,510
+So what I want to do there is go to Auto Scaling groups,
+
+60
+00:03:26,940 --> 00:03:28,460
+click on ASG1,
+
+61
+00:03:29,210 --> 00:03:33,370
+scroll down and under load balancing, click on edit,
+
+62
+00:03:34,440 --> 00:03:37,950
+choose Application, Network or Gateway Load Balancers,
+
+63
+00:03:38,450 --> 00:03:40,050
+and then choose my target group.
+
+64
+00:03:40,940 --> 00:03:45,738
+So by doing it this way what happens is any time a new instance is launched
+
+65
+00:03:45,762 --> 00:03:50,070
+into the Auto Scaling group, it will be picked up by the
+
+66
+00:03:50,070 --> 00:03:54,350
+load balancer and load balancing will include that instance.
+
+67
+00:03:54,940 --> 00:03:56,580
+So let's select update.
+
+68
+00:03:56,770 --> 00:03:57,796
+And that's done.
+
+69
+00:03:57,910 --> 00:04:02,050
+So now it's just a matter of waiting for a few minutes for it all to start working.
+
+70
+00:04:02,440 --> 00:04:04,630
+Now if I go across to target groups,
+
+71
+00:04:04,950 --> 00:04:09,050
+select TG1, we can see that we have our two instances
+
+72
+00:04:09,310 --> 00:04:11,350
+and the health status is initial.
+
+73
+00:04:11,940 --> 00:04:14,980
+And that means that target registration is in progress.
+
+74
+00:04:15,440 --> 00:04:20,149
+So those instances will be registered and they should turn to healthy very soon.
+
+75
+00:04:20,630 --> 00:04:24,880
+So it just took a couple of minutes and now the health status has changed to healthy.
+
+76
+00:04:25,040 --> 00:04:27,460
+So our instances are registered.
+
+77
+00:04:27,830 --> 00:04:32,060
+Now if your instances don't become healthy, if they become unhealthy then
+
+78
+00:04:32,220 --> 00:04:35,610
+there's something wrong in your configuration so if you do follow
+
+79
+00:04:35,610 --> 00:04:38,290
+all of my steps exactly, you will get the same result.
+
+80
+00:04:38,290 --> 00:04:41,560
+But if you don't then it must mean that you've missed something.
+
+81
+00:04:41,940 --> 00:04:45,616
+So one of the things to check is your security groups to make sure
+
+82
+00:04:45,843 --> 00:04:49,340
+ you have your security groups set up to allow port 80.
+
+83
+00:04:49,350 --> 00:04:53,348
+We use the same security group for the instances and the load balancer.
+
+84
+00:04:53,646 --> 00:04:57,410
+So make sure you're using a security group that allows inbound
+
+85
+00:04:57,410 --> 00:05:00,450
+traffic from any source to port 80.
+
+86
+00:05:00,780 --> 00:05:02,470
+The other thing you can do is actually go
+
+87
+00:05:02,470 --> 00:05:07,090
+and try and connect directly to your instance using its public iP address.
+
+88
+00:05:07,540 --> 00:05:10,060
+So if I copy the public IP
+
+89
+00:05:10,640 --> 00:05:15,160
+and try and connect, I should see direct access to the instance.
+
+90
+00:05:15,185 --> 00:05:17,870
+If that doesn't work then you've done something wrong.
+
+91
+00:05:18,060 --> 00:05:20,900
+You need to make sure that the user data run correctly,
+
+92
+00:05:21,190 --> 00:05:25,850
+your instance has public connectivity to the internet and is reachable,
+
+93
+00:05:26,440 --> 00:05:28,885
+and of course you have the security groups set up.
+
+94
+00:05:29,156 --> 00:05:30,590
+So ours looks good.
+
+95
+00:05:30,590 --> 00:05:32,530
+So let's go down to load balancers.
+
+96
+00:05:32,830 --> 00:05:37,190
+And what I'm going to do is I'll just copy the DNS name of the load balancer,
+
+97
+00:05:37,940 --> 00:05:40,120
+go to a new tab in my browser,
+
+98
+00:05:40,430 --> 00:05:43,430
+put that in, and we can see that we get a result.
+
+99
+00:05:43,430 --> 00:05:48,350
+Now if I just hit refresh, we should get load balanced between the instances
+
+100
+00:05:48,570 --> 00:05:50,320
+in the different availability zones.
+
+101
+00:05:50,580 --> 00:05:51,610
+So that's all working.
+
+102
+00:05:51,870 --> 00:05:53,390
+So that's it for this lesson.
+
+103
+00:05:53,640 --> 00:05:57,160
+Now, we have finished with the load balancer and the Auto Scaling group.
+
+104
+00:05:57,540 --> 00:06:02,031
+So what we're going to do is simply terminate the load balancer
+
+105
+00:06:02,055 --> 00:06:05,190
+by clicking on delete, click on yes delete.
+
+106
+00:06:05,520 --> 00:06:07,280
+Now don't delete the target group.
+
+107
+00:06:07,280 --> 00:06:10,200
+We are going to use that again. So you can leave the target group.
+
+108
+00:06:10,200 --> 00:06:12,660
+There's no cost to having a target group.
+
+109
+00:06:13,540 --> 00:06:17,590
+The other thing we're going to do is to terminate the Auto Scaling group.
+
+110
+00:06:17,770 --> 00:06:21,150
+So we can select our auto scaling group, click on delete.
+
+111
+00:06:21,470 --> 00:06:25,110
+We need to type delete to confirm and then delete.
+
+112
+00:06:25,830 --> 00:06:29,660
+And that will delete the Auto Scaling group and the EC2 instances.
+
+113
+00:06:29,700 --> 00:06:32,300
+So that's it for this lesson. I'll see you in the next one.
+

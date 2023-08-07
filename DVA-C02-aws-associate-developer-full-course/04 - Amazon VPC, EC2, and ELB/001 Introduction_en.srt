@@ -1,0 +1,64 @@
+1
+00:00:00,340 --> 00:00:02,020
+Hello and welcome to this section.
+
+2
+00:00:02,190 --> 00:00:06,650
+In this section I'm going to cover the amazon virtual private cloud (VPC).
+
+3
+00:00:06,660 --> 00:00:10,310
+elastic load balancing and amazon EC2.
+
+4
+00:00:10,420 --> 00:00:13,820
+Now you are expected to understand these as kind
+
+5
+00:00:13,820 --> 00:00:17,460
+of prerequisite knowledge for the developer associate exam.
+
+6
+00:00:17,740 --> 00:00:20,560
+In this course I go over it at a basic level
+
+7
+00:00:20,740 --> 00:00:22,650
+but I do move through quite quickly.
+
+8
+00:00:22,750 --> 00:00:26,010
+If you want more background on these services then I go
+
+9
+00:00:26,010 --> 00:00:29,810
+into much more detail in the solutions architect associate course.
+
+10
+00:00:30,030 --> 00:00:33,420
+But for what you need to know for the developer associate exam,
+
+11
+00:00:33,530 --> 00:00:34,560
+this should be enough.
+
+12
+00:00:35,240 --> 00:00:39,110
+So in this section you're going to learn how to create your own custom VPC.
+
+13
+00:00:39,120 --> 00:00:43,410
+You're going to launch EC2 instances and elastic load balancers and see
+
+14
+00:00:43,410 --> 00:00:47,560
+how you can scale your application and load balance it for high availability
+
+15
+00:00:48,040 --> 00:00:50,400
+and there are plenty of hands on exercises to make
+
+16
+00:00:50,400 --> 00:00:53,350
+sure you get your hands dirty and enjoy the practice.
+

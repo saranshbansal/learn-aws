@@ -1,0 +1,120 @@
+1
+00:00:05,050 --> 00:00:11,249
+There are going to be multiple situations where you need your EC2 instance to be able to connect to
+
+2
+00:00:11,274 --> 00:00:12,309
+another service.
+
+3
+00:00:12,880 --> 00:00:16,945
+For instance, you might want to save data to a storage service or
+
+4
+00:00:16,969 --> 00:00:20,363
+you might want to save information to a database.
+
+5
+00:00:20,710 --> 00:00:22,929
+So there are a couple of ways that you can do that.
+
+6
+00:00:23,470 --> 00:00:26,116
+The first is what we call access keys.
+
+7
+00:00:26,530 --> 00:00:30,862
+Now, access keys are configured on the EC2 instance.
+
+8
+00:00:31,000 --> 00:00:36,580
+This is some secret information that is stored on the file system of the instance.
+
+9
+00:00:36,970 --> 00:00:43,865
+Now, the access keys are actually associated with a user account and the user account has a policy.
+
+10
+00:00:44,050 --> 00:00:46,232
+So it has some permissions assigned to it.
+
+11
+00:00:46,570 --> 00:00:53,435
+Now the access keys will pick up whatever permissions the policy allows that user.
+
+12
+00:00:53,860 --> 00:01:00,972
+And then the EC2 instance using the permissions assigned to the user account is able to
+
+13
+00:01:00,997 --> 00:01:03,811
+connect to, in this case, a storage service.
+
+14
+00:01:03,970 --> 00:01:05,233
+So that's how that works.
+
+15
+00:01:05,257 --> 00:01:07,420
+Now, there is a bit of a downside.
+
+16
+00:01:07,750 --> 00:01:13,371
+The downside is that the access keys are stored on the file system of the instance, and it's not a
+
+17
+00:01:13,396 --> 00:01:16,310
+very secure way of storing that information.
+
+18
+00:01:17,020 --> 00:01:23,393
+So if the instance was compromised, it's possible an attacker could get access to that information.
+
+19
+00:01:23,740 --> 00:01:30,075
+In the next lesson, you'll see a hands-on and I'll demonstrate how accessible this information is.
+
+20
+00:01:30,100 --> 00:01:31,508
+Now, there is another way.
+
+21
+00:01:32,140 --> 00:01:35,948
+So the other way is when we use something called an instance profile.
+
+22
+00:01:36,550 --> 00:01:43,870
+The instance profile is a way that we can connect an IAM role to our EC2 instance.
+
+23
+00:01:44,410 --> 00:01:48,160
+So in this case, the instance has an IAM role attached to it.
+
+24
+00:01:49,100 --> 00:01:57,746
+That role is then assumed by the EC2 instance and the EC2 instance will gain access to whatever
+
+25
+00:01:57,771 --> 00:02:04,345
+permissions the policy attached to the role provides, and is then able to access the S3 bucket.
+
+26
+00:02:04,370 --> 00:02:09,544
+The great thing about this is there's no credentials stored on the EC2 instance.
+
+27
+00:02:09,740 --> 00:02:16,444
+The EC2 instance has assumed the role and it's been given the permissions assigned to that role.
+
+28
+00:02:16,700 --> 00:02:20,540
+But it doesn't actually have any credentials stored on its file system.
+
+29
+00:02:21,230 --> 00:02:28,970
+So this can be a much more secure way of allowing your EC2 instance to access AWS services.
+
+30
+00:02:29,600 --> 00:02:32,450
+And in the next lesson, we're going to see this in action.
+

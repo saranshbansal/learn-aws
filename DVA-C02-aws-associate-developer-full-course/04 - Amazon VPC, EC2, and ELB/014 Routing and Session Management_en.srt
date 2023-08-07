@@ -1,0 +1,440 @@
+1
+00:00:05,540 --> 00:00:06,250
+In this lesson,
+
+2
+00:00:06,250 --> 00:00:10,420
+I'm going to cover routing and session management for the Elastic Load Balancer.
+
+3
+00:00:10,430 --> 00:00:13,760
+So firstly we're going to look at an Application Load Balancer.
+
+4
+00:00:14,140 --> 00:00:18,040
+Here, we have multiple subnets in different availability zones
+
+5
+00:00:18,260 --> 00:00:22,100
+and we have our workload distributed across those subnets.
+
+6
+00:00:22,640 --> 00:00:24,830
+Now we've actually got each of these,
+
+7
+00:00:25,423 --> 00:00:29,196
+each of these tiers of our application perhaps in a different target group.
+
+8
+00:00:29,220 --> 00:00:32,360
+So we've got TG1, TG2, and TG3.
+
+9
+00:00:32,940 --> 00:00:35,560
+Now they're used by the ALB
+
+10
+00:00:35,560 --> 00:00:40,930
+to route requests to the registered instances within each of the target groups.
+
+11
+00:00:41,280 --> 00:00:44,110
+So we have an application load balancer here
+
+12
+00:00:44,240 --> 00:00:46,705
+and we can configure rules on the listener.
+
+13
+00:00:46,729 --> 00:00:51,540
+Now ALBs will listen on HTTP or HTTPs.
+
+14
+00:00:52,240 --> 00:00:54,360
+So let's say we have a client here.
+
+15
+00:00:54,840 --> 00:00:59,731
+And the client is trying to connect to our application and they've typed in the URL
+
+16
+00:00:59,756 --> 00:01:02,160
+example.com/specials.
+
+17
+00:01:02,710 --> 00:01:04,420
+Now it reaches the load balancer
+
+18
+00:01:04,790 --> 00:01:08,360
+and the load balancer sends this specific request to TG1.
+
+19
+00:01:08,740 --> 00:01:10,260
+So why does it do that?
+
+20
+00:01:10,740 --> 00:01:14,190
+Well, we've got a couple of options for how we distribute
+
+21
+00:01:14,190 --> 00:01:17,580
+or route our traffic to our different target groups.
+
+22
+00:01:17,890 --> 00:01:22,060
+Requests can be routed based on the path in the URL.
+
+23
+00:01:22,120 --> 00:01:26,963
+So in this case the path has been used and slash specials has been used
+
+24
+00:01:27,076 --> 00:01:31,330
+by the load balancer to determine where to route the traffic.
+
+25
+00:01:31,330 --> 00:01:33,830
+So it's using the path in the URL.
+
+26
+00:01:34,200 --> 00:01:37,880
+Maybe the user now clicks on another link and they go to orders.
+
+27
+00:01:37,980 --> 00:01:41,530
+Now orders might be processed by a different part of the application.
+
+28
+00:01:41,740 --> 00:01:45,670
+So now we have the connection going through to target group two.
+
+29
+00:01:45,680 --> 00:01:49,200
+So as I mentioned that this is where we're using the path in the URL
+
+30
+00:01:49,200 --> 00:01:52,000
+and that's called path-based routing with the ALB.
+
+31
+00:01:52,000 --> 00:01:56,160
+And it's one of several different ways we can intelligently route our traffic.
+
+32
+00:01:56,840 --> 00:02:01,710
+Another way we can do it is by using the host header information.
+
+33
+00:02:02,140 --> 00:02:06,110
+So here the customer is connected to members.example.com,
+
+34
+00:02:06,340 --> 00:02:11,120
+and the load balancer can now see members in the host header
+
+35
+00:02:11,420 --> 00:02:14,191
+and it knows that that means it should route the traffic
+
+36
+00:02:14,215 --> 00:02:16,100
+to target group three instead.
+
+37
+00:02:16,940 --> 00:02:22,100
+Here the request is being routed based on the host field in the HTTP header.
+
+38
+00:02:22,520 --> 00:02:24,890
+And this is known as host-based routing.
+
+39
+00:02:25,140 --> 00:02:28,320
+With our ALB, the targets can be EC2 instances,
+
+40
+00:02:28,460 --> 00:02:31,660
+IP addresses, Lambda functions, or containers.
+
+41
+00:02:31,800 --> 00:02:34,040
+Next we have the Network Load Balancer.
+
+42
+00:02:34,460 --> 00:02:38,280
+So again, let's say we have workloads across multiple subnets.
+
+43
+00:02:38,530 --> 00:02:40,950
+And in this example we have two target groups.
+
+44
+00:02:41,260 --> 00:02:47,190
+We've got a Network Load Balancer and we've got elastic IP addresses attached to each
+
+45
+00:02:47,190 --> 00:02:49,580
+of our subnets for our load balancer to use.
+
+46
+00:02:49,880 --> 00:02:53,980
+So NLB nodes can have elastic IPs in each subnet.
+
+47
+00:02:54,740 --> 00:02:58,060
+So that's a static public IP address that your NLB can
+
+48
+00:02:58,060 --> 00:03:01,550
+use and that can be white listed in your client's firewalls.
+
+49
+00:03:02,340 --> 00:03:10,160
+NLBs can listen on multiple protocols, TCP TLS, UDP, or TCP_UDP.
+
+50
+00:03:10,840 --> 00:03:14,990
+So here again we have a client who wants to connect to an application.
+
+51
+00:03:15,230 --> 00:03:17,160
+They've typed in example.com.
+
+52
+00:03:17,540 --> 00:03:22,138
+And the Network Load Balancer has routed the request to target group one.
+
+53
+00:03:22,162 --> 00:03:25,350
+If the client then connects to example.com again,
+
+54
+00:03:25,580 --> 00:03:30,260
+but this time they're using the colon :8080 to indicate
+
+55
+00:03:30,480 --> 00:03:33,230
+that they want to connect to the port 8080
+
+56
+00:03:33,390 --> 00:03:36,100
+rather than the default port for the protocol.
+
+57
+00:03:36,100 --> 00:03:41,150
+So the default ports for the protocol would be 443 for HTTPS,
+
+58
+00:03:41,380 --> 00:03:44,270
+but now we're indicating that we want to connect 8080.
+
+59
+00:03:44,620 --> 00:03:48,930
+The NLB can't do host-based or path-based routing like the ALB.
+
+60
+00:03:49,160 --> 00:03:51,080
+But we can create different listeners.
+
+61
+00:03:51,290 --> 00:03:54,730
+And each of those will require a unique port for routing.
+
+62
+00:03:54,940 --> 00:03:57,980
+Now the connection can get routed to target group two
+
+63
+00:03:58,260 --> 00:04:01,878
+if the connection is made with a different port number.
+
+64
+00:04:01,902 --> 00:04:08,311
+So here we're using the IP protocol data in the connection request to route the
+
+65
+00:04:08,336 --> 00:04:10,140
+connection to a different target group.
+
+66
+00:04:10,150 --> 00:04:14,281
+Targets can be EC2 instances or IP addresses.
+
+67
+00:04:14,305 --> 00:04:19,716
+Targets can also be outside of a VPC such as on-premises data centers.
+
+68
+00:04:19,740 --> 00:04:21,360
+Now what about session state?
+
+69
+00:04:21,360 --> 00:04:27,220
+So session state is where we want to store some information somewhere about a session
+
+70
+00:04:27,260 --> 00:04:32,603
+that's taking place on one of our applications like an application running on EC2.
+
+71
+00:04:32,756 --> 00:04:36,923
+So that will help us if a connection needs to be made again
+
+72
+00:04:36,948 --> 00:04:42,000
+and we don't want to have to recreate that information, so we want it to be there.
+
+73
+00:04:42,000 --> 00:04:44,350
+So we want some session state data.
+
+74
+00:04:44,540 --> 00:04:46,870
+Maybe it's authentication information.
+
+75
+00:04:46,990 --> 00:04:49,100
+Maybe if it's a gaming application,
+
+76
+00:04:49,100 --> 00:04:51,760
+it's information about the current gaming session.
+
+77
+00:04:52,540 --> 00:04:54,830
+So here we have multiple instances.
+
+78
+00:04:55,030 --> 00:04:57,860
+We have a client connecting to a load balancer
+
+79
+00:04:57,990 --> 00:05:00,260
+and getting sent to one of the instances.
+
+80
+00:05:00,940 --> 00:05:02,560
+Now what happens here is
+
+81
+00:05:02,660 --> 00:05:06,800
+information about the session is getting stored in a DynamoDB table.
+
+82
+00:05:07,060 --> 00:05:10,390
+DynamoDB is a great option for storing session state data.
+
+83
+00:05:10,400 --> 00:05:14,460
+Elasticache is another one that sometimes comes up in exam questions
+
+84
+00:05:14,560 --> 00:05:16,450
+in relation to session state data.
+
+85
+00:05:17,240 --> 00:05:22,270
+So what happens now is if the EC2 instance fails then the connection needs
+
+86
+00:05:22,270 --> 00:05:26,260
+to be made again and it gets made to a different EC2 instance.
+
+87
+00:05:26,840 --> 00:05:30,580
+But that instance can go and pull the cached information that's in
+
+88
+00:05:30,580 --> 00:05:34,840
+the DynamoDB table so that session state data doesn't get lost.
+
+89
+00:05:35,110 --> 00:05:38,070
+And in this case maybe it's authentication information
+
+90
+00:05:38,070 --> 00:05:41,328
+so the user does not get asked to re-authenticate
+
+91
+00:05:41,352 --> 00:05:43,346
+when they're connecting to the new instance.
+
+92
+00:05:43,371 --> 00:05:45,950
+So hopefully they won't even notice that anything happened.
+
+93
+00:05:46,140 --> 00:05:48,290
+Elasticache as I mentioned is another
+
+94
+00:05:48,290 --> 00:05:51,340
+popular solution for storing session state data.
+
+95
+00:05:51,420 --> 00:05:53,750
+We then have something called sticky sessions.
+
+96
+00:05:53,960 --> 00:05:58,690
+What this is, is when our connection goes through to a certain EC2 instance,
+
+97
+00:05:58,980 --> 00:06:04,690
+a cookie is generated and client bound to the instance for a specific lifetime.
+
+98
+00:06:04,690 --> 00:06:08,150
+So how long the cookie actually lives in their cache.
+
+99
+00:06:08,240 --> 00:06:11,790
+Session state data such as authentication details may be
+
+100
+00:06:11,790 --> 00:06:15,040
+stored locally here or they could also get stored
+
+101
+00:06:15,180 --> 00:06:18,880
+in something like DynamoDB so we don't lose that information.
+
+102
+00:06:19,540 --> 00:06:22,270
+But for some reason we might want to make sure that
+
+103
+00:06:22,270 --> 00:06:26,290
+if the client reconnects they come back to this same instance.
+
+104
+00:06:26,410 --> 00:06:28,690
+So that's what the cookie will tell them to do.
+
+105
+00:06:28,930 --> 00:06:33,550
+Now, if the instance fails, then a connection will need to be made to a new instance
+
+106
+00:06:33,750 --> 00:06:36,440
+and now the client is directed to that instance
+
+107
+00:06:36,490 --> 00:06:39,850
+and obviously the session state data is going to be lost.
+
+108
+00:06:40,040 --> 00:06:44,130
+So you could use it with a session store like DynamoDB
+
+109
+00:06:44,170 --> 00:06:46,840
+if you want to make sure that information is available.
+
+110
+00:06:46,870 --> 00:06:49,550
+So that's it for this lesson. I will see you in the next one.
+

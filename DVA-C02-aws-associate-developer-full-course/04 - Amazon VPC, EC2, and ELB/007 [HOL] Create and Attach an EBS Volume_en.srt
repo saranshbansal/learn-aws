@@ -1,0 +1,280 @@
+1
+00:00:05,230 --> 00:00:11,530
+In this lesson, I'm going to show you how to create and attach EBS volumes in the AC two management
+
+2
+00:00:11,530 --> 00:00:12,250
+console.
+
+3
+00:00:12,280 --> 00:00:17,740
+I'm going to go to launch templates and use the launch template we created earlier, and that makes
+
+4
+00:00:17,740 --> 00:00:20,080
+it a bit easier to launch my instance.
+
+5
+00:00:20,080 --> 00:00:22,630
+So I'm going to launch instance from template.
+
+6
+00:00:22,750 --> 00:00:25,560
+Now I do need to change a couple of things.
+
+7
+00:00:25,570 --> 00:00:33,040
+I need to select the option, proceed without a keeper and I need to select a subnet and I'm going to
+
+8
+00:00:33,040 --> 00:00:38,980
+choose Public one A and that has to be in the same VPC as our security group, which in this case it
+
+9
+00:00:38,980 --> 00:00:39,460
+is.
+
+10
+00:00:39,730 --> 00:00:42,580
+So now I should be able to launch my instance.
+
+11
+00:00:43,030 --> 00:00:43,540
+Great.
+
+12
+00:00:43,540 --> 00:00:44,470
+That's launching.
+
+13
+00:00:45,080 --> 00:00:49,760
+So while my instance is launching, let's just refresh here so we can see it.
+
+14
+00:00:50,300 --> 00:00:55,740
+We are going to go down to EBS and the volumes pane here.
+
+15
+00:00:55,760 --> 00:00:57,050
+Choose volumes.
+
+16
+00:00:57,200 --> 00:01:02,600
+Now you can see that we already have a volume and that is the route volume for the instance that we
+
+17
+00:01:02,600 --> 00:01:03,350
+just launched.
+
+18
+00:01:03,350 --> 00:01:05,810
+And you can see that it's in use.
+
+19
+00:01:06,170 --> 00:01:09,070
+So what we're going to do is create a extra volume.
+
+20
+00:01:09,080 --> 00:01:10,910
+So we choose create volume.
+
+21
+00:01:11,300 --> 00:01:14,180
+Now we get to choose the volume type.
+
+22
+00:01:14,180 --> 00:01:22,940
+So we could choose GP to GP free IO one, IO two or the older hard disk drives, the C one or RST one
+
+23
+00:01:22,940 --> 00:01:25,730
+or even the magnetic, which has been around a long time.
+
+24
+00:01:26,120 --> 00:01:32,930
+Now if we choose something like the IO one, you get to configure the performance characteristics such
+
+25
+00:01:32,930 --> 00:01:35,030
+as the input output per second.
+
+26
+00:01:35,030 --> 00:01:35,990
+The IOPS.
+
+27
+00:01:36,550 --> 00:01:39,190
+You get to specify the size, of course, as well.
+
+28
+00:01:39,340 --> 00:01:42,580
+Now, what we'll do is we'll keep things a bit cheaper.
+
+29
+00:01:42,610 --> 00:01:49,930
+We'll go to GP two and we'll keep the 100 gigabytes and it tells us the fixed performance that we can
+
+30
+00:01:49,930 --> 00:01:52,330
+get for this particular volume.
+
+31
+00:01:53,170 --> 00:01:56,140
+Now which availability zone should we put it in?
+
+32
+00:01:56,170 --> 00:02:01,670
+Well, we just selected us East one A for instance.
+
+33
+00:02:01,690 --> 00:02:05,320
+That means this volume needs to be in US East one, eh?
+
+34
+00:02:05,350 --> 00:02:08,350
+Because otherwise the instance won't be able to use it.
+
+35
+00:02:08,470 --> 00:02:12,160
+So we do need to use the US one a availability zone.
+
+36
+00:02:12,370 --> 00:02:20,910
+Now you can optionally encrypt the volume and you can choose to use the default key from us.
+
+37
+00:02:21,310 --> 00:02:24,820
+And that will encrypt the volume and all the data that's stored on it.
+
+38
+00:02:25,240 --> 00:02:27,220
+I'm not going to select this option for now.
+
+39
+00:02:27,250 --> 00:02:29,230
+Let's choose create volume.
+
+40
+00:02:29,770 --> 00:02:34,570
+So the volume is now in the creating state, and it shouldn't take very long before it's ready.
+
+41
+00:02:34,720 --> 00:02:37,240
+Okay, so the volume is now available.
+
+42
+00:02:37,480 --> 00:02:43,090
+If I select the volume going to actions, we can then attach the volume.
+
+43
+00:02:43,660 --> 00:02:45,850
+So note that you can also modify in here.
+
+44
+00:02:45,850 --> 00:02:52,960
+So if you needed to change the volume type or the size of the volume or obviously you could change the
+
+45
+00:02:52,960 --> 00:02:55,690
+performance characteristics of IO one as well.
+
+46
+00:02:55,960 --> 00:02:57,420
+But we'll keep it on GP too.
+
+47
+00:02:57,430 --> 00:02:58,720
+I'm not going to modify it.
+
+48
+00:02:58,810 --> 00:03:03,130
+All I want to do is attach it to my EC2 instance.
+
+49
+00:03:03,400 --> 00:03:09,160
+So now I'm going to attach the volume and I should be able to find my instance nice and easily.
+
+50
+00:03:09,430 --> 00:03:16,420
+It's going to decide the device name to use and we can click on attach volume and that's it.
+
+51
+00:03:16,420 --> 00:03:17,620
+That's all there is to it.
+
+52
+00:03:17,650 --> 00:03:24,160
+We've now attached an additional volume to our instance that we could then partition and format and
+
+53
+00:03:24,160 --> 00:03:24,820
+use.
+
+54
+00:03:24,850 --> 00:03:29,110
+Now, what will happen to this volume if we terminate our instance?
+
+55
+00:03:29,110 --> 00:03:36,610
+Well, the root volume by default will be deleted when you terminate your instance, but any extra volumes
+
+56
+00:03:36,610 --> 00:03:41,270
+that you add will by default still remain in your account.
+
+57
+00:03:41,290 --> 00:03:47,200
+So if we terminate the instance, we should find that this extra volume remains behind.
+
+58
+00:03:47,680 --> 00:03:48,910
+So let's test that out.
+
+59
+00:03:48,910 --> 00:03:54,820
+Let's go back to instances and I'm going to terminate my ESI two instance.
+
+60
+00:03:55,000 --> 00:03:57,640
+And if we come back to volumes.
+
+61
+00:03:58,900 --> 00:04:05,680
+What we should see shortly is that that volume will be removed and the additional volume will remain
+
+62
+00:04:05,680 --> 00:04:10,240
+and it will be available for us to attach to another EC2 instance.
+
+63
+00:04:10,890 --> 00:04:11,660
+So there we go.
+
+64
+00:04:11,670 --> 00:04:12,910
+That didn't take long.
+
+65
+00:04:12,930 --> 00:04:21,089
+The root volume was deleted and the extra volume is now available for us to use and attach to another
+
+66
+00:04:21,089 --> 00:04:22,410
+AC two instance.
+
+67
+00:04:22,770 --> 00:04:29,820
+So EBS is persistent storage and you can keep that data long term and move your volumes between instances
+
+68
+00:04:29,820 --> 00:04:30,630
+if you need to.
+
+69
+00:04:31,280 --> 00:04:32,390
+That's it for this lesson.
+
+70
+00:04:32,390 --> 00:04:33,680
+I will see you in the next one.
+

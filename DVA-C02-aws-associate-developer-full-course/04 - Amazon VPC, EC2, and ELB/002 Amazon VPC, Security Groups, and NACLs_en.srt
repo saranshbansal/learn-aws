@@ -1,0 +1,584 @@
+1
+00:00:05,340 --> 00:00:09,360
+Hi guys. In this video, I'm going to cover the Amazon Virtual Private Cloud
+
+2
+00:00:09,460 --> 00:00:12,450
+security groups, and Network Access Control Lists.
+
+3
+00:00:12,840 --> 00:00:18,060
+So let's get started with Amazon VPC. So this is the Virtual Private Cloud.
+
+4
+00:00:18,440 --> 00:00:21,710
+What you have is VPCs that you create within a region.
+
+5
+00:00:21,920 --> 00:00:26,241
+And these are logically isolated portions of the cloud within a region.
+
+6
+00:00:26,265 --> 00:00:29,830
+So they're logically isolated, not physically isolated.
+
+7
+00:00:29,930 --> 00:00:33,640
+We then have availability zones. These are physical separation.
+
+8
+00:00:33,640 --> 00:00:36,040
+These are essentially separate data centers.
+
+9
+00:00:36,250 --> 00:00:39,730
+And then we have our subnets such as public subnets
+
+10
+00:00:39,840 --> 00:00:41,360
+and private subnets.
+
+11
+00:00:41,390 --> 00:00:44,950
+Public subnets are accessible to the outside world, the internet,
+
+12
+00:00:44,960 --> 00:00:46,580
+whereas private subnets are not.
+
+13
+00:00:46,870 --> 00:00:50,080
+And we can create both public subnets and private subnets
+
+14
+00:00:50,230 --> 00:00:51,640
+in each availability zone.
+
+15
+00:00:51,780 --> 00:00:57,060
+So the subnets are created within an availability zone, the AZ itself.
+
+16
+00:00:57,280 --> 00:01:01,350
+That means you can't have a single subnet that spans availability zones,
+
+17
+00:01:01,440 --> 00:01:06,410
+but you can spread your workloads across availability zones through multiple subnets.
+
+18
+00:01:06,780 --> 00:01:10,850
+We can then launch our resources such as EC2 instances
+
+19
+00:01:11,110 --> 00:01:13,850
+into the subnets of our VPC.
+
+20
+00:01:13,960 --> 00:01:16,560
+We have a router within the VPC.
+
+21
+00:01:16,670 --> 00:01:20,160
+You don't actually see it as a component but it is actually there
+
+22
+00:01:20,340 --> 00:01:23,750
+and we manipulate it through updating the route table
+
+23
+00:01:23,750 --> 00:01:26,760
+to determine how we want to route our traffic.
+
+24
+00:01:27,040 --> 00:01:30,250
+The VPC router takes care of routing both within
+
+25
+00:01:30,250 --> 00:01:33,530
+the VPC itself and then outside of the VPC.
+
+26
+00:01:33,530 --> 00:01:37,620
+So to other VPCs or across some site-to-site
+
+27
+00:01:37,620 --> 00:01:41,430
+links you might have with on-premises data centers, for example.
+
+28
+00:01:41,520 --> 00:01:46,780
+So we control the VPC router using the route table. We can add our own routes
+
+29
+00:01:46,940 --> 00:01:50,220
+in here to determine how traffic should be routed.
+
+30
+00:01:50,350 --> 00:01:53,480
+The route table is used to configure the VPC router
+
+31
+00:01:53,680 --> 00:01:58,900
+and we can add routes for within our VPC and outside of our VPC as well.
+
+32
+00:01:58,920 --> 00:02:01,150
+Now if we want to reach the internet,
+
+33
+00:02:01,160 --> 00:02:03,650
+then we need something called an internet gateway.
+
+34
+00:02:04,110 --> 00:02:06,730
+The internet gateway is attached to the VPC
+
+35
+00:02:06,860 --> 00:02:09,590
+and it's then used to connect out to the internet.
+
+36
+00:02:09,750 --> 00:02:13,600
+We can create multiple VPCs within a region.
+
+37
+00:02:14,020 --> 00:02:19,170
+So a VPC does exist within a region and we can create lots of them within our VPC.
+
+38
+00:02:19,195 --> 00:02:20,300
+Now there are limits.
+
+39
+00:02:20,300 --> 00:02:24,510
+So there are default limits and you can apply to extend those limits if you need to.
+
+40
+00:02:25,440 --> 00:02:30,360
+Each VPC has a different block of IP addresses known as a CIDR block.
+
+41
+00:02:30,740 --> 00:02:35,900
+So here we see, we've got two different CIDR blocks. One for each of our VPCs.
+
+42
+00:02:36,430 --> 00:02:39,300
+CIDR stands for Classless Inter-Domain Routing.
+
+43
+00:02:40,040 --> 00:02:44,170
+Now from the CIDR block, we then have our subnet IP addresses.
+
+44
+00:02:44,170 --> 00:02:48,160
+So these are the blocks of addresses that we then assign
+
+45
+00:02:48,160 --> 00:02:52,200
+to our resources or they get automatically assigned to our resources
+
+46
+00:02:52,310 --> 00:02:53,680
+within our subnets.
+
+47
+00:02:53,880 --> 00:02:57,220
+And they come from the master block, which is the CIDR block.
+
+48
+00:02:57,250 --> 00:03:00,560
+So each of our VPCs then has a CIDR block
+
+49
+00:03:00,740 --> 00:03:04,350
+and it has subnets that come from that block of addresses.
+
+50
+00:03:04,540 --> 00:03:08,670
+Now, let's just look at the components of the VPC.
+
+51
+00:03:08,680 --> 00:03:12,760
+So we talked about a VPC and what it is and what a subnet is.
+
+52
+00:03:13,140 --> 00:03:17,030
+And we talked about internet gateways and how they help you route within
+
+53
+00:03:17,150 --> 00:03:19,260
+the VPC and outside of the VPC.
+
+54
+00:03:19,370 --> 00:03:24,730
+An egress only internet gateway is used only for IPv6.
+
+55
+00:03:24,870 --> 00:03:27,590
+so it's not used for the IPv4 protocol.
+
+56
+00:03:27,800 --> 00:03:31,570
+An egress only internet gateway allows your resources
+
+57
+00:03:31,570 --> 00:03:35,365
+that have IPv6 addresses to connect out to the internet
+
+58
+00:03:35,389 --> 00:03:39,170
+but doesn't allow traffic back in again to reach them from the internet.
+
+59
+00:03:39,190 --> 00:03:40,610
+We talked about the router.
+
+60
+00:03:40,830 --> 00:03:45,610
+Now, a peering connection is where you can directly peer two VPCs together
+
+61
+00:03:45,810 --> 00:03:47,610
+within or across regions.
+
+62
+00:03:47,860 --> 00:03:51,420
+And that means you get private routing between those VPCs
+
+63
+00:03:51,630 --> 00:03:54,660
+rather than having to send the traffic out to the internet
+
+64
+00:03:54,810 --> 00:03:56,750
+and then back to the other VPC.
+
+65
+00:03:57,040 --> 00:04:03,650
+VPC endpoints allow you to connect to public AWS endpoints via private addresses.
+
+66
+00:04:03,650 --> 00:04:08,450
+So for example if you want to connect to Amazon S3, that's a public endpoint.
+
+67
+00:04:08,450 --> 00:04:12,280
+So it's available on the internet but you can connect privately to it
+
+68
+00:04:12,280 --> 00:04:16,149
+using a private IPv4 address using a VPC endpoint.
+
+69
+00:04:16,440 --> 00:04:20,730
+We then have NAT instances and NAT gateways. Now they both do the same thing.
+
+70
+00:04:20,730 --> 00:04:24,320
+They allow your instances in private subnets
+
+71
+00:04:24,440 --> 00:04:29,530
+which only have private IP addresses to be able to connect to the internet.
+
+72
+00:04:29,555 --> 00:04:31,625
+So its Network Address Translation.
+
+73
+00:04:32,010 --> 00:04:35,070
+The instance is an EC2 instance that you manage
+
+74
+00:04:35,210 --> 00:04:39,126
+and the gateway is managed by AWS and scales seamlessly.
+
+75
+00:04:39,150 --> 00:04:44,360
+If you want to set up a site-to-site link between your on-premises data center
+
+76
+00:04:44,520 --> 00:04:48,580
+and AWS, you can do so by creating an AWS VPN.
+
+77
+00:04:48,900 --> 00:04:51,790
+There are two principal components to a site-to-site connection.
+
+78
+00:04:51,910 --> 00:04:55,510
+The customer gateway, which is your router and the configuration of
+
+79
+00:04:55,510 --> 00:04:57,980
+your router in the on-premises data center,
+
+80
+00:04:58,180 --> 00:05:02,320
+and then the virtual private gateway, which is the component on the AWS side.
+
+81
+00:05:02,940 --> 00:05:07,900
+Direct connect is another way to connect your on-premises data centers to AWS.
+
+82
+00:05:07,970 --> 00:05:12,330
+This time it uses private connections where you get very high speed
+
+83
+00:05:12,330 --> 00:05:16,750
+and bandwidth and low latency and you get consistent network throughput.
+
+84
+00:05:16,750 --> 00:05:18,750
+So you're not going via the internet.
+
+85
+00:05:19,610 --> 00:05:23,850
+Now, security groups and network ACLs are two different types of firewalls.
+
+86
+00:05:23,850 --> 00:05:26,710
+And we're going to cover those in detail within this lesson.
+
+87
+00:05:27,240 --> 00:05:33,090
+So to summarize, a VPC is a virtual network dedicated to your AWS account.
+
+88
+00:05:33,510 --> 00:05:37,880
+It's similar to having your own data center inside AWS.
+
+89
+00:05:38,250 --> 00:05:43,450
+And it's logically isolated from other virtual networks in the AWS cloud.
+
+90
+00:05:43,460 --> 00:05:47,660
+You get complete control over the virtual networking within your VPC.
+
+91
+00:05:47,660 --> 00:05:51,898
+So you get to define the IP ranges, the CIDR blocks
+
+92
+00:05:51,922 --> 00:05:54,340
+and the ranges that you assign to your subnets.
+
+93
+00:05:54,540 --> 00:05:58,870
+You get to create your subnets and configure your route tables and gateways
+
+94
+00:05:59,010 --> 00:05:59,978
+as you need to.
+
+95
+00:06:00,002 --> 00:06:04,080
+And then you can launch your resources like EC2 into your VPC.
+
+96
+00:06:04,320 --> 00:06:07,050
+When you create a VPC, you need to specify
+
+97
+00:06:07,240 --> 00:06:11,950
+the CIDR blocks, that's the IPv4 address block for the VPC.
+
+98
+00:06:12,220 --> 00:06:15,950
+So for example, here we have 10.0.0.0/16.
+
+99
+00:06:16,540 --> 00:06:20,590
+A VPC will span all availability zones in the region
+
+100
+00:06:20,910 --> 00:06:26,020
+and you have full control over who has access to the resources inside your VPC.
+
+101
+00:06:26,300 --> 00:06:31,800
+So you can apply your policies to define role-based access control for your VPC.
+
+102
+00:06:32,440 --> 00:06:37,060
+By default, you get to create up to five VPCs per region but you can extend that.
+
+103
+00:06:37,740 --> 00:06:40,250
+And the default VPC is created
+
+104
+00:06:40,420 --> 00:06:45,200
+in each region and that has a subnet in each availability zone within the region.
+
+105
+00:06:45,450 --> 00:06:51,071
+So let's move on to security groups and network ACLs, so these are both firewalls
+
+106
+00:06:51,095 --> 00:06:56,990
+which protect the network traffic that's able to connect to our EC2 instances.
+
+107
+00:06:57,540 --> 00:07:01,410
+Now the network ACLs apply at the subnet level.
+
+108
+00:07:01,410 --> 00:07:05,840
+So we can see here that they're actually attached to each of these subnets.
+
+109
+00:07:06,210 --> 00:07:10,510
+They then apply to traffic coming into and going out of the subnet.
+
+110
+00:07:11,340 --> 00:07:14,230
+So that's one really important point to remember.
+
+111
+00:07:14,270 --> 00:07:16,560
+They don't apply to traffic within the subnet.
+
+112
+00:07:16,560 --> 00:07:19,560
+This is only the ingress and egress traffic.
+
+113
+00:07:20,240 --> 00:07:24,410
+Security groups are applied at the instance level.
+
+114
+00:07:24,650 --> 00:07:28,000
+So they're actually applied to the Elastic Network Interfaces
+
+115
+00:07:28,170 --> 00:07:31,570
+that are attached to each of your EC2 instances.
+
+116
+00:07:31,880 --> 00:07:36,560
+Security groups can be applied to instances in any subnet.
+
+117
+00:07:36,840 --> 00:07:41,200
+So for example, here we can see that security group A is applied to instances
+
+118
+00:07:41,440 --> 00:07:45,390
+in multiple subnets just as security group B is as well.
+
+119
+00:07:45,520 --> 00:07:51,320
+Security group rules are defined for outbound traffic and inbound traffic.
+
+120
+00:07:51,320 --> 00:07:52,710
+So what we're seeing here
+
+121
+00:07:52,810 --> 00:07:58,150
+is a set of rules for traffic that's coming inbound to our EC2 instance.
+
+122
+00:07:58,590 --> 00:08:00,960
+Security groups only support allow rules.
+
+123
+00:08:00,960 --> 00:08:03,660
+So essentially there's no such thing as a deny rule.
+
+124
+00:08:03,840 --> 00:08:04,870
+What you're doing
+
+125
+00:08:05,080 --> 00:08:08,780
+is you're adding rules to say this is the traffic that I want to allow
+
+126
+00:08:08,970 --> 00:08:13,950
+and anything outside of what you've defined as an allow is implicitly denied.
+
+127
+00:08:14,540 --> 00:08:21,330
+Each rule specifies the type, the protocol like TCP, UDP, or iCMP
+
+128
+00:08:21,540 --> 00:08:23,170
+and then the actual port range.
+
+129
+00:08:23,320 --> 00:08:24,690
+And then we have the source.
+
+130
+00:08:24,880 --> 00:08:28,910
+A source can be an IP address or a security group ID.
+
+131
+00:08:29,200 --> 00:08:31,280
+Next we have network ACLs.
+
+132
+00:08:31,570 --> 00:08:35,159
+So here again we have inbound rules and outbound rules.
+
+133
+00:08:35,539 --> 00:08:40,659
+Each knuckle will have an explicit deny, so these are the denies at the end.
+
+134
+00:08:41,120 --> 00:08:43,289
+The rules are processed in order.
+
+135
+00:08:43,490 --> 00:08:46,780
+So if an allow is found, then the traffic is allowed.
+
+136
+00:08:46,990 --> 00:08:50,420
+If not then eventually it will reach the deny at the
+
+137
+00:08:50,430 --> 00:08:53,510
+end of the rule set and the traffic will be denied.
+
+138
+00:08:54,040 --> 00:08:57,130
+A couple of important characteristics to remember for your exam
+
+139
+00:08:57,310 --> 00:08:59,880
+is that security groups support allow rules only.
+
+140
+00:09:00,020 --> 00:09:05,650
+Network ACLs also support deny rules and also a security group is stateful.
+
+141
+00:09:05,820 --> 00:09:09,850
+And that means that if the traffic is allowed out, outbound
+
+142
+00:09:10,040 --> 00:09:12,760
+any return traffic coming in will automatically be
+
+143
+00:09:12,760 --> 00:09:15,350
+allowed if it's associated with the same connection.
+
+144
+00:09:15,740 --> 00:09:18,780
+Whereas with a network ACL, it's stateless.
+
+145
+00:09:18,780 --> 00:09:21,910
+So you need a separate rule for outbound
+
+146
+00:09:22,000 --> 00:09:24,860
+and the return traffic that's coming back inbound.
+
