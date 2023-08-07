@@ -1,0 +1,228 @@
+1
+00:00:05,440 --> 00:00:06,230
+In this lesson,
+
+2
+00:00:06,230 --> 00:00:10,610
+we're going to have a look at the settings for usage plans and API keys.
+
+3
+00:00:11,240 --> 00:00:15,570
+So back in API Gateway first I'm going to go down to API keys.
+
+4
+00:00:15,980 --> 00:00:20,360
+This is very simple. What we're gonna do in here is literally just create API key.
+
+5
+00:00:20,360 --> 00:00:23,120
+We're gonna give it a name so I'd suggest customer name.
+
+6
+00:00:23,120 --> 00:00:26,310
+So, you know, this could be sort of customer A.
+
+7
+00:00:26,550 --> 00:00:31,160
+And then we can allow it to auto generate. So let's click on save.
+
+8
+00:00:31,840 --> 00:00:33,940
+And now we have an API key.
+
+9
+00:00:34,940 --> 00:00:37,660
+So if we just go back to our API
+
+10
+00:00:38,640 --> 00:00:42,600
+and now choose usage plans, we can create usage plans.
+
+11
+00:00:42,930 --> 00:00:46,760
+And it's given us an example here of basic. So let's create one called Basic.
+
+12
+00:00:47,220 --> 00:00:50,050
+So we have Basic and we can enable throttling.
+
+13
+00:00:50,540 --> 00:00:55,460
+Maybe for our basic plan we only want to enable 500 requests per second
+
+14
+00:00:55,680 --> 00:00:57,470
+and a burst of 50.
+
+15
+00:00:58,140 --> 00:01:01,160
+We can also enable a quota of requests per month.
+
+16
+00:01:01,540 --> 00:01:04,769
+So maybe that one will be 10,000.
+
+17
+00:01:05,060 --> 00:01:06,150
+Let's click on next.
+
+18
+00:01:06,490 --> 00:01:10,390
+You can now associate with a stage, we'll skip that for now and click on done.
+
+19
+00:01:10,650 --> 00:01:14,790
+Then let's create another usage plan and this one is going to be advanced.
+
+20
+00:01:14,830 --> 00:01:18,410
+So this could be another tier that you're selling to your customers.
+
+21
+00:01:18,670 --> 00:01:23,160
+So perhaps this time we've got 1,000 and 500
+
+22
+00:01:23,740 --> 00:01:28,430
+and here we have 50,000 per month.
+
+23
+00:01:28,630 --> 00:01:29,790
+So now we've given
+
+24
+00:01:29,930 --> 00:01:35,550
+more resources or more ability to consume resources to this particular customer.
+
+25
+00:01:35,750 --> 00:01:37,860
+So click on skip and then done.
+
+26
+00:01:38,340 --> 00:01:41,850
+So we now have our two usage plans. One is called basic.
+
+27
+00:01:41,860 --> 00:01:45,250
+That's going to be for our customers who are paying a lower rate to us
+
+28
+00:01:45,640 --> 00:01:48,910
+and then advance would be for our customers who are spending a bit more money.
+
+29
+00:01:49,210 --> 00:01:51,560
+and they get more resources available to them.
+
+30
+00:01:52,140 --> 00:01:54,620
+We can add API keys in here now.
+
+31
+00:01:54,930 --> 00:01:57,860
+So you can add an API key to your usage plan.
+
+32
+00:01:58,240 --> 00:01:59,500
+If I just type space
+
+33
+00:01:59,720 --> 00:02:02,560
+it will then show the keys I have available.
+
+34
+00:02:02,940 --> 00:02:06,560
+So I'm going to use the tick box to select that key.
+
+35
+00:02:07,516 --> 00:02:08,560
+Come back.
+
+36
+00:02:08,699 --> 00:02:10,470
+Also I can add a stage.
+
+37
+00:02:10,699 --> 00:02:15,160
+So if I add a stage then I can choose the Lambda simple proxy API.
+
+38
+00:02:15,640 --> 00:02:19,150
+And then choose the stage within that API. So let's say prod.
+
+39
+00:02:20,040 --> 00:02:21,560
+And click on the tick mark.
+
+40
+00:02:22,340 --> 00:02:25,540
+So there you can see that we have now associated
+
+41
+00:02:25,550 --> 00:02:29,520
+our usage plan with an API and an API stage.
+
+42
+00:02:29,820 --> 00:02:31,670
+There's also method throttling.
+
+43
+00:02:31,670 --> 00:02:35,010
+So you can configure throttling at the method level as well.
+
+44
+00:02:35,520 --> 00:02:37,410
+So for example here we can add
+
+45
+00:02:37,530 --> 00:02:42,360
+the resource and the method, so we have star or we have /Hello world.
+
+46
+00:02:42,840 --> 00:02:46,710
+And then you can choose the methods from the list of available methods
+
+47
+00:02:46,900 --> 00:02:51,780
+that you want to set your request rate and burst rate to.
+
+48
+00:02:51,780 --> 00:02:54,050
+So here we only have one method but if
+
+49
+00:02:54,050 --> 00:02:56,630
+we had multiple methods we could choose one of them
+
+50
+00:02:56,820 --> 00:03:01,060
+and say well, for this specific method I want to have a different rate
+
+51
+00:03:01,060 --> 00:03:02,790
+like a lower rate for example.
+
+52
+00:03:03,040 --> 00:03:05,350
+So that's method specific throttling.
+
+53
+00:03:05,540 --> 00:03:08,660
+So that's it. I finished with this API.
+
+54
+00:03:09,140 --> 00:03:12,260
+And what I'm going to do is I'm just going to go and delete the API.
+
+55
+00:03:12,640 --> 00:03:14,430
+So just choose actions and delete
+
+56
+00:03:14,840 --> 00:03:16,280
+and it will delete our API.
+
+57
+00:03:16,493 --> 00:03:19,360
+That's it for this lesson. I hope you enjoyed it. I'll see you in the next one.
+

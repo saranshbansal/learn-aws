@@ -1,0 +1,332 @@
+1
+00:00:05,230 --> 00:00:09,730
+In this hands-on lesson, we're going to create a couple of state machines in Step Functions.
+
+2
+00:00:10,180 --> 00:00:15,490
+Now, I'm on the main page for AWS Step Functions. And I'm going to click on get started. And this will
+
+3
+00:00:15,490 --> 00:00:17,740
+actually start a Hello World workflow.
+
+4
+00:00:18,040 --> 00:00:19,900
+So, a very simple application.
+
+5
+00:00:20,440 --> 00:00:26,740
+Now, the logic for this application is written in code within this definition within the state machine
+
+6
+00:00:26,740 --> 00:00:27,220
+itself.
+
+7
+00:00:27,910 --> 00:00:34,600
+And on the right-hand side we can see a visual representation of the code on the left-hand side.
+
+8
+00:00:34,720 --> 00:00:39,220
+And as you can see, this particular state machine has a start, then a pass,
+
+9
+00:00:39,610 --> 00:00:41,890
+then it goes through this Hello World example.
+
+10
+00:00:42,280 --> 00:00:47,380
+And on the right-hand side, if it doesn't see the information it wants, it's going to say no and just
+
+11
+00:00:47,380 --> 00:00:47,830
+end.
+
+12
+00:00:48,310 --> 00:00:52,870
+If it finds the information it's looking for, then the answer is yes.
+
+13
+00:00:53,140 --> 00:00:56,530
+It's going to wait for three seconds and then it's going to say Hello World,
+
+14
+00:00:56,530 --> 00:00:57,640
+and that will be the result.
+
+15
+00:00:58,180 --> 00:00:59,470
+So, let's click on next.
+
+16
+00:01:00,730 --> 00:01:01,300
+I'm going to leave
+
+17
+00:01:01,300 --> 00:01:04,330
+all the defaults here. It's going to create its own execution role.
+
+18
+00:01:04,870 --> 00:01:08,470
+We're going to have logging off and just create the state machine.
+
+19
+00:01:09,700 --> 00:01:13,720
+Now, once it's being created, we then get the start execution.
+
+20
+00:01:14,380 --> 00:01:19,480
+In this case, we can see the input and the input here has is hello world example
+
+21
+00:01:19,750 --> 00:01:23,060
+true? And the true will be the yes result.
+
+22
+00:01:23,080 --> 00:01:29,920
+So, then it's going to process and it's going to produce a hello world message after waiting for a
+
+23
+00:01:29,920 --> 00:01:30,730
+delay period.
+
+24
+00:01:31,780 --> 00:01:34,090
+If we change that to false, then it wouldn't work.
+
+25
+00:01:34,540 --> 00:01:40,120
+So, let's leave it as it is and click on start execution. And you can see that it's happening in real
+
+26
+00:01:40,120 --> 00:01:40,480
+time.
+
+27
+00:01:40,480 --> 00:01:46,450
+So, we're waiting now for the three seconds before it actually completes this particular state machine.
+
+28
+00:01:46,960 --> 00:01:53,620
+So now, the state machine is complete. And you can see the event history information, quite detailed information
+
+29
+00:01:53,800 --> 00:01:54,790
+down at the bottom here.
+
+30
+00:01:56,430 --> 00:02:01,890
+Back up at the top, we can see the execution input and then we can see the execution output.
+
+31
+00:02:02,550 --> 00:02:04,320
+So that's a simple example.
+
+32
+00:02:04,590 --> 00:02:09,120
+Now, what we're going to do now is see how we can use a Lambda function with a state machine.
+
+33
+00:02:09,300 --> 00:02:10,949
+Now, this file is in your course
+
+34
+00:02:10,949 --> 00:02:12,700
+download in the code directory
+
+35
+00:02:12,720 --> 00:02:17,220
+Step Functions you'll find this marked down file Step Functions with Lambda.
+
+36
+00:02:18,030 --> 00:02:23,460
+So, the first thing we need to do is go over to AWS Lambda and we're going to create a function.
+
+37
+00:02:24,060 --> 00:02:25,800
+So, I'm going to copy the name of the function,
+
+38
+00:02:26,100 --> 00:02:29,820
+and in Lambda, I'm going to create function, provide the name.
+
+39
+00:02:30,270 --> 00:02:32,520
+We're going to use Node.js 12.
+
+40
+00:02:32,910 --> 00:02:37,560
+We're going to allow the creation of a new role for basic Lambda permissions
+
+41
+00:02:38,250 --> 00:02:39,870
+and we're going to create that function.
+
+42
+00:02:40,350 --> 00:02:42,390
+Now, while that's happening, let's get the code.
+
+43
+00:02:43,860 --> 00:02:49,860
+So, the code we're going to deploy is going to be this code right here. Within the function, under the
+
+44
+00:02:49,860 --> 00:02:50,940
+code section,
+
+45
+00:02:51,300 --> 00:02:53,130
+let's delete the existing code,
+
+46
+00:02:53,610 --> 00:02:56,340
+paste this new code in and click on deploy.
+
+47
+00:02:57,780 --> 00:03:00,990
+Now, I need my function ARN, so let's copy that to our clipboards.
+
+48
+00:03:01,290 --> 00:03:01,790
+Come back.
+
+49
+00:03:01,830 --> 00:03:04,680
+I'm going to pass that in right here. To see it working,
+
+50
+00:03:04,680 --> 00:03:07,170
+let's configure a test event with the following data.
+
+51
+00:03:07,830 --> 00:03:09,510
+We're going to copy this to our clipboards.
+
+52
+00:03:10,980 --> 00:03:14,670
+Come back, go to test, new test event.
+
+53
+00:03:16,230 --> 00:03:16,730
+Let's call it
+
+54
+00:03:16,740 --> 00:03:21,600
+Hello Function. Paste in this information and then test.
+
+55
+00:03:22,720 --> 00:03:24,580
+And so the result we get is Hello
+
+56
+00:03:25,030 --> 00:03:29,470
+AWS Step Functions. So that's working correctly. Now, we need to create our state machine.
+
+57
+00:03:29,980 --> 00:03:34,810
+So, we're going to go and create a state machine. And we're going to use this code here.
+
+58
+00:03:35,710 --> 00:03:39,730
+So, back in Step Functions under state machines, I'm going to create a state machine.
+
+59
+00:03:41,050 --> 00:03:44,230
+I'm going to choose the option to write your workflow in code.
+
+60
+00:03:44,980 --> 00:03:46,420
+It's going to be a standard type.
+
+61
+00:03:46,870 --> 00:03:50,590
+I'm going to delete all the code from here and paste my code in.
+
+62
+00:03:51,100 --> 00:03:54,490
+Now we need the ARN for our Lambda function.
+
+63
+00:03:55,030 --> 00:04:01,040
+So back in my file, I copy the Lambda function ARN. And let's paste that over the top here.
+
+64
+00:04:01,040 --> 00:04:04,930
+So, we remove this ARN, paste the new ARN in,
+
+65
+00:04:05,380 --> 00:04:06,700
+scroll down to the bottom,
+
+66
+00:04:06,970 --> 00:04:07,900
+choose next.
+
+67
+00:04:08,800 --> 00:04:10,180
+You can rename this if you like.
+
+68
+00:04:10,180 --> 00:04:11,950
+I'm going to leave it as my state machine.
+
+69
+00:04:12,220 --> 00:04:14,230
+It's going to create its own execution role.
+
+70
+00:04:15,040 --> 00:04:16,990
+Scroll down and create state machine.
+
+71
+00:04:17,709 --> 00:04:19,220
+That's the state machine created.
+
+72
+00:04:19,240 --> 00:04:20,980
+Now, let's start an execution.
+
+73
+00:04:21,430 --> 00:04:23,650
+And we're going to put in some JSON code here.
+
+74
+00:04:24,980 --> 00:04:27,200
+The JSON code is this code here.
+
+75
+00:04:27,560 --> 00:04:31,460
+Now, what you want to do is just change this to your name. So, I'm going to change it to Neal.
+
+76
+00:04:32,000 --> 00:04:32,840
+Copy the code.
+
+77
+00:04:33,650 --> 00:04:34,730
+Delete the input here.
+
+78
+00:04:35,180 --> 00:04:37,790
+Put our new code in and start the execution.
+
+79
+00:04:38,810 --> 00:04:41,570
+And so that should run the Lambda function, which it has.
+
+80
+00:04:41,870 --> 00:04:43,820
+And we have a successful result.
+
+81
+00:04:44,150 --> 00:04:47,480
+We can see the input that we placed and then the output should be
+
+82
+00:04:47,510 --> 00:04:48,110
+Hello, Neal.
+
+83
+00:04:48,440 --> 00:04:53,990
+So, another very simple example just to show you how you can use a state machine with AWS Lambda.
+

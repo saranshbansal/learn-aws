@@ -1,0 +1,532 @@
+1
+00:00:05,440 --> 00:00:09,151
+In this lesson you're going to learn about the structure of an API
+
+2
+00:00:09,175 --> 00:00:13,450
+including the methods, integrations and mapping templates as well as more.
+
+3
+00:00:13,940 --> 00:00:17,720
+So let's get started with what are called methods and resources.
+
+4
+00:00:18,100 --> 00:00:21,560
+Now a resource represents a path in your API.
+
+5
+00:00:22,110 --> 00:00:26,810
+So in the example, API on the right hand side here are pet store API.
+
+6
+00:00:27,240 --> 00:00:28,930
+You'll see some resources.
+
+7
+00:00:29,080 --> 00:00:31,381
+And that's where we have a path specified.
+
+8
+00:00:31,405 --> 00:00:37,050
+So a slash then slash pets then slash and then a variable for the pet ID.
+
+9
+00:00:37,740 --> 00:00:40,780
+Methods are created within resources.
+
+10
+00:00:40,920 --> 00:00:42,465
+So these are the methods.
+
+11
+00:00:42,489 --> 00:00:48,460
+You'll recognize these as HTTP methods. So Get, Options, Put,
+
+12
+00:00:48,590 --> 00:00:50,030
+and there are more as well.
+
+13
+00:00:50,240 --> 00:00:54,918
+A method represents a client-facing interface by which the client
+
+14
+00:00:54,943 --> 00:00:58,590
+caused the API to access backend resources.
+
+15
+00:00:58,690 --> 00:01:04,553
+So for example the client would issue an HTTP Get request and then the API
+
+16
+00:01:04,646 --> 00:01:10,350
+would allow that if the Get method was enabled for the path that has been called
+
+17
+00:01:10,610 --> 00:01:13,160
+and then forward that request on to the backend.
+
+18
+00:01:13,740 --> 00:01:21,260
+A method is created for a specific HTTP verb or you can use Any to allow all methods.
+
+19
+00:01:21,640 --> 00:01:25,936
+We then have methods and integration. So let's look at a published API.
+
+20
+00:01:26,143 --> 00:01:31,330
+Users connect to the published API, we then have our method request.
+
+21
+00:01:31,620 --> 00:01:35,195
+This is where we specify the methods that we want to allow.
+
+22
+00:01:35,219 --> 00:01:37,560
+So it could be one or more of these.
+
+23
+00:01:38,240 --> 00:01:42,080
+And here you can see the ARN for the Get method.
+
+24
+00:01:42,230 --> 00:01:45,180
+Next we have something called the integration request.
+
+25
+00:01:45,280 --> 00:01:50,030
+So this determines how we're actually integrating with the backend service.
+
+26
+00:01:50,150 --> 00:01:55,550
+Either HTTP, HTTP proxy, Lambda, Lambda proxy, or mock.
+
+27
+00:01:56,440 --> 00:02:01,050
+So this maps the request parameters of the method request
+
+28
+00:02:01,090 --> 00:02:04,180
+to the format that is required by the backend.
+
+29
+00:02:04,480 --> 00:02:06,980
+And then we have our backend endpoint
+
+30
+00:02:06,990 --> 00:02:09,449
+which could be something like a Lambda function,
+
+31
+00:02:09,460 --> 00:02:13,660
+HTTP endpoint, EC2 or some other AWS service.
+
+32
+00:02:13,840 --> 00:02:17,460
+After the request has been processed by the backend,
+
+33
+00:02:17,700 --> 00:02:21,890
+the integration response is called on the path back to the client.
+
+34
+00:02:22,090 --> 00:02:26,080
+Here you can either convert or pass through the response.
+
+35
+00:02:26,910 --> 00:02:30,760
+Then we have the method response which has HTTP status codes
+
+36
+00:02:30,870 --> 00:02:32,110
+and response bodies.
+
+37
+00:02:32,320 --> 00:02:34,750
+So here we are mapping the status codes,
+
+38
+00:02:34,760 --> 00:02:37,930
+headers and payload that's received from the backend
+
+39
+00:02:38,110 --> 00:02:41,320
+into a format that we can present back to the client.
+
+40
+00:02:41,570 --> 00:02:44,210
+So that's essentially the structure of an API.
+
+41
+00:02:44,440 --> 00:02:47,290
+So let's look at method requests and responses.
+
+42
+00:02:47,640 --> 00:02:52,180
+A method resource is integrated with an integration resource.
+
+43
+00:02:52,840 --> 00:02:54,910
+So firstly we have the method request.
+
+44
+00:02:55,100 --> 00:02:58,300
+This is the public interface of a REST API method
+
+45
+00:02:58,310 --> 00:03:01,940
+in API gateway that defines the parameters and body
+
+46
+00:03:02,150 --> 00:03:04,950
+that an app developer must send in requests
+
+47
+00:03:05,070 --> 00:03:08,050
+to access the backend through the API
+
+48
+00:03:08,950 --> 00:03:10,100
+Then you've got the response.
+
+49
+00:03:10,540 --> 00:03:14,270
+The public interface of a REST API that defines the status codes,
+
+50
+00:03:14,270 --> 00:03:19,330
+headers, and body models that an app developer should expect in responses
+
+51
+00:03:19,450 --> 00:03:20,560
+from the API.
+
+52
+00:03:20,940 --> 00:03:23,430
+So this is all about ensuring that in our requests
+
+53
+00:03:23,430 --> 00:03:26,400
+and our responses we all speaking the right language.
+
+54
+00:03:26,520 --> 00:03:31,670
+API methods are integrated with backend endpoints using API integrations.
+
+55
+00:03:32,240 --> 00:03:35,330
+Backend endpoints are known as integration endpoints.
+
+56
+00:03:36,040 --> 00:03:38,610
+So we have firstly the integration request.
+
+57
+00:03:39,000 --> 00:03:42,798
+This is the internal interface of a Websocket API route
+
+58
+00:03:42,823 --> 00:03:45,940
+or rest API method in API Gateway.
+
+59
+00:03:46,220 --> 00:03:50,060
+It maps the body of a route request or the parameters and body of
+
+60
+00:03:50,060 --> 00:03:53,950
+a method request to the formats that are required by your backend.
+
+61
+00:03:54,140 --> 00:03:57,850
+And then in the integration response this is the internal interface
+
+62
+00:03:58,040 --> 00:04:01,560
+of a Websocket API route or a rest API method
+
+63
+00:04:01,570 --> 00:04:04,530
+in API Gateway and it maps the status codes,
+
+64
+00:04:04,540 --> 00:04:07,750
+headers, and payload that are received in the backend to the response
+
+65
+00:04:07,950 --> 00:04:11,130
+that's required by the actual client application.
+
+66
+00:04:11,330 --> 00:04:13,300
+So let's look at the integration types.
+
+67
+00:04:13,490 --> 00:04:16,459
+You can choose various integration types according
+
+68
+00:04:16,459 --> 00:04:19,200
+to the type of integration endpoint you're working
+
+69
+00:04:19,200 --> 00:04:25,360
+with and how you want to process and pass data to and from the integration endpoint.
+
+70
+00:04:25,940 --> 00:04:28,300
+For a Lambda function you've got the options
+
+71
+00:04:28,300 --> 00:04:32,860
+of a Lambda proxy integration or a Lambda custom integration.
+
+72
+00:04:33,440 --> 00:04:35,950
+For an HTTP endpoint you can have the
+
+73
+00:04:35,960 --> 00:04:41,290
+HTTP proxy integration or the HTTP custom integration.
+
+74
+00:04:41,620 --> 00:04:47,150
+For an AWS service action, you only have the option of the non-proxy type.
+
+75
+00:04:47,840 --> 00:04:53,180
+API Gateway also supports the mock integration where API gateway serves
+
+76
+00:04:53,180 --> 00:04:56,590
+as an integration endpoint to respond to a method request.
+
+77
+00:04:57,040 --> 00:05:01,140
+So let's have a look at the various integration types in a bit more detail.
+
+78
+00:05:01,410 --> 00:05:03,860
+Firstly, here we have the AWS option.
+
+79
+00:05:04,120 --> 00:05:08,580
+This integration let's an API expose AWS service actions.
+
+80
+00:05:08,740 --> 00:05:11,950
+You need to configure the integration request and response
+
+81
+00:05:12,160 --> 00:05:15,510
+and set up data mapping from the method request to the
+
+82
+00:05:15,510 --> 00:05:19,960
+integration request and the integration response to the method response.
+
+83
+00:05:20,340 --> 00:05:22,650
+Next we have AWS proxy.
+
+84
+00:05:23,240 --> 00:05:27,110
+This integration relies on direct interactions between
+
+85
+00:05:27,110 --> 00:05:29,590
+the client and the integrated Lambda function.
+
+86
+00:05:29,590 --> 00:05:33,050
+So this is actually a Lambda proxy type. AWS proxy.
+
+87
+00:05:33,440 --> 00:05:38,100
+With this type of integration that's also known as Lambda proxy integration
+
+88
+00:05:38,150 --> 00:05:42,170
+you don't need to set the integration request or the integration response.
+
+89
+00:05:42,740 --> 00:05:46,310
+API Gateway passes the incoming request from the client
+
+90
+00:05:46,400 --> 00:05:48,980
+as the input to the backend Lambda function.
+
+91
+00:05:49,440 --> 00:05:52,510
+The integrated Lambda function takes the input of this
+
+92
+00:05:52,510 --> 00:05:55,880
+format and passes the input from all available sources
+
+93
+00:05:56,060 --> 00:05:59,660
+including information such as in the request headers,
+
+94
+00:05:59,800 --> 00:06:04,350
+the URL path variables, query string parameters, and the applicable body.
+
+95
+00:06:04,840 --> 00:06:08,460
+The function returns to result following this output format.
+
+96
+00:06:09,440 --> 00:06:12,860
+So here is a diagram showing what this looks like.
+
+97
+00:06:13,240 --> 00:06:18,160
+Here we actually have the Lambda proxy specified as the integration request.
+
+98
+00:06:18,840 --> 00:06:21,150
+Next we have HTTP.
+
+99
+00:06:21,540 --> 00:06:27,150
+This type of integration let's an API expose HTTP endpoints in the backend.
+
+100
+00:06:27,840 --> 00:06:33,460
+With the HTTP integration also known as the HTTP custom integration,
+
+101
+00:06:33,550 --> 00:06:38,250
+you need to configure both the integration request and the integration response.
+
+102
+00:06:38,940 --> 00:06:40,890
+And you have to set up the data mappings
+
+103
+00:06:40,890 --> 00:06:45,430
+from the method request to the integration request and from the integration response
+
+104
+00:06:45,600 --> 00:06:47,160
+to the method response.
+
+105
+00:06:47,740 --> 00:06:53,160
+And this is what this might look like. We've got HTTP or HTTP_proxy.
+
+106
+00:06:53,830 --> 00:06:55,190
+Lastly we have mock.
+
+107
+00:06:55,490 --> 00:06:58,540
+This let's API gateway return a response without
+
+108
+00:06:58,540 --> 00:07:00,920
+sending the request further to the backend.
+
+109
+00:07:01,270 --> 00:07:03,500
+It's used for testing integration set up
+
+110
+00:07:03,500 --> 00:07:06,220
+without incurring charges for using the backend
+
+111
+00:07:06,500 --> 00:07:09,600
+and to enable collaborative development of an API.
+
+112
+00:07:10,240 --> 00:07:14,720
+Teams can also isolate their development efforts by setting up simulations
+
+113
+00:07:14,720 --> 00:07:18,910
+of API components owned by other teams using mock integrations.
+
+114
+00:07:19,190 --> 00:07:23,800
+So more of a testing use case rather than any kind of production implementation.
+
+115
+00:07:24,440 --> 00:07:28,150
+Next, let's look in more detail at what are called mapping templates.
+
+116
+00:07:28,740 --> 00:07:31,923
+An API's method request can take a payload
+
+117
+00:07:31,948 --> 00:07:36,250
+in a different format from the corresponding integration request payload
+
+118
+00:07:36,460 --> 00:07:38,250
+as required in the backend.
+
+119
+00:07:38,840 --> 00:07:42,240
+Also the backend may return an integration response
+
+120
+00:07:42,390 --> 00:07:45,030
+in a different format from the method
+
+121
+00:07:45,030 --> 00:07:48,350
+response payload that's expected by the frontend.
+
+122
+00:07:48,640 --> 00:07:51,200
+Mapping templates come in really handy here.
+
+123
+00:07:51,300 --> 00:07:53,840
+They map the payload from the method request
+
+124
+00:07:53,970 --> 00:07:58,260
+to the corresponding integration request and the integration response
+
+125
+00:07:58,400 --> 00:08:00,750
+to the corresponding method response.
+
+126
+00:08:01,240 --> 00:08:03,870
+Mapping templates are scripts based in what's
+
+127
+00:08:03,870 --> 00:08:06,960
+called the velocity template language or VTL
+
+128
+00:08:07,120 --> 00:08:11,350
+and they're applied to the payload using JSON path expressions.
+
+129
+00:08:11,740 --> 00:08:15,360
+So looking at an example here of the structure of an API,
+
+130
+00:08:15,710 --> 00:08:19,450
+let's say we need to convert some JSON XML.
+
+131
+00:08:19,650 --> 00:08:22,951
+And we can use code to do that and we specify
+
+132
+00:08:22,976 --> 00:08:25,560
+what we're going to do using a mapping template.
+
+133
+00:08:26,046 --> 00:08:28,560
+And that's it for this lesson. I will see you in the next one.
+

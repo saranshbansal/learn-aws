@@ -1,0 +1,496 @@
+1
+00:00:05,140 --> 00:00:09,270
+Hi guys and welcome to part two of the U C S lab in
+
+2
+00:00:09,270 --> 00:00:10,570
+this lesson we're going to create the
+
+3
+00:00:10,570 --> 00:00:13,750
+task definition and the application load balancer.
+
+4
+00:00:13,760 --> 00:00:16,930
+We're really building the building blocks for our cluster
+
+5
+00:00:16,930 --> 00:00:18,960
+and service that will create in the next lesson.
+
+6
+00:00:19,540 --> 00:00:23,770
+So in the CS will create a task definition. We're gonna do that via the command line.
+
+7
+00:00:24,070 --> 00:00:26,860
+We're going to then create an application load balancer.
+
+8
+00:00:26,940 --> 00:00:31,750
+It's gonna have to listeners the primary on Port 80 for our active application
+
+9
+00:00:32,140 --> 00:00:35,720
+and then a secondary testing listener on port 80 80.
+
+10
+00:00:35,800 --> 00:00:39,490
+And you'll see when we get to the next section
+
+11
+00:00:39,500 --> 00:00:42,640
+of the course where we finish off this lab exercise,
+
+12
+00:00:42,640 --> 00:00:45,270
+we add in a codepipeline and you'll see how
+
+13
+00:00:45,270 --> 00:00:48,940
+we could use codedeploy to automatically swap the ports
+
+14
+00:00:49,170 --> 00:00:53,760
+the listeners rather and also the target groups when we do a blue green deployment.
+
+15
+00:00:54,240 --> 00:00:56,160
+So for now this is what we're going to build out.
+
+16
+00:00:57,640 --> 00:01:01,280
+Now, back in the file, you will see that we're on part two now.
+
+17
+00:01:01,280 --> 00:01:02,680
+So we've got some instructions,
+
+18
+00:01:02,680 --> 00:01:07,770
+you need to change to a command line on your computer with pcs permission.
+
+19
+00:01:07,770 --> 00:01:13,100
+So just run AWS configure, make sure you've got access keys configured for that,
+
+20
+00:01:13,100 --> 00:01:14,650
+give you permissions to e c s
+
+21
+00:01:15,040 --> 00:01:19,660
+and then we're gonna change to the directory with task def dot Jason.
+
+22
+00:01:19,660 --> 00:01:20,650
+You'll see that in a moment.
+
+23
+00:01:21,140 --> 00:01:23,620
+Now, before we actually do any of this,
+
+24
+00:01:23,920 --> 00:01:26,000
+we need to update this file.
+
+25
+00:01:26,540 --> 00:01:27,840
+So this is the file,
+
+26
+00:01:28,010 --> 00:01:31,050
+you'll find it of course in your code directory amazon ec s
+
+27
+00:01:31,840 --> 00:01:34,330
+and you'll see there's an execution role and that's
+
+28
+00:01:34,330 --> 00:01:36,530
+not set up correctly at this point in time.
+
+29
+00:01:36,530 --> 00:01:38,720
+So I don't have my account number in there
+
+30
+00:01:38,830 --> 00:01:41,760
+but this role should exist. If it doesn't in your account
+
+31
+00:01:42,140 --> 00:01:44,830
+then you can just search on google for creating
+
+32
+00:01:44,830 --> 00:01:47,740
+the tcs task execution role copy and paste that.
+
+33
+00:01:47,750 --> 00:01:49,470
+You will find the instructions.
+
+34
+00:01:49,480 --> 00:01:53,640
+It's very simple but you should have it because we've already been using E C.
+
+35
+00:01:53,640 --> 00:01:55,060
+S and it creates it for us.
+
+36
+00:01:56,040 --> 00:01:59,210
+So what I'm gonna do is just grab my account number and
+
+37
+00:01:59,210 --> 00:02:02,660
+put it into here and then we should be ready to go.
+
+38
+00:02:03,040 --> 00:02:04,780
+So I've copied my account number in.
+
+39
+00:02:04,820 --> 00:02:09,620
+You'll see that the task definition name is sample dash website. It's an engine.
+
+40
+00:02:09,620 --> 00:02:13,310
+X image. It's going to use poor 80 because it's a web service.
+
+41
+00:02:13,370 --> 00:02:15,760
+It's gonna have fargate capabilities,
+
+42
+00:02:16,140 --> 00:02:18,340
+the AWS VPc network mode
+
+43
+00:02:18,640 --> 00:02:22,350
+and then 256 CPU and 5 12 of memory.
+
+44
+00:02:22,840 --> 00:02:25,620
+So I'm happy with that. I'm gonna save my file
+
+45
+00:02:26,340 --> 00:02:30,590
+and back in the instructions here. I'm gonna copy this command.
+
+46
+00:02:30,600 --> 00:02:33,720
+So this is for registering the task definition
+
+47
+00:02:33,960 --> 00:02:35,760
+and let's head over to a command line.
+
+48
+00:02:36,840 --> 00:02:41,970
+So on the command line you should be in your pcs directory that's in your code,
+
+49
+00:02:41,980 --> 00:02:44,460
+download wherever you put that on your computer
+
+50
+00:02:45,240 --> 00:02:50,010
+and what you should find in here is you have the task def dot Jason file.
+
+51
+00:02:50,010 --> 00:02:52,140
+So if I just open that file
+
+52
+00:02:52,260 --> 00:02:54,380
+we can see the file we just
+
+53
+00:02:54,530 --> 00:02:55,260
+configured.
+
+54
+00:02:55,640 --> 00:02:58,000
+So let's clear the screen come down to the middle
+
+55
+00:02:58,240 --> 00:03:00,860
+and I'm gonna try and register my task definition.
+
+56
+00:03:01,340 --> 00:03:05,060
+That looks good. It has registered the task definition for me.
+
+57
+00:03:05,640 --> 00:03:07,860
+So let's go back over to our file
+
+58
+00:03:08,440 --> 00:03:10,070
+and see what we need to do next.
+
+59
+00:03:10,370 --> 00:03:13,360
+So now we're going to create the application load balancer,
+
+60
+00:03:13,940 --> 00:03:16,240
+you can see the various settings that we need to
+
+61
+00:03:16,240 --> 00:03:19,070
+create here so you can refer back to this.
+
+62
+00:03:19,080 --> 00:03:23,660
+I'm going to go to the console now and configure according to these settings.
+
+63
+00:03:24,140 --> 00:03:26,910
+So in the console, in the Ec two management console,
+
+64
+00:03:26,910 --> 00:03:28,910
+I'm going to go down to low balances.
+
+65
+00:03:29,020 --> 00:03:32,060
+Let's click on load balancer, create a load balancer
+
+66
+00:03:32,540 --> 00:03:36,050
+and click on create under application load balancer.
+
+67
+00:03:36,640 --> 00:03:37,670
+Let's call this
+
+68
+00:03:37,860 --> 00:03:39,510
+my E C S dash
+
+69
+00:03:39,670 --> 00:03:40,560
+A or B.
+
+70
+00:03:41,040 --> 00:03:42,950
+It's going to be internet facing.
+
+71
+00:03:43,440 --> 00:03:45,960
+It's gonna use IPV four,
+
+72
+00:03:46,540 --> 00:03:48,850
+it's going to be in the default VPc.
+
+73
+00:03:49,240 --> 00:03:55,180
+We can select the subnets. So what I would do is choose two subnets that are public.
+
+74
+00:03:55,180 --> 00:03:58,440
+So I'm just going to choose us East one a and one b.
+
+75
+00:03:58,480 --> 00:04:02,050
+We can then scroll down under security groups.
+
+76
+00:04:02,740 --> 00:04:06,700
+You can choose a security group that's in your default VPc.
+
+77
+00:04:06,700 --> 00:04:09,620
+That's going to give you the correct ports.
+
+78
+00:04:09,740 --> 00:04:13,110
+I'm gonna choose my web access security group and we'll go and check that
+
+79
+00:04:13,110 --> 00:04:16,560
+out in a moment and make sure that it has the relevant ports open
+
+80
+00:04:18,140 --> 00:04:19,910
+next for listeners.
+
+81
+00:04:20,149 --> 00:04:22,850
+We want to add an additional listener.
+
+82
+00:04:23,240 --> 00:04:26,360
+But first we've got to create our target group for this one.
+
+83
+00:04:26,840 --> 00:04:28,250
+So it's great target group.
+
+84
+00:04:28,640 --> 00:04:30,560
+We're going to choose iP addresses,
+
+85
+00:04:31,140 --> 00:04:34,560
+The target group name. I'm going to paste in Target Group one.
+
+86
+00:04:35,120 --> 00:04:39,060
+It's going to listen on ports 80. So the containers are on port 80
+
+87
+00:04:39,640 --> 00:04:42,250
+it's going to be in the same VPc. Of course
+
+88
+00:04:42,840 --> 00:04:44,400
+we leave the remaining defaults
+
+89
+00:04:45,990 --> 00:04:47,810
+and we can go down, click on next,
+
+90
+00:04:48,540 --> 00:04:49,670
+scroll down again
+
+91
+00:04:49,790 --> 00:04:51,360
+and create target group.
+
+92
+00:04:51,840 --> 00:04:56,800
+So that's that created. Let's go back to here. We should be able to refresh.
+
+93
+00:04:56,810 --> 00:04:58,650
+We should be able to find our target group.
+
+94
+00:04:59,040 --> 00:05:00,320
+Let's add another listener.
+
+95
+00:05:00,320 --> 00:05:04,350
+Now it's also going to be HTTP but of course it needs to be a different ports.
+
+96
+00:05:04,350 --> 00:05:06,260
+So this will be 80, 80
+
+97
+00:05:06,640 --> 00:05:09,460
+and we're going to create our second target group
+
+98
+00:05:10,330 --> 00:05:12,160
+safe. Right. Second target group,
+
+99
+00:05:12,540 --> 00:05:15,200
+what we're gonna do is also choose I P addresses.
+
+100
+00:05:16,040 --> 00:05:19,060
+We're going to call it target group-2.
+
+101
+00:05:19,980 --> 00:05:22,200
+Support will be 80, 80
+
+102
+00:05:22,640 --> 00:05:25,850
+and the remaining settings are going to be left
+
+103
+00:05:26,030 --> 00:05:26,960
+as defaults.
+
+104
+00:05:27,840 --> 00:05:29,260
+Let's create that target group.
+
+105
+00:05:29,640 --> 00:05:31,410
+So we now have our two target groups.
+
+106
+00:05:31,410 --> 00:05:35,760
+Let's go back to the wizard where we're adding our second listener,
+
+107
+00:05:36,640 --> 00:05:40,060
+make sure we refresh and we should find target group too.
+
+108
+00:05:40,640 --> 00:05:41,660
+So that's set up
+
+109
+00:05:42,340 --> 00:05:47,560
+and now we can simply scroll down to the bottom and create our load balancer
+
+110
+00:05:48,240 --> 00:05:53,130
+and that's been created for us. So we now have our application load balancer.
+
+111
+00:05:53,150 --> 00:05:56,640
+You should see your listener configuration like this.
+
+112
+00:05:56,640 --> 00:06:01,980
+So you've got the http port 80 listener going to target group one.
+
+113
+00:06:01,980 --> 00:06:05,510
+So it's forwarding any connections to target Group one then 80
+
+114
+00:06:05,510 --> 00:06:09,150
+80 is the second listener going to target group too.
+
+115
+00:06:09,540 --> 00:06:12,240
+So that's the way that should look make sure
+
+116
+00:06:12,240 --> 00:06:14,310
+that your target groups are set up correctly.
+
+117
+00:06:14,340 --> 00:06:18,750
+So we've added using the I. P. Target type. That's very important
+
+118
+00:06:19,230 --> 00:06:21,310
+And that should be the same for both.
+
+119
+00:06:21,420 --> 00:06:24,660
+And of course the poor is 8080 on target group too
+
+120
+00:06:25,040 --> 00:06:27,460
+And 80 on Target Group one.
+
+121
+00:06:27,840 --> 00:06:31,040
+So if you've got all those settings then that's it for this lesson.
+
+122
+00:06:31,050 --> 00:06:36,050
+And what we're going to do in the next lesson is continue by creating our
+
+123
+00:06:36,050 --> 00:06:38,950
+Fargate cluster and service that's going to use
+
+124
+00:06:38,950 --> 00:06:41,060
+this load balancer and our task definition.
+

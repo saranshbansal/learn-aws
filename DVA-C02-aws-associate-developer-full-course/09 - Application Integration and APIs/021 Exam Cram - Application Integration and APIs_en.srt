@@ -1,0 +1,368 @@
+1
+00:00:05,340 --> 00:00:09,740
+Welcome to the exam cram for application integration and A P. I. S.
+
+2
+00:00:09,900 --> 00:00:11,060
+So let's get into it
+
+3
+00:00:11,540 --> 00:00:15,700
+amazon SQs is pull based and it's not push based like S. And S. S.
+
+4
+00:00:16,239 --> 00:00:20,560
+Messages are up to 256 kilobytes in size,
+
+5
+00:00:20,860 --> 00:00:26,110
+larger messages can be sent using the SQs extended client library. For java
+
+6
+00:00:26,610 --> 00:00:31,360
+Messages can be kept in the queue from one minute up to 14 days.
+
+7
+00:00:31,840 --> 00:00:35,120
+The default retention period is four days.
+
+8
+00:00:35,540 --> 00:00:40,160
+SqS guarantees that your messages will be processed at least once.
+
+9
+00:00:40,640 --> 00:00:45,280
+A standard Q. Offers best effort ordering and at least once delivery
+
+10
+00:00:46,130 --> 00:00:50,460
+folk use on the other hand offer first in first out ordering
+
+11
+00:00:50,610 --> 00:00:52,560
+and exactly once processing
+
+12
+00:00:53,620 --> 00:00:57,250
+the main task of a dead letter queue is handling message failure.
+
+13
+00:00:57,440 --> 00:00:59,390
+A dead letter queue lets you set aside
+
+14
+00:00:59,390 --> 00:01:02,450
+and isolate messages that can't be processed correctly.
+
+15
+00:01:02,940 --> 00:01:07,100
+It's not a Q. Type, it's a standard or a fee fo Q. That's been specified
+
+16
+00:01:07,300 --> 00:01:09,060
+as being a dead letter queue,
+
+17
+00:01:09,540 --> 00:01:12,880
+messages are moved to the dead letter queue when the received
+
+18
+00:01:12,880 --> 00:01:16,860
+count for a message exceeds the max received count for a Q
+
+19
+00:01:17,420 --> 00:01:20,640
+delay queues, added delay to processing of the messages.
+
+20
+00:01:21,020 --> 00:01:23,940
+The visibility time out is the amount of time a message
+
+21
+00:01:23,940 --> 00:01:27,660
+is invisible in the queue after a reader picks it up.
+
+22
+00:01:28,040 --> 00:01:30,280
+If the job's not processed within the visibility.
+
+23
+00:01:30,280 --> 00:01:32,630
+Time out the message will become visible again
+
+24
+00:01:32,730 --> 00:01:34,770
+and another reader can then process it
+
+25
+00:01:35,100 --> 00:01:36,830
+SQs. Long polling
+
+26
+00:01:37,010 --> 00:01:42,350
+is a way to retrieve messages from sqs queues and it waits for messages to arrive.
+
+27
+00:01:42,420 --> 00:01:47,150
+So as you're performing the aPI action, it stays open until the message arrives.
+
+28
+00:01:47,340 --> 00:01:51,470
+Short polling, on the other hand, returns immediately. Even if the queue is empty.
+
+29
+00:01:52,040 --> 00:01:54,820
+Long polling can lower costs because
+
+30
+00:01:54,920 --> 00:01:56,820
+fewer api actions.
+
+31
+00:01:57,180 --> 00:02:01,360
+Long polling can be enabled at the Q level or at the aPI level.
+
+32
+00:02:01,370 --> 00:02:04,020
+Using the wait time seconds parameter
+
+33
+00:02:04,540 --> 00:02:07,960
+long polling is in effect when the received message wait time
+
+34
+00:02:08,070 --> 00:02:13,090
+is a value greater than zero seconds up to a maximum of 20.
+
+35
+00:02:13,320 --> 00:02:16,210
+You could use s free with the SQs extended
+
+36
+00:02:16,210 --> 00:02:19,450
+client library for java to manage SQS messages.
+
+37
+00:02:19,450 --> 00:02:22,270
+Remember the ones that are bigger than 2 56 kilobytes.
+
+38
+00:02:22,500 --> 00:02:26,930
+So that's useful for storing and consuming messages that can be up to 2GB
+
+39
+00:02:27,040 --> 00:02:27,850
+in size.
+
+40
+00:02:29,040 --> 00:02:31,200
+SNS is a highly available durable,
+
+41
+00:02:31,200 --> 00:02:34,700
+secure and fully managed pub sub messaging service.
+
+42
+00:02:34,700 --> 00:02:36,450
+So publisher subscriber
+
+43
+00:02:36,840 --> 00:02:41,960
+sns provides topics for high free put, push based many to many messaging,
+
+44
+00:02:42,340 --> 00:02:45,660
+multiple recipients can be grouped using a topic.
+
+45
+00:02:46,040 --> 00:02:48,990
+You can subscribe one or more sqs queues
+
+46
+00:02:49,130 --> 00:02:50,450
+to an sns. Topic.
+
+47
+00:02:51,040 --> 00:02:54,330
+Step functions is used to build distributed applications
+
+48
+00:02:54,330 --> 00:02:56,840
+as a series of steps in a visual workflow
+
+49
+00:02:57,040 --> 00:02:59,000
+and you can quickly build and run state
+
+50
+00:02:59,000 --> 00:03:02,350
+machines to execute the steps of your application.
+
+51
+00:03:03,320 --> 00:03:07,340
+Event bridge was formerly known as amazon cloudwatch events.
+
+52
+00:03:07,610 --> 00:03:09,420
+It's a serverless event bus.
+
+53
+00:03:09,590 --> 00:03:12,780
+It's used to build event driven applications.
+
+54
+00:03:13,210 --> 00:03:17,910
+Event sources can be aWS services or third party applications
+
+55
+00:03:18,340 --> 00:03:22,590
+rules are run based on events and routed to targets.
+
+56
+00:03:23,140 --> 00:03:25,180
+Moving on to api Gateway.
+
+57
+00:03:25,420 --> 00:03:27,620
+It supports rest A P I. S.
+
+58
+00:03:27,760 --> 00:03:30,050
+They support Oh I D C and O of two,
+
+59
+00:03:30,050 --> 00:03:34,970
+authorization and come with built in support for cause and automatic deployments.
+
+60
+00:03:35,440 --> 00:03:37,340
+Also H T T P A P I s
+
+61
+00:03:37,340 --> 00:03:41,970
+designed for low latency cost effective integrations with AWS services
+
+62
+00:03:42,110 --> 00:03:43,190
+such as lambda
+
+63
+00:03:43,320 --> 00:03:45,280
+and also http endpoints.
+
+64
+00:03:45,840 --> 00:03:47,900
+We then have Websocket API s.
+
+65
+00:03:48,540 --> 00:03:52,200
+These are deployed as a state full front end for an AWS service
+
+66
+00:03:52,310 --> 00:03:55,950
+such as lambda or dynamo DB or for an http endpoint
+
+67
+00:03:56,440 --> 00:04:01,680
+Rest Apis. And http API support authorizes for AWS lander,
+
+68
+00:04:01,850 --> 00:04:03,760
+I am and Cognito
+
+69
+00:04:04,240 --> 00:04:08,990
+and Websocket API support I am authorization and lambda authorizes
+
+70
+00:04:09,350 --> 00:04:12,410
+an edge optimized API endpoint is best
+
+71
+00:04:12,550 --> 00:04:14,970
+for geographically distributed clients.
+
+72
+00:04:15,300 --> 00:04:19,459
+API requests are routed to the nearest cloudfront point of presence.
+
+73
+00:04:19,829 --> 00:04:23,950
+A regional API endpoint is intended for clients in the same region
+
+74
+00:04:24,320 --> 00:04:28,160
+that will reduce connection overhead for connections that come from that region.
+
+75
+00:04:28,940 --> 00:04:32,820
+Private rest API's can only be accessed from within the VPc
+
+76
+00:04:32,930 --> 00:04:35,660
+using an interface. VPc. Endpoint.
+
+77
+00:04:36,440 --> 00:04:39,160
+A resource represents a path in your A P I
+
+78
+00:04:39,540 --> 00:04:42,180
+and methods are created within resources.
+
+79
+00:04:42,580 --> 00:04:46,390
+A method Resources integrated with an integration. Resource
+
+80
+00:04:47,440 --> 00:04:52,150
+deployments are a snapshot of the API's. Resources and methods,
+
+81
+00:04:52,660 --> 00:04:56,060
+deployments must be created and associated with a stage
+
+82
+00:04:56,180 --> 00:04:58,190
+for anyone to access. The A P I
+
+83
+00:04:58,940 --> 00:05:04,350
+A stage is a logical reference to a life cycle, state of your rest or websocket api
+
+84
+00:05:04,650 --> 00:05:07,550
+such as Deb or prod or B- two or B- two.
+
+85
+00:05:08,340 --> 00:05:11,690
+You can add cash into API calls by provisioning and
+
+86
+00:05:11,700 --> 00:05:15,510
+API Gateway cash and you need to specify its size
+
+87
+00:05:15,670 --> 00:05:16,680
+in gigabytes
+
+88
+00:05:16,870 --> 00:05:23,200
+caches are defined per stage. API Gateway sets a limit on a steady state rate
+
+89
+00:05:23,410 --> 00:05:27,860
+and a burst of request submissions against all a p i. S in your account.
+
+90
+00:05:28,840 --> 00:05:33,080
+It can also apply service side throttling limits and per client throttling limits.
+
+91
+00:05:33,430 --> 00:05:38,260
+They're implemented using aPI keys associated with a usage policy.
+
+92
+00:05:38,740 --> 00:05:41,350
+That's it for this exam, cram see you in the next lesson.
+

@@ -1,0 +1,128 @@
+1
+00:00:05,070 --> 00:00:11,010
+With Amazon ECS, we can distribute incoming connections using a load balancer.
+
+2
+00:00:11,340 --> 00:00:16,410
+Now, the Application Load Balancer specifically has what we call container awareness.
+
+3
+00:00:16,650 --> 00:00:19,080
+And in this lesson, I want to teach you what that means.
+
+4
+00:00:19,170 --> 00:00:25,230
+So, in this case, we have multiple availability zones with private and public subnets. In the private
+
+5
+00:00:25,230 --> 00:00:27,750
+subnets I've got two container instances.
+
+6
+00:00:28,140 --> 00:00:35,160
+So, each of these is an ECS container instance, which is essentially an Amazon EC2 instance.
+
+7
+00:00:36,580 --> 00:00:44,560
+On top of it, we have two ECS services, and each service is running the Nginx and Apache containers.
+
+8
+00:00:45,100 --> 00:00:51,550
+So, as you can see, Nginx and Apache are both web services and they both run on port 80.
+
+9
+00:00:51,940 --> 00:00:57,370
+So, we have multiple containers on each container instance running on port 80.
+
+10
+00:00:57,880 --> 00:00:58,720
+Now that's okay.
+
+11
+00:00:59,290 --> 00:01:06,220
+But from a host networking perspective, the actual ECS container instance can only receive connections
+
+12
+00:01:06,220 --> 00:01:10,120
+coming in on port 80 once. You can't have multiple port 80s.
+
+13
+00:01:10,870 --> 00:01:16,240
+So what happens when an incoming connection on port 80 reaches the container instance?
+
+14
+00:01:16,570 --> 00:01:19,690
+How does it know where to forward that connection to?
+
+15
+00:01:19,870 --> 00:01:27,340
+Well, what we have is host ports and the host ports are unique. So, each task is running a web service
+
+16
+00:01:27,340 --> 00:01:28,270
+on port 80.
+
+17
+00:01:28,720 --> 00:01:35,590
+But then we have a dynamic port allocated on the host. And the host knows that any connections coming
+
+18
+00:01:35,590 --> 00:01:39,670
+in on this port should be forwarded to this specific task.
+
+19
+00:01:39,790 --> 00:01:41,830
+Now with an Application Load Balancer,
+
+20
+00:01:42,070 --> 00:01:48,220
+it is actually aware of this, so it's able to communicate with ECS and it knows about these host ports.
+
+21
+00:01:48,580 --> 00:01:54,730
+So it's not just going to try and forward to port 80, it's going to forward connections to the various
+
+22
+00:01:54,730 --> 00:02:01,600
+host ports. So, we can have a single listener on port 80 and all connections are coming in on port 80.
+
+23
+00:02:02,020 --> 00:02:04,750
+But then, they're getting distributed to the host ports.
+
+24
+00:02:05,110 --> 00:02:11,290
+And then when they come in on a specific host port, the container instance knows which container it
+
+25
+00:02:11,290 --> 00:02:13,280
+should actually forward that connection on to.
+
+26
+00:02:13,690 --> 00:02:20,410
+Now, it's worth noting that if we have our containers running in a private subnet, we should have a
+
+27
+00:02:20,410 --> 00:02:26,470
+NAT gateway in a public subnet and an entry in the route table for the private subnet, for any
+
+28
+00:02:26,470 --> 00:02:28,900
+internet access that those containers might need.
+
+29
+00:02:28,930 --> 00:02:30,550
+So that does pop up in the exam.
+
+30
+00:02:30,850 --> 00:02:35,710
+Sometimes you might need to download some code or connect to an internet-based API service.
+
+31
+00:02:35,980 --> 00:02:38,320
+So, for that, you will need a NAT gateway.
+
+32
+00:02:38,650 --> 00:02:42,460
+So that's how container awareness works with an Application Load Balancer.
+

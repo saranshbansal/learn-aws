@@ -1,0 +1,256 @@
+1
+00:00:05,040 --> 00:00:09,140
+In this lesson, I'm going to cover some useful API actions with
+
+2
+00:00:09,140 --> 00:00:13,000
+SQS and also the extended client library for Java.
+
+3
+00:00:13,010 --> 00:00:15,630
+So let's look at some useful API actions.
+
+4
+00:00:15,630 --> 00:00:18,150
+These are ones that are very good to know for the exam.
+
+5
+00:00:18,540 --> 00:00:21,320
+Firstly, we've got change message visibility.
+
+6
+00:00:21,490 --> 00:00:26,820
+That changes the visibility timeout of a specified message in a queue to a new value.
+
+7
+00:00:27,200 --> 00:00:31,929
+The default is 30 seconds, minimum is zero, and the maximum is 12 hours
+
+8
+00:00:31,954 --> 00:00:35,300
+And we learned about the visibility timeout in a previous lesson.
+
+9
+00:00:36,140 --> 00:00:40,440
+We've then got Get Queue Attributes and Set Queue Attributes.
+
+10
+00:00:40,740 --> 00:00:44,380
+These get or set the attributes for the specified queue.
+
+11
+00:00:44,520 --> 00:00:46,410
+And there are lots of possible values and it's
+
+12
+00:00:46,410 --> 00:00:49,740
+recommended that you view them in the API reference.
+
+13
+00:00:49,740 --> 00:00:53,790
+I've provided a link at the end of this lesson and it's attached to the lesson as well.
+
+14
+00:00:53,800 --> 00:00:57,398
+Key attributes to know for the exam are, the delay seconds.
+
+15
+00:00:57,422 --> 00:00:59,560
+That configures a delay queue.
+
+16
+00:00:59,940 --> 00:01:04,379
+Zero seconds to 900 seconds with a default of zero seconds.
+
+17
+00:01:04,840 --> 00:01:08,360
+We've then got the receive message wait time seconds.
+
+18
+00:01:08,610 --> 00:01:11,960
+That sets the short or long polling configuration.
+
+19
+00:01:12,177 --> 00:01:16,797
+Again at zero seconds as a minimum and this one's up to 20 seconds.
+
+20
+00:01:16,920 --> 00:01:18,490
+The default is also zero.
+
+21
+00:01:18,660 --> 00:01:21,010
+We've then got the visibility timeout.
+
+22
+00:01:21,140 --> 00:01:28,310
+This is the visibility timeout for a queue from 0-43,200 seconds or 12 hours
+
+23
+00:01:28,440 --> 00:01:30,520
+with the default being 30 seconds.
+
+24
+00:01:30,810 --> 00:01:33,060
+Next we have the receive message.
+
+25
+00:01:33,400 --> 00:01:38,100
+This retrieves one or more messages up to 10 from the specified queue.
+
+26
+00:01:38,740 --> 00:01:42,984
+Using the wait time seconds parameter will enable long polling support
+
+27
+00:01:43,009 --> 00:01:44,530
+when you want to receive a message.
+
+28
+00:01:44,640 --> 00:01:46,150
+We then have send message.
+
+29
+00:01:46,540 --> 00:01:51,760
+With send message, you can specify the delay seconds parameter to delay the message.
+
+30
+00:01:52,340 --> 00:01:57,680
+The message deduplication ID parameter adds the deduplication ID for FIFO queues.
+
+31
+00:01:58,140 --> 00:02:02,180
+And the group ID parameter adds the group message ID
+
+32
+00:02:02,540 --> 00:02:05,060
+and that's also applicable to FIFO queues.
+
+33
+00:02:05,440 --> 00:02:07,371
+Now, those are just a few examples.
+
+34
+00:02:07,395 --> 00:02:10,256
+As I mentioned, attached to this lesson is a link.
+
+35
+00:02:10,280 --> 00:02:12,790
+I recommend you just have a basic understanding
+
+36
+00:02:12,800 --> 00:02:15,090
+of the API actions that are available.
+
+37
+00:02:15,450 --> 00:02:19,000
+Now let's look at the extended client library for Java.
+
+38
+00:02:19,440 --> 00:02:22,285
+So what is this? Well, let's have a look at a diagram.
+
+39
+00:02:22,309 --> 00:02:24,930
+We've got a producer, a queue, and a consumer.
+
+40
+00:02:25,220 --> 00:02:27,060
+We've also got an S3 bucket.
+
+41
+00:02:27,440 --> 00:02:30,560
+Now, the producer wants to put a message on to the queue.
+
+42
+00:02:31,140 --> 00:02:32,160
+And it does so.
+
+43
+00:02:32,540 --> 00:02:36,810
+But the producer is also using the SQs extended client library for
+
+44
+00:02:36,810 --> 00:02:41,560
+Java to send a message with a reference to an S3 object.
+
+45
+00:02:42,040 --> 00:02:43,210
+Now why does it do that?
+
+46
+00:02:43,210 --> 00:02:48,470
+Well, because the object is too big to be included in the message in the queue.
+
+47
+00:02:48,480 --> 00:02:52,580
+Remember the limit is 256 kilobytes per message.
+
+48
+00:02:52,590 --> 00:02:58,060
+So the message is actually referencing the large object in S3.
+
+49
+00:02:58,650 --> 00:03:01,211
+The consumer now receives the message
+
+50
+00:03:01,235 --> 00:03:04,430
+and it can then find the reference to the S3 object
+
+51
+00:03:04,610 --> 00:03:06,580
+and then process the objects as well.
+
+52
+00:03:06,910 --> 00:03:12,420
+So remember maximum message size is 256 kilobytes in SQS.
+
+53
+00:03:12,840 --> 00:03:17,818
+You would then use the SQS extended client library for Java to manage
+
+54
+00:03:17,842 --> 00:03:22,160
+Amazon SQS messages to reference them in the message you put in the queue.
+
+55
+00:03:22,640 --> 00:03:28,150
+It's useful for storing and consuming messages up to two gigabytes in size.
+
+56
+00:03:28,510 --> 00:03:30,171
+With the client library for Java,
+
+57
+00:03:30,195 --> 00:03:34,598
+you can specify whether messages are always stored in S3 or only
+
+58
+00:03:34,622 --> 00:03:39,510
+when the message size exceeds the limitation of 256 kilobytes.
+
+59
+00:03:40,040 --> 00:03:44,711
+You can send a message that references a single message object stored
+
+60
+00:03:44,735 --> 00:03:46,340
+in an Amazon S3 bucket.
+
+61
+00:03:46,625 --> 00:03:50,611
+And your processes can then get the corresponding message object from
+
+62
+00:03:50,635 --> 00:03:52,330
+the amazon S3 bucket.
+
+63
+00:03:52,620 --> 00:03:57,081
+They might then want to delete the corresponding message object from the S3 bucket
+
+64
+00:03:57,105 --> 00:03:59,150
+after they've successfully processed it.
+

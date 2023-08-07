@@ -1,0 +1,352 @@
+1
+00:00:05,340 --> 00:00:09,810
+Welcome to the exam cram for amazon E C S and E K S.
+
+2
+00:00:10,940 --> 00:00:15,650
+Amazon Ec s is used for managing and deploying. Docker containers.
+
+3
+00:00:16,090 --> 00:00:18,550
+It's serverless with Aws Fargate
+
+4
+00:00:18,660 --> 00:00:21,300
+that's managed for you and fully scalable,
+
+5
+00:00:21,940 --> 00:00:24,050
+fully managed container orchestration
+
+6
+00:00:24,190 --> 00:00:25,290
+is offered with
+
+7
+00:00:26,010 --> 00:00:27,960
+the control plane is managed for you.
+
+8
+00:00:28,440 --> 00:00:30,800
+Docker Support means that you can run and manage
+
+9
+00:00:30,800 --> 00:00:35,060
+Docker containers with integration into the Docker compose Cli
+
+10
+00:00:35,740 --> 00:00:38,210
+Windows container support means that you can
+
+11
+00:00:38,210 --> 00:00:41,050
+support management of Windows containers as well.
+
+12
+00:00:41,740 --> 00:00:45,880
+Elastic load balancing integration means you can distribute traffic
+
+13
+00:00:45,890 --> 00:00:49,660
+across containers using an A L B or an Nlb
+
+14
+00:00:50,640 --> 00:00:52,850
+amazon Ec s anywhere, which is new,
+
+15
+00:00:52,860 --> 00:00:58,460
+enables the use of the DCs control plane to manage on premises implementations.
+
+16
+00:00:59,140 --> 00:01:01,800
+E C S clusters are a logical grouping
+
+17
+00:01:01,800 --> 00:01:04,660
+of container instances that you can place tasks on
+
+18
+00:01:05,140 --> 00:01:08,070
+Clusters can contain tasks using the fargate
+
+19
+00:01:08,320 --> 00:01:09,960
+and ec two launch type.
+
+20
+00:01:10,940 --> 00:01:13,970
+You can use any AM I that meets the E C S.
+
+21
+00:01:14,120 --> 00:01:15,760
+Am I specification.
+
+22
+00:01:16,490 --> 00:01:21,360
+EC two instances used as container hosts must run an ECs agent.
+
+23
+00:01:22,050 --> 00:01:26,950
+The E C S container agent allows container instances to connect to the cluster.
+
+24
+00:01:27,530 --> 00:01:32,750
+The container agent runs on each infrastructure resource on an ec. S cluster
+
+25
+00:01:33,740 --> 00:01:36,750
+containers are created from a read only template called an
+
+26
+00:01:36,760 --> 00:01:40,600
+image which has the instructions for creating the Docker container
+
+27
+00:01:41,040 --> 00:01:42,910
+images are built from a Docker file
+
+28
+00:01:43,280 --> 00:01:46,130
+only. Docker containers are supported on the CS.
+
+29
+00:01:46,840 --> 00:01:48,930
+Images are stored in a registry such as
+
+30
+00:01:48,930 --> 00:01:52,360
+Docker hub or the amazon elastic container registry.
+
+31
+00:01:53,140 --> 00:01:56,790
+A task definition is required to run Docker containers
+
+32
+00:01:57,000 --> 00:01:58,160
+in E C s.
+
+33
+00:01:58,550 --> 00:02:00,720
+The task definition is a text file in
+
+34
+00:02:00,720 --> 00:02:04,450
+Jason format that describes one or more containers.
+
+35
+00:02:05,400 --> 00:02:09,560
+The pcs Task I am role provides permissions to the container
+
+36
+00:02:10,190 --> 00:02:14,000
+the container instance Iron Role provides permissions to the host
+
+37
+00:02:14,740 --> 00:02:17,100
+tasks have access to all of the permissions
+
+38
+00:02:17,100 --> 00:02:19,180
+that are supplied to the container instance.
+
+39
+00:02:19,180 --> 00:02:19,690
+Roll
+
+40
+00:02:19,800 --> 00:02:21,660
+through instance metadata.
+
+41
+00:02:22,540 --> 00:02:26,150
+E C. S. Supports the following task placement strategies.
+
+42
+00:02:26,330 --> 00:02:29,700
+They are been pack which places tasks based on
+
+43
+00:02:29,700 --> 00:02:33,360
+the least available amount of CPU or memory.
+
+44
+00:02:33,740 --> 00:02:36,010
+Random places, tasks randomly
+
+45
+00:02:36,110 --> 00:02:40,460
+spread places tasks evenly based on a specified value.
+
+46
+00:02:41,240 --> 00:02:46,160
+A task placement constraint is a rule that's considered during task placement.
+
+47
+00:02:46,840 --> 00:02:49,850
+E C. S supports the following task placement constraints.
+
+48
+00:02:50,110 --> 00:02:51,540
+Got distinct instance,
+
+49
+00:02:51,550 --> 00:02:55,860
+which means the task should be placed on a different container instance.
+
+50
+00:02:56,540 --> 00:02:58,790
+Member of means that you place tasks
+
+51
+00:02:58,790 --> 00:03:02,360
+on container instances that satisfy an expression.
+
+52
+00:03:03,540 --> 00:03:07,050
+Cluster queries are expressions that enable you to group objects.
+
+53
+00:03:07,470 --> 00:03:11,670
+For example, you can group container instances by attributes such as
+
+54
+00:03:12,440 --> 00:03:14,960
+instance, type or custom metadata
+
+55
+00:03:15,750 --> 00:03:20,550
+service Auto scaling automatically adjusts the desired task count up or down
+
+56
+00:03:20,720 --> 00:03:23,950
+using the application. Auto scaling service
+
+57
+00:03:24,640 --> 00:03:27,540
+cluster auto scaling uses a capacity provider to
+
+58
+00:03:27,540 --> 00:03:31,240
+scale the number of cluster instances using ec.
+
+59
+00:03:31,240 --> 00:03:32,350
+Two Auto scaling
+
+60
+00:03:33,740 --> 00:03:41,150
+amazon Ec R is a fully managed container registry. It's integrated with E C S and E K S
+
+61
+00:03:41,740 --> 00:03:45,870
+E C R supports open container initiative and Docker registry,
+
+62
+00:03:45,880 --> 00:03:48,660
+H T T P A P I V two standards.
+
+63
+00:03:49,140 --> 00:03:54,650
+You can use Docker tools and Docker cli commands such as bush pull list and tag
+
+64
+00:03:55,140 --> 00:03:58,460
+it can be accessed from any Docker environment in the cloud,
+
+65
+00:03:58,470 --> 00:04:00,660
+on premises or on your machine.
+
+66
+00:04:01,240 --> 00:04:04,510
+You can use name spaces to organize your repositories.
+
+67
+00:04:05,240 --> 00:04:09,150
+E C R also supports lifecycle policies, image scanning,
+
+68
+00:04:09,160 --> 00:04:13,960
+cross region or account replication and pull through cash rules.
+
+69
+00:04:14,540 --> 00:04:15,280
+Moving on to
+
+70
+00:04:16,240 --> 00:04:17,990
+the elastic kubernetes service
+
+71
+00:04:18,149 --> 00:04:19,310
+is a managed service.
+
+72
+00:04:19,940 --> 00:04:21,019
+You would use it when you need
+
+73
+00:04:21,019 --> 00:04:24,750
+to standardize container orchestration across multiple environments.
+
+74
+00:04:24,840 --> 00:04:27,650
+Using a managed kubernetes implementation
+
+75
+00:04:28,540 --> 00:04:31,060
+with EKS you have cluster auto scaling,
+
+76
+00:04:31,310 --> 00:04:33,460
+you've got the vertical pod Auto Scaler
+
+77
+00:04:33,840 --> 00:04:37,560
+which automatically adjusts the CPU and memory reservations for
+
+78
+00:04:37,560 --> 00:04:40,460
+your pods to help right size your applications.
+
+79
+00:04:41,040 --> 00:04:43,680
+We then got the horizontal pod Auto Scaler,
+
+80
+00:04:44,140 --> 00:04:47,240
+which automatically scales the number of pods in a deployment
+
+81
+00:04:47,450 --> 00:04:52,150
+replication controller or replica set based on that resources utilization.
+
+82
+00:04:52,840 --> 00:04:55,150
+Then we have workload auto scaling
+
+83
+00:04:55,840 --> 00:04:58,670
+E K S supports to auto scaling products.
+
+84
+00:04:58,680 --> 00:05:01,730
+You've got the kubernetes cluster Auto Scaler or
+
+85
+00:05:01,730 --> 00:05:04,960
+the Carpenter open source auto scaling project.
+
+86
+00:05:05,840 --> 00:05:09,310
+E K S supports native VPC networking with the
+
+87
+00:05:09,320 --> 00:05:14,150
+amazon VPc container network interface plug in for kubernetes.
+
+88
+00:05:14,940 --> 00:05:17,550
+And that's it for this exam cram. See you in the next lesson
+

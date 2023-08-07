@@ -1,0 +1,512 @@
+1
+00:00:05,240 --> 00:00:09,248
+Hi guys, the Amazon Elastic Container Service, ECS
+
+2
+00:00:09,272 --> 00:00:12,610
+is used for running containers on AWS.
+
+3
+00:00:12,610 --> 00:00:15,350
+So we're talking about Docker containers primarily here.
+
+4
+00:00:16,040 --> 00:00:19,550
+So let's have a look at the architecture of ECS.
+
+5
+00:00:20,340 --> 00:00:22,620
+So we have the Elastic Container Service
+
+6
+00:00:22,790 --> 00:00:25,830
+and within ECS we create what are called clusters.
+
+7
+00:00:26,440 --> 00:00:32,460
+The cluster is a logical grouping of tasks or services within ECS.
+
+8
+00:00:33,140 --> 00:00:36,200
+So we create our cluster and then we can run a task.
+
+9
+00:00:36,530 --> 00:00:40,300
+An ECS task is actually a running Docker container.
+
+10
+00:00:40,470 --> 00:00:43,960
+So you can think of it as an instance of a container running.
+
+11
+00:00:44,340 --> 00:00:49,220
+Now the task is executed using a task definition.
+
+12
+00:00:49,220 --> 00:00:53,650
+So this is how you create the configuration for your task.
+
+13
+00:00:53,650 --> 00:00:58,230
+You specify in a task definition, and then you create a task that uses
+
+14
+00:00:58,230 --> 00:01:01,160
+that task definition for its configuration input.
+
+15
+00:01:01,740 --> 00:01:03,310
+There's also an image.
+
+16
+00:01:03,530 --> 00:01:07,150
+So each task will come from an image and that can be
+
+17
+00:01:07,150 --> 00:01:12,160
+stored in a repository such as the Amazon Elastic Container Registry.
+
+18
+00:01:12,540 --> 00:01:15,340
+So these are the Docker container images
+
+19
+00:01:15,530 --> 00:01:18,125
+and they're stored in Amazon ECR.
+
+20
+00:01:18,149 --> 00:01:20,130
+Now, we can create something called a service.
+
+21
+00:01:20,190 --> 00:01:25,170
+A service is used to maintain a desired count of tasks.
+
+22
+00:01:25,410 --> 00:01:29,770
+So if you know exactly how many tasks you need to run, you create a service
+
+23
+00:01:29,940 --> 00:01:33,150
+and then it ensures that that many tasks are always running.
+
+24
+00:01:33,876 --> 00:01:37,800
+In ECS there's a couple of different ways we can run our containers.
+
+25
+00:01:38,170 --> 00:01:40,320
+Now, one of them is where we have some
+
+26
+00:01:40,320 --> 00:01:44,550
+container instances which we actually manage ourselves.
+
+27
+00:01:44,940 --> 00:01:48,150
+We'll look at the other option later in this lesson.
+
+28
+00:01:48,740 --> 00:01:52,040
+So in this case, the ECS container instance
+
+29
+00:01:52,190 --> 00:01:56,860
+is actually an EC2 instance with the ECS agent running on it.
+
+30
+00:01:57,160 --> 00:02:00,950
+And it's become part of this cluster through configuration that we add.
+
+31
+00:02:01,640 --> 00:02:06,870
+So this is an EC2 instance that you can see in your account in EC2,
+
+32
+00:02:07,030 --> 00:02:08,560
+and you manage it yourself.
+
+33
+00:02:08,940 --> 00:02:12,120
+And then you can run your Docker containers on that instance.
+
+34
+00:02:12,120 --> 00:02:16,160
+So you can have lots of containers running on a single instance.
+
+35
+00:02:16,640 --> 00:02:21,790
+You can also use auto-scaling for your container instances to scale the number that
+
+36
+00:02:21,790 --> 00:02:26,360
+you need to support the amount of tasks or containers that you're actually running.
+
+37
+00:02:27,240 --> 00:02:28,970
+So let's look at some key features.
+
+38
+00:02:29,540 --> 00:02:35,090
+So there's another launch type where you don't manage those underlying EC2 instances,
+
+39
+00:02:35,090 --> 00:02:39,350
+the ECS container instances as you saw in the previous diagram.
+
+40
+00:02:39,740 --> 00:02:42,190
+That's called Fargate and that's fully serverless,
+
+41
+00:02:42,190 --> 00:02:43,960
+so everything is managed for you.
+
+42
+00:02:44,540 --> 00:02:46,920
+You get fully managed container orchestration.
+
+43
+00:02:46,920 --> 00:02:49,550
+So the control plane is managed for you.
+
+44
+00:02:50,240 --> 00:02:52,250
+Docker is supported so you can run
+
+45
+00:02:52,275 --> 00:02:57,203
+and manage docker containers with integration into the Docker Compose CLI.
+
+46
+00:02:57,343 --> 00:02:59,550
+You also get Windows container support.
+
+47
+00:02:59,570 --> 00:03:02,960
+So ECS supports management of Windows containers.
+
+48
+00:03:03,640 --> 00:03:05,990
+And you get elastic load balancing integration
+
+49
+00:03:05,990 --> 00:03:11,650
+so you can distribute your traffic across containers using an ALB or an NLB.
+
+50
+00:03:12,040 --> 00:03:15,750
+A slightly newer feature is called Amazon ECS Anywhere.
+
+51
+00:03:15,970 --> 00:03:18,620
+And this enables the use of the ECS
+
+52
+00:03:18,620 --> 00:03:22,700
+control plane to manage your on-premises implementations.
+
+53
+00:03:22,910 --> 00:03:26,160
+These are the core components of Amazon ECS.
+
+54
+00:03:26,450 --> 00:03:27,840
+Firstly, we have a cluster.
+
+55
+00:03:28,080 --> 00:03:31,540
+This is a logical grouping of tasks or services.
+
+56
+00:03:31,940 --> 00:03:34,040
+Then we have the container instance.
+
+57
+00:03:34,240 --> 00:03:37,960
+This is actually the EC2 instance running the ECS agent.
+
+58
+00:03:38,540 --> 00:03:40,260
+You then have a task definition,
+
+59
+00:03:40,360 --> 00:03:43,970
+that's the blueprint that describes how a Docker container should launch,
+
+60
+00:03:43,970 --> 00:03:46,270
+so the configuration of the container.
+
+61
+00:03:46,450 --> 00:03:48,390
+You then have a task, and this is a
+
+62
+00:03:48,400 --> 00:03:52,460
+running container using the settings in a task definition.
+
+63
+00:03:53,240 --> 00:03:55,170
+And then lastly here, we have a service.
+
+64
+00:03:55,390 --> 00:03:57,120
+That defines long running tasks
+
+65
+00:03:57,120 --> 00:04:00,540
+so you can control how many tasks you want to have running.
+
+66
+00:04:00,830 --> 00:04:03,360
+And you can use auto-scaling with a service
+
+67
+00:04:03,580 --> 00:04:06,540
+and use it to configure an ALB that you
+
+68
+00:04:06,540 --> 00:04:11,260
+want to attach in front of your containers for load distribution.
+
+69
+00:04:11,640 --> 00:04:14,150
+So let's go into a bit more detail on clusters.
+
+70
+00:04:14,540 --> 00:04:19,459
+These are a logical grouping of container instances that you place your tasks on.
+
+71
+00:04:19,839 --> 00:04:22,560
+A default cluster is created but you can
+
+72
+00:04:22,560 --> 00:04:26,290
+then create multiple clusters to separate your resources.
+
+73
+00:04:27,040 --> 00:04:33,850
+ECS allows the definition of a specified number, a desired count of tasks to run in
+
+74
+00:04:33,850 --> 00:04:34,560
+the cluster.
+
+75
+00:04:35,240 --> 00:04:40,060
+Clusters can contain tasks using the Fargate and the EC2 launch type.
+
+76
+00:04:40,940 --> 00:04:42,030
+EC2 launch type
+
+77
+00:04:42,030 --> 00:04:45,890
+clusters can contain different container instance types as well.
+
+78
+00:04:46,440 --> 00:04:51,100
+And each container instance may only be part of one cluster at a time.
+
+79
+00:04:51,170 --> 00:04:53,530
+Clusters are region specific.
+
+80
+00:04:53,640 --> 00:04:58,850
+You can create IAM policies for your clusters to allow or restrict users access
+
+81
+00:04:58,960 --> 00:05:00,460
+to specific clusters.
+
+82
+00:05:00,840 --> 00:05:02,820
+So you've got full access control.
+
+83
+00:05:02,830 --> 00:05:05,590
+Now, if you're going to use the EC2 launch type,
+
+84
+00:05:05,600 --> 00:05:08,750
+then you have your EC2 instances with the ECS
+
+85
+00:05:08,750 --> 00:05:10,460
+agent running on them.
+
+86
+00:05:10,840 --> 00:05:16,220
+You can use any AMI that meets the amazon ECS AMI specification.
+
+87
+00:05:16,890 --> 00:05:21,460
+The instance is used as container host must run an ECS agent.
+
+88
+00:05:22,110 --> 00:05:26,930
+And the container agent allows the container instances to connect to the cluster.
+
+89
+00:05:27,170 --> 00:05:32,390
+The container agent runs on each infrastructure resource on an ECS cluster.
+
+90
+00:05:32,810 --> 00:05:34,500
+Next, we have the images.
+
+91
+00:05:34,690 --> 00:05:39,260
+Containers are created from a read only template and that is called an image.
+
+92
+00:05:39,650 --> 00:05:43,160
+That has the instructions for creating the Docker container.
+
+93
+00:05:43,740 --> 00:05:46,210
+Images are built from a Docker file
+
+94
+00:05:46,500 --> 00:05:50,220
+and only Docker containers are supported on the ECS.
+
+95
+00:05:50,630 --> 00:05:53,130
+Images are stored in the registry and that can
+
+96
+00:05:53,130 --> 00:05:57,170
+be Docker Hub or Amazon Elastic Container Registry, ECR.
+
+97
+00:05:57,630 --> 00:06:00,830
+ECR is a managed Docker container registry service
+
+98
+00:06:00,950 --> 00:06:03,360
+that is secure scalable and reliable.
+
+99
+00:06:03,940 --> 00:06:08,865
+ECS supports private Docker repositories with resource-based permissions
+
+100
+00:06:08,889 --> 00:06:13,150
+using IAM in order to access repositories and images.
+
+101
+00:06:13,540 --> 00:06:18,146
+And you could use the Docker CLI to push, pull, and manage images.
+
+102
+00:06:18,171 --> 00:06:22,396
+And we'll look a bit more into the details of how you use the CLI
+
+103
+00:06:22,420 --> 00:06:24,130
+later on in the section.
+
+104
+00:06:24,140 --> 00:06:27,160
+So then we have the tasks and the task definitions.
+
+105
+00:06:27,540 --> 00:06:32,290
+A task definition is required to run Docker containers in ECS.
+
+106
+00:06:32,840 --> 00:06:36,556
+The task definition is a text file in JSON format
+
+107
+00:06:36,583 --> 00:06:41,680
+and it describes one or more containers up to a maximum of 10.
+
+108
+00:06:41,880 --> 00:06:45,160
+And we can see some of the contents of a task definition here.
+
+109
+00:06:45,380 --> 00:06:47,750
+In this case it's a Wordpress container,
+
+110
+00:06:47,870 --> 00:06:51,160
+it's got links to a MySQL container
+
+111
+00:06:51,740 --> 00:06:53,940
+and we can see some information about the ports
+
+112
+00:06:53,940 --> 00:06:57,320
+that are being used and the memory and CPU allocation.
+
+113
+00:06:57,640 --> 00:07:01,520
+Task definitions use docker images to launch the containers
+
+114
+00:07:01,790 --> 00:07:04,810
+and you specify the number of tasks to run
+
+115
+00:07:05,150 --> 00:07:07,830
+and that's the number of containers that you want.
+
+116
+00:07:07,980 --> 00:07:11,260
+Some of the parameters you can specify in a task definition
+
+117
+00:07:11,550 --> 00:07:15,060
+include the Docker images to use with the containers in your task,
+
+118
+00:07:15,140 --> 00:07:18,710
+how much CPU and memory to use with each container,
+
+119
+00:07:18,900 --> 00:07:21,950
+whether containers are linked together in a task,
+
+120
+00:07:22,500 --> 00:07:26,060
+the Docker networking mode to use for the containers in your task,
+
+121
+00:07:26,440 --> 00:07:32,120
+what if any ports from the container are mapped to the host container instances?
+
+122
+00:07:32,640 --> 00:07:37,220
+Whether the task should continue if the container finished or fails,
+
+123
+00:07:37,740 --> 00:07:40,630
+the commands that the container should run when it started,
+
+124
+00:07:41,000 --> 00:07:45,040
+environment variables that should be passed to the container when it starts,
+
+125
+00:07:45,540 --> 00:07:48,750
+data volumes that should be used with the containers in the task,
+
+126
+00:07:48,970 --> 00:07:52,290
+and the IAM role the task should use for permissions.
+
+127
+00:07:52,550 --> 00:07:55,090
+So those are the fundamentals of ECS and we'll
+
+128
+00:07:55,090 --> 00:07:58,240
+dive into some more detail now on various components.
+

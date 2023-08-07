@@ -1,0 +1,172 @@
+1
+00:00:05,173 --> 00:00:07,050
+Hi guys. In this lesson, we're going to have a
+
+2
+00:00:07,050 --> 00:00:11,160
+look at the caching and throttling settings for our API.
+
+3
+00:00:11,640 --> 00:00:17,195
+So back in API gateway, I already have my Lambda simple proxy REST API.
+
+4
+00:00:17,219 --> 00:00:19,860
+So let's choose the REST API here.
+
+5
+00:00:20,510 --> 00:00:22,700
+And if I go down to stages,
+
+6
+00:00:23,240 --> 00:00:24,560
+we've got the prod stage.
+
+7
+00:00:25,240 --> 00:00:28,350
+And here we can enable an API cache.
+
+8
+00:00:28,540 --> 00:00:35,050
+Now this is the stage level so, for example, we can go up and deploy another stage.
+
+9
+00:00:35,050 --> 00:00:36,760
+So let's create a
+
+10
+00:00:37,640 --> 00:00:39,160
+test stage,
+
+11
+00:00:39,640 --> 00:00:40,450
+deploy
+
+12
+00:00:40,700 --> 00:00:43,960
+now we have two stages so we can configure
+
+13
+00:00:44,400 --> 00:00:50,250
+an API cache on one stage but not another. So all of these settings are tage-specific.
+
+14
+00:00:50,840 --> 00:00:51,790
+And as you'll see
+
+15
+00:00:52,080 --> 00:00:55,150
+the stages each have their own invoke URL.
+
+16
+00:00:55,540 --> 00:01:00,850
+So here we have /test on the end whereas for our prod stage we have /prod.
+
+17
+00:01:02,040 --> 00:01:06,060
+So to enable an API cache we simply enable this option here.
+
+18
+00:01:06,540 --> 00:01:08,130
+And then we specify
+
+19
+00:01:08,300 --> 00:01:13,020
+the capacity settings. So for example 0.5 gigabytes
+
+20
+00:01:13,170 --> 00:01:15,330
+in terms of the capacity of the cache.
+
+21
+00:01:15,430 --> 00:01:16,880
+And note that the API
+
+22
+00:01:16,890 --> 00:01:20,360
+cache does increase costs and it's not covered by the free tier.
+
+23
+00:01:20,360 --> 00:01:21,750
+So I'm not going to enable it.
+
+24
+00:01:22,340 --> 00:01:24,760
+You can encrypt your cache as well
+
+25
+00:01:25,140 --> 00:01:29,860
+and you can specify the time to live, so how long something should remain in the cache.
+
+26
+00:01:30,060 --> 00:01:32,470
+So maybe I'll set that to five minutes
+
+27
+00:01:32,470 --> 00:01:35,860
+or 300 seconds. Under pair key cache invalidation,
+
+28
+00:01:35,860 --> 00:01:37,760
+we can require authorization.
+
+29
+00:01:38,540 --> 00:01:42,100
+And we've got some settings for handling unauthorized requests.
+
+30
+00:01:42,150 --> 00:01:44,960
+We can then enable or disable throttling.
+
+31
+00:01:45,440 --> 00:01:49,850
+So this will set the rate of requests that are allowed to our API.
+
+32
+00:01:50,740 --> 00:01:53,720
+Now we've enabled here 10,000 requests per second.
+
+33
+00:01:53,720 --> 00:01:56,050
+That is the account level throttling rate.
+
+34
+00:01:56,740 --> 00:01:57,760
+And also
+
+35
+00:01:58,140 --> 00:02:00,390
+There's a burst limit here of 5000.
+
+36
+00:02:00,390 --> 00:02:03,260
+So you'd have to go to WS if you wanted to exceed that.
+
+37
+00:02:04,600 --> 00:02:07,560
+You can easily reduce it here if you want to as well.
+
+38
+00:02:08,139 --> 00:02:11,790
+And then you'd simply save changes if you wanted to save these changes,
+
+39
+00:02:11,790 --> 00:02:12,770
+which I'm not going to.
+
+40
+00:02:12,970 --> 00:02:14,900
+So that's all I wanted to show you in this lesson.
+
+41
+00:02:14,900 --> 00:02:18,150
+It's quite simple to enable caching and throttling.
+
+42
+00:02:18,320 --> 00:02:19,870
+And again for the exam,
+
+43
+00:02:19,880 --> 00:02:24,760
+just make sure you remember that the settings are specified at the stage level.
+

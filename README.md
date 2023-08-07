@@ -16,3 +16,6 @@ Author: [DigitalCloud training](https://digitalcloud.training/)
 - 08 - Amazon DynamoDB
 - 09 - Application Integration and APIs
 - 10 - Containers on Amazon ECSEKS
+- 11 - AWS Developer Tools (CICD)
+- 12 - Databases and Analytics
+- 13 - Management and Security

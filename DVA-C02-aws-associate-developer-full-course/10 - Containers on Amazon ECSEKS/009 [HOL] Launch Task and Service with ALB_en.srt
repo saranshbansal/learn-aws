@@ -1,0 +1,732 @@
+1
+00:00:05,440 --> 00:00:09,270
+Welcome back in this lesson. We're going to continue from the last lesson.
+
+2
+00:00:09,350 --> 00:00:12,250
+In the last lesson we created our pcs cluster,
+
+3
+00:00:12,260 --> 00:00:15,640
+we added a container host to it running on Ec two.
+
+4
+00:00:15,640 --> 00:00:17,860
+So we're using the EC two launch type.
+
+5
+00:00:18,340 --> 00:00:21,120
+And in this lesson we're going to create a task definition.
+
+6
+00:00:21,130 --> 00:00:23,140
+Launch a task on our cluster
+
+7
+00:00:23,330 --> 00:00:25,920
+and then we'll see how we can also create a service
+
+8
+00:00:25,930 --> 00:00:30,160
+with an elastic load balancer and a lb application load balancer.
+
+9
+00:00:30,540 --> 00:00:32,250
+So let's head over to the console.
+
+10
+00:00:32,840 --> 00:00:37,210
+So back in the console I have my Ec S cluster under infrastructure,
+
+11
+00:00:37,220 --> 00:00:39,010
+I have my running E C.
+
+12
+00:00:39,010 --> 00:00:42,560
+S container host so we can see that that's active and working.
+
+13
+00:00:43,440 --> 00:00:46,790
+So what I want to do now is go to task definitions,
+
+14
+00:00:47,340 --> 00:00:51,920
+we're going to create a new task definition for this lab and it
+
+15
+00:00:51,920 --> 00:00:54,900
+will also be Engine X but I want to show you the setting.
+
+16
+00:00:54,900 --> 00:00:57,660
+So I'm gonna call it my dash Engine X
+
+17
+00:00:58,620 --> 00:00:59,240
+then
+
+18
+00:00:59,380 --> 00:01:03,310
+for the container and we're also going to call this one just engine X.
+
+19
+00:01:04,040 --> 00:01:07,080
+And then for the image, this is where we actually specify
+
+20
+00:01:07,280 --> 00:01:10,160
+the engine X image with the latest revision
+
+21
+00:01:10,540 --> 00:01:12,460
+and it's gonna pull that image down
+
+22
+00:01:12,560 --> 00:01:16,740
+and that's gonna be the application running So Engine X is a simple web service
+
+23
+00:01:17,080 --> 00:01:18,550
+and that's what we're going to run
+
+24
+00:01:19,440 --> 00:01:21,830
+now. I'm going to leave the container ports here as paul.
+
+25
+00:01:22,030 --> 00:01:23,510
+This is a web service.
+
+26
+00:01:23,900 --> 00:01:26,260
+I don't need to make any other changes here
+
+27
+00:01:26,640 --> 00:01:27,960
+so let's click on next.
+
+28
+00:01:28,640 --> 00:01:31,410
+What I want to do now is change the Ec two instances.
+
+29
+00:01:31,420 --> 00:01:36,650
+I don't want to use this one with Fargate. So I'm just going to enable EC two.
+
+30
+00:01:37,640 --> 00:01:38,710
+I'm gonna leave
+
+31
+00:01:38,960 --> 00:01:40,220
+the setting here for
+
+32
+00:01:40,540 --> 00:01:42,350
+X- 86-64
+
+33
+00:01:43,040 --> 00:01:48,280
+for V C p U. I am going to change this, I'm gonna change this right down to 0.25.
+
+34
+00:01:48,330 --> 00:01:51,160
+Now, make sure you leave V CPU there
+
+35
+00:01:51,540 --> 00:01:53,780
+And under memory just .5
+
+36
+00:01:54,540 --> 00:01:59,860
+and then G B now you do this is where there's a bit of a it's a bit of a strange console.
+
+37
+00:01:59,870 --> 00:02:04,900
+You can't just specify, for instance, 0.5 or 0.5, it has to be 0.5.
+
+38
+00:02:04,900 --> 00:02:07,560
+Space G B same with the CPU.
+
+39
+00:02:08,240 --> 00:02:12,350
+So those do have to be specified exactly as I show them here,
+
+40
+00:02:13,140 --> 00:02:17,500
+we're not going to specify a task role And for network mode,
+
+41
+00:02:17,510 --> 00:02:20,850
+I'm gonna change this to AWS VPC
+
+42
+00:02:21,940 --> 00:02:23,490
+so then we can scroll down,
+
+43
+00:02:23,680 --> 00:02:24,850
+click on next,
+
+44
+00:02:25,510 --> 00:02:26,600
+scroll down again
+
+45
+00:02:26,710 --> 00:02:27,750
+and create.
+
+46
+00:02:28,140 --> 00:02:30,090
+So we do need to be very specific with these
+
+47
+00:02:30,090 --> 00:02:34,260
+settings to make this task definition work with the easy to
+
+48
+00:02:34,260 --> 00:02:37,680
+launch type in the old console actually gave you an
+
+49
+00:02:37,680 --> 00:02:40,700
+option to configure the launch type that you are using.
+
+50
+00:02:40,700 --> 00:02:44,780
+They don't seem to have that anymore. And that's why it can be a little bit tricky
+
+51
+00:02:44,940 --> 00:02:48,060
+if you don't know the specific settings that will work.
+
+52
+00:02:48,820 --> 00:02:50,610
+Now we can go back to our cluster,
+
+53
+00:02:51,340 --> 00:02:52,530
+click on tasks,
+
+54
+00:02:53,020 --> 00:02:54,260
+run new task
+
+55
+00:02:54,740 --> 00:02:57,470
+Now you need to change the compute configuration because it's
+
+56
+00:02:57,470 --> 00:03:00,940
+gonna default to fargate using a capacity provider strategy.
+
+57
+00:03:00,950 --> 00:03:04,850
+We want to use launch type and then we can swap to ec two
+
+58
+00:03:05,640 --> 00:03:08,130
+we're gonna launch a task at this point in time,
+
+59
+00:03:08,330 --> 00:03:09,470
+choose family
+
+60
+00:03:09,780 --> 00:03:12,960
+and I'm gonna choose my engine x. The one I just created
+
+61
+00:03:13,340 --> 00:03:15,860
+and it's there's only one revision so that's easy
+
+62
+00:03:16,440 --> 00:03:17,760
+For networking.
+
+63
+00:03:17,770 --> 00:03:20,620
+What we should see is it's also going to go into
+
+64
+00:03:20,620 --> 00:03:23,340
+the same default VPC with all of those subnets enabled.
+
+65
+00:03:23,340 --> 00:03:26,590
+So I don't need to change anything there. So that's okay.
+
+66
+00:03:26,730 --> 00:03:29,140
+The security group we will need to have a
+
+67
+00:03:29,140 --> 00:03:32,960
+security group which allows access to ports 80.
+
+68
+00:03:33,440 --> 00:03:36,600
+So if you've got one use that right now.
+
+69
+00:03:36,610 --> 00:03:39,010
+Otherwise you can always go and change this
+
+70
+00:03:39,010 --> 00:03:41,470
+default security group and add in the rule.
+
+71
+00:03:41,610 --> 00:03:43,250
+So I'm gonna just deploy
+
+72
+00:03:43,640 --> 00:03:46,110
+and the task has been successfully launched.
+
+73
+00:03:46,110 --> 00:03:49,710
+We can see the task is here and it's provisioning
+
+74
+00:03:49,860 --> 00:03:52,760
+so it shouldn't take long to actually start this container.
+
+75
+00:03:53,630 --> 00:03:55,030
+The task is now running
+
+76
+00:03:55,410 --> 00:03:59,260
+If I click on the task I. D. Here we can see some more information.
+
+77
+00:03:59,740 --> 00:04:00,040
+Now,
+
+78
+00:04:00,040 --> 00:04:01,990
+one thing to note is we don't have a public
+
+79
+00:04:01,990 --> 00:04:04,450
+ip address so how can we connect to this task?
+
+80
+00:04:04,940 --> 00:04:09,500
+Well, when you're on the Ec two launch type using the AWS VPc,
+
+81
+00:04:09,550 --> 00:04:13,110
+it's not as the network mode that is it's not going to give you
+
+82
+00:04:13,110 --> 00:04:16,670
+a public I P you actually have to put a load balancer in front
+
+83
+00:04:16,779 --> 00:04:18,260
+and for that we need a service.
+
+84
+00:04:18,740 --> 00:04:19,959
+So what I'm gonna do
+
+85
+00:04:20,640 --> 00:04:22,260
+his head back up to tasks,
+
+86
+00:04:22,740 --> 00:04:26,660
+choose my task. We're just going to stop this task. We don't need this one anymore.
+
+87
+00:04:27,140 --> 00:04:29,150
+So we have to confirm by typing stop
+
+88
+00:04:29,990 --> 00:04:31,260
+that should just take a moment.
+
+89
+00:04:31,740 --> 00:04:32,750
+We can see
+
+90
+00:04:32,910 --> 00:04:34,560
+what's going on at the top pair.
+
+91
+00:04:35,140 --> 00:04:36,960
+Our task has successfully stopped.
+
+92
+00:04:37,920 --> 00:04:39,650
+So now I'm gonna go to services,
+
+93
+00:04:39,910 --> 00:04:41,050
+click on deploy,
+
+94
+00:04:41,940 --> 00:04:44,090
+change the compute configuration again
+
+95
+00:04:44,540 --> 00:04:46,060
+Back to Ec two.
+
+96
+00:04:47,340 --> 00:04:49,210
+We've got service specified,
+
+97
+00:04:50,240 --> 00:04:54,160
+we're going to choose the same task definition and revision.
+
+98
+00:04:54,290 --> 00:04:59,380
+I'm gonna give it a service name. Just going to call this my E C S dash service.
+
+99
+00:04:59,390 --> 00:05:03,460
+You can now specify the number of tasks you want to be running at any time
+
+100
+00:05:03,840 --> 00:05:05,310
+Now we've only got one contained hosts.
+
+101
+00:05:05,310 --> 00:05:09,100
+I'm happy just leaving it as one Of course if you have more container hosts you
+
+102
+00:05:09,100 --> 00:05:12,490
+can or you have more capacity in your container host then you can run more.
+
+103
+00:05:12,500 --> 00:05:14,380
+We could probably run a couple but one's
+
+104
+00:05:14,380 --> 00:05:17,250
+fine just for the purposes of demonstration.
+
+105
+00:05:17,740 --> 00:05:18,760
+So I leave it at one
+
+106
+00:05:19,140 --> 00:05:21,150
+next we're going to choose load balancing.
+
+107
+00:05:21,740 --> 00:05:24,580
+We're going to choose application load balancer
+
+108
+00:05:24,850 --> 00:05:26,900
+and create a new load balancer.
+
+109
+00:05:27,090 --> 00:05:29,260
+I'm going to call it my dash pcs
+
+110
+00:05:29,480 --> 00:05:30,760
+dash lb.
+
+111
+00:05:32,130 --> 00:05:35,410
+It's gonna listen on port 80 protocol http.
+
+112
+00:05:36,020 --> 00:05:37,460
+I'm going to create a target group.
+
+113
+00:05:38,540 --> 00:05:40,450
+My dash e C S T G
+
+114
+00:05:41,340 --> 00:05:43,560
+protocol is going to be http.
+
+115
+00:05:43,940 --> 00:05:45,170
+Health check path
+
+116
+00:05:45,370 --> 00:05:46,770
+is simply a slash
+
+117
+00:05:47,000 --> 00:05:49,550
+and the health check grace period is 30.
+
+118
+00:05:50,340 --> 00:05:54,430
+Now you can use existing low balances and target groups.
+
+119
+00:05:54,440 --> 00:05:58,120
+It does become a little bit more tricky getting the settings correct.
+
+120
+00:05:58,170 --> 00:06:01,350
+So it's often easier just to create it through here.
+
+121
+00:06:01,940 --> 00:06:03,350
+So those settings look good.
+
+122
+00:06:03,940 --> 00:06:06,910
+Let's check the networking for networking we have
+
+123
+00:06:07,160 --> 00:06:10,060
+the same configuration so that looks good to me.
+
+124
+00:06:10,740 --> 00:06:11,760
+Let's click on deploy
+
+125
+00:06:12,240 --> 00:06:13,890
+so that's gonna take a few minutes because
+
+126
+00:06:13,890 --> 00:06:17,460
+it will create our application load balancer and our
+
+127
+00:06:17,460 --> 00:06:22,050
+target group and then a service and a task that's running on top of that service.
+
+128
+00:06:22,640 --> 00:06:24,890
+My service is now deployed successfully.
+
+129
+00:06:25,090 --> 00:06:27,050
+Let's go to ec two and see what's happened.
+
+130
+00:06:27,440 --> 00:06:30,100
+So in Ec two I go down to low balances.
+
+131
+00:06:30,380 --> 00:06:31,660
+I've got an A. L. B.
+
+132
+00:06:32,140 --> 00:06:33,150
+So that looks good.
+
+133
+00:06:33,350 --> 00:06:36,760
+I'm just gonna copy the DNS name here. We're gonna check that out in a moment.
+
+134
+00:06:37,440 --> 00:06:41,760
+So I've got my A L. B. In target groups we have a target group
+
+135
+00:06:42,340 --> 00:06:44,980
+note that it uses the I. P target type
+
+136
+00:06:45,090 --> 00:06:48,060
+for pcs containers running on the Ec. Two launch type
+
+137
+00:06:48,540 --> 00:06:52,180
+and under registered targets. You can see that we have a registered target.
+
+138
+00:06:52,180 --> 00:06:55,260
+So that's our task running on our cluster.
+
+139
+00:06:56,040 --> 00:06:59,560
+Now we do need to make sure that our security groups are set up correctly.
+
+140
+00:06:59,860 --> 00:07:04,940
+So I launched mine in the default VPc, which I can see is the one that finishes with
+
+141
+00:07:05,440 --> 00:07:07,440
+seven F 4.
+
+142
+00:07:07,770 --> 00:07:10,210
+So if I now go over and find the default
+
+143
+00:07:10,640 --> 00:07:13,850
+security group for that particular. VPc,
+
+144
+00:07:14,240 --> 00:07:17,850
+I need to just go in because that's a security group we use for our container,
+
+145
+00:07:17,910 --> 00:07:22,500
+I need to make sure that the inbound rule does allow http and I've got one.
+
+146
+00:07:22,570 --> 00:07:25,060
+If you don't have one, just edit inbound rules
+
+147
+00:07:25,440 --> 00:07:26,360
+at the rule
+
+148
+00:07:26,740 --> 00:07:28,790
+and choose http
+
+149
+00:07:29,040 --> 00:07:31,510
+and anywhere I p V four.
+
+150
+00:07:31,760 --> 00:07:33,080
+So mine is set up correctly.
+
+151
+00:07:33,080 --> 00:07:38,080
+So I'm going to go to a new tab paste in the DNS name for my A L. B.
+
+152
+00:07:38,470 --> 00:07:41,560
+And you can see that we are accessing our container.
+
+153
+00:07:41,570 --> 00:07:43,640
+So it just tells us welcome to Engine X.
+
+154
+00:07:43,800 --> 00:07:48,990
+So that's the container running on the service on top of our E C S cluster.
+
+155
+00:07:49,150 --> 00:07:52,150
+So that's all there is to it that is now running successfully.
+
+156
+00:07:52,400 --> 00:07:56,910
+So what I'm gonna do is go back, I'm finished with this particular exercise.
+
+157
+00:07:57,210 --> 00:07:58,470
+So what we can do
+
+158
+00:07:58,580 --> 00:08:00,440
+is we can go to our service
+
+159
+00:08:00,750 --> 00:08:02,410
+and we need to edit the service.
+
+160
+00:08:02,750 --> 00:08:05,470
+You won't be able to delete it when you have tasks running.
+
+161
+00:08:05,740 --> 00:08:08,950
+So you specify zero as desired tasks,
+
+162
+00:08:09,240 --> 00:08:10,350
+click on updates
+
+163
+00:08:11,020 --> 00:08:13,460
+that will update it and it should remove that task.
+
+164
+00:08:13,940 --> 00:08:17,370
+If we come back into tasks here we can see we do have one running
+
+165
+00:08:17,530 --> 00:08:18,950
+but that should go quite soon.
+
+166
+00:08:19,500 --> 00:08:22,350
+Then we can delete our service,
+
+167
+00:08:23,540 --> 00:08:24,560
+click on delete
+
+168
+00:08:25,240 --> 00:08:31,180
+and that's deleted to service. Now if we go back to have a look at R A L. B.
+
+169
+00:08:31,190 --> 00:08:32,350
+It should still be there.
+
+170
+00:08:32,840 --> 00:08:35,980
+So if we come back to A. L. B, you'll note that it doesn't delete that for you.
+
+171
+00:08:35,980 --> 00:08:39,620
+So make sure you go back and clean that up, delete your A. L. B.
+
+172
+00:08:39,720 --> 00:08:41,820
+Once that's gone successfully.
+
+173
+00:08:41,900 --> 00:08:44,230
+You can go and delete your target group if you wish
+
+174
+00:08:44,230 --> 00:08:46,960
+to or you can keep that doesn't cost you anything.
+
+175
+00:08:47,090 --> 00:08:48,760
+I'm gonna delete my target group
+
+176
+00:08:49,440 --> 00:08:51,430
+and then I'm going to go to instances
+
+177
+00:08:51,530 --> 00:08:58,460
+and here I have my Ec two instance running, I'm going to terminate my instance as well
+
+178
+00:08:58,840 --> 00:09:01,860
+and that's really cleared up anything that's gonna cost us any money.
+
+179
+00:09:02,340 --> 00:09:03,560
+So that's shutting down.
+
+180
+00:09:04,240 --> 00:09:05,280
+You can leave the cluster,
+
+181
+00:09:05,280 --> 00:09:07,770
+it won't cost you anything if you're not running the container
+
+182
+00:09:07,770 --> 00:09:10,440
+instances or you can just go and delete your cluster as well
+
+183
+00:09:10,750 --> 00:09:11,860
+and that's it for this lesson.
+

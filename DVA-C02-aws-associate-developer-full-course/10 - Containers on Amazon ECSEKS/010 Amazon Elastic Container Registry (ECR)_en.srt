@@ -1,0 +1,260 @@
+1
+00:00:05,540 --> 00:00:06,110
+Hi guys.
+
+2
+00:00:06,110 --> 00:00:09,180
+We've discussed Amazon ECR quite a bit so far in
+
+3
+00:00:09,180 --> 00:00:11,700
+this section but now we'll go into a bit more detail.
+
+4
+00:00:11,840 --> 00:00:16,190
+So the Elastic Container Registry is a fully managed container registry.
+
+5
+00:00:16,309 --> 00:00:19,420
+It's integrated with ECS and EKS.
+
+6
+00:00:19,620 --> 00:00:23,923
+And it supports the Open Container Initiative and Docker Registry
+
+7
+00:00:23,948 --> 00:00:26,960
+HTTP API V2 standards.
+
+8
+00:00:27,640 --> 00:00:33,750
+You can use Docker tools and Docker CLI commands such as push, pull, list and tag.
+
+9
+00:00:34,390 --> 00:00:37,800
+It can be accessed from any Docker environment in the cloud,
+
+10
+00:00:37,810 --> 00:00:40,620
+on-premises, or on your local machine.
+
+11
+00:00:41,000 --> 00:00:45,500
+The actual container images and artifacts are stored on Amazon S3.
+
+12
+00:00:45,940 --> 00:00:49,650
+And you can use namespaces to organize your repositories.
+
+13
+00:00:49,660 --> 00:00:54,460
+Public repositories allow everyone to access the container images.
+
+14
+00:00:54,940 --> 00:00:58,180
+Access control only applies to private repositories.
+
+15
+00:00:58,430 --> 00:00:59,800
+And we got a couple of options.
+
+16
+00:00:59,980 --> 00:01:02,410
+We've got IAM access control, where we
+
+17
+00:01:02,410 --> 00:01:07,780
+can set policies and define access to container images in our private repositories.
+
+18
+00:01:08,070 --> 00:01:10,060
+And resource-based policies.
+
+19
+00:01:10,230 --> 00:01:12,840
+So here we can have access control right down
+
+20
+00:01:12,840 --> 00:01:18,180
+to the individual API action like create, list, describe, delete, and get.
+
+21
+00:01:18,640 --> 00:01:22,610
+Now these are the components of ECR. Of course, first we have the registry.
+
+22
+00:01:22,890 --> 00:01:26,170
+An ECR private registry is provided to each account
+
+23
+00:01:26,320 --> 00:01:28,710
+and you can create one or more repositories
+
+24
+00:01:28,890 --> 00:01:32,460
+in your registry and then store your images in those.
+
+25
+00:01:33,300 --> 00:01:35,510
+Next, we have an authorization token.
+
+26
+00:01:36,040 --> 00:01:41,118
+Clients must authenticate ECR registries as an AWS user
+
+27
+00:01:41,143 --> 00:01:44,460
+before it's possible to push and pull images.
+
+28
+00:01:44,910 --> 00:01:48,160
+The authorization token will give them that authentication.
+
+29
+00:01:48,840 --> 00:01:54,220
+The actual repository is what contains your Docker Images, OCI Images
+
+30
+00:01:54,390 --> 00:01:56,550
+and OCI compatible artifacts.
+
+31
+00:01:57,100 --> 00:02:01,860
+We then have the repository policy for access control to our repositories.
+
+32
+00:02:02,440 --> 00:02:04,850
+And then of course, we have the actual images.
+
+33
+00:02:05,340 --> 00:02:09,860
+And we'll see in the hands-on how to push and pull images to ECR.
+
+34
+00:02:10,240 --> 00:02:15,490
+With ECR, you get lifecycle policies, so you can manage the lifecycle of the images.
+
+35
+00:02:15,880 --> 00:02:19,860
+You get image scanning, so you can identify software vulnerabilities
+
+36
+00:02:20,340 --> 00:02:24,200
+and you can enable cross-region and cross-account replication.
+
+37
+00:02:24,360 --> 00:02:27,450
+There's also a feature called pull through cache rules.
+
+38
+00:02:27,840 --> 00:02:32,660
+What this means is you can cache repositories from remote public registries
+
+39
+00:02:32,770 --> 00:02:35,360
+in your private ECR registry.
+
+40
+00:02:35,740 --> 00:02:39,460
+So let's have a look at a few processes working with ECR.
+
+41
+00:02:39,940 --> 00:02:43,450
+So let's say we download and customize an Ubuntu image.
+
+42
+00:02:43,940 --> 00:02:47,960
+We can then upload that image by pushing it to the registry.
+
+43
+00:02:48,440 --> 00:02:51,760
+We're then able to run a task using the image.
+
+44
+00:02:52,140 --> 00:02:55,900
+So that seems quite simple and that's what we're going to do in the hands-on lesson.
+
+45
+00:02:56,730 --> 00:03:01,850
+Now to push an image to a private repository, you do need to have IAM permissions.
+
+46
+00:03:02,170 --> 00:03:05,960
+And these are the permissions you need at a minimum to be able to do that.
+
+47
+00:03:06,510 --> 00:03:08,950
+So we've got the CompleteLayerUpload,
+
+48
+00:03:09,070 --> 00:03:13,280
+GetAuthorizationTokens so we can authenticate to the repository,
+
+49
+00:03:13,510 --> 00:03:15,700
+UploadLayerPart, InitiateLayerUpload,
+
+50
+00:03:15,700 --> 00:03:18,860
+BatchCheckLayerAvailability, and then
+
+51
+00:03:18,860 --> 00:03:21,460
+PutImage to actually upload our image.
+
+52
+00:03:21,830 --> 00:03:27,230
+The resource element can also be used to scope to a specific repository ARN
+
+53
+00:03:27,250 --> 00:03:29,800
+if you want to limit these permissions further.
+
+54
+00:03:30,240 --> 00:03:34,650
+So let's have a look at the process for pushing an image to a private repository.
+
+55
+00:03:35,040 --> 00:03:38,360
+First, we need to authenticate the Docker client ECR.
+
+56
+00:03:38,740 --> 00:03:40,560
+We can do that with this command.
+
+57
+00:03:40,840 --> 00:03:45,970
+We have AWS ECR get login password, specify the region
+
+58
+00:03:46,150 --> 00:03:50,880
+and then we're piping to Docker login with a username and a password.
+
+59
+00:03:51,440 --> 00:03:53,740
+Next, is the tag your image with the ECR
+
+60
+00:03:53,740 --> 00:03:57,180
+registry repository and image tag name to use.
+
+61
+00:03:57,640 --> 00:04:00,250
+So we can use the Docker Tag command to do that.
+
+62
+00:04:01,040 --> 00:04:04,790
+We would then push the image using the Docker push command.
+
+63
+00:04:04,790 --> 00:04:08,040
+So here we've got Docker push and we give it the account
+
+64
+00:04:08,040 --> 00:04:12,770
+information with the repository and the tag that we've already specified before.
+
+65
+00:04:12,960 --> 00:04:16,850
+So that's the process. It's quite simple and we're gonna practice it in the hands on.
+

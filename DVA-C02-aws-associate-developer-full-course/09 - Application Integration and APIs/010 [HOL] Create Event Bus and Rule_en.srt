@@ -1,0 +1,120 @@
+1
+00:00:05,410 --> 00:00:10,210
+In this hands-on lesson, we're going to create an event bus and rule that triggers based on state
+
+2
+00:00:10,210 --> 00:00:11,670
+changes in EC2.
+
+3
+00:00:12,130 --> 00:00:14,860
+So, we saw this example in the previous lesson.
+
+4
+00:00:15,070 --> 00:00:19,630
+It's simply going to be a state change in EC2 where we terminate an event.
+
+5
+00:00:19,990 --> 00:00:23,050
+And that should trigger an email via an SNS topic.
+
+6
+00:00:23,500 --> 00:00:28,960
+Now, in EC2, I've already launched an instance. So, you'll want to go ahead and just launch an instance
+
+7
+00:00:29,200 --> 00:00:33,290
+and then copy the instance ID to your clipboard. In EventBridge,
+
+8
+00:00:33,340 --> 00:00:34,510
+we're going to create a rule.
+
+9
+00:00:34,750 --> 00:00:42,040
+I'll give it a name, EC2 State Change. And then I'm going to choose event pattern, predefined pattern
+
+10
+00:00:42,040 --> 00:00:43,540
+by AWS service.
+
+11
+00:00:44,080 --> 00:00:49,930
+The service provider is going to be AWS, then EC2. For event type,
+
+12
+00:00:49,930 --> 00:00:56,500
+you want to choose EC2 instance state change notification. And then we're going to change to specific
+
+13
+00:00:56,500 --> 00:00:59,170
+states and I'm going to choose terminated.
+
+14
+00:01:00,450 --> 00:01:07,860
+For instance, I can actually add my specific instance ID. So, we can now see the event pattern has
+
+15
+00:01:07,860 --> 00:01:09,180
+been recorded here.
+
+16
+00:01:09,540 --> 00:01:12,450
+We're looking at the source aws.ec2.
+
+17
+00:01:12,930 --> 00:01:18,600
+We're looking for an instance state change notification, and specifically, we're looking for terminated
+
+18
+00:01:18,600 --> 00:01:22,080
+events related to this specific instance.
+
+19
+00:01:22,470 --> 00:01:24,810
+Next, we need to specify a target.
+
+20
+00:01:25,230 --> 00:01:31,440
+So, I'm going to choose SNS and then for topic, we already have a topic here from earlier in the course.
+
+21
+00:01:31,440 --> 00:01:37,020
+So, I'm going to choose my email notification and then simply create this rule.
+
+22
+00:01:38,140 --> 00:01:39,430
+So that rule is enabled.
+
+23
+00:01:39,730 --> 00:01:43,150
+Let's go and terminate our EC2 instance and see what happens.
+
+24
+00:01:43,720 --> 00:01:49,630
+So, back in EC2, I'm simply going to terminate my EC2 instance. And then, I need to go and check my email
+
+25
+00:01:49,780 --> 00:01:51,970
+and see if I've received a notification.
+
+26
+00:01:52,450 --> 00:01:57,160
+So, here is the notification message that I received about 30 seconds later.
+
+27
+00:01:57,640 --> 00:02:03,580
+We can say it's an instance state change notification from EC2. We've got some information about the account,
+
+28
+00:02:03,820 --> 00:02:08,620
+the time it occurred, the region, and the resource specific information as well.
+
+29
+00:02:09,250 --> 00:02:14,950
+So that's a simple example of using an EventBridge rule to trigger an action based on a state change
+
+30
+00:02:15,070 --> 00:02:15,850
+in EC2.
+

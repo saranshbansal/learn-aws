@@ -1,0 +1,124 @@
+1
+00:00:00,440 --> 00:00:02,770
+Welcome to this section in this section there's
+
+2
+00:00:02,770 --> 00:00:05,340
+coverage of quite a lot of different services.
+
+3
+00:00:05,350 --> 00:00:09,190
+We're going to look at the application integration services,
+
+4
+00:00:09,200 --> 00:00:11,130
+we're going to look at some services
+
+5
+00:00:11,130 --> 00:00:14,270
+you can use for creating event driven architectures
+
+6
+00:00:14,390 --> 00:00:16,079
+as well as a P. I. S.
+
+7
+00:00:16,640 --> 00:00:20,720
+So with the application integration services we have services
+
+8
+00:00:20,720 --> 00:00:24,170
+such as the amazon simple queue service sqs.
+
+9
+00:00:24,370 --> 00:00:26,690
+Now that's a really important one to understand for
+
+10
+00:00:26,690 --> 00:00:29,230
+the exam does come up in lots of questions,
+
+11
+00:00:29,230 --> 00:00:32,430
+so we've got quite a long theory lesson on SQS
+
+12
+00:00:32,600 --> 00:00:35,150
+and also it's covered in lots of hands on lessons.
+
+13
+00:00:35,520 --> 00:00:38,830
+S and S. The simple notification service comes up as well.
+
+14
+00:00:38,840 --> 00:00:40,450
+Not in as much detail though.
+
+15
+00:00:40,940 --> 00:00:45,680
+Well look at amazon event bridge which you can use for creating a venture of
+
+16
+00:00:45,680 --> 00:00:50,130
+an architecture so you can say that when a certain event happens in one service
+
+17
+00:00:50,290 --> 00:00:53,150
+then you need to do something else. So execute something.
+
+18
+00:00:53,840 --> 00:00:56,350
+I also cover step functions which
+
+19
+00:00:56,350 --> 00:01:00,200
+is used for orchestrating various different processes
+
+20
+00:01:00,410 --> 00:01:04,180
+as part of a visual workflow. Quite an interesting service.
+
+21
+00:01:04,519 --> 00:01:07,270
+Another service that's important to understand and I have to
+
+22
+00:01:07,270 --> 00:01:09,430
+go into quite a bit of detail on this one
+
+23
+00:01:09,600 --> 00:01:14,570
+is the amazon Api gateway. So api gateway is used for creating
+
+24
+00:01:14,740 --> 00:01:18,030
+different types of API like HTTP APIs
+
+25
+00:01:18,200 --> 00:01:19,480
+and REST APIs
+
+26
+00:01:19,720 --> 00:01:23,100
+And it does require quite a bit of understanding for the exams,
+
+27
+00:01:23,100 --> 00:01:24,850
+so we'll go into lots of detail there.
+
+28
+00:01:25,240 --> 00:01:29,660
+Now all of this is going to be put into practice, we will be creating APIs
+
+29
+00:01:29,680 --> 00:01:34,120
+And microservices and using application integration services
+
+30
+00:01:34,120 --> 00:01:37,010
+to connect different application components together.
+
+31
+00:01:37,080 --> 00:01:40,150
+So lots of really interesting hands on lessons. Hope you enjoy them.
+

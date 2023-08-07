@@ -1,0 +1,136 @@
+1
+00:00:05,460 --> 00:00:12,570
+Amazon EventBridge is a serverless event bus. And it's useful for building distributed event-driven
+
+2
+00:00:12,570 --> 00:00:13,500
+applications.
+
+3
+00:00:13,950 --> 00:00:21,420
+It can react to state changes in resources including AWS resources and also non-AWS resources
+
+4
+00:00:21,420 --> 00:00:21,900
+as well.
+
+5
+00:00:22,320 --> 00:00:25,830
+Now, it used to be known as Amazon CloudWatch Events.
+
+6
+00:00:26,010 --> 00:00:31,860
+You can still find CloudWatch Events in the CloudWatch console, but you also find EventBridge as
+
+7
+00:00:31,860 --> 00:00:34,170
+a separate service within AWS.
+
+8
+00:00:34,410 --> 00:00:37,830
+So let's see what we can do with EventBridge. Now,
+
+9
+00:00:37,830 --> 00:00:40,380
+with EventBridge, we have our event sources.
+
+10
+00:00:40,620 --> 00:00:47,010
+They can be AWS services, custom applications or some kind of third-party SAS-based application.
+
+11
+00:00:47,190 --> 00:00:54,300
+State changes to those resources get sent as events to what we call an EventBridge event bus.
+
+12
+00:00:54,840 --> 00:01:01,980
+The information is then processed by rules. And those rules can then send information through to various
+
+13
+00:01:01,980 --> 00:01:09,780
+destinations like Lambda functions, Kinesis data streams, or AWS Config. And those are known as targets.
+
+14
+00:01:10,230 --> 00:01:11,850
+Let's have a look at an example.
+
+15
+00:01:12,300 --> 00:01:19,530
+Let's say we have EC2 as an event source and an event happens. And that event is a termination event
+
+16
+00:01:19,740 --> 00:01:24,050
+of an EC2 instance That gets forwarded to the EventBridge event bus,
+
+17
+00:01:24,480 --> 00:01:29,550
+a rule gets processed, and that rule then gets sent through to a destination.
+
+18
+00:01:29,910 --> 00:01:36,270
+In this case, an SNS topic. And so, an SNS notification gets sent through to an email address.
+
+19
+00:01:36,690 --> 00:01:40,380
+With this example, we might have a configuration that looks much like this.
+
+20
+00:01:40,810 --> 00:01:43,020
+We've defined a pattern by service.
+
+21
+00:01:43,350 --> 00:01:48,090
+We're using AWS as a service provider, EC2, and as a state change.
+
+22
+00:01:48,450 --> 00:01:50,400
+The specific state is terminated.
+
+23
+00:01:50,640 --> 00:01:54,900
+And in this case, we've specified a specific instance ID.
+
+24
+00:01:55,800 --> 00:02:00,840
+Now, the result will look something like this. So, we'll see some information recorded that can then
+
+25
+00:02:00,840 --> 00:02:01,650
+be utilized.
+
+26
+00:02:01,920 --> 00:02:06,210
+In another example, we have AWS CloudTrail as a source.
+
+27
+00:02:06,210 --> 00:02:11,430
+Now, CloudTrail is a service that monitors API actions for auditing.
+
+28
+00:02:11,730 --> 00:02:18,300
+In this case, information gets forwarded through about an API event, and it's an S3 PUT bucket policy
+
+29
+00:02:18,300 --> 00:02:22,110
+event. So, somebody has added a policy to an S3 bucket.
+
+30
+00:02:22,530 --> 00:02:29,370
+So, what's going to happen is a rule gets processed and that rule is then going to send information to
+
+31
+00:02:29,370 --> 00:02:29,940
+a target.
+
+32
+00:02:30,240 --> 00:02:32,190
+And again, this could be an email address.
+
+33
+00:02:32,700 --> 00:02:35,550
+Now, we're going to see both of these examples in this course.
+
+34
+00:02:35,820 --> 00:02:38,430
+Example one is going to be in the very next lesson.
+

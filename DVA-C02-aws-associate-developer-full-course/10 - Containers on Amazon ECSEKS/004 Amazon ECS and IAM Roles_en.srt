@@ -1,0 +1,136 @@
+1
+00:00:05,270 --> 00:00:10,850
+Hi, guys. In this lesson, we're going to go over how you assign permissions to your container instances
+
+2
+00:00:11,120 --> 00:00:13,880
+and your actual containers, your tasks themselves.
+
+3
+00:00:14,030 --> 00:00:17,510
+So let's have a look at how we use IAM roles with ECS.
+
+4
+00:00:18,080 --> 00:00:21,320
+So, in this example, we have the EC2 launch type.
+
+5
+00:00:21,620 --> 00:00:23,300
+So, we have an ECS cluster,
+
+6
+00:00:23,570 --> 00:00:27,380
+we have a service, and we have a container instance that we manage.
+
+7
+00:00:27,680 --> 00:00:31,000
+The container instance has an IAM role assigned to it.
+
+8
+00:00:31,050 --> 00:00:33,410
+This is known as the IAM instance role.
+
+9
+00:00:34,190 --> 00:00:38,240
+This provides the container instance with permissions that it needs.
+
+10
+00:00:38,390 --> 00:00:44,210
+So, for example, the permissions policy for the container instance role may be like this, where it
+
+11
+00:00:44,210 --> 00:00:49,580
+has some EC2 and ECS permissions. And these are permissions assigned to the host.
+
+12
+00:00:49,910 --> 00:00:56,690
+We then have the tasks that are running on our container instance, and those tasks will have an IAM
+
+13
+00:00:56,690 --> 00:00:57,740
+task role.
+
+14
+00:00:58,070 --> 00:01:03,440
+So, the role assigned to the task is a different role than the container instance.
+
+15
+00:01:03,650 --> 00:01:10,220
+The permissions assigned to this role are supplied to the container instance, not to the host.
+
+16
+00:01:10,640 --> 00:01:17,300
+Now, a really important point for the exam is that the permissions assigned to the instance role are
+
+17
+00:01:17,300 --> 00:01:22,220
+also supplied to the tasks that are running on top of that instance.
+
+18
+00:01:22,640 --> 00:01:28,070
+So, you want to be very careful what permissions you apply there because your container instances are
+
+19
+00:01:28,070 --> 00:01:28,850
+going to run them.
+
+20
+00:01:29,510 --> 00:01:35,600
+If you have different containers that should have different permissions, then you should use IAM task
+
+21
+00:01:35,600 --> 00:01:36,050
+roles.
+
+22
+00:01:36,590 --> 00:01:38,090
+Now, what about on Fargate?
+
+23
+00:01:38,510 --> 00:01:39,860
+Fargate is a bit simpler.
+
+24
+00:01:40,070 --> 00:01:42,260
+You only have the IAM task roles.
+
+25
+00:01:42,530 --> 00:01:48,740
+There's no such thing as a container instance role because you don't have any actual operational control
+
+26
+00:01:48,950 --> 00:01:50,570
+over the container instances.
+
+27
+00:01:51,260 --> 00:01:58,010
+Now, the task roles are defined in the task definition or in the run task API.
+
+28
+00:01:58,020 --> 00:02:03,800
+So when we run a task, we can define the role that we want to assign to it, or we assign it through
+
+29
+00:02:03,800 --> 00:02:04,940
+the task definition.
+
+30
+00:02:05,390 --> 00:02:10,460
+And that's where if you have multiple applications running in containers and they come from different
+
+31
+00:02:10,460 --> 00:02:16,760
+task definitions, then you can have different roles for those different applications specified in that
+
+32
+00:02:16,760 --> 00:02:17,780
+task definition.
+
+33
+00:02:17,990 --> 00:02:23,810
+And that's how you will use the principle of least privilege and only assign the permissions that that
+
+34
+00:02:23,810 --> 00:02:25,430
+particular application needs.
+

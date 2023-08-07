@@ -1,0 +1,1012 @@
+1
+00:00:05,010 --> 00:00:07,420
+Hello and welcome to this lesson this lesson.
+
+2
+00:00:07,420 --> 00:00:10,880
+I'm going to cover AWS co pilot now it will be a hands on lesson.
+
+3
+00:00:10,880 --> 00:00:14,490
+So I'm gonna give you a brief introduction to co pilot and then we're going to go in and
+
+4
+00:00:14,490 --> 00:00:16,390
+actually see it in action and that's the best way
+
+5
+00:00:16,390 --> 00:00:19,530
+to understand what co pilot can do for you.
+
+6
+00:00:19,600 --> 00:00:25,230
+So co pilot is a command line interface for launching and managing containers.
+
+7
+00:00:25,250 --> 00:00:26,690
+So as you'll see shortly,
+
+8
+00:00:26,690 --> 00:00:29,430
+it it's going to be a way that we can with a few simple
+
+9
+00:00:29,430 --> 00:00:34,090
+commands create a containerized application and of
+
+10
+00:00:34,090 --> 00:00:36,610
+course it uses deployment pipelines if you
+
+11
+00:00:36,610 --> 00:00:41,940
+wanted to it can use a well architected infrastructure setup process as well and
+
+12
+00:00:41,940 --> 00:00:45,620
+it can deploy your containerized infrastructure using
+
+13
+00:00:45,620 --> 00:00:48,650
+ADcs using Fargate or using app Runner.
+
+14
+00:00:48,890 --> 00:00:51,900
+So those are the free services which it integrates
+
+15
+00:00:51,900 --> 00:00:55,660
+with in terms of running your containerized application.
+
+16
+00:00:55,820 --> 00:00:58,450
+It's based on infrastructure as code templates.
+
+17
+00:00:58,450 --> 00:01:00,940
+So it's actually gonna build out those templates for you.
+
+18
+00:01:01,170 --> 00:01:05,379
+You run some simple commands to build out your containerized environment
+
+19
+00:01:05,660 --> 00:01:08,110
+and here's an example of a few of those commands,
+
+20
+00:01:08,310 --> 00:01:10,620
+simple commands like copilot in it.
+
+21
+00:01:10,760 --> 00:01:13,700
+To initialize and build your co pilot environment,
+
+22
+00:01:14,050 --> 00:01:17,210
+then you can look at your applications and show information
+
+23
+00:01:17,210 --> 00:01:19,860
+about your environments listing the services and so on.
+
+24
+00:01:19,870 --> 00:01:21,970
+Now we'll see a few of these in action
+
+25
+00:01:22,110 --> 00:01:26,300
+in a hands on. We're going to build a simple demo containerized environment.
+
+26
+00:01:26,550 --> 00:01:29,340
+So in the course download, you should find this document,
+
+27
+00:01:29,530 --> 00:01:33,750
+it's within the AWS copilot directory. It's called copilot commands dot MD.
+
+28
+00:01:34,020 --> 00:01:35,650
+Now the first command we're going to run
+
+29
+00:01:35,900 --> 00:01:38,540
+is to launch an ec two instance
+
+30
+00:01:38,810 --> 00:01:44,500
+so we can run this command AWS Ec two run instances and specify an image I. D.
+
+31
+00:01:44,500 --> 00:01:47,490
+Now you need to make sure that you've got a current image I. D.
+
+32
+00:01:47,740 --> 00:01:49,690
+Easy way to do that is in ec two,
+
+33
+00:01:49,690 --> 00:01:52,730
+choose your region that you're going to perform this exercise in.
+
+34
+00:01:52,740 --> 00:01:56,660
+I recommend us east one click on launch instances
+
+35
+00:01:56,790 --> 00:01:59,570
+and then let's just copy the am I I. D. Here
+
+36
+00:01:59,820 --> 00:02:03,370
+and this is associated with the amazon Linux two AM I
+
+37
+00:02:03,530 --> 00:02:05,120
+and this is a current I. D.
+
+38
+00:02:05,360 --> 00:02:08,470
+So when you get to this lab,
+
+39
+00:02:08,479 --> 00:02:10,190
+almost undoubtedly the idea would have
+
+40
+00:02:10,190 --> 00:02:12,210
+changed because they change very regularly.
+
+41
+00:02:12,270 --> 00:02:14,500
+So I'm gonna come back and paste that in,
+
+42
+00:02:14,510 --> 00:02:17,390
+make sure I've got a space for my next part of the command.
+
+43
+00:02:17,390 --> 00:02:19,000
+So now I've got the image I. D.
+
+44
+00:02:19,230 --> 00:02:20,890
+And it's going to be a T two micro
+
+45
+00:02:20,990 --> 00:02:24,990
+so I can copy this whole command and I'm going to run this on cloud shell
+
+46
+00:02:25,310 --> 00:02:27,930
+in the cloud shell console. Let's just run this command
+
+47
+00:02:28,260 --> 00:02:30,760
+and that should launch our ec two instance.
+
+48
+00:02:31,060 --> 00:02:31,840
+And that has
+
+49
+00:02:32,170 --> 00:02:36,500
+so let's now go into easy to I just want to check the security group,
+
+50
+00:02:36,500 --> 00:02:39,830
+I didn't specify a security group, so it's going to put it into the default one.
+
+51
+00:02:39,840 --> 00:02:41,230
+So under security,
+
+52
+00:02:41,240 --> 00:02:43,730
+I'm gonna choose security groups and I just need to
+
+53
+00:02:43,730 --> 00:02:46,890
+make sure I've got an inbound rule for poor 22
+
+54
+00:02:46,990 --> 00:02:51,470
+from anywhere and I don't in this case. So let's click on edit inbound rules.
+
+55
+00:02:51,480 --> 00:02:57,310
+Let's add one. I need ssh from anywhere and that's going to allow us to use
+
+56
+00:02:57,490 --> 00:02:59,050
+ec two instance connect.
+
+57
+00:02:59,220 --> 00:03:01,890
+So now let's go back to instances our instance
+
+58
+00:03:01,900 --> 00:03:04,730
+is launching and we should be able to connect
+
+59
+00:03:04,830 --> 00:03:06,590
+over ec two instance connect.
+
+60
+00:03:06,700 --> 00:03:07,120
+Great.
+
+61
+00:03:07,120 --> 00:03:12,420
+So we are on the console and of course it's telling us we should run sudo yum update.
+
+62
+00:03:12,420 --> 00:03:17,220
+So let's just go ahead and do that, click on Yes and there it
+
+63
+00:03:17,725 --> 00:03:20,985
+and let's now go over and have a look at the next commands. We need to run.
+
+64
+00:03:21,075 --> 00:03:25,075
+So the next thing we need to do is we need to install and configure Docker.
+
+65
+00:03:25,295 --> 00:03:28,015
+Okay, so there's a few commands here that need to be run
+
+66
+00:03:28,315 --> 00:03:29,295
+in sequence
+
+67
+00:03:29,455 --> 00:03:31,905
+in order to be able to install and configure Docker
+
+68
+00:03:32,035 --> 00:03:35,175
+to be ready for use. After that we're going to install Git,
+
+69
+00:03:35,450 --> 00:03:37,240
+then the copilot cli
+
+70
+00:03:37,370 --> 00:03:39,180
+then we're going to clone a repository.
+
+71
+00:03:39,260 --> 00:03:42,680
+Then we're going to run the initialization command to start
+
+72
+00:03:42,680 --> 00:03:45,040
+the build and that's going to build out our environment.
+
+73
+00:03:45,050 --> 00:03:48,860
+Alright, so let's get started. The next command is to install Docker.
+
+74
+00:03:48,970 --> 00:03:51,980
+So I'm just gonna run each of these commands one by one.
+
+75
+00:03:52,070 --> 00:03:53,890
+Starting with installing Docker.
+
+76
+00:03:54,110 --> 00:03:57,470
+And you might have to type y and press enter for some of these commands.
+
+77
+00:03:57,825 --> 00:04:00,295
+Next one is to enable the doctor service
+
+78
+00:04:00,615 --> 00:04:02,395
+and then start the Docker service.
+
+79
+00:04:02,715 --> 00:04:03,895
+So let's run that command
+
+80
+00:04:04,245 --> 00:04:05,305
+created the sim link.
+
+81
+00:04:05,415 --> 00:04:06,125
+Next one.
+
+82
+00:04:06,465 --> 00:04:07,635
+Get the service started.
+
+83
+00:04:07,845 --> 00:04:09,395
+No errors. So everything looks good.
+
+84
+00:04:09,395 --> 00:04:12,065
+Let me just clear the screen so you can see everything more easily.
+
+85
+00:04:12,315 --> 00:04:15,425
+Then we need to modify some permissions. Let's paste this command in
+
+86
+00:04:15,875 --> 00:04:17,725
+and run these final two commands.
+
+87
+00:04:17,865 --> 00:04:19,495
+All related to permissions,
+
+88
+00:04:19,740 --> 00:04:23,300
+paste that one in and that's Docker installed and ready for use.
+
+89
+00:04:23,640 --> 00:04:26,540
+The next thing to do is simply installed. GIT.
+
+90
+00:04:26,550 --> 00:04:28,510
+Because we're going to clone a repository.
+
+91
+00:04:28,550 --> 00:04:31,240
+So that's just simply sudo yum install git.
+
+92
+00:04:31,430 --> 00:04:34,040
+Why and enter and that's going to be installed.
+
+93
+00:04:34,200 --> 00:04:35,260
+Excellent, that's done.
+
+94
+00:04:35,470 --> 00:04:38,110
+Next. We're going to install the copilot cli.
+
+95
+00:04:38,110 --> 00:04:42,370
+So this is the full command online 15 From where
+
+96
+00:04:42,370 --> 00:04:45,173
+it says Sudo right through to where it says help.
+
+97
+00:04:45,353 --> 00:04:47,533
+This is going to clone the Cli
+
+98
+00:04:47,803 --> 00:04:49,963
+to a local directory on
+
+99
+00:04:50,123 --> 00:04:51,413
+the ec two instance.
+
+100
+00:04:51,633 --> 00:04:54,443
+So again I'll clear my screen so you can see me run this command
+
+101
+00:04:54,623 --> 00:04:55,423
+and there we go.
+
+102
+00:04:55,663 --> 00:04:56,303
+That's done.
+
+103
+00:04:56,493 --> 00:05:00,313
+The next thing we need to do is install the copilot cli for that. We just run
+
+104
+00:05:00,443 --> 00:05:02,823
+this entire command from line 15
+
+105
+00:05:02,923 --> 00:05:03,783
+to run that command
+
+106
+00:05:03,963 --> 00:05:05,973
+and that has completed successfully.
+
+107
+00:05:06,243 --> 00:05:11,966
+Next we need to clone the co pilot repository and then change into the app directory.
+
+108
+00:05:11,966 --> 00:05:13,016
+So we're cloning
+
+109
+00:05:13,216 --> 00:05:18,866
+from a Git hub repository. It's the amazon ec s cli sample app dot get
+
+110
+00:05:19,186 --> 00:05:22,686
+And we're going to create our application called demo app.
+
+111
+00:05:22,846 --> 00:05:24,226
+And for that we need a directory.
+
+112
+00:05:24,436 --> 00:05:27,486
+So let's clone this repository. I'll clear the screen again.
+
+113
+00:05:27,516 --> 00:05:31,316
+Let's clone the repository very quickly that has been done.
+
+114
+00:05:31,540 --> 00:05:34,820
+And then we just changed to the demo app directory.
+
+115
+00:05:35,050 --> 00:05:36,640
+So back in here let's change in
+
+116
+00:05:36,790 --> 00:05:40,200
+and let's have a look at what's in here so we can see there's a couple of MD files.
+
+117
+00:05:40,200 --> 00:05:42,760
+There's a Docker file, there's an index dot html
+
+118
+00:05:42,870 --> 00:05:44,160
+a license and read me
+
+119
+00:05:44,350 --> 00:05:47,870
+if you want to have a look at the docker file of course you can just read it from here.
+
+120
+00:05:47,870 --> 00:05:51,670
+It simply says from engine x copy index dot html to
+
+121
+00:05:51,780 --> 00:05:52,650
+this location.
+
+122
+00:05:53,000 --> 00:05:54,940
+The next thing we need to do is run
+
+123
+00:05:55,100 --> 00:05:55,550
+the
+
+124
+00:05:55,670 --> 00:05:59,680
+command to start the build. So this is gonna be where we actually use co pilot.
+
+125
+00:05:59,680 --> 00:06:01,870
+So now we run the co pilot in command
+
+126
+00:06:01,990 --> 00:06:04,630
+with the app called demo. The name is a P I
+
+127
+00:06:04,820 --> 00:06:09,340
+it's a load balanced web service. It uses a Docker file which is the Docker file
+
+128
+00:06:09,510 --> 00:06:10,940
+in the current directory
+
+129
+00:06:11,050 --> 00:06:13,910
+and the porters 80 because it's a web service and we're going to deploy.
+
+130
+00:06:13,970 --> 00:06:17,510
+Now of course co pilot is going to need some permissions
+
+131
+00:06:17,660 --> 00:06:21,620
+so there's a couple of things we have to do before we can run this command.
+
+132
+00:06:21,760 --> 00:06:25,650
+I'm in the identity and access management service and I'm going to create a role
+
+133
+00:06:25,870 --> 00:06:27,720
+and this is the role that's going to be used by the
+
+134
+00:06:27,720 --> 00:06:32,300
+service to create the resources And of course we're using Ec two.
+
+135
+00:06:32,300 --> 00:06:34,900
+So easy to needs to be able to assume the role so
+
+136
+00:06:34,900 --> 00:06:38,670
+that it has the permissions to perform the actions via co pilot.
+
+137
+00:06:38,690 --> 00:06:41,690
+So the use case is easy to now. What permissions do we need?
+
+138
+00:06:41,690 --> 00:06:43,190
+Well there's quite a few permissions here.
+
+139
+00:06:43,190 --> 00:06:46,486
+We're going to have some pcs permissions and some low balancing permissions
+
+140
+00:06:46,656 --> 00:06:50,206
+so you may be able to restrict and create a policy
+
+141
+00:06:50,216 --> 00:06:54,156
+that gives you exactly what you need for this particular exercise.
+
+142
+00:06:54,166 --> 00:06:56,296
+Obviously not the best practice but I'm just going to
+
+143
+00:06:56,296 --> 00:06:59,546
+use administrator access to make sure it works of course in
+
+144
+00:06:59,546 --> 00:07:02,636
+a real world scenario outside of a demo you'll want to
+
+145
+00:07:02,636 --> 00:07:06,096
+make sure you lock down the specific permissions you need.
+
+146
+00:07:06,106 --> 00:07:08,056
+So for the role name I'm simply going to call
+
+147
+00:07:08,056 --> 00:07:11,352
+this one admin access because that's what the role provides
+
+148
+00:07:11,502 --> 00:07:13,032
+and create that role.
+
+149
+00:07:13,292 --> 00:07:18,222
+The role has been created. So let's go to easy to we need to attach
+
+150
+00:07:18,422 --> 00:07:21,132
+the role. I'm going to use action, security
+
+151
+00:07:21,272 --> 00:07:22,902
+modify I am role
+
+152
+00:07:23,182 --> 00:07:25,112
+and give it the admin access. Roll
+
+153
+00:07:25,232 --> 00:07:28,532
+another thing we need to do is back on our instance
+
+154
+00:07:28,652 --> 00:07:30,672
+let's just run AWS configure
+
+155
+00:07:30,962 --> 00:07:33,502
+not because we need to supply any access keys
+
+156
+00:07:33,642 --> 00:07:36,342
+but because I want to provide the default region name.
+
+157
+00:07:36,590 --> 00:07:37,860
+Us East one,
+
+158
+00:07:38,170 --> 00:07:40,450
+that's the region I am using North Virginia
+
+159
+00:07:40,700 --> 00:07:42,340
+which is US East one.
+
+160
+00:07:42,530 --> 00:07:46,690
+So press enter and enter again. That's the only variable I needed to supply their.
+
+161
+00:07:46,730 --> 00:07:50,380
+Alright. So I've got that now I should be able to run my copilot command
+
+162
+00:07:50,650 --> 00:07:52,070
+so back in the file here,
+
+163
+00:07:52,170 --> 00:07:54,740
+let's copy the entire command from line six.
+
+164
+00:07:54,900 --> 00:07:58,560
+Come back, paste that into my ec two instance, connect terminal
+
+165
+00:07:58,740 --> 00:07:59,640
+and off we go.
+
+166
+00:07:59,750 --> 00:08:01,620
+So you're gonna see quite a lot happening
+
+167
+00:08:01,850 --> 00:08:03,530
+as we go through this process,
+
+168
+00:08:03,530 --> 00:08:06,000
+you can see a lot of feedback in the console
+
+169
+00:08:06,000 --> 00:08:09,400
+telling you what's being created for instance I am rolls,
+
+170
+00:08:09,430 --> 00:08:13,190
+we've got ec are repositories and kms keys and s three buckets
+
+171
+00:08:13,490 --> 00:08:15,730
+so there can be a small cost to this lab
+
+172
+00:08:15,740 --> 00:08:18,360
+just make sure that when you run this command you
+
+173
+00:08:18,360 --> 00:08:20,620
+are aware that it's going to do a few things
+
+174
+00:08:20,630 --> 00:08:23,690
+came as keys for example cost about a dollar each.
+
+175
+00:08:23,710 --> 00:08:26,670
+So make sure that you're aware of that before you actually
+
+176
+00:08:26,670 --> 00:08:30,100
+hit that into the command and run this particular setup.
+
+177
+00:08:30,110 --> 00:08:33,289
+And of course as long as you destroy this environment
+
+178
+00:08:33,299 --> 00:08:35,390
+at the end it's not going to cost you much
+
+179
+00:08:35,490 --> 00:08:38,990
+at all if anything because we're not going to be using it for very long
+
+180
+00:08:39,280 --> 00:08:44,370
+now we can see that cloud formation is being used in the console feedback here.
+
+181
+00:08:44,540 --> 00:08:47,200
+So let's go over to cloud formation and see
+
+182
+00:08:47,200 --> 00:08:49,010
+what is actually going on in cloud formation.
+
+183
+00:08:49,190 --> 00:08:52,900
+So in cloud formation firstly we can see the demo demo
+
+184
+00:08:52,900 --> 00:08:57,280
+infrastructure roles has been created so that's something that's just happened
+
+185
+00:08:57,420 --> 00:08:58,320
+and
+
+186
+00:08:58,500 --> 00:09:03,850
+if we go into that particular stack, go to events, we can see what's being created
+
+187
+00:09:04,050 --> 00:09:05,570
+and in this case that's simply
+
+188
+00:09:05,850 --> 00:09:08,850
+the execution roles and administrative roles and so on
+
+189
+00:09:09,010 --> 00:09:09,990
+that were created
+
+190
+00:09:10,210 --> 00:09:11,150
+in I am
+
+191
+00:09:11,420 --> 00:09:14,610
+going to outputs, we've got the administrative role A R N
+
+192
+00:09:14,820 --> 00:09:17,840
+which is of course and I am and the execution role A R N
+
+193
+00:09:17,970 --> 00:09:19,970
+which again is an I am roll
+
+194
+00:09:20,130 --> 00:09:23,480
+the whole setup can take several minutes so you'll be
+
+195
+00:09:23,480 --> 00:09:25,610
+able to sit back and watch what's going on,
+
+196
+00:09:25,610 --> 00:09:29,250
+keep an eye on cloud formation for additional resources being created
+
+197
+00:09:29,550 --> 00:09:32,370
+and in a few minutes time this should complete successfully.
+
+198
+00:09:32,630 --> 00:09:34,340
+Alright. So that took a little while.
+
+199
+00:09:34,340 --> 00:09:38,460
+Of course it takes 10 15 minutes, something like that to build out your environment.
+
+200
+00:09:38,500 --> 00:09:42,790
+And as you can see just by scrolling back through what's happened.
+
+201
+00:09:43,010 --> 00:09:45,880
+There's been a lot, there's lots of different resources created.
+
+202
+00:09:45,880 --> 00:09:48,380
+So this is that well architected best practice,
+
+203
+00:09:48,380 --> 00:09:52,380
+secure configuration for your containerized application
+
+204
+00:09:52,500 --> 00:09:54,620
+and we'll have a look at some of the components that have been out.
+
+205
+00:09:54,620 --> 00:09:58,130
+But first it says here you can access your service at
+
+206
+00:09:58,400 --> 00:09:59,690
+and then it gives me
+
+207
+00:09:59,810 --> 00:10:00,560
+this Ural.
+
+208
+00:10:00,870 --> 00:10:03,580
+So I just put this into my browser and there we go.
+
+209
+00:10:03,580 --> 00:10:06,510
+There's my apps so nothing too exciting but it is working
+
+210
+00:10:06,510 --> 00:10:09,820
+now let's have a look at the components of course.
+
+211
+00:10:09,820 --> 00:10:12,830
+If you come back into cloud formation here, I think this is all of it.
+
+212
+00:10:12,960 --> 00:10:16,690
+You can see that there's been a few different stacks created.
+
+213
+00:10:16,690 --> 00:10:18,350
+We've got the infrastructure roles here,
+
+214
+00:10:18,350 --> 00:10:22,880
+we've got the demo infrastructure demo test and test a P I so you can always
+
+215
+00:10:22,880 --> 00:10:26,590
+have a look through these and then have a look at what resources have been created.
+
+216
+00:10:26,970 --> 00:10:29,100
+So you're gonna find lots of different resources.
+
+217
+00:10:29,350 --> 00:10:31,220
+Some of those resources include
+
+218
+00:10:31,380 --> 00:10:33,070
+multiple lambda functions.
+
+219
+00:10:33,280 --> 00:10:39,480
+We've of course got an SCS cluster with one running task, we have a demo,
+
+220
+00:10:39,490 --> 00:10:41,440
+a P I and an image here.
+
+221
+00:10:41,440 --> 00:10:43,130
+This is elastic container registry.
+
+222
+00:10:43,130 --> 00:10:47,070
+So this is the container image that was used in S three here.
+
+223
+00:10:47,070 --> 00:10:50,370
+We can see we have an S three bucket with some assets there.
+
+224
+00:10:50,660 --> 00:10:55,940
+It's created a co pilot demo test vpc with subnets, internet gateway and so on.
+
+225
+00:10:56,100 --> 00:10:59,390
+It's also created a private hosted zone called test dot
+
+226
+00:10:59,390 --> 00:11:03,870
+demo dot local for private DNS resolution within this environment.
+
+227
+00:11:04,190 --> 00:11:09,110
+So lots of different components and all we did was run one simple command.
+
+228
+00:11:09,330 --> 00:11:11,740
+So as you can see, it's very, very powerful.
+
+229
+00:11:11,790 --> 00:11:14,120
+Now there's a few copilot commands that you can
+
+230
+00:11:14,120 --> 00:11:17,400
+run to check the status of your application,
+
+231
+00:11:17,400 --> 00:11:18,800
+like copilot app.
+
+232
+00:11:18,810 --> 00:11:19,530
+Ls
+
+233
+00:11:19,650 --> 00:11:24,450
+that just tells us that we have this application, you can run copilot app show
+
+234
+00:11:24,700 --> 00:11:26,550
+and that gives you a little bit more information
+
+235
+00:11:26,660 --> 00:11:30,490
+about the environment. So that's it for the demo of co pilot.
+
+236
+00:11:30,590 --> 00:11:33,770
+A very simple way to build containerized environments.
+
+237
+00:11:33,780 --> 00:11:34,480
+In fact,
+
+238
+00:11:34,490 --> 00:11:38,720
+once you've set up Docker and you've got your environment configured correctly.
+
+239
+00:11:38,950 --> 00:11:42,970
+You can run one single co pilot command to build out all of this infrastructure.
+
+240
+00:11:43,220 --> 00:11:44,560
+So very powerful indeed.
+
+241
+00:11:44,810 --> 00:11:47,190
+We do want to make sure that we remove our
+
+242
+00:11:47,190 --> 00:11:49,630
+resources and there's one simple way of doing that.
+
+243
+00:11:49,640 --> 00:11:52,090
+So just as it's easy to build, it's easy
+
+244
+00:11:52,240 --> 00:11:55,790
+to destroy as well. So we can run copilot app delete
+
+245
+00:11:56,040 --> 00:11:58,750
+and that should remove all of the resources.
+
+246
+00:11:58,980 --> 00:12:00,840
+So back on ec, two instance connects.
+
+247
+00:12:00,850 --> 00:12:06,120
+I'm simply going to run copilot app delete type Y, press enter and yes,
+
+248
+00:12:06,130 --> 00:12:09,120
+it's going ahead and it's going to remove all of those resources.
+
+249
+00:12:09,120 --> 00:12:11,360
+So I would keep an eye on cloud formation.
+
+250
+00:12:11,370 --> 00:12:13,480
+It should delete all of those stacks,
+
+251
+00:12:13,480 --> 00:12:15,900
+make sure it does delete everything correctly.
+
+252
+00:12:15,900 --> 00:12:18,440
+Make sure it has removed all the resources so you
+
+253
+00:12:18,440 --> 00:12:21,000
+don't end up paying for anything that you don't need.
+

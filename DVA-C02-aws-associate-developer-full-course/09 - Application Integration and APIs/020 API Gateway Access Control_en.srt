@@ -1,0 +1,288 @@
+1
+00:00:05,240 --> 00:00:09,820
+Welcome to this lesson. So let's look into Access Control With API Gateway.
+
+2
+00:00:09,910 --> 00:00:14,810
+So there are several mechanisms for controlling and managing access to an API.
+
+3
+00:00:15,050 --> 00:00:19,860
+We've got resource-based policies which we can attach to our API.
+
+4
+00:00:20,140 --> 00:00:25,250
+We've got identity-based policies which of course apply to users, groups, and roles.
+
+5
+00:00:25,540 --> 00:00:31,640
+We've got IAM tags and we've got endpoint policies for interface VPC endpoints.
+
+6
+00:00:31,830 --> 00:00:35,860
+We've also got Lambda authorizers, so we can use Lambda
+
+7
+00:00:35,860 --> 00:00:39,330
+for authorizing access to our published APIs.
+
+8
+00:00:39,620 --> 00:00:42,960
+And we have Amazon Cognito user pools.
+
+9
+00:00:43,440 --> 00:00:45,960
+First, let's look at resource-based policy.
+
+10
+00:00:46,060 --> 00:00:51,098
+API Gateway resource-based policies are JSON policy documents that you attach
+
+11
+00:00:51,122 --> 00:00:52,380
+to your API.
+
+12
+00:00:52,640 --> 00:00:57,690
+They control whether a specified principal is able to invoke the API.
+
+13
+00:00:57,700 --> 00:00:59,710
+So we have our published API.
+
+14
+00:00:59,830 --> 00:01:06,869
+We might have other accounts or resources in a VPC or CIDR block or IP ranges.
+
+15
+00:01:06,896 --> 00:01:11,860
+And we can control access to any of those based on the permissions policy.
+
+16
+00:01:12,510 --> 00:01:18,460
+Then when policy evaluation is taking place, we can either grant or deny access.
+
+17
+00:01:18,900 --> 00:01:21,040
+And that's based on those different sources.
+
+18
+00:01:21,040 --> 00:01:24,410
+So the account that the request is coming from,
+
+19
+00:01:24,540 --> 00:01:30,818
+the VPC or VPC endpoint that it's coming from, or the CIDR block or IP range
+
+20
+00:01:30,842 --> 00:01:32,560
+that the request is coming from.
+
+21
+00:01:32,740 --> 00:01:35,140
+If the request passes validation,
+
+22
+00:01:35,260 --> 00:01:39,850
+then the user or the service is granted access to the endpoint
+
+23
+00:01:40,440 --> 00:01:42,831
+and the API is securely invoked.
+
+24
+00:01:42,855 --> 00:01:46,050
+So let's have a look at an example resource-based policy.
+
+25
+00:01:46,290 --> 00:01:48,080
+First we would have the permission.
+
+26
+00:01:48,290 --> 00:01:50,550
+That could be either allow or deny.
+
+27
+00:01:51,040 --> 00:01:52,730
+Then the supported operations.
+
+28
+00:01:52,780 --> 00:01:57,620
+So those are the execution operations we want to either grant or deny access to.
+
+29
+00:01:57,830 --> 00:02:01,410
+And then lastly the ARN of the deployed API.
+
+30
+00:02:01,680 --> 00:02:04,010
+Next up we have Lambda authorizers.
+
+31
+00:02:04,560 --> 00:02:09,823
+This is a feature that uses a Lambda function to control access to the API.
+
+32
+00:02:09,863 --> 00:02:14,250
+API Gateway calls the Lambda authorizer which takes the caller's identity
+
+33
+00:02:14,360 --> 00:02:18,260
+as input and then returns an IAM policy as output.
+
+34
+00:02:18,800 --> 00:02:20,530
+There's two types of authorizers.
+
+35
+00:02:20,720 --> 00:02:23,370
+We've got a token-based Lambda authorizer,
+
+36
+00:02:23,650 --> 00:02:26,930
+this receives the caller's identity in a bearer token
+
+37
+00:02:27,050 --> 00:02:32,440
+such as a JSON Web Token, JWT or an OAuth token.
+
+38
+00:02:32,600 --> 00:02:36,571
+Also we have a request parameter based Lambda authorizer
+
+39
+00:02:36,595 --> 00:02:40,731
+which receives the caller's identity in a combination of headers,
+
+40
+00:02:40,755 --> 00:02:45,270
+query string parameters, stage variables and context variables.
+
+41
+00:02:45,480 --> 00:02:47,000
+For Websocket APIs,
+
+42
+00:02:47,130 --> 00:02:51,610
+only request parameter-based authorizers are actually supported.
+
+43
+00:02:51,940 --> 00:02:54,060
+So let's see visually how this works.
+
+44
+00:02:54,640 --> 00:02:57,460
+In step one of my diagram, the client calls
+
+45
+00:02:57,460 --> 00:03:01,860
+the API method passing bearer token or request parameters.
+
+46
+00:03:02,540 --> 00:03:05,940
+Then API Gateway calls the Lambda authorizer.
+
+47
+00:03:06,540 --> 00:03:09,260
+Then the Lambda function authenticates the user.
+
+48
+00:03:09,710 --> 00:03:12,880
+It can call OAuth provider to get token.
+
+49
+00:03:13,050 --> 00:03:15,760
+It can call a SAML provider to get an assertion
+
+50
+00:03:16,140 --> 00:03:19,600
+and it can generate an IAM policy based on request parameters.
+
+51
+00:03:20,340 --> 00:03:24,210
+If successful Lambda then grants and returns an IAM policy
+
+52
+00:03:24,410 --> 00:03:26,000
+and a principal identify.
+
+53
+00:03:26,640 --> 00:03:29,300
+API Gateway then evaluates the policy.
+
+54
+00:03:29,540 --> 00:03:33,125
+If access is allowed, it will execute the method.
+
+55
+00:03:33,149 --> 00:03:37,460
+If access is denied, it will return a status code 403.
+
+56
+00:03:37,840 --> 00:03:41,238
+We then have user pool authorizers with Cognito.
+
+57
+00:03:41,416 --> 00:03:45,660
+A user pool is a user directory in Amazon Cognito.
+
+58
+00:03:46,340 --> 00:03:51,950
+With a user pool, users can sign into a web or mobile app through Cognito.
+
+59
+00:03:52,340 --> 00:03:57,750
+Users can also sign in through social identity providers like Google, Facebook,
+
+60
+00:03:57,760 --> 00:04:01,760
+Amazon or Apple and through SAML identity providers.
+
+61
+00:04:02,240 --> 00:04:06,560
+You can also use a user pool to control who can access your API
+
+62
+00:04:06,750 --> 00:04:08,560
+in Amazon API gateway.
+
+63
+00:04:09,040 --> 00:04:14,110
+And to do that, you create an authorizer of the Cognito user pools type
+
+64
+00:04:14,120 --> 00:04:18,250
+and then configure an API method to use that authorizer.
+
+65
+00:04:18,640 --> 00:04:20,579
+So let's have a look at our diagram.
+
+66
+00:04:20,860 --> 00:04:23,560
+We have a Cognito user pool here which can
+
+67
+00:04:23,560 --> 00:04:27,210
+use a local account or a Federated Identity.
+
+68
+00:04:27,310 --> 00:04:30,780
+The users who want to connect to the API authenticate
+
+69
+00:04:30,880 --> 00:04:33,730
+using the user pool and get tokens.
+
+70
+00:04:33,920 --> 00:04:38,350
+In this case it's a JSON Web Token, a JWT that's returned.
+
+71
+00:04:38,770 --> 00:04:41,600
+Then they're able to access the API.
+
+72
+00:04:42,140 --> 00:04:49,060
+So that's the basic setup of using a JWT token with a Cognito user pool authorizer.
+

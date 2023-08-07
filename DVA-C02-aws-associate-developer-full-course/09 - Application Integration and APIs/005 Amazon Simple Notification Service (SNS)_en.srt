@@ -1,0 +1,152 @@
+1
+00:00:05,320 --> 00:00:09,940
+In this lesson, I'm going to cover the Simple Notification Service in a bit more detail.
+
+2
+00:00:10,570 --> 00:00:13,810
+So SNS is all about sending notifications.
+
+3
+00:00:14,140 --> 00:00:20,770
+It's a publisher/subscriber system. So, we have a publisher and that publisher will produce some kind
+
+4
+00:00:20,770 --> 00:00:24,160
+of information that it sends to an SNS topic.
+
+5
+00:00:24,970 --> 00:00:30,760
+SNS will then forward via different transport protocols to the subscribers.
+
+6
+00:00:31,240 --> 00:00:37,180
+So, a transport protocol is something like HTTP or an email or an SMS text message.
+
+7
+00:00:37,420 --> 00:00:43,660
+There's a few different options to use. And then the subscriber is the actual service or endpoint where
+
+8
+00:00:43,660 --> 00:00:45,280
+the information is received.
+
+9
+00:00:45,490 --> 00:00:51,760
+So, for example, if 100 users subscribe to a topic via email, all of those 100 users will receive
+
+10
+00:00:52,000 --> 00:00:55,270
+any message that gets published to the SNS topic.
+
+11
+00:00:55,780 --> 00:01:02,350
+Now, as subscribers, you can also have things like Lambda functions, SQS queues, or web applications.
+
+12
+00:01:02,860 --> 00:01:09,550
+Amazon SNS is highly available, durable, secure, and a fully managed publisher/subscriber messaging
+
+13
+00:01:09,550 --> 00:01:10,090
+service.
+
+14
+00:01:10,420 --> 00:01:15,940
+It provides what we call a topic for high throughput, push-based, many-to-many messaging.
+
+15
+00:01:15,940 --> 00:01:21,190
+Now, the push-based is really important to understand as it's opposed to SQS.
+
+16
+00:01:21,490 --> 00:01:29,770
+So, whenever you see SQS or SNS side by side, remember, with SQS, it's a pull-based mechanism where the
+
+17
+00:01:29,770 --> 00:01:32,170
+consumer pulls the message from the queue.
+
+18
+00:01:32,320 --> 00:01:33,340
+It polls the queue,
+
+19
+00:01:33,550 --> 00:01:39,700
+if there's a message there, it will process that message. Whereas with SNS, it's push-based. The notification
+
+20
+00:01:39,700 --> 00:01:43,810
+goes to the topic and then it's immediately forwarded to all of the subscribers.
+
+21
+00:01:44,140 --> 00:01:48,910
+With SNS, you can fan out messages to a large number of subscriber endpoints.
+
+22
+00:01:49,300 --> 00:01:59,230
+And those include SQS queues, Lambda functions, HTTP or HTTPS webhooks, mobile push, and SMS. And also,
+
+23
+00:01:59,230 --> 00:02:00,250
+of course, email.
+
+24
+00:02:00,550 --> 00:02:06,340
+Multiple recipients get grouped using a topic, so the topic is the key component you need to understand,
+
+25
+00:02:06,700 --> 00:02:12,850
+and it's an access point for allowing those recipients to subscribe to receive notifications.
+
+26
+00:02:13,300 --> 00:02:17,350
+One topic can support deliveries to multiple endpoint types as well.
+
+27
+00:02:17,680 --> 00:02:23,410
+SNS uses simple APIs, and there's really easy integration with many applications. And we've seen
+
+28
+00:02:23,410 --> 00:02:28,090
+that so far in the course. And we'll keep on using SNS for a few more of the hands-on lessons as
+
+29
+00:02:28,090 --> 00:02:28,360
+well.
+
+30
+00:02:29,050 --> 00:02:32,470
+You get flexible delivery over multiple transport protocols.
+
+31
+00:02:32,860 --> 00:02:38,320
+There's an architectural pattern that comes up in exam questions quite a lot. And that is where we have
+
+32
+00:02:38,320 --> 00:02:40,520
+Amazon SNS with SQS
+
+33
+00:02:40,540 --> 00:02:46,390
+fan out. What this means is that you subscribe one or more SQS queues to
+
+34
+00:02:46,390 --> 00:02:51,760
+an SNS topic. SQS manages the subscription and any necessary permissions.
+
+35
+00:02:52,120 --> 00:02:58,480
+And when you publish a message to the topic, SNS will send that message to every subscribed queue.
+
+36
+00:02:58,930 --> 00:03:00,350
+So, it looks something like this.
+
+37
+00:03:00,370 --> 00:03:07,090
+We have an SNS topic and we have multiple subscribed queues. And we're fanning out the notifications
+
+38
+00:03:07,090 --> 00:03:09,100
+that come in to those different queues.
+

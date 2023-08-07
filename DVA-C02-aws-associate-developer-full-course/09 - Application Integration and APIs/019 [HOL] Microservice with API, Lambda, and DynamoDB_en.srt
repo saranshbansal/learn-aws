@@ -1,0 +1,624 @@
+1
+00:00:05,540 --> 00:00:07,290
+Hi guys. In this hands-on lesson,
+
+2
+00:00:07,290 --> 00:00:11,278
+we're going to create a microservices application that uses
+
+3
+00:00:11,302 --> 00:00:17,150
+API Gateway with a REST API, AWS Lambda, and a DynamoDB table.
+
+4
+00:00:18,540 --> 00:00:22,950
+So this is the simple diagram of how it looks. We have our REST API.
+
+5
+00:00:23,340 --> 00:00:27,890
+We can use that to post a request and that is sent then to Lambda
+
+6
+00:00:28,000 --> 00:00:30,660
+through in this case, a non-proxy integration.
+
+7
+00:00:31,440 --> 00:00:35,850
+Lambda is then going to create an item in our DynamoDB table.
+
+8
+00:00:36,240 --> 00:00:39,960
+So very simple, let's go over to the console and start building this out.
+
+9
+00:00:41,240 --> 00:00:46,690
+Now, the first thing we need to do is create a role for our Lambda function to use.
+
+10
+00:00:48,140 --> 00:00:52,018
+Now, I've actually created a file that has all of the instructions and steps
+
+11
+00:00:52,042 --> 00:00:54,350
+for performing this exercise.
+
+12
+00:00:55,020 --> 00:00:59,485
+So in the file, it's in the code directory of course, Amazon API Gateway
+
+13
+00:00:59,509 --> 00:01:02,760
+and it's called API Lambda DynamoDB HOL.
+
+14
+00:01:03,330 --> 00:01:08,250
+So the first thing is we need to create an IAM policy for the Lambda execution role.
+
+15
+00:01:08,940 --> 00:01:12,003
+And it's going to use this JSON information.
+
+16
+00:01:12,330 --> 00:01:16,460
+So we can copy all of this JSON code to our clipboard.
+
+17
+00:01:16,840 --> 00:01:18,510
+Now this is going to provide
+
+18
+00:01:18,700 --> 00:01:22,860
+access to use certain API actions. So it's going to allow our function
+
+19
+00:01:23,240 --> 00:01:25,160
+to speak to DynamoDB
+
+20
+00:01:25,740 --> 00:01:32,160
+to Get items, Put items, Delete items, Query, Scan, and also Update items.
+
+21
+00:01:32,540 --> 00:01:34,311
+And the resource is Any.
+
+22
+00:01:34,335 --> 00:01:39,050
+Of course you could filter that down to your specific table if you wanted to.
+
+23
+00:01:39,740 --> 00:01:43,000
+It's also allowed to talk to CloudWatch logs to create
+
+24
+00:01:43,000 --> 00:01:45,490
+a log group, stream, and to put log events.
+
+25
+00:01:46,040 --> 00:01:48,860
+So let's copy that information and go and create the policy.
+
+26
+00:01:49,440 --> 00:01:50,820
+So I'm going to go to policies,
+
+27
+00:01:51,340 --> 00:01:52,560
+create policy,
+
+28
+00:01:53,740 --> 00:01:54,780
+choose JSON,
+
+29
+00:01:55,090 --> 00:01:56,310
+delete all of this code,
+
+30
+00:01:56,740 --> 00:01:58,260
+paste my code in.
+
+31
+00:01:58,930 --> 00:02:01,270
+And this is the policy name I'm going to provide.
+
+32
+00:02:01,440 --> 00:02:03,420
+So coming back, let's choose next,
+
+33
+00:02:03,600 --> 00:02:04,490
+review,
+
+34
+00:02:04,610 --> 00:02:05,760
+give it the name,
+
+35
+00:02:06,140 --> 00:02:07,060
+paste that in,
+
+36
+00:02:07,440 --> 00:02:09,060
+and let's create this policy.
+
+37
+00:02:09,440 --> 00:02:11,150
+We're then going to create a role
+
+38
+00:02:11,540 --> 00:02:13,580
+and the role is going to use that policy.
+
+39
+00:02:14,040 --> 00:02:15,410
+So let's create role.
+
+40
+00:02:15,710 --> 00:02:20,460
+It's going to use Lambda. So it's gonna be for a Lambda use case. Choose next.
+
+41
+00:02:21,140 --> 00:02:23,990
+We need to find the permissions policy we created.
+
+42
+00:02:24,230 --> 00:02:26,260
+So I'm going to paste that in.
+
+43
+00:02:27,090 --> 00:02:28,660
+Now, I found my policy.
+
+44
+00:02:29,540 --> 00:02:30,460
+Choose next.
+
+45
+00:02:31,040 --> 00:02:33,850
+And I'm going to call this almost the same but we
+
+46
+00:02:33,850 --> 00:02:36,870
+backspace and just put role on the end rather than policy.
+
+47
+00:02:37,740 --> 00:02:39,360
+So then let's create that role.
+
+48
+00:02:39,940 --> 00:02:41,050
+And that's being created.
+
+49
+00:02:41,640 --> 00:02:43,950
+So back in our file,
+
+50
+00:02:44,300 --> 00:02:47,720
+the next thing to do was to create the execution role. We've just done that.
+
+51
+00:02:48,140 --> 00:02:51,330
+So the next thing is going to be to create the Lambda function.
+
+52
+00:02:51,610 --> 00:02:54,860
+And the name of the function is specified here and you should use this name.
+
+53
+00:02:55,340 --> 00:02:59,171
+It's going to be Node.js and we're going to use the Lambda API Gateway role
+
+54
+00:02:59,195 --> 00:03:00,460
+as the execution role.
+
+55
+00:03:01,400 --> 00:03:03,460
+So in Lambda, I'm gonna create my function.
+
+56
+00:03:03,940 --> 00:03:05,950
+Give it the function name that I copied,
+
+57
+00:03:06,840 --> 00:03:09,260
+choose change execution role,
+
+58
+00:03:10,340 --> 00:03:12,560
+choose use an existing role,
+
+59
+00:03:13,430 --> 00:03:15,290
+and then we're going to find our role.
+
+60
+00:03:16,040 --> 00:03:18,950
+And we can see it here. It's called Lambda Api Gateway role.
+
+61
+00:03:19,576 --> 00:03:21,100
+And then let's create our function.
+
+62
+00:03:21,250 --> 00:03:24,200
+So that was nice and quick because it didn't create an execution role.
+
+63
+00:03:24,200 --> 00:03:25,280
+We already gave it one.
+
+64
+00:03:25,740 --> 00:03:29,340
+We're going to remove this code and go and copy the code from our file.
+
+65
+00:03:29,710 --> 00:03:34,440
+So the code is here in your file, it starts with the words console.log
+
+66
+00:03:34,840 --> 00:03:36,760
+and it comes all the way down here
+
+67
+00:03:37,340 --> 00:03:40,690
+to just before where it says for test the function.
+
+68
+00:03:41,440 --> 00:03:43,150
+So copy that to your clipboard.
+
+69
+00:03:44,040 --> 00:03:46,650
+Back in Lambda. Let's paste that in
+
+70
+00:03:47,340 --> 00:03:48,450
+and click on deploy.
+
+71
+00:03:50,240 --> 00:03:51,160
+And that's done.
+
+72
+00:03:51,640 --> 00:03:56,310
+Now you can optionally test the function so you can use this as some test code
+
+73
+00:03:56,320 --> 00:04:01,830
+or even do it from the command line here using the AWS Lambda invoke command.
+
+74
+00:04:01,990 --> 00:04:06,060
+I'm pretty sure it's gonna work. So I'm just gonna move on to create my REST API.
+
+75
+00:04:06,540 --> 00:04:10,390
+Now my REST API is going to be called DynamoDB Operations
+
+76
+00:04:10,670 --> 00:04:13,560
+and it's going to be a new API with a regional endpoint.
+
+77
+00:04:14,140 --> 00:04:17,745
+So back in API Gateway, let's choose REST API,
+
+78
+00:04:17,769 --> 00:04:22,180
+click on OK, let's go to new API, give it a name,
+
+79
+00:04:22,230 --> 00:04:25,360
+leave it as regional and create the API.
+
+80
+00:04:25,840 --> 00:04:27,770
+Now back in our file, you can see the next thing
+
+81
+00:04:27,770 --> 00:04:31,750
+to do is to create a resource called DynamoDB Manager.
+
+82
+00:04:32,440 --> 00:04:34,600
+So I'm gonna copy that name and that will create
+
+83
+00:04:34,600 --> 00:04:38,650
+a resource using /DynamoDB manager as the URL.
+
+84
+00:04:39,240 --> 00:04:44,390
+We're then going to connect to our Lambda function using a non-proxy integration.
+
+85
+00:04:45,240 --> 00:04:46,760
+So let's create our resource.
+
+86
+00:04:47,440 --> 00:04:50,160
+Paste in the resource name we just copied.
+
+87
+00:04:51,140 --> 00:04:52,630
+Click on create resource.
+
+88
+00:04:53,240 --> 00:04:56,710
+And then we're going to create our method and that will be a Post method.
+
+89
+00:04:56,710 --> 00:04:58,250
+So choose create method,
+
+90
+00:04:59,140 --> 00:05:00,160
+choose post,
+
+91
+00:05:01,740 --> 00:05:02,796
+click the tick.
+
+92
+00:05:03,640 --> 00:05:05,160
+It's going to be a Lambda function.
+
+93
+00:05:06,040 --> 00:05:07,960
+We'll find our Lambda function in here.
+
+94
+00:05:08,840 --> 00:05:11,270
+It's called Lambda function over HTTPS.
+
+95
+00:05:11,940 --> 00:05:15,180
+We're not going to enable it as a proxy integration this time.
+
+96
+00:05:15,490 --> 00:05:16,760
+Let's click on save,
+
+97
+00:05:17,140 --> 00:05:18,205
+and OK.
+
+98
+00:05:18,230 --> 00:05:21,260
+So that's done. Our REST API is now ready.
+
+99
+00:05:21,470 --> 00:05:23,760
+And what we're going to do shortly is use the
+
+100
+00:05:23,760 --> 00:05:28,750
+test function to actually submit requests to our API through here
+
+101
+00:05:28,940 --> 00:05:32,160
+rather than doing it from an external invoke URL.
+
+102
+00:05:32,640 --> 00:05:35,990
+But first we need to go and create our DynamoDB table.
+
+103
+00:05:36,540 --> 00:05:40,460
+So back in the file, you will see the name of the table we need to create.
+
+104
+00:05:40,840 --> 00:05:43,750
+And for the partition key, we're going to use ID.
+
+105
+00:05:44,340 --> 00:05:47,360
+So in DynamoDB I'm going to create a table,
+
+106
+00:05:47,740 --> 00:05:52,258
+give it that name, choose ID as the partition key.
+
+107
+00:05:52,510 --> 00:05:54,420
+We're not going to specify a sort key.
+
+108
+00:05:54,430 --> 00:05:56,160
+We're just going to create the table.
+
+109
+00:05:56,750 --> 00:05:57,560
+And that's done.
+
+110
+00:05:57,940 --> 00:06:01,690
+So now, all we need to do is actually test our configuration.
+
+111
+00:06:02,240 --> 00:06:05,840
+So what we're going to do is go to the DynamoDB manager resource,
+
+112
+00:06:05,860 --> 00:06:09,280
+choose the Post method, and in the execution pane,
+
+113
+00:06:09,290 --> 00:06:11,100
+we're going to use that test function.
+
+114
+00:06:11,260 --> 00:06:13,790
+So I'm gonna copy this code here.
+
+115
+00:06:13,940 --> 00:06:15,950
+And let's go back to API Gateway.
+
+116
+00:06:16,540 --> 00:06:19,680
+So back in API Gateway, we're in the right place here,
+
+117
+00:06:19,680 --> 00:06:25,450
+so we're in the DynamoDB Manager resource post method, and I'm going to choose test.
+
+118
+00:06:25,940 --> 00:06:28,470
+Don't put anything in the query strings or the headers.
+
+119
+00:06:28,494 --> 00:06:32,530
+We're just going to paste this code into the request body
+
+120
+00:06:32,800 --> 00:06:33,990
+and choose test.
+
+121
+00:06:34,080 --> 00:06:37,510
+And we can see here that we have a status code 200.
+
+122
+00:06:37,510 --> 00:06:39,760
+That's successful, you can see the latency.
+
+123
+00:06:40,440 --> 00:06:42,560
+And you can see the execution log here.
+
+124
+00:06:43,040 --> 00:06:46,760
+Now the test is now to really go over to DynamoDB.
+
+125
+00:06:47,140 --> 00:06:49,660
+We're going to explore the items in our table.
+
+126
+00:06:50,140 --> 00:06:53,310
+And now we have an item that has been created
+
+127
+00:06:53,710 --> 00:06:55,260
+From the api Gateway.
+
+128
+00:06:55,840 --> 00:07:00,040
+So for example, you could come in here and change this to something else,
+
+129
+00:07:00,640 --> 00:07:02,050
+give it a different value,
+
+130
+00:07:02,540 --> 00:07:03,680
+click on test,
+
+131
+00:07:04,640 --> 00:07:05,450
+come back,
+
+132
+00:07:06,340 --> 00:07:07,360
+and we'll see
+
+133
+00:07:08,540 --> 00:07:10,060
+that we now have another item.
+
+134
+00:07:10,640 --> 00:07:11,810
+So that's how that works.
+
+135
+00:07:12,240 --> 00:07:17,910
+Now, you can also test updating an item as well. So here what we have is this code
+
+136
+00:07:18,120 --> 00:07:22,370
+is essentially talking to the same item but rather than creating the item
+
+137
+00:07:22,395 --> 00:07:23,690
+it's updating the items.
+
+138
+00:07:23,690 --> 00:07:29,760
+So the ID is the same as the ID here but the number of value has changed to 999.
+
+139
+00:07:30,240 --> 00:07:31,650
+So let's copy that code.
+
+140
+00:07:31,920 --> 00:07:34,350
+Back in API Gateway, we're going to paste that in.
+
+141
+00:07:35,540 --> 00:07:36,560
+Click on test.
+
+142
+00:07:37,100 --> 00:07:39,350
+Looks like it was also successful.
+
+143
+00:07:39,940 --> 00:07:40,660
+Come back,
+
+144
+00:07:41,140 --> 00:07:43,660
+and now when we refresh it should change that value.
+
+145
+00:07:44,440 --> 00:07:48,250
+So that's it. That was a successful test. We now have a REST API.
+
+146
+00:07:48,500 --> 00:07:51,660
+And when we submit certain information to the REST API
+
+147
+00:07:52,140 --> 00:07:55,520
+it sends out through the Lambda. Lambda, processes the data
+
+148
+00:07:55,700 --> 00:07:57,860
+and then writes an entry to DynamoDB.
+
+149
+00:07:58,240 --> 00:08:02,820
+So I'm done with this. Now what I'm going to do is go back to tables.
+
+150
+00:08:02,920 --> 00:08:04,560
+I'm going to delete my table.
+
+151
+00:08:05,240 --> 00:08:07,670
+And I'm going to go back to API Gateway
+
+152
+00:08:07,920 --> 00:08:09,900
+and I'm going to delete my API.
+
+153
+00:08:09,900 --> 00:08:12,270
+So those are the only two things that potentially can
+
+154
+00:08:12,270 --> 00:08:15,760
+cost you some money if you're not in the free tier.
+
+155
+00:08:16,480 --> 00:08:19,520
+And let's just get rid of those. The Lambda functions won't cost anything.
+
+156
+00:08:19,866 --> 00:08:22,360
+So I hope that worked well for you and I'll see you in the next lesson.
+

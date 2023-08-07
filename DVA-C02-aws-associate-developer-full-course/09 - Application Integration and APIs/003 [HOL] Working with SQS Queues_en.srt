@@ -1,0 +1,892 @@
+1
+00:00:05,240 --> 00:00:09,210
+In this hands-on lesson, we're going to work with Amazon SQS queues.
+
+2
+00:00:09,320 --> 00:00:12,590
+We're going to create a standard queue and a FIFO queue
+
+3
+00:00:12,680 --> 00:00:14,110
+and we're going to have a look at the various
+
+4
+00:00:14,120 --> 00:00:17,270
+options and how the different types of queues actually work.
+
+5
+00:00:17,510 --> 00:00:20,660
+So I'm in the Amazon Simple Queue Service console here.
+
+6
+00:00:20,740 --> 00:00:22,930
+And we have actually used this earlier in the course.
+
+7
+00:00:22,930 --> 00:00:26,280
+We did create a couple of queues for previous hands-on lessons.
+
+8
+00:00:26,640 --> 00:00:28,670
+But this time we'll go into lots more detail.
+
+9
+00:00:29,140 --> 00:00:30,360
+So let's create a queue.
+
+10
+00:00:30,740 --> 00:00:33,360
+Now, the first queue I'm going to create is a standard queue.
+
+11
+00:00:33,360 --> 00:00:36,610
+So you see I can choose here between standard and FIFO.
+
+12
+00:00:37,340 --> 00:00:40,038
+I'll just call this one My STD queue
+
+13
+00:00:40,062 --> 00:00:42,460
+so I can recognize it as being my standard queue.
+
+14
+00:00:43,040 --> 00:00:45,890
+Now you'll note some of the various configuration options here.
+
+15
+00:00:45,890 --> 00:00:48,638
+So we've been through these in the theory lessons.
+
+16
+00:00:48,662 --> 00:00:52,250
+We have the visibility timeout, we have the delivery day,
+
+17
+00:00:52,640 --> 00:00:55,300
+we have the received message wait time,
+
+18
+00:00:55,630 --> 00:00:58,930
+the message retention period, and the max message size.
+
+19
+00:00:59,740 --> 00:01:03,270
+So the visibility timeout as you know, is the period of time
+
+20
+00:01:03,460 --> 00:01:06,060
+in which once you've actually received the message,
+
+21
+00:01:06,070 --> 00:01:09,520
+you have that time to process it and it will be invisible in the queue.
+
+22
+00:01:09,700 --> 00:01:12,290
+After that expires, it becomes visible again
+
+23
+00:01:12,290 --> 00:01:14,460
+and can be processed by another consumer.
+
+24
+00:01:14,840 --> 00:01:17,890
+So that can be between zero and 12 hours.
+
+25
+00:01:18,440 --> 00:01:21,100
+The delivery day gives your consumers a bit more
+
+26
+00:01:21,100 --> 00:01:23,990
+time before new messages will appear in the queue.
+
+27
+00:01:23,990 --> 00:01:26,330
+So they don't actually appear in the queue immediately.
+
+28
+00:01:26,660 --> 00:01:30,440
+And you can specify a time period between zero seconds and 15 minutes.
+
+29
+00:01:31,100 --> 00:01:33,800
+The received message wait time is the period of time that
+
+30
+00:01:33,800 --> 00:01:37,160
+polling will actually wait for messages to appear in the queue.
+
+31
+00:01:37,540 --> 00:01:39,980
+And we're gonna look at how we can work with different
+
+32
+00:01:39,980 --> 00:01:42,050
+times on that a bit later on in this lesson.
+
+33
+00:01:43,010 --> 00:01:46,280
+Then we have the message retention period. So how long do they stay in the queue?
+
+34
+00:01:46,280 --> 00:01:48,850
+That's one minute up to 14 days.
+
+35
+00:01:49,340 --> 00:01:54,190
+And the max message size is between one kilobyte and 256 kilobytes.
+
+36
+00:01:54,576 --> 00:01:56,960
+All stuff that does get tested on in the exam.
+
+37
+00:01:57,840 --> 00:02:00,820
+Now we have a resource-based access policy.
+
+38
+00:02:01,010 --> 00:02:03,985
+I'm not going to change anything here but you can see the default settings.
+
+39
+00:02:04,009 --> 00:02:06,590
+So we have the basic option defined.
+
+40
+00:02:06,850 --> 00:02:09,990
+It says who can send messages? Well, only the queue owner.
+
+41
+00:02:10,538 --> 00:02:13,190
+Who can receive messages? Only the queue owner.
+
+42
+00:02:13,740 --> 00:02:20,060
+And you can see in here we then have the effect allow, we have the AWS account number
+
+43
+00:02:20,440 --> 00:02:25,970
+and then we have SQS* so all API actions associated with SQS.
+
+44
+00:02:26,440 --> 00:02:29,650
+And then we have the actual ARN of this specific queue.
+
+45
+00:02:30,040 --> 00:02:32,810
+We'll cover redrive policy a bit later on.
+
+46
+00:02:33,160 --> 00:02:36,060
+So that's where we can specify a dead letter queue.
+
+47
+00:02:36,740 --> 00:02:41,070
+For encryption, SQS does provide encryption in transit by default.
+
+48
+00:02:41,080 --> 00:02:44,150
+But then you can add at REST encryption here.
+
+49
+00:02:44,640 --> 00:02:46,650
+So I'll leave that disabled for now.
+
+50
+00:02:47,040 --> 00:02:50,210
+Dead letter queues will come too soon and tags are just tags.
+
+51
+00:02:50,440 --> 00:02:51,690
+So let's create this queue.
+
+52
+00:02:51,930 --> 00:02:53,850
+Great so now I have one queue.
+
+53
+00:02:54,150 --> 00:02:56,550
+Let's go back. We're now going to create another queue.
+
+54
+00:02:56,730 --> 00:02:58,715
+And this one will be a FIFO queue.
+
+55
+00:02:58,739 --> 00:03:01,760
+So it's going to support first in first out delivery.
+
+56
+00:03:03,040 --> 00:03:08,510
+I'm going to call this My-FIFO-Queue.FIFO.
+
+57
+00:03:09,540 --> 00:03:12,260
+So note that it has the .fifo extension to it.
+
+58
+00:03:13,040 --> 00:03:14,825
+Now much of this is the same.
+
+59
+00:03:14,849 --> 00:03:17,690
+But as you can see there are some different options here.
+
+60
+00:03:17,690 --> 00:03:20,560
+We have this content-based deduplication.
+
+61
+00:03:20,940 --> 00:03:24,400
+When this is enabled, the deduplication ID is optional.
+
+62
+00:03:24,750 --> 00:03:25,860
+We'll leave that off.
+
+63
+00:03:26,340 --> 00:03:28,560
+You can enable high throughput FIFO
+
+64
+00:03:29,240 --> 00:03:30,860
+or you can leave that disabled.
+
+65
+00:03:31,440 --> 00:03:34,400
+There's then a scope for deduplication and that's either
+
+66
+00:03:34,425 --> 00:03:37,515
+at the queue level or at the message group level.
+
+67
+00:03:37,700 --> 00:03:40,160
+We'll change it to message group to experiment.
+
+68
+00:03:40,740 --> 00:03:44,770
+We then have a throughput limit that's per queue or per message group ID.
+
+69
+00:03:44,770 --> 00:03:46,860
+I'll leave that as the default setting.
+
+70
+00:03:47,240 --> 00:03:50,820
+And that's it. I'm not going to change anything else. Let's just create this queue.
+
+71
+00:03:50,860 --> 00:03:52,690
+So now we have our two queues.
+
+72
+00:03:53,140 --> 00:03:54,490
+Let's go into the first queue.
+
+73
+00:03:54,710 --> 00:03:56,560
+And what we're gonna do is send a message.
+
+74
+00:03:57,140 --> 00:03:59,360
+So we click on send and receive messages here.
+
+75
+00:03:59,740 --> 00:04:01,150
+We can just type something in
+
+76
+00:04:01,640 --> 00:04:02,960
+and send this message.
+
+77
+00:04:04,140 --> 00:04:06,990
+So now what we can do is poll for messages
+
+78
+00:04:07,250 --> 00:04:09,060
+and we'll see that the message appears.
+
+79
+00:04:09,360 --> 00:04:12,860
+And when we actually poll for messages, the receive count goes up to one.
+
+80
+00:04:12,860 --> 00:04:14,630
+So it has actually been received.
+
+81
+00:04:14,833 --> 00:04:18,310
+We're essentially initiating a received message API action.
+
+82
+00:04:18,829 --> 00:04:21,350
+Now if we head over to the FIFO queue,
+
+83
+00:04:22,440 --> 00:04:24,060
+so let's choose My FIFO queue.
+
+84
+00:04:24,840 --> 00:04:27,840
+And we're gonna do the same. We're gonna send and receive messages.
+
+85
+00:04:28,400 --> 00:04:30,770
+And now I'm going to type in test message again.
+
+86
+00:04:31,540 --> 00:04:34,260
+I'm going to give it a group ID. Let's call that group one.
+
+87
+00:04:34,840 --> 00:04:39,220
+And let's give it a deduplication ID and that's just gonna be 123456.
+
+88
+00:04:39,740 --> 00:04:41,150
+And let's send that message.
+
+89
+00:04:41,910 --> 00:04:43,760
+So now let's send another message.
+
+90
+00:04:44,740 --> 00:04:46,450
+It's also going to be in group one
+
+91
+00:04:47,040 --> 00:04:49,770
+and it's also going to have the same deduplication ID.
+
+92
+00:04:50,740 --> 00:04:52,150
+So let's send that message.
+
+93
+00:04:52,940 --> 00:04:56,140
+And then let's poll for messages in the queue.
+
+94
+00:04:56,350 --> 00:04:58,370
+Now as you can see, there's only one message.
+
+95
+00:04:58,500 --> 00:05:02,860
+And that's because we did turn on that deduplication at the group level.
+
+96
+00:05:03,440 --> 00:05:08,450
+So if I change the group here to group two, send message.
+
+97
+00:05:09,340 --> 00:05:11,260
+Now I have another message in the queue.
+
+98
+00:05:11,940 --> 00:05:17,030
+And of course if I change this number, so I just add something onto it and send,
+
+99
+00:05:18,040 --> 00:05:20,160
+and now I should get an additional message.
+
+100
+00:05:21,130 --> 00:05:25,460
+Sometimes you have to stop and start and now we have additional messages.
+
+101
+00:05:25,460 --> 00:05:28,090
+So we have those three messages. So that's the difference.
+
+102
+00:05:28,090 --> 00:05:32,450
+So with the message group ID, we can deduplicate the
+
+103
+00:05:32,840 --> 00:05:37,438
+messages that are sent. So if two messages have the same deduplication ID
+
+104
+00:05:37,463 --> 00:05:41,350
+and they're in the same group, if you're using group-based deduplication,
+
+105
+00:05:41,580 --> 00:05:45,650
+then they will be duplicated. So the extra message will be removed.
+
+106
+00:05:45,953 --> 00:05:49,011
+If you do it at the queue level, then it's going to focus at the queue level
+
+107
+00:05:49,036 --> 00:05:50,580
+rather than the group level.
+
+108
+00:05:51,040 --> 00:05:53,810
+And of course it's up to you to create your application
+
+109
+00:05:53,930 --> 00:05:57,850
+to actually add in the deduplication IDs to support your use case.
+
+110
+00:05:58,440 --> 00:06:00,040
+I'm going to create another queue.
+
+111
+00:06:00,170 --> 00:06:02,460
+And this is going to be a dead letter queue.
+
+112
+00:06:03,110 --> 00:06:06,060
+It's going to be a standard queue called My DL queue.
+
+113
+00:06:06,740 --> 00:06:12,040
+Under redrive policy we can identify which source queues can use this queue.
+
+114
+00:06:12,180 --> 00:06:13,490
+As a dead letter queue.
+
+115
+00:06:13,940 --> 00:06:17,190
+So let's click on enabled. I can sort by queue.
+
+116
+00:06:17,190 --> 00:06:22,730
+So I can filter and only allow messages to be moved into this queue
+
+117
+00:06:22,930 --> 00:06:24,785
+from my standard queue.
+
+118
+00:06:24,810 --> 00:06:26,778
+So that's fine. I'm going to do that.
+
+119
+00:06:27,090 --> 00:06:28,461
+Click on create queue.
+
+120
+00:06:28,930 --> 00:06:30,960
+Let's go to my standard queue.
+
+121
+00:06:31,440 --> 00:06:32,760
+Choose dead letter queue,
+
+122
+00:06:33,240 --> 00:06:33,890
+edit,
+
+123
+00:06:34,740 --> 00:06:37,460
+and then we scroll down to where it says dead letter queue,
+
+124
+00:06:38,290 --> 00:06:39,560
+select enabled.
+
+125
+00:06:40,240 --> 00:06:44,240
+And then we're going to find our dead letter queue. There it is My DL queue.
+
+126
+00:06:44,250 --> 00:06:47,260
+And for maximum retries I'm going to put three.
+
+127
+00:06:47,640 --> 00:06:50,110
+And that means we'll only be able to retry
+
+128
+00:06:50,110 --> 00:06:53,160
+processing of a message a maximum of three times.
+
+129
+00:06:53,740 --> 00:06:54,760
+So let's save that.
+
+130
+00:06:55,420 --> 00:06:56,660
+And what we're going to do now
+
+131
+00:06:57,040 --> 00:06:59,140
+is click on send and receive messages.
+
+132
+00:06:59,830 --> 00:07:02,560
+We're just going to try and send a test message.
+
+133
+00:07:03,540 --> 00:07:04,760
+Let's send a message.
+
+134
+00:07:05,740 --> 00:07:08,150
+And now we're going to poll for messages and our receive
+
+135
+00:07:08,150 --> 00:07:10,360
+count will go to one for this message.
+
+136
+00:07:11,140 --> 00:07:13,360
+Let's stop polling. Poll again.
+
+137
+00:07:13,560 --> 00:07:15,130
+Receive count goes up.
+
+138
+00:07:15,260 --> 00:07:16,450
+Let's do it a third time.
+
+139
+00:07:17,010 --> 00:07:19,160
+So now we have three receives.
+
+140
+00:07:19,840 --> 00:07:23,260
+One of the messages that was already in our queue seems to have disappeared.
+
+141
+00:07:24,040 --> 00:07:25,650
+And let's just do it one more time.
+
+142
+00:07:25,650 --> 00:07:28,960
+And now we should find that both messages disappear from the queue
+
+143
+00:07:29,440 --> 00:07:31,560
+because we exceed that redrive.
+
+144
+00:07:32,140 --> 00:07:34,450
+So if we now go back up to queues,
+
+145
+00:07:34,940 --> 00:07:36,560
+choose My DL queue.
+
+146
+00:07:36,940 --> 00:07:40,250
+And let's click on send and receive messages, poll.
+
+147
+00:07:40,540 --> 00:07:43,190
+And now you can see that we have these two messages.
+
+148
+00:07:43,270 --> 00:07:47,530
+So because we exceeded that value of three for the maximum number of retries
+
+149
+00:07:47,770 --> 00:07:51,640
+the messages that weren't processed were then pushed into the dead letter queue.
+
+150
+00:07:51,640 --> 00:07:54,550
+So now we can do something else with them to check what went wrong.
+
+151
+00:07:54,840 --> 00:07:58,460
+We're now going to run a few commands so we can work with the CLI.
+
+152
+00:07:59,040 --> 00:08:01,400
+So in your code directory from the course download,
+
+153
+00:08:01,400 --> 00:08:06,120
+you've got Amazon SQS and then AWS SQS CLI commands.
+
+154
+00:08:06,380 --> 00:08:10,600
+Now the first one is simply AWS SQS list queues.
+
+155
+00:08:10,770 --> 00:08:14,310
+And that will help us get our queue URL. So if I paste that in,
+
+156
+00:08:14,740 --> 00:08:17,970
+it will return the URLs of our different queues.
+
+157
+00:08:17,970 --> 00:08:21,800
+Now I want to choose this one here so I can copy that to my clipboard.
+
+158
+00:08:22,200 --> 00:08:26,100
+Now, I've already entered that in here. But if you might need to come in
+
+159
+00:08:26,310 --> 00:08:29,680
+and paste in your queue URL.
+
+160
+00:08:30,540 --> 00:08:34,250
+Now, I'm not going to use all of this. I'm going to leave off this delay seconds.
+
+161
+00:08:34,260 --> 00:08:37,260
+So what I'm gonna do is copy this to my clipboard.
+
+162
+00:08:37,370 --> 00:08:39,471
+And back on the command line I'm going to paste that in.
+
+163
+00:08:39,495 --> 00:08:40,659
+Now before we get started,
+
+164
+00:08:40,659 --> 00:08:44,200
+let's go to SQS and we're gonna start polling for messages.
+
+165
+00:08:44,210 --> 00:08:48,660
+So back in SQS, I'm going to go back up to queues, choose my standard queue.
+
+166
+00:08:49,140 --> 00:08:52,250
+I'm going to click on send and receive messages and then poll.
+
+167
+00:08:52,580 --> 00:08:56,040
+And of course there's nothing there yet. So now I'm going to run this command,
+
+168
+00:08:56,330 --> 00:08:59,550
+come back, and straight away I see that message.
+
+169
+00:09:00,140 --> 00:09:02,320
+So that's coming through instantly.
+
+170
+00:09:02,580 --> 00:09:04,830
+And that's because we didn't add a delay seconds.
+
+171
+00:09:05,000 --> 00:09:09,720
+For the next command, we're simply going to put in --delay-seconds.
+
+172
+00:09:10,250 --> 00:09:13,940
+And we're going to give it a parameter. So that's going to be 10 in this case.
+
+173
+00:09:14,030 --> 00:09:17,700
+Now just make sure that you're still polling. In this case I'm going to stop polling.
+
+174
+00:09:18,016 --> 00:09:19,160
+Poll again.
+
+175
+00:09:19,540 --> 00:09:21,630
+We've still got our message from before.
+
+176
+00:09:21,780 --> 00:09:22,580
+Come back.
+
+177
+00:09:22,860 --> 00:09:24,150
+Let's hit enter.
+
+178
+00:09:24,560 --> 00:09:25,750
+Come back in the queue.
+
+179
+00:09:26,140 --> 00:09:31,260
+What we should find is within a few seconds we have a new message come through.
+
+180
+00:09:31,640 --> 00:09:33,560
+And there it is. There's our new message.
+
+181
+00:09:34,140 --> 00:09:36,150
+So that's what the delay seconds does.
+
+182
+00:09:36,640 --> 00:09:38,540
+For the next test, what we're going to do
+
+183
+00:09:38,650 --> 00:09:42,460
+is we're going to test using the wait time seconds.
+
+184
+00:09:42,840 --> 00:09:47,020
+So this is the difference between long polling and short polling.
+
+185
+00:09:47,210 --> 00:09:50,990
+Now, I need to remove these messages now before our next test.
+
+186
+00:09:50,990 --> 00:09:52,620
+So let's delete these messages.
+
+187
+00:09:52,880 --> 00:09:54,500
+So now we have an empty queue.
+
+188
+00:09:54,650 --> 00:09:57,900
+And what we're going to do is practice with the wait time seconds.
+
+189
+00:09:57,910 --> 00:10:02,660
+So this controls the behavior of polling. So short polling or long polling.
+
+190
+00:10:02,920 --> 00:10:05,660
+Now with a zero here, that's going to be short polling.
+
+191
+00:10:05,940 --> 00:10:09,360
+So let's copy this to our clipboards. Now we know there's nothing in the queue.
+
+192
+00:10:09,740 --> 00:10:12,580
+So let's go over and paste this into our command line.
+
+193
+00:10:12,750 --> 00:10:16,160
+And we have to command lines side by side here. You'll see why in a moment.
+
+194
+00:10:16,540 --> 00:10:19,710
+But first I'm going to try using wait time seconds zero.
+
+195
+00:10:19,950 --> 00:10:24,080
+And what happens is the API action checks if there's a message.
+
+196
+00:10:24,080 --> 00:10:28,020
+There weren't any messages in the queue so it just immediately stops.
+
+197
+00:10:28,030 --> 00:10:31,388
+Okay, so that's cost us now a couple of API actions,
+
+198
+00:10:31,412 --> 00:10:33,390
+so there are charges associated with that.
+
+199
+00:10:33,400 --> 00:10:35,920
+So what we want to do instead is use long polling.
+
+200
+00:10:35,930 --> 00:10:37,750
+So with long polling, what I'm going to do
+
+201
+00:10:37,940 --> 00:10:42,560
+is I'm going to change this. So let's change this one to 10 seconds.
+
+202
+00:10:42,940 --> 00:10:44,160
+And I'm going to copy that,
+
+203
+00:10:44,540 --> 00:10:45,260
+paste that in.
+
+204
+00:10:45,260 --> 00:10:49,180
+I'm not going to run it just yet. And then we're going to copy this command here.
+
+205
+00:10:49,180 --> 00:10:54,760
+So we have a receive message and we have a send message.
+
+206
+00:10:54,770 --> 00:10:56,660
+So let's copy the send message.
+
+207
+00:10:57,340 --> 00:10:59,970
+And the send is going to go from the right window.
+
+208
+00:11:00,300 --> 00:11:01,660
+So what we can do here
+
+209
+00:11:02,040 --> 00:11:06,270
+is I'm going to run this and it should wait for up to 10 seconds.
+
+210
+00:11:06,510 --> 00:11:08,660
+So you can see it's waiting now, nothing's happening.
+
+211
+00:11:09,140 --> 00:11:13,550
+Now, if I run this command, straight away we see a response.
+
+212
+00:11:13,940 --> 00:11:17,980
+So what's happened is I've used the send message API to send
+
+213
+00:11:18,230 --> 00:11:21,350
+a message into the queue from this right hand window
+
+214
+00:11:21,840 --> 00:11:25,660
+and in the left window here we already had long polling enabled
+
+215
+00:11:25,660 --> 00:11:28,070
+and we were waiting for messages to appear in the queue.
+
+216
+00:11:28,260 --> 00:11:29,850
+So that's how long polling works.
+
+217
+00:11:30,440 --> 00:11:34,190
+So back in my queues here, we finished for this particular lesson.
+
+218
+00:11:34,190 --> 00:11:36,420
+Now I'm going to keep the My Standard queue.
+
+219
+00:11:36,420 --> 00:11:38,091
+We're gonna use that in another lesson.
+
+220
+00:11:38,393 --> 00:11:41,670
+But we can actually delete the other two queues.
+
+221
+00:11:41,670 --> 00:11:45,950
+So I'm going to delete my FIFO queue and my DL queue.
+
+222
+00:11:46,340 --> 00:11:47,140
+And those are gone.
+
+223
+00:11:47,540 --> 00:11:49,760
+And that's it for this lesson. I'll see you in the next one.
+

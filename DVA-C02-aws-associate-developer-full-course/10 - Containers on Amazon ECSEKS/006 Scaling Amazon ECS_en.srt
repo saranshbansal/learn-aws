@@ -1,0 +1,208 @@
+1
+00:00:05,020 --> 00:00:05,930
+Welcome back.
+
+2
+00:00:05,950 --> 00:00:11,560
+In this lesson, we're going to go into lots more detail on how you can scale Amazon ECS.
+
+3
+00:00:11,920 --> 00:00:15,430
+So remember, first that there are two different types of scaling.
+
+4
+00:00:15,430 --> 00:00:20,770
+We've got the service auto scaling, that's about the containers, the tasks that we're actually running.
+
+5
+00:00:21,220 --> 00:00:23,710
+The second is cluster auto scaling.
+
+6
+00:00:23,710 --> 00:00:27,580
+So let's have a look at the differences with service auto scaling.
+
+7
+00:00:27,580 --> 00:00:35,230
+We're using the application auto scaling service to automatically change the desired count of the actual
+
+8
+00:00:35,230 --> 00:00:37,960
+container tasks that are actually running.
+
+9
+00:00:37,960 --> 00:00:40,090
+There's a few different policies we can use.
+
+10
+00:00:40,090 --> 00:00:44,860
+We can use target tracking step and also scheduled scaling policies.
+
+11
+00:00:45,220 --> 00:00:47,680
+Now, cluster auto scaling is different.
+
+12
+00:00:47,680 --> 00:00:53,980
+This is using something called a capacity provider to report information about the utilization of the
+
+13
+00:00:53,980 --> 00:01:01,360
+underlying EC2 instances, and it will then use the EC2 auto scaling service to actually scale the
+
+14
+00:01:01,360 --> 00:01:03,310
+number of the container hosts.
+
+15
+00:01:03,310 --> 00:01:06,920
+The ECS container instances that run your tasks.
+
+16
+00:01:06,940 --> 00:01:08,840
+Now let's have a look at it visually.
+
+17
+00:01:08,860 --> 00:01:14,830
+So we have an ECS cluster with a service running and multiple container instances.
+
+18
+00:01:14,830 --> 00:01:18,890
+We then have three tasks running across those instances.
+
+19
+00:01:18,910 --> 00:01:24,190
+Now these tasks are actually going to be sending information to Amazon Cloud Watch.
+
+20
+00:01:24,190 --> 00:01:26,470
+So they're reporting metric information.
+
+21
+00:01:26,470 --> 00:01:33,160
+And let's say that the metrics report that the average CPU utilization has exceeded a certain threshold.
+
+22
+00:01:33,190 --> 00:01:34,390
+What happens then?
+
+23
+00:01:34,390 --> 00:01:37,060
+That information gets reported to the application
+
+24
+00:01:37,060 --> 00:01:42,310
+Auto scaling service and auto scaling will then launch an additional task.
+
+25
+00:01:42,310 --> 00:01:44,320
+So we now have more tasks running.
+
+26
+00:01:44,320 --> 00:01:49,300
+Now, in most cases, a container instance is going to run many, many, many tasks because they're
+
+27
+00:01:49,300 --> 00:01:52,390
+only using a tiny amount of resource each.
+
+28
+00:01:52,390 --> 00:01:58,510
+But you get the idea of how this works With service auto scaling, we can use target tracking scaling
+
+29
+00:01:58,510 --> 00:01:59,080
+policies.
+
+30
+00:01:59,080 --> 00:02:03,400
+So remember, we've target tracking just like with EC2 auto scaling.
+
+31
+00:02:03,400 --> 00:02:09,460
+What you're doing is specifying a target value and it's going to try and utilize that amount of resource.
+
+32
+00:02:09,610 --> 00:02:16,240
+Then we have step scaling policies which change the amount of run in tasks based on alarm breaches and
+
+33
+00:02:16,240 --> 00:02:20,740
+the size of the alarm breach defines how many extra tasks to run.
+
+34
+00:02:20,740 --> 00:02:24,640
+And then we've got scheduled scaling where we can say that a specific time of day
+
+35
+00:02:24,640 --> 00:02:28,970
+That's when we want to add a certain number of tasks to our cluster.
+
+36
+00:02:28,990 --> 00:02:31,600
+Next up, we have cluster auto scaling.
+
+37
+00:02:31,600 --> 00:02:37,270
+So here what we're doing is we're not looking at the task level, but we're looking at the container
+
+38
+00:02:37,270 --> 00:02:41,590
+instance level because we don't want to run out of resources on our container instances.
+
+39
+00:02:41,590 --> 00:02:47,830
+We might need another one, a metric called the capacity provider reservation reports information
+
+40
+00:02:47,830 --> 00:02:51,190
+of the utilization of the container instances.
+
+41
+00:02:51,190 --> 00:02:55,280
+So let's say they've breached a certain amount like 80% CPU.
+
+42
+00:02:55,300 --> 00:02:58,450
+Now, as you can see, we have an auto scaling group here.
+
+43
+00:02:58,450 --> 00:03:04,000
+The auto scaling group is linked to ECS using something called a capacity provider.
+
+44
+00:03:04,000 --> 00:03:10,930
+So here what can happen is Cloud Watch is able to notify the auto scaling group and now AWS will launch
+
+45
+00:03:10,930 --> 00:03:12,790
+an additional container instance.
+
+46
+00:03:12,790 --> 00:03:18,790
+And the ECS service knows that a new instance is now being brought into the cluster and it can start
+
+47
+00:03:18,790 --> 00:03:22,000
+launching new tasks on that new container instance.
+
+48
+00:03:22,000 --> 00:03:27,850
+So with cluster auto scaling, it's using an ECS resource called a capacity provider.
+
+49
+00:03:27,850 --> 00:03:35,980
+The capacity provider is associated with an auto scaling group, and the ASG can scale using manage
+
+50
+00:03:35,980 --> 00:03:40,300
+scaling and managed instance termination protection instance.
+
+51
+00:03:40,300 --> 00:03:46,300
+Termination protection means that the ASG is aware of any tasks that are still running on the container
+
+52
+00:03:46,300 --> 00:03:47,140
+instances.
+

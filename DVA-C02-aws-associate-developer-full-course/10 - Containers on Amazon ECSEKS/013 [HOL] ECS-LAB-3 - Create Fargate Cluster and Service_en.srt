@@ -1,0 +1,528 @@
+1
+00:00:05,440 --> 00:00:09,520
+Hi guys and welcome to E C S lab Part three in this lesson,
+
+2
+00:00:09,520 --> 00:00:12,800
+we're going to create our Fargate cluster and a service
+
+3
+00:00:12,800 --> 00:00:16,059
+and we're going to leverage the components we've already created,
+
+4
+00:00:16,070 --> 00:00:19,690
+including our image in our pcr repository,
+
+5
+00:00:19,700 --> 00:00:24,250
+our task definition in e C s and our application load balancer.
+
+6
+00:00:24,640 --> 00:00:25,870
+So this is where we are.
+
+7
+00:00:25,870 --> 00:00:29,430
+We have our task definition and our load balancer with our target groups
+
+8
+00:00:29,940 --> 00:00:34,980
+in this lesson, we'll create the Fargate cluster, we'll create the E C S service
+
+9
+00:00:35,140 --> 00:00:40,140
+and we're going to run a task and that task is going to be based off our task definition
+
+10
+00:00:40,250 --> 00:00:45,460
+and our task definition of course is going to use the image in the repository.
+
+11
+00:00:45,470 --> 00:00:48,450
+So it's configured to pull the image from
+
+12
+00:00:48,540 --> 00:00:51,960
+the CCR private repository that we created earlier.
+
+13
+00:00:52,340 --> 00:00:55,760
+So let's head back over to the instructions and see what we need to do.
+
+14
+00:00:56,840 --> 00:00:58,760
+So in the instructions were now on part
+
+15
+00:00:58,760 --> 00:01:01,550
+three here create Fargate cluster and service.
+
+16
+00:01:01,580 --> 00:01:04,459
+We need to go and create our Fargate cluster.
+
+17
+00:01:04,470 --> 00:01:06,950
+Now I'm going to call it this particular name.
+
+18
+00:01:06,950 --> 00:01:11,080
+My C E C S lab cluster with some dashes in the middle.
+
+19
+00:01:11,140 --> 00:01:14,660
+So in the CS management console I'm going to create a new cluster.
+
+20
+00:01:14,840 --> 00:01:17,060
+I'm going to paste in my cluster name
+
+21
+00:01:17,840 --> 00:01:19,400
+for networking.
+
+22
+00:01:19,840 --> 00:01:22,970
+What I want to do is remember we actually specified us
+
+23
+00:01:22,980 --> 00:01:25,610
+East one A and one B for our load balancer.
+
+24
+00:01:25,620 --> 00:01:32,050
+So I'm just going to remove the other subnets so that I only end up with A and B.
+
+25
+00:01:32,840 --> 00:01:34,220
+So it moves them around a little.
+
+26
+00:01:34,220 --> 00:01:38,170
+So watch out which ones you remove or you can always add them back in again. Very easy.
+
+27
+00:01:38,220 --> 00:01:40,760
+So I've now got one A and one B.
+
+28
+00:01:41,340 --> 00:01:46,340
+Now this is going to use the Fargate type so this is going to use serverless.
+
+29
+00:01:46,400 --> 00:01:49,200
+We're gonna leave that selected of course you can't change it
+
+30
+00:01:49,200 --> 00:01:52,360
+anyway but we don't need to select either of these options
+
+31
+00:01:52,710 --> 00:01:56,540
+and we're just gonna create our cluster so that will just take a moment to create.
+
+32
+00:01:56,560 --> 00:01:59,960
+Now back in our file here, we can see that the next thing we need to do
+
+33
+00:02:00,140 --> 00:02:02,580
+is we need to change on the command line to
+
+34
+00:02:02,590 --> 00:02:06,010
+a directory with the create service dot Jason file.
+
+35
+00:02:06,170 --> 00:02:09,560
+And we're going to run these two commands. Now let's have a look at this file.
+
+36
+00:02:09,560 --> 00:02:11,660
+This is gonna take a little bit of work to set up.
+
+37
+00:02:12,540 --> 00:02:14,200
+So here is the file.
+
+38
+00:02:14,370 --> 00:02:16,060
+Now make sure first
+
+39
+00:02:16,170 --> 00:02:19,160
+that your cluster name is set up correctly.
+
+40
+00:02:19,640 --> 00:02:21,170
+So it needs to be
+
+41
+00:02:21,280 --> 00:02:24,050
+my e CS lab cluster if you've copied
+
+42
+00:02:24,170 --> 00:02:25,460
+the same as me,
+
+43
+00:02:25,840 --> 00:02:28,560
+we then got our task definition here.
+
+44
+00:02:28,940 --> 00:02:32,100
+So let's go to E C s and check what our task definition is called.
+
+45
+00:02:32,110 --> 00:02:37,200
+So back in the CS let's go to task definitions and sure enough we have this E C S
+
+46
+00:02:37,200 --> 00:02:43,550
+lab and if I click on it then the revision is that it's ccs dash lab colon one.
+
+47
+00:02:43,940 --> 00:02:49,160
+So here it was called the CS Demo. So I'm just going to change that CCS Lab one
+
+48
+00:02:49,740 --> 00:02:51,020
+and it's got the correct
+
+49
+00:02:51,180 --> 00:02:52,160
+cluster name
+
+50
+00:02:52,740 --> 00:02:58,980
+Next we need to get the A R N. For our load balancer so we need to paste that into here.
+
+51
+00:02:58,980 --> 00:03:02,550
+That's gonna be the A R N for our primary target group.
+
+52
+00:03:02,940 --> 00:03:05,960
+So let's head back over to ec two.
+
+53
+00:03:06,640 --> 00:03:09,710
+I'm gonna come scroll down on the left here to target groups
+
+54
+00:03:10,240 --> 00:03:13,660
+and I'm gonna copy the A. R. N. Of target group one
+
+55
+00:03:14,140 --> 00:03:16,130
+and I'm gonna paste that into my file.
+
+56
+00:03:16,260 --> 00:03:21,370
+Next we have our launch type. That's fine. Replica is fine.
+
+57
+00:03:21,540 --> 00:03:24,770
+The deployment controller, we're going to use codedeploy a bit later on.
+
+58
+00:03:24,940 --> 00:03:28,660
+So that's all correct. The only other things we need to change A here.
+
+59
+00:03:28,670 --> 00:03:31,690
+So the Sub Net I D s and the security group I. D.
+
+60
+00:03:31,840 --> 00:03:33,090
+So the sub net idea,
+
+61
+00:03:33,090 --> 00:03:37,680
+let's head over to the VPC management console and we want to find the I
+
+62
+00:03:37,680 --> 00:03:43,740
+D S for RV Pcs are subnets within us East one A and one B.
+
+63
+00:03:43,750 --> 00:03:47,650
+So I'm in the VPC management console. Let's go to subnets
+
+64
+00:03:48,040 --> 00:03:52,400
+And what we're looking for. I know that these ones with a tag on them with a name.
+
+65
+00:03:52,410 --> 00:03:59,950
+Those are in my custom VPC. And so what I'm looking for our us East one a
+
+66
+00:04:00,340 --> 00:04:01,390
+and one B.
+
+67
+00:04:01,580 --> 00:04:04,860
+And I know that these subnets are the ones from my default VPC.
+
+68
+00:04:05,740 --> 00:04:09,900
+So I can simply copy the sub net I D. From here. That's us East one
+
+69
+00:04:10,090 --> 00:04:10,660
+A
+
+70
+00:04:11,040 --> 00:04:15,240
+back in my file here. I'm simply going to paste that in. So I've got the first Sub net I.
+
+71
+00:04:15,240 --> 00:04:15,720
+D.
+
+72
+00:04:15,840 --> 00:04:17,220
+Let's then find
+
+73
+00:04:17,440 --> 00:04:19,350
+us east one B.
+
+74
+00:04:20,240 --> 00:04:22,250
+And I want to make sure it's the one,
+
+75
+00:04:23,140 --> 00:04:26,080
+this is the one here. So let's just follow that across.
+
+76
+00:04:26,350 --> 00:04:29,860
+So this is now my Sub Net I. D. For my
+
+77
+00:04:30,340 --> 00:04:36,040
+subnets in the default VPc. And US East one B. So I'm gonna copy that Sub Net I. D.
+
+78
+00:04:36,190 --> 00:04:38,950
+Back in the file. Let's just paste that in.
+
+79
+00:04:39,840 --> 00:04:41,710
+And the last thing that I want to do
+
+80
+00:04:41,820 --> 00:04:44,050
+is find my security group ID.
+
+81
+00:04:44,250 --> 00:04:47,360
+So what I'm going to do now is go to security groups,
+
+82
+00:04:47,940 --> 00:04:52,860
+we use the web access security group and that is in the default VPc.
+
+83
+00:04:53,240 --> 00:04:57,230
+So I'm gonna just find the security group I. D. Here.
+
+84
+00:04:57,240 --> 00:05:00,720
+Let's just copy that or I can copy it from here. That's probably better.
+
+85
+00:05:00,730 --> 00:05:05,470
+So copy my security group I. D. Let's come back and let's paste that in.
+
+86
+00:05:05,480 --> 00:05:09,160
+So that file is now set up correctly. I'm gonna save that file.
+
+87
+00:05:09,950 --> 00:05:13,390
+Let's go back to our instructions so we can see that we now have this
+
+88
+00:05:13,740 --> 00:05:14,960
+command to run.
+
+89
+00:05:15,440 --> 00:05:18,630
+Everything should be correct in that command. I don't need to change anything.
+
+90
+00:05:18,630 --> 00:05:24,240
+They're back on the command line so of course I'm in the directory in the code E. C. S.
+
+91
+00:05:24,250 --> 00:05:28,960
+And in here I should have that file so create dash service dot Jason.
+
+92
+00:05:29,540 --> 00:05:31,370
+So now I can run this command
+
+93
+00:05:31,640 --> 00:05:35,760
+and that looks like it's worked successfully. So we should now have a service
+
+94
+00:05:36,160 --> 00:05:37,060
+that's going to run,
+
+95
+00:05:38,040 --> 00:05:41,940
+let's go back to the Ec two management console and see how that looks.
+
+96
+00:05:42,200 --> 00:05:44,460
+So back in the CS under clusters,
+
+97
+00:05:44,910 --> 00:05:47,200
+I'm going to choose my CS lab cluster
+
+98
+00:05:47,940 --> 00:05:49,760
+and we can see I have a service here
+
+99
+00:05:50,540 --> 00:05:53,430
+and if I click on that service it's gonna give
+
+100
+00:05:53,430 --> 00:05:56,050
+me quite a bit of information about the service.
+
+101
+00:05:56,640 --> 00:05:58,260
+Now the other thing I can do
+
+102
+00:05:58,640 --> 00:06:01,970
+is I can actually go back up to my cluster level,
+
+103
+00:06:02,100 --> 00:06:04,850
+let's go to tasks and we should see we have a running task
+
+104
+00:06:05,240 --> 00:06:10,040
+and that task has a public I. P. So I can go straight to that task
+
+105
+00:06:10,170 --> 00:06:13,160
+and we can see engine X is actually working.
+
+106
+00:06:13,740 --> 00:06:17,010
+And then also if I come back to load balances,
+
+107
+00:06:17,640 --> 00:06:20,660
+let's copy the DNS name of my load balancer
+
+108
+00:06:20,920 --> 00:06:23,590
+and check that we can access here. So that looks good.
+
+109
+00:06:23,590 --> 00:06:24,050
+And you know,
+
+110
+00:06:24,060 --> 00:06:25,770
+if you don't get if you get it timing
+
+111
+00:06:25,770 --> 00:06:28,220
+out then your security groups aren't set up correctly.
+
+112
+00:06:28,280 --> 00:06:32,040
+But this is what you should see now that's all working correctly,
+
+113
+00:06:32,050 --> 00:06:35,850
+which means everything that we've run has worked.
+
+114
+00:06:36,240 --> 00:06:38,950
+Now the other command here which does have the
+
+115
+00:06:38,950 --> 00:06:40,860
+cluster nine minutes to make sure that's correct.
+
+116
+00:06:40,860 --> 00:06:44,340
+This just helps you to describe services on the command line.
+
+117
+00:06:44,340 --> 00:06:45,670
+So if you want to run that one,
+
+118
+00:06:45,860 --> 00:06:49,520
+it's just another way of retrieving this information on the cli
+
+119
+00:06:49,680 --> 00:06:53,880
+so that's it for the E C. S. Lab in this section.
+
+120
+00:06:53,880 --> 00:06:56,950
+But we're gonna leave things running so don't destroy anything.
+
+121
+00:06:56,960 --> 00:07:00,180
+Leave it running and we're gonna pick it up in the next section.
+
+122
+00:07:00,240 --> 00:07:04,940
+So between now and then you're going to learn a bit about the developer tools.
+
+123
+00:07:04,980 --> 00:07:11,360
+The various developer tools including a codecommit codepipeline and codedeploy.
+
+124
+00:07:11,840 --> 00:07:13,780
+And there's also going to be a few more hands
+
+125
+00:07:13,780 --> 00:07:15,860
+on lessons before we get back to this where you're
+
+126
+00:07:15,860 --> 00:07:18,220
+going to start learning some of the building blocks of
+
+127
+00:07:18,220 --> 00:07:22,770
+codepipeline codecommit and codebuild as well using elastic beanstalk.
+
+128
+00:07:22,850 --> 00:07:25,740
+But do leave this running and hopefully if you
+
+129
+00:07:25,740 --> 00:07:27,450
+can get to this fairly soon you know it's
+
+130
+00:07:27,450 --> 00:07:31,660
+not gonna be running for too long and it should mostly be within the free tier as well.
+
+131
+00:07:32,140 --> 00:07:33,840
+So hope you enjoyed this so far.
+
+132
+00:07:33,850 --> 00:07:36,550
+Leave things running and we'll pick it up in the next section.
+

@@ -1,0 +1,244 @@
+1
+00:00:05,140 --> 00:00:06,730
+Hi guys. In this lesson you're going to
+
+2
+00:00:06,730 --> 00:00:10,150
+learn about caching and throttling with API Gateway.
+
+3
+00:00:10,540 --> 00:00:11,710
+Firstly caching.
+
+4
+00:00:11,890 --> 00:00:17,030
+You can add caching to API calls by provisioning and API gateway cache
+
+5
+00:00:17,040 --> 00:00:20,730
+and you need to specify the size of the cache in gigabytes.
+
+6
+00:00:20,840 --> 00:00:24,430
+Caching allows you to cache the endpoints response.
+
+7
+00:00:25,040 --> 00:00:28,290
+Caching and can reduce the number of calls to the backend
+
+8
+00:00:28,470 --> 00:00:31,960
+And that can improve latency of requests to your API.
+
+9
+00:00:32,540 --> 00:00:37,150
+So let's say we have an API. Users are connecting. We then have a cache.
+
+10
+00:00:37,640 --> 00:00:40,920
+So firstly we're going to check the cache. The API
+
+11
+00:00:40,920 --> 00:00:46,710
+is going to see is the request response cached in the API cache.
+
+12
+00:00:46,790 --> 00:00:50,060
+If not then we need to pass on to the backend.
+
+13
+00:00:50,440 --> 00:00:53,050
+So that would then be the second stage.
+
+14
+00:00:53,440 --> 00:00:55,940
+So if it's not in the cache, that's a cache miss
+
+15
+00:00:56,230 --> 00:00:59,140
+then the API will still need to go to the backend,
+
+16
+00:00:59,150 --> 00:01:01,960
+get a response and then cache it for next time.
+
+17
+00:01:02,440 --> 00:01:07,550
+Of course the caching is enabled on the stage level. We saw that in a previous lesson.
+
+18
+00:01:07,780 --> 00:01:12,480
+So we enable our cache and we specify the size in gigabytes.
+
+19
+00:01:12,490 --> 00:01:17,290
+We can also put the encryption to on or off and we can set
+
+20
+00:01:17,290 --> 00:01:21,940
+a time to live for the items that are actually cached in that cache.
+
+21
+00:01:22,140 --> 00:01:26,960
+So API gateway caches will cache the responses for a specific amount
+
+22
+00:01:26,960 --> 00:01:29,960
+of time and that is the time to live or TTL.
+
+23
+00:01:30,310 --> 00:01:32,240
+The default is 300 seconds,
+
+24
+00:01:32,390 --> 00:01:35,970
+minimum is zero and the max is 3600.
+
+25
+00:01:36,740 --> 00:01:41,260
+Caches are defined per stage and you can encrypt your caches.
+
+26
+00:01:41,640 --> 00:01:48,220
+The cache capacity ranges from 0.5 gigabytes up to 237 gigabytes.
+
+27
+00:01:48,510 --> 00:01:51,140
+And it's possible to override cache settings
+
+28
+00:01:51,260 --> 00:01:52,870
+for specific methods.
+
+29
+00:01:53,050 --> 00:01:58,310
+You can also flush the entire cache. That means invalidating it immediately
+
+30
+00:01:58,320 --> 00:01:59,360
+if you need to.
+
+31
+00:01:59,740 --> 00:02:04,120
+Clients can invalidate the cache with the header cache control
+
+32
+00:02:04,130 --> 00:02:07,780
+max age equals 0. One to remember for the exam.
+
+33
+00:02:07,900 --> 00:02:09,850
+So next let's look at throttling.
+
+34
+00:02:10,440 --> 00:02:13,920
+API Gateway sets a limit on the steady state rate
+
+35
+00:02:14,140 --> 00:02:19,460
+and burst of requests submissions against all APIs in your account.
+
+36
+00:02:19,940 --> 00:02:21,490
+So let's look at the limits.
+
+37
+00:02:21,740 --> 00:02:22,690
+By default
+
+38
+00:02:22,700 --> 00:02:28,120
+API Gateway will limit the steady state request rate to 10,000 requests a second.
+
+39
+00:02:28,740 --> 00:02:32,190
+The maximum concurrent requests is 5000 requests
+
+40
+00:02:32,200 --> 00:02:34,860
+across all API within an account.
+
+41
+00:02:35,340 --> 00:02:40,450
+And if you go over those limitations you will receive a 429
+
+42
+00:02:40,460 --> 00:02:42,750
+too many requests error response.
+
+43
+00:02:43,140 --> 00:02:47,670
+Upon catching these exceptions, the client can then resubmit the failed requests
+
+44
+00:02:47,850 --> 00:02:52,290
+in a way that's rate-limiting while complying with the throttling limits.
+
+45
+00:02:52,420 --> 00:02:57,210
+So that means you need the logic in your application to sort of back off and
+
+46
+00:02:57,210 --> 00:03:02,760
+not send the requests at such a high rate because API Gateway can't keep up.
+
+47
+00:03:02,940 --> 00:03:08,060
+API Gateway has two basic types of throttling related settings you can configure.
+
+48
+00:03:08,540 --> 00:03:10,630
+First we've got server-side throttling.
+
+49
+00:03:10,940 --> 00:03:13,790
+These limits are applied across all clients.
+
+50
+00:03:14,100 --> 00:03:16,200
+They exist to prevent your API
+
+51
+00:03:16,210 --> 00:03:19,380
+and your account from being overwhelmed by too many requests.
+
+52
+00:03:19,840 --> 00:03:21,460
+Then we've got per client.
+
+53
+00:03:22,040 --> 00:03:24,360
+These throttling limits are applied to clients that
+
+54
+00:03:24,360 --> 00:03:28,520
+use API keys associated with your usage policy
+
+55
+00:03:28,650 --> 00:03:30,200
+as client identifier.
+
+56
+00:03:30,600 --> 00:03:33,920
+The throttling related settings are applied in the following order;
+
+57
+00:03:34,210 --> 00:03:39,500
+Per client per method limits that you set for an API stage in a usage planner first.
+
+58
+00:03:39,760 --> 00:03:41,810
+Then per client limits that you set
+
+59
+00:03:42,040 --> 00:03:43,150
+in a usage plan.
+
+60
+00:03:43,500 --> 00:03:47,570
+Then default per method limits and individual per method limits that you
+
+61
+00:03:47,570 --> 00:03:52,560
+set in API stage settings and finally the account level throttling.
+

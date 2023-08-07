@@ -1,0 +1,452 @@
+1
+00:00:05,240 --> 00:00:10,758
+Hi guys. In this lesson we're going to create an API using Amazon API gateway
+
+2
+00:00:10,783 --> 00:00:14,060
+and it's going to use a Lambda proxy integration.
+
+3
+00:00:14,740 --> 00:00:18,460
+So the first thing we're going to do is create our Lambda function.
+
+4
+00:00:18,840 --> 00:00:20,943
+So you can see some code on your screen here.
+
+5
+00:00:20,968 --> 00:00:23,940
+Now, you'll find this in the code directory of the course download
+
+6
+00:00:24,070 --> 00:00:27,450
+Amazon API Gateway Rest API Lambda Proxy.
+
+7
+00:00:28,040 --> 00:00:31,360
+So I'm going to copy all of this code to my clipboard.
+
+8
+00:00:31,940 --> 00:00:35,820
+And back on the Lambda console, I'm going to create a new function.
+
+9
+00:00:36,240 --> 00:00:38,760
+I'll call this Rest API With Lambda proxy.
+
+10
+00:00:39,340 --> 00:00:42,550
+Run time is going to be Node.js. Let's create our function.
+
+11
+00:00:42,940 --> 00:00:46,498
+And the function is being created. So let's delete out the code here,
+
+12
+00:00:46,522 --> 00:00:50,025
+paste in our code and click on deploy.
+
+13
+00:00:50,250 --> 00:00:52,560
+Now let's go over to API Gateway.
+
+14
+00:00:52,940 --> 00:00:56,260
+On the API gateway console I'm going to click on get started.
+
+15
+00:00:56,550 --> 00:00:59,650
+Now, you'll see that there's the different types of API we can create.
+
+16
+00:00:59,650 --> 00:01:04,379
+We've got HTTP API, Websocket API,  REST API,
+
+17
+00:01:04,640 --> 00:01:07,580
+and another one which is a private REST API.
+
+18
+00:01:07,680 --> 00:01:10,200
+We're going to choose this REST API here.
+
+19
+00:01:10,200 --> 00:01:14,485
+The one that has Lambda, HTTP, and AWS services options,
+
+20
+00:01:14,509 --> 00:01:15,790
+but this is not a private one.
+
+21
+00:01:15,790 --> 00:01:17,850
+It's actually going to be a regional API.
+
+22
+00:01:18,440 --> 00:01:21,860
+So let's click on build, click on OK for the message here.
+
+23
+00:01:22,740 --> 00:01:26,550
+Now we could always flick to a Websocket. We're going to keep with REST.
+
+24
+00:01:27,140 --> 00:01:29,345
+It does come up with an example API.
+
+25
+00:01:29,529 --> 00:01:33,650
+Alternatively, you can import from Swagger or OpenAPI three.
+
+26
+00:01:34,140 --> 00:01:35,960
+But we're going to choose new API.
+
+27
+00:01:36,540 --> 00:01:39,590
+And I'm going to call mine Lambda Simple Proxy.
+
+28
+00:01:39,930 --> 00:01:42,360
+And it's going to have a regional endpoint type.
+
+29
+00:01:42,740 --> 00:01:47,150
+Of course, if you wanted to you could change it here to edge-optimized or private.
+
+30
+00:01:47,640 --> 00:01:50,460
+So let's leave it on regional and create our API.
+
+31
+00:01:51,010 --> 00:01:53,911
+Now that we've created the API, we have several options
+
+32
+00:01:53,935 --> 00:01:55,980
+for how we can configure our API.
+
+33
+00:01:56,640 --> 00:01:59,570
+Now the first thing is we want to create a resource.
+
+34
+00:02:00,140 --> 00:02:03,160
+So for the resource I'm going to put in Hello World.
+
+35
+00:02:03,640 --> 00:02:06,880
+We don't need to change anything else. Let's just create that resource.
+
+36
+00:02:07,440 --> 00:02:10,699
+Next we need to create a method, so we choose actions,
+
+37
+00:02:10,710 --> 00:02:15,490
+create method and it will be created under the Hello World resource.
+
+38
+00:02:15,690 --> 00:02:21,490
+So we have /Hello world and then which of the actions do we want to allow?
+
+39
+00:02:21,490 --> 00:02:22,260
+Which methods?
+
+40
+00:02:22,260 --> 00:02:26,850
+So you know, you can see here you've got Any which is any action, you've got Get,
+
+41
+00:02:27,140 --> 00:02:28,550
+Post, Put and so on.
+
+42
+00:02:29,040 --> 00:02:30,360
+Now we're going to choose Any.
+
+43
+00:02:31,040 --> 00:02:32,450
+Click on the little tick mark.
+
+44
+00:02:33,340 --> 00:02:38,660
+And as you can see we now have our various integration. So Lambda, HTTP, Mock,
+
+45
+00:02:38,860 --> 00:02:42,850
+AWS services, and VPC link. We're going to leave it on Lambda.
+
+46
+00:02:43,240 --> 00:02:46,060
+The region is correct as us-east-1.
+
+47
+00:02:46,540 --> 00:02:51,030
+And if I just type space, I will now see my Lambda functions.
+
+48
+00:02:51,640 --> 00:02:54,610
+So I'm going to choose the REST API with Lambda proxy.
+
+49
+00:02:54,900 --> 00:02:58,360
+And we do want this to be a proxy integration.
+
+50
+00:02:58,800 --> 00:03:01,680
+So that means the information that's received will get proxies
+
+51
+00:03:01,680 --> 00:03:04,650
+straight through the Lambda without any kind of modification.
+
+52
+00:03:05,340 --> 00:03:06,560
+So let's choose save.
+
+53
+00:03:07,010 --> 00:03:10,460
+And click on OK to accept the API Gateway is going to
+
+54
+00:03:10,460 --> 00:03:13,360
+be given permissions to invoke the Lambda function.
+
+55
+00:03:13,810 --> 00:03:16,460
+So our API is now ready for deployment.
+
+56
+00:03:17,140 --> 00:03:19,180
+What I'm going to do is choose actions
+
+57
+00:03:19,740 --> 00:03:20,880
+and deploy API.
+
+58
+00:03:21,540 --> 00:03:24,450
+So now we get to deploy our API to a stage.
+
+59
+00:03:24,770 --> 00:03:28,950
+So for example, I can create a new stage and let's call this one Prod.
+
+60
+00:03:29,740 --> 00:03:33,460
+Optionally, you can give it a stage description and a deployment description.
+
+61
+00:03:33,940 --> 00:03:35,050
+Let's click on deploy.
+
+62
+00:03:36,340 --> 00:03:37,710
+And that has been deployed.
+
+63
+00:03:38,240 --> 00:03:40,660
+So now we get an invoke URL.
+
+64
+00:03:41,340 --> 00:03:44,090
+Now what I want to do is copy this one to my clipboard.
+
+65
+00:03:44,540 --> 00:03:47,100
+You'll find this file in the course download as well.
+
+66
+00:03:47,740 --> 00:03:49,430
+So this is the URL that we're going
+
+67
+00:03:49,430 --> 00:03:54,460
+to construct in order to invoke our Hello World application.
+
+68
+00:03:55,040 --> 00:03:57,570
+So as you can see where it says API in capitals,
+
+69
+00:03:57,570 --> 00:04:00,440
+this is actually where I want the URL to go.
+
+70
+00:04:00,440 --> 00:04:05,150
+So I already actually copied right from HTTPS. So let's paste that in.
+
+71
+00:04:05,900 --> 00:04:08,440
+Now, I've also got /prod which is the stage.
+
+72
+00:04:08,440 --> 00:04:10,350
+So I don't need the stage written again.
+
+73
+00:04:10,840 --> 00:04:16,718
+So what you should have is the full URL which finishes in .com/prod/
+
+74
+00:04:16,742 --> 00:04:17,860
+and then Hello world.
+
+75
+00:04:18,420 --> 00:04:22,560
+Then there's a question mark, name equals, so I'm going to put my name in here.
+
+76
+00:04:23,210 --> 00:04:28,060
+City equals. Well, my nearest city is Miami. So let's put Miami in here.
+
+77
+00:04:28,840 --> 00:04:31,130
+And then I'm going to copy this to my clipboard.
+
+78
+00:04:31,270 --> 00:04:33,210
+And in a new browser window,
+
+79
+00:04:33,340 --> 00:04:35,498
+I'm going to paste that in and hit enter.
+
+80
+00:04:35,522 --> 00:04:37,070
+So I get all this response.
+
+81
+00:04:37,070 --> 00:04:39,550
+It's a bit messy but there's lots of information in here.
+
+82
+00:04:39,940 --> 00:04:43,570
+But at the beginning you can see message Good day Neal of Miami.
+
+83
+00:04:43,580 --> 00:04:48,510
+So that is essentially what the API is returning based on Lambda.
+
+84
+00:04:48,510 --> 00:04:52,720
+So Lambda is actually processing the information that we pass to it, which is
+
+85
+00:04:52,840 --> 00:04:55,360
+just my name and my city.
+
+86
+00:04:55,740 --> 00:04:59,320
+And the Lambda functions process that and then return this result to us.
+
+87
+00:04:59,490 --> 00:05:02,780
+So that's how we can invoke the API using the URL.
+
+88
+00:05:03,000 --> 00:05:07,120
+Now the other way is to use curl. So I do use a Mac machine
+
+89
+00:05:07,220 --> 00:05:10,100
+and Mac and Linux normally come with curl installed.
+
+90
+00:05:10,100 --> 00:05:13,760
+If you're using Windows then you might need to download the curl utility.
+
+91
+00:05:14,540 --> 00:05:17,980
+But what I need to do here again is enter some information.
+
+92
+00:05:17,980 --> 00:05:23,150
+So as you can see we've got the API stage Hello world.
+
+93
+00:05:23,720 --> 00:05:28,140
+So I'm going to copy from HTTPS
+
+94
+00:05:28,740 --> 00:05:31,340
+through to where my stage name is slash
+
+95
+00:05:31,840 --> 00:05:33,540
+and I'm going to copy that here,
+
+96
+00:05:33,680 --> 00:05:34,860
+paste that here rather.
+
+97
+00:05:35,340 --> 00:05:41,450
+So now we have HTTPS going through to .com/prod/. Should just be one slash
+
+98
+00:05:41,840 --> 00:05:42,760
+Hello World.
+
+99
+00:05:43,210 --> 00:05:45,230
+And again we're going to put in,
+
+100
+00:05:45,480 --> 00:05:46,610
+I'm gonna put it Neal.
+
+101
+00:05:47,340 --> 00:05:48,650
+I'm going to put in Miami
+
+102
+00:05:49,040 --> 00:05:53,150
+and then it says the day, so let's put in the day. So today is Wednesday
+
+103
+00:05:53,640 --> 00:05:55,290
+and the time of day is afternoon.
+
+104
+00:05:55,940 --> 00:05:57,260
+So that's my command.
+
+105
+00:05:57,840 --> 00:06:01,700
+So I'll copy this command to my clipboard and go to a command prompt.
+
+106
+00:06:01,950 --> 00:06:04,380
+So make sure you do have the curl utility.
+
+107
+00:06:04,390 --> 00:06:07,460
+I have the curl utility installed so I can run this command.
+
+108
+00:06:08,040 --> 00:06:12,750
+So again the response has lots of information and just here we can see message.
+
+109
+00:06:13,140 --> 00:06:16,260
+Good afternoon Neal of Miami. Happy Wednesday.
+
+110
+00:06:17,040 --> 00:06:21,960
+So that's it. That's how we can create an API with a Lambda proxy integration.
+
+111
+00:06:22,640 --> 00:06:23,970
+So that's it for this lesson.
+
+112
+00:06:23,970 --> 00:06:26,840
+I'm not going to delete my API at this stage because
+
+113
+00:06:26,840 --> 00:06:28,746
+we are going to work with it in another lesson.
+

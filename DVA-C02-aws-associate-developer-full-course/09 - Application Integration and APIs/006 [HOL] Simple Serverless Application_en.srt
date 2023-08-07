@@ -1,0 +1,376 @@
+1
+00:00:05,340 --> 00:00:09,140
+Hi guys. In this hands-on lesson, we have a fun little exercise which is
+
+2
+00:00:09,140 --> 00:00:12,360
+to create a very simple serverless application.
+
+3
+00:00:12,740 --> 00:00:15,550
+So our application is going to include SNS.
+
+4
+00:00:15,810 --> 00:00:21,100
+And we're going to simulate an application sending a notification to the SNS topic.
+
+5
+00:00:21,140 --> 00:00:23,800
+Of course the application could be another Lambda function,
+
+6
+00:00:23,800 --> 00:00:26,360
+could be something non serverless like EC2.
+
+7
+00:00:26,543 --> 00:00:28,210
+But we're going to add that manually.
+
+8
+00:00:28,740 --> 00:00:35,060
+Then SNS is going to send that information as a message into an Amazon SQS queue.
+
+9
+00:00:35,940 --> 00:00:41,060
+Then Lambda is going to poll that queue using an event source mapping.
+
+10
+00:00:41,440 --> 00:00:44,050
+And Lambda will find the message in the queue
+
+11
+00:00:44,370 --> 00:00:48,370
+and then it's going to send some information through to CloudWatch
+
+12
+00:00:48,370 --> 00:00:50,110
+logs where we can then go and look at it.
+
+13
+00:00:50,470 --> 00:00:52,120
+So that's how it works. Very simple.
+
+14
+00:00:52,360 --> 00:00:54,760
+So let's head over to the console and build this out.
+
+15
+00:00:55,240 --> 00:00:59,180
+I'm starting off in the Simple Notification Service. Let's go to topics,
+
+16
+00:00:59,190 --> 00:01:00,390
+create topic.
+
+17
+00:01:00,400 --> 00:01:06,550
+We're going to choose a standard type and it's simply going to be called SNS to SQS
+
+18
+00:01:06,940 --> 00:01:07,560
+test.
+
+19
+00:01:08,010 --> 00:01:10,960
+And that's really all I need to do. Just create that topic.
+
+20
+00:01:11,340 --> 00:01:12,700
+So now we have our topic.
+
+21
+00:01:12,850 --> 00:01:16,950
+We then need to create a Lambda function. So let's choose create function.
+
+22
+00:01:17,740 --> 00:01:23,170
+I'm going to call this one SQS SNS test function. It will be Node.js.
+
+23
+00:01:23,620 --> 00:01:26,950
+And let's just allow it to create the default execution role.
+
+24
+00:01:27,540 --> 00:01:29,060
+So we create that function.
+
+25
+00:01:29,540 --> 00:01:35,624
+Now we will need to provide permissions so that Lambda is able to access SQS.
+
+26
+00:01:35,649 --> 00:01:39,380
+So that's one of the first things we need to do once the function is created.
+
+27
+00:01:39,560 --> 00:01:41,150
+So our function is created.
+
+28
+00:01:41,840 --> 00:01:46,360
+I'm going to go to configuration, permissions, click on the role name
+
+29
+00:01:47,640 --> 00:01:49,260
+that brings me into IAM.
+
+30
+00:01:50,240 --> 00:01:54,760
+And under permissions, I'm going to add permissions, attach a policy
+
+31
+00:01:55,340 --> 00:01:59,760
+and I'm going to search for the AWS Lambda SQS queue execution role
+
+32
+00:02:00,340 --> 00:02:01,820
+and select that policy.
+
+33
+00:02:02,240 --> 00:02:07,220
+Now that policy will provide Lambda the permissions to receive messages,
+
+34
+00:02:07,470 --> 00:02:10,340
+delete messages, and get queue attributes
+
+35
+00:02:10,610 --> 00:02:13,840
+as well as also providing access to CloudWatch logs.
+
+36
+00:02:13,840 --> 00:02:15,720
+We already have those permissions so we don't need
+
+37
+00:02:15,720 --> 00:02:17,970
+those but we do need the SQs permissions.
+
+38
+00:02:17,980 --> 00:02:20,450
+So that's good. Let's attach this policy.
+
+39
+00:02:20,800 --> 00:02:22,750
+And now Lambda has the write permissions.
+
+40
+00:02:23,140 --> 00:02:26,430
+Now we need to update the code. So let's go back to Lambda.
+
+41
+00:02:26,680 --> 00:02:27,780
+Let's go to code
+
+42
+00:02:28,110 --> 00:02:31,810
+and we have a file which provides the code we need for this exercise.
+
+43
+00:02:32,100 --> 00:02:35,670
+So in the course download, we've got the code directory Amazon SQS
+
+44
+00:02:35,690 --> 00:02:38,480
+and you'll find Lambda code SNS SQs.
+
+45
+00:02:38,810 --> 00:02:41,460
+So just copy all of this code to your clipboard.
+
+46
+00:02:41,640 --> 00:02:45,750
+And back in our function, let's delete everything out, paste this in,
+
+47
+00:02:45,880 --> 00:02:47,138
+and click on deploy.
+
+48
+00:02:47,162 --> 00:02:49,990
+So that's done. Okay, so we have the write permissions.
+
+49
+00:02:50,540 --> 00:02:53,670
+So what I'm going to do now is go to SQS
+
+50
+00:02:53,870 --> 00:02:57,625
+and you'll see we have Lambda triggers and SNS subscriptions.
+
+51
+00:02:57,649 --> 00:02:59,780
+So let's start with the SNS subscription.
+
+52
+00:03:00,060 --> 00:03:02,860
+Lets subscribe to an Amazon SQS topic.
+
+53
+00:03:03,440 --> 00:03:07,270
+We can find our topic here. Mine is called SNS SQS test.
+
+54
+00:03:07,550 --> 00:03:08,660
+Click on save.
+
+55
+00:03:09,263 --> 00:03:10,410
+That's done.
+
+56
+00:03:10,640 --> 00:03:12,300
+Then go to Lambda triggers.
+
+57
+00:03:12,530 --> 00:03:14,360
+Configure Lambda function trigger.
+
+58
+00:03:15,140 --> 00:03:16,550
+And let's find our function.
+
+59
+00:03:16,840 --> 00:03:19,660
+Mine is called SQS SNS test function.
+
+60
+00:03:20,340 --> 00:03:21,450
+And click on save.
+
+61
+00:03:21,660 --> 00:03:25,440
+So that's all worked. That shouldn't take long to actually complete.
+
+62
+00:03:25,840 --> 00:03:30,250
+And if you come back to your Lambda function, you should now see SQS as a trigger.
+
+63
+00:03:30,840 --> 00:03:34,580
+So what we're gonna do now is simply test this out. So let's come back to
+
+64
+00:03:34,700 --> 00:03:36,200
+the SNS console.
+
+65
+00:03:36,340 --> 00:03:37,950
+I've selected my topic.
+
+66
+00:03:38,440 --> 00:03:40,450
+And I'm going to click on publish message.
+
+67
+00:03:40,940 --> 00:03:43,560
+I'm going to call this message from SNS.
+
+68
+00:03:43,830 --> 00:03:45,860
+And I can enter a message body.
+
+69
+00:03:46,300 --> 00:03:49,150
+So mine is going to be this message was sent from SNS.
+
+70
+00:03:49,840 --> 00:03:51,250
+And let's publish that message.
+
+71
+00:03:51,640 --> 00:03:54,250
+So the message has been published to the topic.
+
+72
+00:03:54,740 --> 00:03:57,460
+And that means it should now be pushed through to the queue
+
+73
+00:03:58,100 --> 00:04:01,200
+and then the SQS queue will be polled by Lambda
+
+74
+00:04:01,480 --> 00:04:03,860
+and Lambda should then run its code.
+
+75
+00:04:04,240 --> 00:04:11,020
+And the code should then take the information from the SNS message
+
+76
+00:04:11,140 --> 00:04:13,750
+and it's going to record that in CloudWatch logs.
+
+77
+00:04:13,750 --> 00:04:17,899
+So that's where we have this console.log body. So it's gonna log that information
+
+78
+00:04:18,010 --> 00:04:19,370
+to CloudWatch logs.
+
+79
+00:04:19,709 --> 00:04:21,550
+So if I go to monitor,
+
+80
+00:04:22,040 --> 00:04:23,910
+view logs in cloudwatch logs,
+
+81
+00:04:24,120 --> 00:04:25,360
+choose my stream,
+
+82
+00:04:25,940 --> 00:04:28,210
+and here we can see that we have some messages.
+
+83
+00:04:28,540 --> 00:04:30,200
+So we can see one from earlier on the
+
+84
+00:04:30,200 --> 00:04:33,090
+test long short polling that was already in the queue.
+
+85
+00:04:33,660 --> 00:04:37,085
+And we can see that the topic ARN is specified here.
+
+86
+00:04:37,109 --> 00:04:41,098
+The subject message from SNS was recorded and the message body
+
+87
+00:04:41,122 --> 00:04:42,990
+this message was sent from SNS.
+
+88
+00:04:43,000 --> 00:04:44,300
+So that's been successful.
+
+89
+00:04:45,040 --> 00:04:48,400
+Now I have actually finished with this application.
+
+90
+00:04:48,400 --> 00:04:52,260
+So what I'm gonna do is just go back in. I can delete my queue now
+
+91
+00:04:52,940 --> 00:04:57,645
+and I can also delete my Lambda function and my SNS topic if I want to.
+
+92
+00:04:57,669 --> 00:04:58,720
+I don't need to delete them.
+
+93
+00:04:58,720 --> 00:05:01,640
+They're not going to cost anything. But I've cleaned up my queue.
+
+94
+00:05:01,790 --> 00:05:05,150
+So that's it for this lesson. I hope you enjoyed it. I will see you in the next one.
+

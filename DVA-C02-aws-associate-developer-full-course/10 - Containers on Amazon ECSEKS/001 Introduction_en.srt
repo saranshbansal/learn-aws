@@ -1,0 +1,64 @@
+1
+00:00:00,340 --> 00:00:01,470
+Welcome to this section.
+
+2
+00:00:01,470 --> 00:00:02,360
+In this section,
+
+3
+00:00:02,360 --> 00:00:07,520
+I'm going to cover the amazon elastic container service (ECS) as well as
+
+4
+00:00:07,520 --> 00:00:13,240
+the elastic kubernetes service e k s and the elastic container registry (ECR)
+
+5
+00:00:13,250 --> 00:00:20,410
+So these are all services related to running and managing Docker containers on AWS
+
+6
+00:00:20,740 --> 00:00:26,610
+amazon Ec s is a service we can use for running docker containers on AWS,
+
+7
+00:00:26,620 --> 00:00:28,960
+either in a serverless manner or with
+
+8
+00:00:28,960 --> 00:00:31,560
+the underlying infrastructure within our control.
+
+9
+00:00:31,940 --> 00:00:36,510
+Then elastic kubernetes service is used for management of containers.
+
+10
+00:00:36,670 --> 00:00:41,400
+You might be using Kubernetes in your on premises data center or on another cloud.
+
+11
+00:00:41,590 --> 00:00:46,760
+EKS allows us to run a managed implementation of Kubernetes in the cloud.
+
+12
+00:00:47,140 --> 00:00:47,980
+And then, lastly,
+
+13
+00:00:47,980 --> 00:00:50,820
+the elastic container registry is where we can
+
+14
+00:00:50,820 --> 00:00:53,850
+actually store the images for our containers.
+
+15
+00:00:53,920 --> 00:00:56,560
+So all about containers in this section,
+
+16
+00:00:56,570 --> 00:01:00,960
+exciting technology and certainly interesting to learn about and to use.
+

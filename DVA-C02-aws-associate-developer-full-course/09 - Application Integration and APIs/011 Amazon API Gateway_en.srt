@@ -1,0 +1,432 @@
+1
+00:00:05,340 --> 00:00:11,345
+Amazon API Gateway is a service we can use to create and publish REST APIs
+
+2
+00:00:11,369 --> 00:00:14,280
+HTTP APIs, and Websocket APIs.
+
+3
+00:00:14,380 --> 00:00:17,160
+Now, there's lots to learn for this exam. So let's get on with it.
+
+4
+00:00:17,640 --> 00:00:22,178
+So let's get started with a quick overview of what API Gateway is
+
+5
+00:00:22,202 --> 00:00:24,090
+and how it works with various services.
+
+6
+00:00:24,120 --> 00:00:26,160
+So I'm going to do so through a diagram.
+
+7
+00:00:26,540 --> 00:00:31,160
+So we have our region here and our API gateway is deployed within a region.
+
+8
+00:00:31,740 --> 00:00:33,920
+We've then got some clients on the internet.
+
+9
+00:00:33,920 --> 00:00:36,480
+Now they might be things like mobile clients.
+
+10
+00:00:36,505 --> 00:00:37,650
+They could be a service,
+
+11
+00:00:37,650 --> 00:00:42,300
+they could be another web service or something running on the internet
+
+12
+00:00:42,310 --> 00:00:45,560
+that needs to connect to the API to process some information.
+
+13
+00:00:45,850 --> 00:00:48,510
+It could be another website that uses the API.
+
+14
+00:00:49,140 --> 00:00:51,450
+So they connect to the API.
+
+15
+00:00:51,940 --> 00:00:56,220
+Now, maybe in this case it's a REST API over HTTPS.
+
+16
+00:00:56,320 --> 00:00:59,650
+Could also be an HTTP API or a Websocket.
+
+17
+00:01:00,140 --> 00:01:04,720
+The API can be integrated with various backend services.
+
+18
+00:01:04,840 --> 00:01:07,950
+So for example, it could be a Lambda function
+
+19
+00:01:08,150 --> 00:01:11,638
+in the public address space, so with a public endpoint.
+
+20
+00:01:11,963 --> 00:01:15,040
+Or it could be Lambda in a VPC.
+
+21
+00:01:15,040 --> 00:01:18,860
+So a Lambda function that's been attached to a VPC.
+
+22
+00:01:19,140 --> 00:01:23,440
+Or it could be an EC2 instance or an instance behind a load balancer.
+
+23
+00:01:23,790 --> 00:01:28,270
+In either case maybe they're running an HTTP or HTTPS endpoint.
+
+24
+00:01:28,280 --> 00:01:33,820
+It can also be various other AWS services and also public endpoints as well.
+
+25
+00:01:33,970 --> 00:01:41,180
+You can also import swagger or OpenAPI 3.0 definitions in YAML or JSON.
+
+26
+00:01:41,440 --> 00:01:43,260
+Now, what are the API types?
+
+27
+00:01:43,440 --> 00:01:49,600
+Well, we've got REST APIs. These support OIDC and OAuth 2 authorization
+
+28
+00:01:49,770 --> 00:01:54,010
+and come with built-in support for CORS and automatic deployments.
+
+29
+00:01:54,450 --> 00:01:57,610
+And of course, CORS is cross origin resource sharing.
+
+30
+00:01:57,730 --> 00:02:00,110
+We've then got HTTP APIs.
+
+31
+00:02:00,350 --> 00:02:05,590
+These are designed for low latency cost-effective integrations with AWS services
+
+32
+00:02:05,740 --> 00:02:08,600
+such as Lambda and HTTP endpoints.
+
+33
+00:02:09,340 --> 00:02:11,560
+Then we have Websocket APIs.
+
+34
+00:02:12,030 --> 00:02:14,900
+These are deployed as a stateful frontend for an
+
+35
+00:02:14,910 --> 00:02:20,460
+AWS service like Lambda or DynamoDB or for an HTTP endpoint.
+
+36
+00:02:20,940 --> 00:02:26,540
+Rest APIs and HTTP APIs support authorizers for AWS Lambda,
+
+37
+00:02:26,690 --> 00:02:29,360
+IAM and Amazon Cognito.
+
+38
+00:02:29,740 --> 00:02:35,280
+And Websocket APIs support IAM authorization and Lambda authorizers.
+
+39
+00:02:35,510 --> 00:02:37,820
+So let's look at the deployment types for a
+
+40
+00:02:37,820 --> 00:02:40,150
+REST API. We've got a couple of options here.
+
+41
+00:02:40,540 --> 00:02:44,520
+The first one is what we call an edge-optimized endpoint.
+
+42
+00:02:44,700 --> 00:02:48,110
+Now, this actually uses the Amazon CloudFront network.
+
+43
+00:02:48,390 --> 00:02:51,545
+The key benefit is that you get reduced latency
+
+44
+00:02:51,569 --> 00:02:55,491
+for requests that are coming from around the world because it's leveraging
+
+45
+00:02:55,515 --> 00:02:59,050
+those points of presence that CloudFront has all over the world.
+
+46
+00:02:59,310 --> 00:03:01,550
+Next we have a regional endpoint.
+
+47
+00:03:01,840 --> 00:03:05,540
+This is optimized for when your services are all within a region
+
+48
+00:03:05,790 --> 00:03:08,260
+that are connecting to your API endpoint.
+
+49
+00:03:08,730 --> 00:03:11,070
+The key benefits would be reduced latency for
+
+50
+00:03:11,070 --> 00:03:14,460
+requests that originate in the same AWS region.
+
+51
+00:03:14,940 --> 00:03:17,670
+You can also configure your own content delivery
+
+52
+00:03:17,670 --> 00:03:22,380
+network and protect with the AWS Web application firewall.
+
+53
+00:03:22,640 --> 00:03:25,170
+And then lastly we have a private endpoint.
+
+54
+00:03:25,420 --> 00:03:32,220
+This is for services that are connecting in the same VPC as the actual endpoint.
+
+55
+00:03:32,230 --> 00:03:38,216
+So we can have a private endpoint for our API gateway that's connected to our VPC
+
+56
+00:03:38,263 --> 00:03:43,850
+and the service that's connecting to the API endpoint is also within that VPC.
+
+57
+00:03:44,040 --> 00:03:47,958
+This gives you the benefit of securely exposing your REST APIs
+
+58
+00:03:48,003 --> 00:03:51,278
+only to other services within your VPC
+
+59
+00:03:51,302 --> 00:03:54,760
+or that are connecting via a Direct Connect connection.
+
+60
+00:03:55,200 --> 00:03:58,510
+Let's look at a bit more detail about edge-optimized APIs.
+
+61
+00:03:59,100 --> 00:04:01,970
+These are best for geographically distributed clients.
+
+62
+00:04:02,440 --> 00:04:06,670
+API requests are routed to the nearest CloudFront point of presence.
+
+63
+00:04:07,070 --> 00:04:12,040
+And this is the default endpoint type for API Gateway REST APIs.
+
+64
+00:04:12,740 --> 00:04:16,899
+Edge-optimized APIs capitalize the names of HTTP headers.
+
+65
+00:04:17,029 --> 00:04:21,260
+Regional APIs are intended for clients in the same region.
+
+66
+00:04:21,640 --> 00:04:25,980
+This reduces connection overhead for connections from within that region.
+
+67
+00:04:25,990 --> 00:04:28,270
+Any custom domain name that you use
+
+68
+00:04:28,370 --> 00:04:32,450
+is specific to the region where the API is actually deployed.
+
+69
+00:04:32,800 --> 00:04:36,370
+And if you deploy a regional API in multiple regions,
+
+70
+00:04:36,420 --> 00:04:40,060
+it can have the same custom domain name in all of those regions.
+
+71
+00:04:40,436 --> 00:04:44,458
+Private REST APIs can only be accessed from within a VPC
+
+72
+00:04:44,482 --> 00:04:47,400
+using an interface VPC endpoint.
+
+73
+00:04:47,400 --> 00:04:50,220
+So that's how you're connecting to API Gateway
+
+74
+00:04:50,220 --> 00:04:53,570
+because API Gateway itself is a public endpoint.
+
+75
+00:04:53,600 --> 00:04:56,410
+But you have a private interface VPC endpoint
+
+76
+00:04:56,410 --> 00:04:59,460
+to connect securely from within your VPC.
+
+77
+00:04:59,640 --> 00:05:05,900
+Now you can also be connecting across VPCs when you're using a private REST API.
+
+78
+00:05:05,930 --> 00:05:10,650
+So let's say you have your API Gateway service deployed in the VPC on the right
+
+79
+00:05:10,840 --> 00:05:13,770
+and then you've got your customer's VPC on the left
+
+80
+00:05:14,150 --> 00:05:18,450
+and they have instances that need to connect to the REST API.
+
+81
+00:05:18,610 --> 00:05:22,200
+So what happens is an Elastic Network Interface is deployed
+
+82
+00:05:22,440 --> 00:05:25,460
+in a private subnet of the customer VPC
+
+83
+00:05:26,040 --> 00:05:29,600
+and using that they're then able to connect API Gateway
+
+84
+00:05:29,660 --> 00:05:34,470
+and whatever the targets are the integrations for that API Gateway.
+
+85
+00:05:34,660 --> 00:05:39,010
+Finally, in this lesson, I'm going to cover some key features for API Gateway.
+
+86
+00:05:39,170 --> 00:05:43,691
+So API Gateway supports RESTful APIs and Websocket APIs.
+
+87
+00:05:43,715 --> 00:05:49,370
+With RESTful APIs, you've got the choice of either HTTP APIs or REST APIs.
+
+88
+00:05:50,040 --> 00:05:55,518
+It also supports private integrations with Elastic Load Balancer and AWS CloudMap.
+
+89
+00:05:55,756 --> 00:05:59,271
+With metering, you can define plans that meter and restrict
+
+90
+00:05:59,295 --> 00:06:01,900
+third party developer access to the APIs.
+
+91
+00:06:02,310 --> 00:06:03,150
+With security,
+
+92
+00:06:03,150 --> 00:06:08,530
+there are various methods to control authorization and access control within
+
+93
+00:06:08,530 --> 00:06:11,560
+API Gateway. And we'll see more about that in this section.
+
+94
+00:06:11,670 --> 00:06:14,890
+For resiliency, you can manage traffic with throttling so that
+
+95
+00:06:14,890 --> 00:06:18,690
+the backend operations can withstand traffic spikes.
+
+96
+00:06:18,780 --> 00:06:20,990
+Another thing that we'll look at in this section.
+
+97
+00:06:21,240 --> 00:06:22,530
+The operations monitoring,
+
+98
+00:06:22,530 --> 00:06:26,860
+it provides a metric dashboard to monitor calls to your services.
+
+99
+00:06:27,190 --> 00:06:28,960
+And you get lifecycle management.
+
+100
+00:06:29,100 --> 00:06:34,730
+You can have multiple API versions and stages for each version simultaneously so that
+
+101
+00:06:34,730 --> 00:06:38,771
+your applications can continue to call any previous versions
+
+102
+00:06:38,795 --> 00:06:40,560
+after you've published newer versions.
+
+103
+00:06:40,590 --> 00:06:45,530
+In terms of authorization, there's support for signature version four for REST APIs
+
+104
+00:06:45,555 --> 00:06:49,240
+and Websocket APIs, we have IAM access policies,
+
+105
+00:06:49,480 --> 00:06:53,311
+and authorization with bearer tokens like Java Web Tokens
+
+106
+00:06:53,335 --> 00:06:56,500
+and security assertion and markup language SAML.
+
+107
+00:06:56,800 --> 00:06:58,970
+And that's when using Lambda functions.
+
+108
+00:06:59,440 --> 00:07:02,260
+And that's it for this lesson. I will see you in the next one.
+
