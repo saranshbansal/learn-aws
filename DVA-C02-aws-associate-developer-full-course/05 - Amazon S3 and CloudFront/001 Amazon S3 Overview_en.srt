@@ -1,0 +1,524 @@
+1
+00:00:05,230 --> 00:00:11,110
+Hi, guys. In this lesson, you're going to learn about the Amazon Simple Storage Service or Amazon
+
+2
+00:00:11,110 --> 00:00:11,770
+S3.
+
+3
+00:00:11,800 --> 00:00:17,320
+Now we have used Amazon S3 a little bit in this course already where I showed you how to create a bucket
+
+4
+00:00:17,320 --> 00:00:19,090
+and upload an object.
+
+5
+00:00:19,300 --> 00:00:24,010
+But I wasn't really aimed at teaching you S3 at that point, so we went through it fairly quickly.
+
+6
+00:00:24,430 --> 00:00:30,010
+In this section, you're going to learn about S3 in a lot of detail. Now, S3 is what's called
+
+7
+00:00:30,010 --> 00:00:31,930
+an object-based storage system.
+
+8
+00:00:32,170 --> 00:00:33,790
+So let's have a look at what this is.
+
+9
+00:00:34,150 --> 00:00:35,410
+With Amazon S3,
+
+10
+00:00:35,650 --> 00:00:42,040
+we have something called a bucket. A bucket is a container. And inside that container we put our objects.
+
+11
+00:00:42,670 --> 00:00:43,540
+Our objects
+
+12
+00:00:43,810 --> 00:00:51,760
+are files. So, things like a word document, a PDF, an MP4 movie or a JPEG image, or any other
+
+13
+00:00:51,760 --> 00:00:52,480
+file type.
+
+14
+00:00:52,720 --> 00:00:57,790
+You can store files in S3 as objects within a bucket.
+
+15
+00:00:58,090 --> 00:01:02,380
+Each object is a single file and you can have many, many objects.
+
+16
+00:01:02,560 --> 00:01:05,560
+In fact, you can have millions of objects in a bucket.
+
+17
+00:01:06,040 --> 00:01:13,120
+S3 is extremely scalable, so you really can store huge quantities of data on Amazon S3, and it scales
+
+18
+00:01:13,120 --> 00:01:13,870
+seamlessly.
+
+19
+00:01:14,050 --> 00:01:19,510
+There's nothing you need to do in order to be able to add more files to your storage.
+
+20
+00:01:19,780 --> 00:01:22,930
+How do we access the objects in our buckets?
+
+21
+00:01:23,320 --> 00:01:27,130
+Well, with an object-based storage system, we actually use a URL.
+
+22
+00:01:27,430 --> 00:01:29,530
+The URL will look something like this.
+
+23
+00:01:29,890 --> 00:01:33,640
+Access is using the HTTPS protocol, so it's secure.
+
+24
+00:01:34,180 --> 00:01:40,270
+And as you can see in this URL, there's a few of the words are in red, and that's where we have variables.
+
+25
+00:01:40,510 --> 00:01:42,610
+So, bucket would be the name of your bucket.
+
+26
+00:01:42,910 --> 00:01:47,620
+AWS-region would be the region in which you created the bucket.
+
+27
+00:01:47,980 --> 00:01:50,980
+And then on the end, we have slash and then key.
+
+28
+00:01:51,430 --> 00:01:56,080
+And the key is actually the name of the file. S3 is a key value store.
+
+29
+00:01:56,560 --> 00:02:01,330
+So, the key is the name of the file and the value is the data of the file itself.
+
+30
+00:02:01,780 --> 00:02:06,520
+There are actually a couple of different formats for the URL, so it's worth understanding
+
+31
+00:02:06,700 --> 00:02:08,500
+it's not always going to look the same.
+
+32
+00:02:08,800 --> 00:02:15,520
+So, as I mentioned, we're using the secure version of the HTTP protocol. And an object-based storage
+
+33
+00:02:15,520 --> 00:02:20,320
+system is accessed using HTTP over a REST API.
+
+34
+00:02:20,530 --> 00:02:27,220
+So, REST stands for Representational State Transfer and API is Application Programming Interface.
+
+35
+00:02:27,520 --> 00:02:36,340
+Essentially, a REST API over HTTP allows you to use the HTTP methods to manipulate your data. So, you're
+
+36
+00:02:36,340 --> 00:02:37,210
+actually issuing
+
+37
+00:02:37,210 --> 00:02:44,680
+GET requests to read data from S3 or PUT requests or POST requests to actually upload files to S3.
+
+38
+00:02:45,040 --> 00:02:50,800
+You can select files, delete files, etc. And all this is done programmatically using an API.
+
+39
+00:02:51,130 --> 00:02:52,810
+Let's go over a few key facts.
+
+40
+00:02:53,110 --> 00:02:55,600
+You can store any file type in S3.
+
+41
+00:02:56,050 --> 00:03:02,500
+Your files can be anywhere from zero bytes up to a maximum individual file size of five terabytes.
+
+42
+00:03:03,130 --> 00:03:09,610
+There's unlimited storage available. So, as long as your file size is within those limits, then you
+
+43
+00:03:09,610 --> 00:03:12,880
+can store an unlimited number of those files on S3.
+
+44
+00:03:13,150 --> 00:03:15,490
+S3 is a universal namespace.
+
+45
+00:03:15,790 --> 00:03:18,040
+So, bucket names must be unique globally.
+
+46
+00:03:18,610 --> 00:03:22,090
+So, as you've seen, we actually access our buckets using a URL,
+
+47
+00:03:22,420 --> 00:03:27,430
+and as you know, no two domains on the internet can share the same name or the same URL. That would
+
+48
+00:03:27,430 --> 00:03:28,150
+be impossible.
+
+49
+00:03:28,690 --> 00:03:32,410
+So, every URL has to be unique on the internet.
+
+50
+00:03:32,830 --> 00:03:38,560
+Therefore, the bucket name must be unique globally because we're going to use it from anywhere on the
+
+51
+00:03:38,560 --> 00:03:38,980
+internet.
+
+52
+00:03:39,430 --> 00:03:45,400
+Now, even though the bucket name must be unique globally, you actually create your bucket within a
+
+53
+00:03:45,400 --> 00:03:45,850
+region.
+
+54
+00:03:45,850 --> 00:03:52,780
+So, the actual physical data is stored within a single AWS region. And it will never leave that region
+
+55
+00:03:52,780 --> 00:03:55,570
+unless you specifically configure it to do so.
+
+56
+00:03:55,810 --> 00:04:02,500
+You can replicate your data to another region, but you have to manually set that up. In all other circumstances,
+
+57
+00:04:02,500 --> 00:04:05,380
+your data will always sit within a single region.
+
+58
+00:04:05,680 --> 00:04:12,190
+It's therefore a best practice that you create your buckets closer to where the users are, who are
+
+59
+00:04:12,190 --> 00:04:13,470
+going to access the data.
+
+60
+00:04:13,720 --> 00:04:19,360
+And that just means that you're geographically or physically closer, and that means less latency to
+
+61
+00:04:19,360 --> 00:04:21,550
+access the files in your buckets.
+
+62
+00:04:21,760 --> 00:04:24,520
+There's no hierarchy for objects within a bucket.
+
+63
+00:04:24,530 --> 00:04:26,440
+It's essentially a flat namespace.
+
+64
+00:04:26,740 --> 00:04:31,810
+So just like if you took a lot of sand and throw it into a bucket, there's no hierarchy.
+
+65
+00:04:31,810 --> 00:04:37,090
+It's just a whole load of individual grains of sand in a bucket. And that's essentially what your objects
+
+66
+00:04:37,090 --> 00:04:38,530
+are in S3.
+
+67
+00:04:39,040 --> 00:04:45,160
+Now there is a way that you can mimic a structure. And that's by using a folder, which really just
+
+68
+00:04:45,160 --> 00:04:49,840
+is an extra part of the key, which makes it look like you have a structure in your bucket.
+
+69
+00:04:49,840 --> 00:04:51,250
+So, we'll look at that a bit later on.
+
+70
+00:04:51,520 --> 00:04:55,540
+S3 delivers what's called strong read-after-write consistency.
+
+71
+00:04:55,720 --> 00:04:57,010
+Now this is a change.
+
+72
+00:04:57,280 --> 00:05:00,610
+This was implemented towards the end of 2020.
+
+73
+00:05:00,910 --> 00:05:04,530
+Before that, you only had eventual consistency
+
+74
+00:05:04,580 --> 00:05:11,060
+when you actually over-wrote something. That means if you uploaded a new version of a file and somebody
+
+75
+00:05:11,060 --> 00:05:17,750
+immediately tried to read that file, they might get the old version or they might get the new version,
+
+76
+00:05:17,750 --> 00:05:19,790
+it really depends on whether it's replicated.
+
+77
+00:05:20,300 --> 00:05:25,160
+That's no longer the case. But it's unclear at this point in time which questions you'll see on the
+
+78
+00:05:25,160 --> 00:05:25,580
+exam.
+
+79
+00:05:26,000 --> 00:05:28,650
+Let's have a look at the structure and a bit more detail.
+
+80
+00:05:29,090 --> 00:05:34,430
+So, we have our bucket and we have a new URL with which we can access that bucket.
+
+81
+00:05:35,000 --> 00:05:37,190
+We then have our files within the bucket.
+
+82
+00:05:37,190 --> 00:05:45,830
+So here we have a spreadsheet and we can access that using this URL. And on the end of /orders.xlsx.
+
+83
+00:05:46,220 --> 00:05:49,790
+So that is the key or the name of the file.
+
+84
+00:05:50,330 --> 00:05:53,330
+The value is the actual data of that file itself.
+
+85
+00:05:53,720 --> 00:05:58,250
+We might then have a word document and another word document here as well.
+
+86
+00:05:58,640 --> 00:06:03,440
+And each of those will then also have a URL with a key on the end.
+
+87
+00:06:03,800 --> 00:06:10,760
+But what you might notice here is that we have an extra level, so we have this Project+Alpha/
+
+88
+00:06:10,910 --> 00:06:12,350
+and then the sales proposal.
+
+89
+00:06:12,680 --> 00:06:14,090
+Now this is a folder.
+
+90
+00:06:14,390 --> 00:06:16,970
+Now, as I mentioned, that is actually part of the key.
+
+91
+00:06:16,970 --> 00:06:22,130
+It looks like a folder. And in the management console it will look like a folder and it looks like you've
+
+92
+00:06:22,130 --> 00:06:23,330
+created a hierarchy.
+
+93
+00:06:23,750 --> 00:06:28,490
+But really, all the objects are at the same level, but you've mimicked a folder structure instead.
+
+94
+00:06:28,970 --> 00:06:33,530
+So, you can think of a folder as a shared prefix for grouping your objects together.
+
+95
+00:06:34,130 --> 00:06:36,650
+A few more facts about buckets, folders, and objects.
+
+96
+00:06:37,040 --> 00:06:41,780
+Folders can be created within folders to mimic an even deeper hierarchy.
+
+97
+00:06:42,110 --> 00:06:45,890
+But buckets can never be created inside another bucket.
+
+98
+00:06:45,890 --> 00:06:48,710
+A bucket is not a hierarchical structure.
+
+99
+00:06:48,720 --> 00:06:54,470
+You just create a bucket and then you can potentially create your own folder structure within that or
+
+100
+00:06:54,470 --> 00:06:56,030
+just throw your object straight into it.
+
+101
+00:06:56,510 --> 00:06:58,700
+But you can never have one bucket in another bucket.
+
+102
+00:06:59,210 --> 00:07:03,350
+Each object consists of a key, and that's the name of the object,
+
+103
+00:07:03,350 --> 00:07:07,920
+so, the actual file name itself, a version ID, a value.
+
+104
+00:07:07,940 --> 00:07:10,210
+So remember, this is a key value store.
+
+105
+00:07:10,220 --> 00:07:15,500
+So, at a basic level, you have the key, the name of the object or the file, and the value, which is
+
+106
+00:07:15,500 --> 00:07:16,220
+the actual data.
+
+107
+00:07:16,340 --> 00:07:20,720
+Then you have metadata, and subresources. We'll cover some of these a bit later on.
+
+108
+00:07:21,230 --> 00:07:26,990
+And also, access control information. We'll go into quite a bit detail about how you can implement access
+
+109
+00:07:26,990 --> 00:07:28,040
+control with S3.
+
+110
+00:07:28,520 --> 00:07:30,710
+So how do we access Amazon S3?
+
+111
+00:07:31,070 --> 00:07:37,160
+Well, as you've seen, it uses a public URL, so a URL that you can access over the internet.
+
+112
+00:07:37,610 --> 00:07:41,540
+And that's because it has a public endpoint, it's a public service.
+
+113
+00:07:41,840 --> 00:07:43,430
+It's not within a VPC.
+
+114
+00:07:43,700 --> 00:07:48,500
+It's in the AWS public space and it's always accessed via the internet.
+
+115
+00:07:48,980 --> 00:07:54,920
+So, you might have an internet client with some kind of web browser-based application accessing S3
+
+116
+00:07:54,920 --> 00:07:55,670
+over the internet.
+
+117
+00:07:56,150 --> 00:08:02,270
+You might have an application that uses the REST API to talk to Amazon S3 programmatically.
+
+118
+00:08:02,540 --> 00:08:04,550
+You can also use the CLI as well.
+
+119
+00:08:04,760 --> 00:08:08,180
+Now, what about accessing S3 from a VPC?
+
+120
+00:08:08,480 --> 00:08:12,890
+Let's say you have EC2 instances in public and private subnets.
+
+121
+00:08:13,340 --> 00:08:19,310
+Well, as you know, we have Internet gateways that we can attach to our VPC. And that's great for
+
+122
+00:08:19,310 --> 00:08:25,760
+the instance in the public subnet because it can use the Internet gateway to talk to S3 across
+
+123
+00:08:25,760 --> 00:08:28,520
+the internet using the S3 public endpoint.
+
+124
+00:08:29,120 --> 00:08:34,730
+Now, there is another way that we can access S3, and this is useful for clients, especially in
+
+125
+00:08:34,730 --> 00:08:38,600
+private subnets. And that's using an S3 gateway endpoint.
+
+126
+00:08:38,780 --> 00:08:44,840
+What this does is it creates a private connection. So, we're actually able to use private addresses
+
+127
+00:08:44,840 --> 00:08:51,650
+to access S3. Really important exam tips to remember that. If you ever see a question that relates
+
+128
+00:08:51,800 --> 00:08:57,650
+to accessing Amazon S3 where you want to avoid the internet or you want to use private addresses,
+
+129
+00:08:58,010 --> 00:09:03,830
+S3 gateway endpoints which are a type of VPC endpoint are the most likely answer.
+
+130
+00:09:04,280 --> 00:09:07,580
+So that's it for the overview. And we've got lots more to get on with. So,
+
+131
+00:09:07,580 --> 00:09:08,840
+I'll see you in the next lesson.
+

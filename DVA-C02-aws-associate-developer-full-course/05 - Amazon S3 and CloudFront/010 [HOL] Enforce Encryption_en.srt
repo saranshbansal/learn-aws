@@ -1,0 +1,328 @@
+1
+00:00:05,140 --> 00:00:08,776
+In this lesson we're going to look at how we can use a bucket policy
+
+2
+00:00:08,856 --> 00:00:13,260
+in order to enforce encryption for objects that are uploaded to the bucket.
+
+3
+00:00:13,740 --> 00:00:15,878
+Now, we're going to use this policy here.
+
+4
+00:00:16,015 --> 00:00:20,405
+And I've already copied the ARN of my bucket to my clipboard
+
+5
+00:00:20,429 --> 00:00:25,172
+and I'm going to paste that in and make sure that the /* is still on the end.
+
+6
+00:00:25,498 --> 00:00:29,930
+So just do that and then you can copy this code to your clipboard.
+
+7
+00:00:30,070 --> 00:00:33,960
+And back in S3, I'm going to go to permissions,
+
+8
+00:00:34,540 --> 00:00:37,560
+come down to where my bucket policy is, click on edit,
+
+9
+00:00:38,040 --> 00:00:41,060
+and we're going to override this policy here.
+
+10
+00:00:41,540 --> 00:00:45,410
+This policy is going to deny all principals
+
+11
+00:00:45,580 --> 00:00:50,360
+the S3 PUT objects API action, so you can't upload objects
+
+12
+00:00:50,740 --> 00:00:55,060
+to this resource so this bucket and any object within the bucket.
+
+13
+00:00:55,640 --> 00:01:01,050
+And there's a condition in the condition is that this value is null.
+
+14
+00:01:01,290 --> 00:01:05,150
+Now this value is XMZ server-side encryption true.
+
+15
+00:01:05,379 --> 00:01:09,410
+Now if that is specified, that means the object is going to be encrypted.
+
+16
+00:01:09,940 --> 00:01:14,100
+If it's null then you're trying to upload an object that isn't encrypted.
+
+17
+00:01:14,100 --> 00:01:17,760
+And in that case this policy will apply and you'll be denied.
+
+18
+00:01:18,240 --> 00:01:19,780
+So let's save those changes.
+
+19
+00:01:20,240 --> 00:01:21,870
+Come back to objects,
+
+20
+00:01:22,120 --> 00:01:23,150
+click on upload,
+
+21
+00:01:23,596 --> 00:01:24,660
+add files.
+
+22
+00:01:25,440 --> 00:01:30,150
+Let's try uploading this mountain image. And if we come down to properties,
+
+23
+00:01:30,560 --> 00:01:33,750
+this is where we can specify encryption if we want to.
+
+24
+00:01:33,870 --> 00:01:36,360
+So let's try not specifying encryption.
+
+25
+00:01:36,640 --> 00:01:37,725
+And what happens?
+
+26
+00:01:37,750 --> 00:01:41,000
+Well, it fails. So we can't upload that object.
+
+27
+00:01:41,220 --> 00:01:45,220
+Now, we can also run commands. So we can run these commands.
+
+28
+00:01:45,340 --> 00:01:49,660
+What I'm going to do is copy the bucket name to my clipboard,
+
+29
+00:01:50,340 --> 00:01:52,680
+paste it in here where it says your bucket name.
+
+30
+00:01:53,240 --> 00:01:54,760
+And now we have this command.
+
+31
+00:01:55,240 --> 00:01:59,860
+Now we need to specify our own file name, so mine is called mountain.jpg.
+
+32
+00:02:00,340 --> 00:02:02,650
+And then I can copy this command to my clipboard.
+
+33
+00:02:03,340 --> 00:02:06,080
+So this command is essentially trying to do exactly
+
+34
+00:02:06,080 --> 00:02:08,008
+the same as we just did through the console.
+
+35
+00:02:08,020 --> 00:02:12,160
+So if I come to a location here where I have this file,
+
+36
+00:02:12,740 --> 00:02:16,900
+and I'm going to try and run this command with my profile specified.
+
+37
+00:02:17,340 --> 00:02:20,030
+And of course, we get an access denied just as before.
+
+38
+00:02:20,390 --> 00:02:23,880
+The next command we can run to try and actually get around this issue
+
+39
+00:02:24,020 --> 00:02:27,450
+is using the AWS S3 API CLI.
+
+40
+00:02:27,740 --> 00:02:32,460
+And then we can specify service side encryption using the command line.
+
+41
+00:02:32,940 --> 00:02:38,060
+Now, I need to copy the name of my file into two locations here for the body
+
+42
+00:02:38,440 --> 00:02:39,850
+and for the key.
+
+43
+00:02:40,240 --> 00:02:41,650
+So let's paste that one in.
+
+44
+00:02:42,240 --> 00:02:44,620
+Then I need to copy my bucket name
+
+45
+00:02:45,500 --> 00:02:49,270
+and put that here next to the --bucket.
+
+46
+00:02:50,240 --> 00:02:53,260
+Now I can copy this entire command.
+
+47
+00:02:54,040 --> 00:02:57,460
+Let's paste that in. I'm going to specify my profile information.
+
+48
+00:02:57,840 --> 00:02:59,760
+And let's try and upload this file.
+
+49
+00:03:00,140 --> 00:03:01,660
+And this time it succeeds.
+
+50
+00:03:02,140 --> 00:03:07,290
+So now we know that the S3 bucket policy is enforcing encryption and this is
+
+51
+00:03:07,290 --> 00:03:11,460
+how we can actually ensure that our objects are encrypted using the command line.
+
+52
+00:03:11,990 --> 00:03:16,320
+Now back in the console, we could also achieve this by adding a file.
+
+53
+00:03:16,670 --> 00:03:18,560
+Let's add a different file this time.
+
+54
+00:03:19,040 --> 00:03:20,100
+Click on upload.
+
+55
+00:03:21,110 --> 00:03:22,750
+And under properties,
+
+56
+00:03:23,240 --> 00:03:24,590
+I'm going to scroll down.
+
+57
+00:03:24,920 --> 00:03:27,160
+I'm going to specify an encryption key and I'll
+
+58
+00:03:27,160 --> 00:03:29,960
+just use the Amazon S3 managed keys option
+
+59
+00:03:30,363 --> 00:03:31,370
+and then upload.
+
+60
+00:03:31,940 --> 00:03:33,350
+And again that's going to work.
+
+61
+00:03:33,840 --> 00:03:38,370
+Now another thing you can do to make this a bit easier is go to properties,
+
+62
+00:03:38,840 --> 00:03:40,700
+and let's enable default encryption.
+
+63
+00:03:41,540 --> 00:03:43,680
+So now I'm going to specify enable.
+
+64
+00:03:44,440 --> 00:03:47,450
+Default encryption is going to be using S3 managed keys.
+
+65
+00:03:47,670 --> 00:03:49,150
+Let's save those changes.
+
+66
+00:03:49,840 --> 00:03:53,850
+So now we actually have the default encryption specified,
+
+67
+00:03:53,980 --> 00:03:58,060
+but we also do have this bucket policy so let's remove our bucket policy.
+
+68
+00:03:58,640 --> 00:04:00,390
+I just need to delete this policy
+
+69
+00:04:00,520 --> 00:04:04,660
+because that's going to enforce us to set certain settings for encryption.
+
+70
+00:04:05,340 --> 00:04:07,260
+So I've deleted the bucket policy.
+
+71
+00:04:07,840 --> 00:04:09,610
+We have enabled default encryption.
+
+72
+00:04:10,040 --> 00:04:14,471
+Now let's see what happens if I try and upload a file without specifying
+
+73
+00:04:14,495 --> 00:04:15,960
+any encryption information.
+
+74
+00:04:15,960 --> 00:04:18,560
+So I'm going to upload this file. Let's go to properties.
+
+75
+00:04:19,140 --> 00:04:22,650
+Let's make sure that we have not specified encryption settings.
+
+76
+00:04:23,240 --> 00:04:25,010
+And then let's click on upload.
+
+77
+00:04:25,740 --> 00:04:29,740
+And this time it does succeed despite the fact that we didn't actually
+
+78
+00:04:29,740 --> 00:04:33,060
+enable any encryption settings. And if we click on the file here,
+
+79
+00:04:33,180 --> 00:04:37,951
+we can see the information relating to this file and down here we can see
+
+80
+00:04:37,975 --> 00:04:42,060
+that the server-side encryption is actually enabled through default encryption.
+
+81
+00:04:42,340 --> 00:04:45,810
+So that's how we can use bucket policies to enforce encryption,
+
+82
+00:04:46,040 --> 00:04:50,960
+and we can use default encryption to automatically encrypt objects in our bucket.
+

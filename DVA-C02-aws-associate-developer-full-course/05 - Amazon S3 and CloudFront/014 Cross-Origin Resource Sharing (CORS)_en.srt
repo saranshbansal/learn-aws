@@ -1,0 +1,172 @@
+1
+00:00:05,730 --> 00:00:11,310
+Cross-Origin Resource Sharing or CORs can be a little bit of a confusing subject. So, I'm going to
+
+2
+00:00:11,310 --> 00:00:15,000
+try and make it as easy as possible in this lesson for you to understand.
+
+3
+00:00:15,570 --> 00:00:19,380
+So, with S3, you do sometimes need to enable CORs.
+
+4
+00:00:19,770 --> 00:00:24,780
+What it means is it will allow requests from an origin to another origin.
+
+5
+00:00:25,020 --> 00:00:27,390
+Now, that in itself probably sounds rather confusing.
+
+6
+00:00:27,750 --> 00:00:30,270
+Let's first define what an origin is. Now,
+
+7
+00:00:30,270 --> 00:00:36,000
+an origin is defined by the DNS name that you're connecting to, the protocol you're using, and the
+
+8
+00:00:36,030 --> 00:00:37,980
+port that you're connected to as well.
+
+9
+00:00:38,490 --> 00:00:44,790
+So, if you're connected from a client to a specific domain name using HTTP on port 80, then that's your
+
+10
+00:00:44,790 --> 00:00:45,300
+origin.
+
+11
+00:00:45,750 --> 00:00:49,170
+Let's look at this in a quick diagram to help you to understand.
+
+12
+00:00:49,680 --> 00:00:54,510
+So, we've got a client who's using a browser and they're connecting to an S3 bucket.
+
+13
+00:00:54,930 --> 00:01:02,400
+Now, that S3 bucket is configured as a website, in this case for mycompany.com. We then have another
+
+14
+00:01:02,400 --> 00:01:07,950
+bucket. And that bucket is holding some web font assets, which we're going to need to access.
+
+15
+00:01:08,520 --> 00:01:15,150
+Now, firstly, the browser is connecting to mycompany.com, so the DNS name is mycompany.com.
+
+16
+00:01:15,510 --> 00:01:21,090
+The protocol is http and the port is port 80, so that now becomes the origin.
+
+17
+00:01:21,690 --> 00:01:27,270
+And in this case, we're using JavaScript, so a JavaScript web client has been loaded on the browser.
+
+18
+00:01:27,780 --> 00:01:34,680
+Now, we need to actually connect to the S3 endpoint for the other bucket with the web font assets in
+
+19
+00:01:34,680 --> 00:01:34,800
+it.
+
+20
+00:01:35,520 --> 00:01:38,130
+So, we're going to issue a connection request.
+
+21
+00:01:38,490 --> 00:01:44,730
+And what happens is something called a pre-flight request is going to check if we are allowed to make
+
+22
+00:01:44,730 --> 00:01:46,740
+a request to that specific bucket.
+
+23
+00:01:47,130 --> 00:01:52,740
+So remember, we're connected to one origin, but now our browser is trying to connect to a different
+
+24
+00:01:52,740 --> 00:01:53,190
+origin.
+
+25
+00:01:53,910 --> 00:02:00,690
+Now, whether we're able to do that or not is defined on that bucket with the web font assets.
+
+26
+00:02:00,990 --> 00:02:03,300
+That's where the CORs configuration is.
+
+27
+00:02:03,780 --> 00:02:09,960
+So, you have to add a configuration that's going to allow requests from the other origin.
+
+28
+00:02:10,590 --> 00:02:11,730
+Now, how do we do that?
+
+29
+00:02:11,760 --> 00:02:14,670
+Well, we enable it through a series of settings.
+
+30
+00:02:14,970 --> 00:02:21,270
+We've got the access control allow origin, the access control allow methods, and the access control
+
+31
+00:02:21,270 --> 00:02:22,100
+allow headers.
+
+32
+00:02:22,110 --> 00:02:27,540
+You don't need to use all of these, but these are the available settings. And we define these settings
+
+33
+00:02:27,540 --> 00:02:28,320
+through rules.
+
+34
+00:02:28,590 --> 00:02:32,160
+The rules are added using JSON files in Amazon S3.
+
+35
+00:02:32,820 --> 00:02:34,530
+So let's have a look at an example.
+
+36
+00:02:34,950 --> 00:02:41,910
+Here's an example rule in JSON format for a CORs configuration. And we can see we've got the allowed
+
+37
+00:02:41,910 --> 00:02:49,410
+headers in this case is *, methods is PUT, POST, and DELETE, and the origins is www.mycompany.com.
+
+38
+00:02:49,710 --> 00:02:53,820
+So that would have to be the origin. That would allow www.mycompany.com.
+
+39
+00:02:53,820 --> 00:02:58,090
+It might not actually allow mycompany.com because that's a slightly different domain name.
+
+40
+00:02:58,110 --> 00:03:02,220
+This is a subdomain. So, you'll need to make sure that's hopefully set correctly.
+
+41
+00:03:02,610 --> 00:03:04,350
+So, that's CORs. Now,
+
+42
+00:03:04,350 --> 00:03:09,420
+the key thing to remember is that you don't implement your CORs configuration on the origin, you
+
+43
+00:03:09,420 --> 00:03:12,330
+implement it on the other bucket that you're trying to connect to.
+

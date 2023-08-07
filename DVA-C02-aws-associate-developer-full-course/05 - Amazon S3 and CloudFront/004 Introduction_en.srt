@@ -1,0 +1,68 @@
+1
+00:00:00,240 --> 00:00:02,370
+The amazon Simple storage service,
+
+2
+00:00:02,380 --> 00:00:06,730
+amazon S three is an object based storage system and it features
+
+3
+00:00:06,740 --> 00:00:11,960
+in many different AWS exams is one of the fundamental AWS technologies
+
+4
+00:00:12,340 --> 00:00:12,740
+now.
+
+5
+00:00:12,740 --> 00:00:15,450
+It does feature quite a lot on the DVA exam,
+
+6
+00:00:15,460 --> 00:00:17,790
+so there's quite a few particular topics
+
+7
+00:00:17,790 --> 00:00:20,820
+that are very important to understand for the
+
+8
+00:00:20,820 --> 00:00:24,140
+exam and that's all gonna be covered in lots of detail in this section.
+
+9
+00:00:24,140 --> 00:00:29,100
+So quite a lot of coverage of amazon S three. Then we look at cloudfront as well.
+
+10
+00:00:29,110 --> 00:00:32,560
+So Cloudfront is a content delivery network at CDN.
+
+11
+00:00:32,740 --> 00:00:35,640
+That means it caches media assets like video,
+
+12
+00:00:35,640 --> 00:00:40,160
+files and images and all sorts of different types of files around
+
+13
+00:00:40,160 --> 00:00:43,950
+the world to get them closer to end users for better performance.
+
+14
+00:00:44,030 --> 00:00:46,370
+So we're going to be looking at Cloudfront in a
+
+15
+00:00:46,370 --> 00:00:49,590
+little bit of detail to understand how it works,
+
+16
+00:00:49,590 --> 00:00:53,560
+what the benefits are and what settings you need to understand for the exam.
+
+17
+00:00:53,840 --> 00:00:56,860
+So that's it for now, enjoy the section, I'll see you in the next lesson.
+

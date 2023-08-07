@@ -1,0 +1,348 @@
+1
+00:00:05,140 --> 00:00:06,820
+Welcome to another exam cram
+
+2
+00:00:06,950 --> 00:00:10,450
+this exam cram is on Amazon S three and cloudfront.
+
+3
+00:00:11,340 --> 00:00:15,370
+So let's get started. You can store any type of file in S three
+
+4
+00:00:15,500 --> 00:00:17,590
+files can be anywhere from zero bytes to
+
+5
+00:00:17,590 --> 00:00:21,150
+five terabytes and there's unlimited storage available.
+
+6
+00:00:21,540 --> 00:00:24,430
+S three is a universal name space, so bucket names
+
+7
+00:00:24,570 --> 00:00:26,080
+must be unique globally,
+
+8
+00:00:26,640 --> 00:00:30,450
+but you can create your buckets within a specific region.
+
+9
+00:00:31,240 --> 00:00:33,220
+It's a best practice to create buckets in
+
+10
+00:00:33,220 --> 00:00:36,230
+regions that are physically closest to your users
+
+11
+00:00:36,340 --> 00:00:37,770
+to reduce latency
+
+12
+00:00:38,080 --> 00:00:41,160
+and there's no hierarchy for objects within a bucket.
+
+13
+00:00:41,940 --> 00:00:45,360
+S free delivers strong read after write consistency.
+
+14
+00:00:45,910 --> 00:00:49,760
+The object name is the key. The data is the value.
+
+15
+00:00:50,440 --> 00:00:54,070
+A folder is a shared prefix for grouping objects,
+
+16
+00:00:54,740 --> 00:00:57,770
+folders can be created within folders so you can have a
+
+17
+00:00:57,770 --> 00:01:01,010
+hierarchy but it's not like a hierarchy with a file system,
+
+18
+00:01:01,070 --> 00:01:04,160
+it's just a prefix on your key
+
+19
+00:01:04,540 --> 00:01:07,680
+buckets cannot be created within other buckets.
+
+20
+00:01:08,140 --> 00:01:11,860
+S three is a public service that has public endpoints.
+
+21
+00:01:12,440 --> 00:01:16,500
+VPc endpoints can be used to connect using private iP addresses.
+
+22
+00:01:17,240 --> 00:01:23,520
+I am policies are identity-based policies and can control access to S- three
+
+23
+00:01:23,570 --> 00:01:28,460
+I am policies are attached to I am users groups or roles.
+
+24
+00:01:28,940 --> 00:01:34,360
+They're also written in Jason using the AWS access policy Language,
+
+25
+00:01:35,040 --> 00:01:39,170
+Bucket policies are resource-based policies and can only
+
+26
+00:01:39,170 --> 00:01:41,960
+be attached to Amazon S- three buckets.
+
+27
+00:01:42,730 --> 00:01:46,750
+They also use the AWS access policy language
+
+28
+00:01:47,840 --> 00:01:52,260
+A C L S R a legacy access control mechanism that predates
+
+29
+00:01:52,440 --> 00:01:53,260
+I AM
+
+30
+00:01:53,940 --> 00:01:59,700
+AWS generally recommends using bucket policies or I AM policies rather than a CLS.
+
+31
+00:02:00,540 --> 00:02:04,260
+A CLS can be attached to a bucket or directly to an object.
+
+32
+00:02:04,740 --> 00:02:08,280
+They offer limited options for grantees and permissions
+
+33
+00:02:09,550 --> 00:02:14,760
+to delete adds a multi factor authentication requirement for bucket owners.
+
+34
+00:02:15,930 --> 00:02:20,550
+Delete applies to changing versioning state or permanent object. Deletion
+
+35
+00:02:21,140 --> 00:02:23,600
+versioning can be enabled by bucket owners.
+
+36
+00:02:23,890 --> 00:02:28,550
+The AWS account that created the buckets and authorized. I. M users
+
+37
+00:02:29,400 --> 00:02:32,660
+delete can be enabled by the bucket owner only.
+
+38
+00:02:33,240 --> 00:02:38,630
+M. F. A. Protected api access enforces another level of authentication.
+
+39
+00:02:38,630 --> 00:02:42,210
+Another factor when accessing AWS resources,
+
+40
+00:02:42,510 --> 00:02:45,250
+let's look at the encryption options for s free.
+
+41
+00:02:45,260 --> 00:02:50,760
+You got service side encryption with S three managed keys known as S S C S free.
+
+42
+00:02:50,940 --> 00:02:54,140
+We've got service side encryption with kms managed keys.
+
+43
+00:02:54,500 --> 00:02:56,260
+Sse KMs.
+
+44
+00:02:56,840 --> 00:02:59,630
+We've got service side encryption with client provided keys.
+
+45
+00:02:59,940 --> 00:03:01,680
+Sse E C.
+
+46
+00:03:01,860 --> 00:03:03,860
+And then we've got client side encryption.
+
+47
+00:03:04,640 --> 00:03:07,330
+S three default encryption provides a way to set
+
+48
+00:03:07,330 --> 00:03:10,850
+the default encryption behavior for an S three bucket,
+
+49
+00:03:11,340 --> 00:03:14,240
+you can set default encryption on a bucket so that all
+
+50
+00:03:14,250 --> 00:03:17,790
+new objects are encrypted when they are stored in the bucket.
+
+51
+00:03:18,240 --> 00:03:21,450
+The objects are encrypted Using service side encryption.
+
+52
+00:03:22,040 --> 00:03:24,940
+S re encrypts the objects before saving them to disk
+
+53
+00:03:24,950 --> 00:03:27,950
+and then decrypt them when the objects are downloaded.
+
+54
+00:03:28,640 --> 00:03:31,210
+There's no change to the encryption of objects that
+
+55
+00:03:31,210 --> 00:03:35,120
+existed in the bucket before default encryption was enabled.
+
+56
+00:03:35,350 --> 00:03:38,320
+Server access logging provides detailed records for
+
+57
+00:03:38,320 --> 00:03:40,250
+the requests that are made to a bucket
+
+58
+00:03:40,640 --> 00:03:44,990
+details will include the requester the bucket name, request time,
+
+59
+00:03:45,000 --> 00:03:49,060
+request action response status and error code.
+
+60
+00:03:49,740 --> 00:03:51,070
+Cause cross origin.
+
+61
+00:03:51,070 --> 00:03:55,560
+Resource sharing allows requests from an origin to another origin.
+
+62
+00:03:55,940 --> 00:03:59,540
+An origin is defined by DNS name protocol and ports
+
+63
+00:04:00,040 --> 00:04:04,640
+Cause is enabled through setting access control allow origin
+
+64
+00:04:04,950 --> 00:04:07,200
+and access control allow methods
+
+65
+00:04:07,580 --> 00:04:10,450
+and also access control allow headers.
+
+66
+00:04:11,140 --> 00:04:14,940
+S3 automatically scales for high request rates with at least
+
+67
+00:04:15,090 --> 00:04:20,029
+3500. Put copy post, delete or 5500.
+
+68
+00:04:20,040 --> 00:04:23,720
+Get head requests per second per partition prefix.
+
+69
+00:04:24,540 --> 00:04:25,790
+You can increase read and write
+
+70
+00:04:25,790 --> 00:04:30,330
+performance by using parallelization across multiple prefixes
+
+71
+00:04:30,680 --> 00:04:36,150
+to increase up loads over long distances. You can use S3 transfer acceleration
+
+72
+00:04:36,740 --> 00:04:40,870
+byte range fetches used the range http header to
+
+73
+00:04:40,870 --> 00:04:44,860
+transfer only specified byte ranges from an object.
+
+74
+00:04:45,640 --> 00:04:49,850
+You can combine s free and easy to in the same region for better performance.
+
+75
+00:04:50,340 --> 00:04:55,380
+And you should also use the latest version of the SDK s for best performance.
+
+76
+00:04:55,840 --> 00:04:59,350
+You can also use cashing services to cash the latest content.
+
+77
+00:05:00,040 --> 00:05:05,050
+And also you can horizontally scale requests across S three endpoints.
+
+78
+00:05:06,340 --> 00:05:09,730
+Cloudfront can be used for cash in content. Again, for performance,
+
+79
+00:05:10,140 --> 00:05:15,960
+a distribution is created in cloudfront and each distribution has an Origin
+
+80
+00:05:16,440 --> 00:05:19,350
+only. Web distributions are currently supported
+
+81
+00:05:20,040 --> 00:05:25,370
+signed. Your L. S can be used to provide more control over access to your content.
+
+82
+00:05:25,620 --> 00:05:29,480
+You can specify the beginning and exploration, date and time and I.
+
+83
+00:05:29,480 --> 00:05:31,560
+P address ranges of your users
+
+84
+00:05:32,240 --> 00:05:35,100
+signed cookies are similar to sign you or else
+
+85
+00:05:35,640 --> 00:05:39,340
+you signed cookies when you don't want to change your else.
+
+86
+00:05:39,450 --> 00:05:44,550
+They can also be used when you want to provide access to multiple restricted files,
+
+87
+00:05:45,340 --> 00:05:47,260
+and that's it for this exam cram.
+

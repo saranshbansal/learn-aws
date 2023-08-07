@@ -1,0 +1,272 @@
+1
+00:00:05,170 --> 00:00:11,440
+There are a few ways that we can control access to our buckets and the objects that we store within
+
+2
+00:00:11,440 --> 00:00:12,760
+our S3 buckets.
+
+3
+00:00:13,240 --> 00:00:15,450
+So, in this lesson, I'm going to walk you through
+
+4
+00:00:15,460 --> 00:00:19,570
+IAM policies, bucket policies, and access control lists.
+
+5
+00:00:19,870 --> 00:00:24,460
+And then in the next couple of lessons we'll do hands-on to see these in action as well.
+
+6
+00:00:24,970 --> 00:00:30,610
+So firstly, we have policies created in the Identity and Access Management service.
+
+7
+00:00:31,210 --> 00:00:38,470
+Now, these are identity-based policies, which means that they get associated with principals like users
+
+8
+00:00:38,650 --> 00:00:39,520
+and roles.
+
+9
+00:00:39,970 --> 00:00:47,470
+So, with an IAM policy, we're directly applying the permissions that we want to assign to a principal
+
+10
+00:00:47,680 --> 00:00:54,130
+to that principal. Or we might be applying them to a group by attaching a policy to a group and then
+
+11
+00:00:54,130 --> 00:01:01,000
+adding a user into the group. We can specify what actions are allowed on what AWS resources, so we
+
+12
+00:01:01,000 --> 00:01:06,460
+can say that you're allowed to perform specific actions on a specific bucket, for example.
+
+13
+00:01:06,730 --> 00:01:11,980
+So, with I am policies, these are attached to users or groups or roles.
+
+14
+00:01:12,220 --> 00:01:16,930
+And remember, with a group, you attach the policy to the group and then you add the user to the group
+
+15
+00:01:16,930 --> 00:01:20,440
+and they will get the permissions assigned to that permissions policy.
+
+16
+00:01:20,860 --> 00:01:21,220
+IAM
+
+17
+00:01:21,220 --> 00:01:28,150
+policies are written in JSON using the AWS access policy language, and the principal element is not
+
+18
+00:01:28,150 --> 00:01:29,320
+required in the policy.
+
+19
+00:01:29,330 --> 00:01:35,740
+So, when you see one of these JSON snippets of code, if it doesn't have a principal element in it,
+
+20
+00:01:36,010 --> 00:01:41,710
+then that means that it could be an IAM policy that's used for S3 rather than a bucket policy.
+
+21
+00:01:42,250 --> 00:01:46,660
+So next, we have S3 bucket policies. And these are resource-based policies.
+
+22
+00:01:47,080 --> 00:01:52,210
+So, with the bucket policy, you're attaching it directly to an S3 bucket.
+
+23
+00:01:52,900 --> 00:01:59,020
+They can only be attached to Amazon S3 buckets and they also use the same access policy language.
+
+24
+00:01:59,020 --> 00:02:05,170
+So, it's still JSON, looks very much like the policies created at the identity level, but it's not a
+
+25
+00:02:05,170 --> 00:02:06,280
+resource instead.
+
+26
+00:02:07,150 --> 00:02:08,889
+So, we might have an S3 bucket,
+
+27
+00:02:09,250 --> 00:02:14,170
+we apply our bucket policy to it, and a bucket policy might look something like this.
+
+28
+00:02:14,740 --> 00:02:22,090
+So, note that there is a principal element here which specifies the specific user we want to assign these
+
+29
+00:02:22,090 --> 00:02:22,900
+permissions to.
+
+30
+00:02:23,500 --> 00:02:27,190
+There's also a resource and it specifies the bucket name.
+
+31
+00:02:27,640 --> 00:02:33,820
+And of course, there's an action which in this case is to, the effect is allow and the action is any
+
+32
+00:02:33,820 --> 00:02:35,200
+S3 action.
+
+33
+00:02:35,530 --> 00:02:37,750
+So, a wildcard for S3 actions.
+
+34
+00:02:38,110 --> 00:02:43,720
+So, in this case, Paul will be able to put an object into that S3 bucket because he's allowed through
+
+35
+00:02:43,960 --> 00:02:45,640
+the resource-based policy.
+
+36
+00:02:46,300 --> 00:02:48,850
+Lastly, we have access control lists.
+
+37
+00:02:49,300 --> 00:02:55,480
+These are really a legacy access control mechanism that pre-dates Identity and Access Management.
+
+38
+00:02:55,490 --> 00:03:00,940
+AWS generally recommends that you try and use bucket policies or IAM policies
+
+39
+00:03:00,940 --> 00:03:07,120
+rather than using ACLs. They can be attached to a bucket or directly to an object.
+
+40
+00:03:07,420 --> 00:03:14,170
+So, a bucket policy is always at the bucket level whereas an ACL can be specified at the object level
+
+41
+00:03:14,170 --> 00:03:14,590
+as well.
+
+42
+00:03:15,100 --> 00:03:19,750
+There are limited options for grantees and permissions, we'll see this in the hands-on.
+
+43
+00:03:20,110 --> 00:03:23,980
+It's not as powerful as using the access policy language.
+
+44
+00:03:24,430 --> 00:03:29,260
+So, when might you use these different access control mechanisms? You might use
+
+45
+00:03:29,290 --> 00:03:36,180
+IAM policies for the following use cases. Where you need to control access to AWS services other than
+
+46
+00:03:36,190 --> 00:03:41,170
+S3 because you can then specify whatever permissions you want to
+
+47
+00:03:41,170 --> 00:03:47,470
+whatever AWS service as well as the S3 bucket. You have numerous S3 buckets, each with different
+
+48
+00:03:47,470 --> 00:03:48,730
+permissions requirements.
+
+49
+00:03:49,060 --> 00:03:55,030
+So that means you're essentially controlling access to lots of different buckets using a single IAM
+
+50
+00:03:55,030 --> 00:03:59,170
+policy, which is, you know, centralized in the management and hopefully simplifying it.
+
+51
+00:03:59,680 --> 00:04:05,170
+You might just prefer to keep access control policies in the IAM environment rather than using resource-
+
+52
+00:04:05,170 --> 00:04:07,750
+based policies, which can be a bit harder to track.
+
+53
+00:04:07,990 --> 00:04:13,710
+So, you might want to use bucket policies if you want a simple way to grant cross account access to
+
+54
+00:04:13,720 --> 00:04:19,480
+S3 without using IAM roles. You can do that quite easily in a bucket policy.
+
+55
+00:04:19,690 --> 00:04:22,210
+Your IAM policies might be reaching the size limits.
+
+56
+00:04:22,210 --> 00:04:27,670
+There is a limit on the size of an IAM policy. So that might force you to use a bucket policy.
+
+57
+00:04:28,480 --> 00:04:34,000
+Or you might just prefer to keep your access control policies in the S3 environment. And that could
+
+58
+00:04:34,000 --> 00:04:37,450
+be down to separation of control within your organization.
+
+59
+00:04:37,720 --> 00:04:42,070
+It's important to understand the authorization process. So, let's walk through the logic.
+
+60
+00:04:42,850 --> 00:04:51,220
+The decision will always start at a deny. And then evaluates the policies and looks for explicit denies.
+
+61
+00:04:51,400 --> 00:04:53,890
+If there is an explicit deny, then that's the end.
+
+62
+00:04:53,890 --> 00:04:56,770
+The final decision is deny. Next,
+
+63
+00:04:56,770 --> 00:05:00,910
+if there isn't an explicit deny, we look for any allows.
+
+64
+00:05:01,300 --> 00:05:04,720
+If there is an allow, then the decision is to allow.
+
+65
+00:05:05,050 --> 00:05:09,340
+That's an explicit allow. If there isn't one, then the decision is deny.
+
+66
+00:05:09,640 --> 00:05:13,120
+So, that's basically the process for how authorization works.
+
+67
+00:05:13,480 --> 00:05:17,230
+Now, in the next lesson, we're going to look at access control lists in a hands-on,
+
+68
+00:05:17,530 --> 00:05:21,130
+and then we're going to look at IAM policies and bucket policies.
+

@@ -1,0 +1,616 @@
+1
+00:00:05,750 --> 00:00:11,310
+When we store our objects on Amazon S3, we have a choice of which storage class to use.
+
+2
+00:00:11,330 --> 00:00:16,940
+There are several storage classes and each comes with a series of strengths and weaknesses.
+
+3
+00:00:17,180 --> 00:00:18,830
+And they come at different price points.
+
+4
+00:00:19,130 --> 00:00:24,620
+So, it's really important to understand which storage class to use for a specific use case.
+
+5
+00:00:25,520 --> 00:00:31,220
+Now, the best way to go over these is literally to use this table that comes from AWS because it shows
+
+6
+00:00:31,490 --> 00:00:34,670
+the six storage classes side by side.
+
+7
+00:00:34,970 --> 00:00:37,400
+And it's a great way of comparing the different features.
+
+8
+00:00:37,700 --> 00:00:42,800
+Most of what you need to know is on this table. We'll cover some more details throughout the section.
+
+9
+00:00:43,280 --> 00:00:47,060
+The very top line in this table is the name of the storage class.
+
+10
+00:00:47,360 --> 00:00:54,140
+So, by default, when you upload an object to S3, it's going to use the S3 Standard storage class.
+
+11
+00:00:54,650 --> 00:00:59,780
+But if you want to store your objects in one of the other storage classes, you've got to actually configure
+
+12
+00:00:59,780 --> 00:01:01,190
+that as part of your upload.
+
+13
+00:01:01,970 --> 00:01:08,450
+So, there's Intelligent Tiering, which actually moves data for you between storage classes based on
+
+14
+00:01:08,660 --> 00:01:14,090
+access patterns. It tries to work out what's the best, the optimal storage class to use.
+
+15
+00:01:14,930 --> 00:01:21,410
+Standard-IA stands for Standard Infrequently Access, so it's good for data use cases where you don't
+
+16
+00:01:21,410 --> 00:01:22,790
+access the data too much.
+
+17
+00:01:23,480 --> 00:01:30,020
+We've then got One Zone-IA, which is also infrequently access data, but it's only stored in one availability
+
+18
+00:01:30,020 --> 00:01:30,380
+zone.
+
+19
+00:01:31,520 --> 00:01:34,700
+The next two storage classes are for archiving.
+
+20
+00:01:34,910 --> 00:01:38,210
+We have S3 Glacier and Dlacier Deep Archive.
+
+21
+00:01:39,020 --> 00:01:44,000
+So, this is where you want to hold your data for a long period of time at the lowest cost possible.
+
+22
+00:01:44,630 --> 00:01:47,990
+And Deep Archive is the lowest cost of these two.
+
+23
+00:01:48,380 --> 00:01:52,100
+But Glacier is still quite a bit cheaper than the other storage classes.
+
+24
+00:01:52,520 --> 00:01:56,870
+So, let's go through the different attributes and understand these classes in a bit more detail.
+
+25
+00:01:57,200 --> 00:02:02,210
+Now, the first line is durability. And as you can see, it's the same for all storage classes.
+
+26
+00:02:02,210 --> 00:02:05,320
+We have what we call 11 nines of durability here.
+
+27
+00:02:05,660 --> 00:02:09,680
+Now, you can think of durability as the likelihood of losing an object.
+
+28
+00:02:09,680 --> 00:02:15,290
+So, 11 nines basically means the likelihood of an object being lost is extremely low.
+
+29
+00:02:15,650 --> 00:02:20,030
+So, it's the same across all storage classes, not something you need to worry about too much.
+
+30
+00:02:20,660 --> 00:02:21,920
+We've then got availability.
+
+31
+00:02:21,920 --> 00:02:26,930
+Now, this does vary. So, availability is your ability to access the data.
+
+32
+00:02:27,320 --> 00:02:31,880
+So, imagine if a region becomes inaccessible due to a network issue.
+
+33
+00:02:32,180 --> 00:02:37,340
+You can't access your data, but your data is not lost, so the durability still counts.
+
+34
+00:02:37,340 --> 00:02:40,370
+The data is still there, but you just can't get access to it
+
+35
+00:02:40,370 --> 00:02:43,040
+because the networks not available. It could be a network,
+
+36
+00:02:43,040 --> 00:02:44,540
+it could be a power failure,
+
+37
+00:02:44,540 --> 00:02:45,860
+it could be a variety of things.
+
+38
+00:02:46,490 --> 00:02:51,770
+So, availability is how have they designed the system such that, you know, they're going to minimize
+
+39
+00:02:51,770 --> 00:02:54,500
+the likelihood of you not being able to access your data?
+
+40
+00:02:54,950 --> 00:02:59,390
+The highest availability is 99.99% or four nines.
+
+41
+00:02:59,810 --> 00:03:03,590
+And that applies to Standard, Glacier, and Glacier Deep Archive.
+
+42
+00:03:04,070 --> 00:03:10,880
+Then we go down a bit with Intelligent Tiering to three nines and the same for Standard Infrequently Accessed.
+
+43
+00:03:11,150 --> 00:03:17,030
+And then the lowest is One Zone-IA because the data, as you see in the next line, is only within
+
+44
+00:03:17,030 --> 00:03:19,130
+a single availability zone instead of three.
+
+45
+00:03:19,400 --> 00:03:21,950
+So, you get 99.5 availability.
+
+46
+00:03:22,490 --> 00:03:25,820
+The next line is the minimum capacity charge per object.
+
+47
+00:03:26,150 --> 00:03:31,970
+So, as you can see, with Standard and Intelligent Tiering, you get charged based on the amount of data
+
+48
+00:03:31,970 --> 00:03:33,140
+you actually put on.
+
+49
+00:03:33,470 --> 00:03:35,390
+With the other storage classes
+
+50
+00:03:35,390 --> 00:03:42,170
+there is a minimum capacity charge, so even if you have less than 128 kilobytes per object, you're
+
+51
+00:03:42,170 --> 00:03:45,590
+going to have to pay for 128 kilobytes with Standard-IA.
+
+52
+00:03:46,040 --> 00:03:51,920
+So, as you can see, it's the same for One Zone-IA and then 40 kilobytes for Glacier and Glacier Deep Archive.
+
+53
+00:03:52,340 --> 00:03:56,810
+Now you don't often get tested on that in the exam, so that's one of the things not to worry too much
+
+54
+00:03:56,810 --> 00:03:58,400
+about. Minimum storage
+
+55
+00:03:58,400 --> 00:04:04,220
+duration charge is something you need to understand. So, this is the minimum time you must store an
+
+56
+00:04:04,220 --> 00:04:07,910
+object in a certain storage class before you move it somewhere else.
+
+57
+00:04:08,090 --> 00:04:13,970
+One of the subjects of this section is Lifecycle management, where we might want to automatically move
+
+58
+00:04:13,970 --> 00:04:17,360
+data after a certain period of time to another storage class.
+
+59
+00:04:17,839 --> 00:04:24,260
+Now, you do need to take these into account when you configure your lifecycle rules because, for example,
+
+60
+00:04:24,440 --> 00:04:29,900
+we have a minimum storage duration charge of 30 days with Infrequently Accessed.
+
+61
+00:04:30,290 --> 00:04:31,850
+So, you're still going to get charged,
+
+62
+00:04:31,850 --> 00:04:35,480
+you won't be able to move your data out and stop paying for it before 30 days.
+
+63
+00:04:35,870 --> 00:04:40,640
+Now, as you can see, Standard doesn't have a minimum duration, which is important to remember.
+
+64
+00:04:41,210 --> 00:04:48,320
+The minimum duration is then 30 days for the next three storage classes, 90 days for Glacier, and 180
+
+65
+00:04:48,320 --> 00:04:49,670
+days for Deep Archive.
+
+66
+00:04:49,700 --> 00:04:51,440
+Make sure you remember those for the exam.
+
+67
+00:04:51,590 --> 00:04:53,240
+They often come up in questions.
+
+68
+00:04:53,570 --> 00:04:58,850
+Now, a retrieval fee is another thing that's really important to understand when you're calculating
+
+69
+00:04:58,850 --> 00:05:00,230
+the costs for your storage.
+
+70
+00:05:00,590 --> 00:05:03,580
+As you can see, Standard, there is no retrieval fee.
+
+71
+00:05:03,590 --> 00:05:04,460
+Same of Intelligent
+
+72
+00:05:04,520 --> 00:05:10,970
+Tiering. So, if you put some objects in Standard, it's more expensive than Standard-IA, but you don't
+
+73
+00:05:10,970 --> 00:05:12,480
+have to pay any retrieval fee.
+
+74
+00:05:12,890 --> 00:05:18,350
+So Standard-IA might be cheaper, but only if you don't retrieve your data often. If you retrieve
+
+75
+00:05:18,350 --> 00:05:21,770
+your data often and you're paying those retrieval fees,
+
+76
+00:05:22,100 --> 00:05:25,070
+you might end up paying more than if you just kept it in Standard.
+
+77
+00:05:25,070 --> 00:05:29,930
+So, that's definitely something in cost management that you really need to understand.
+
+78
+00:05:29,960 --> 00:05:34,190
+Otherwise, you might end up paying more when you think that you're moving your data to a tier where
+
+79
+00:05:34,190 --> 00:05:35,120
+it should cost less.
+
+80
+00:05:35,540 --> 00:05:39,620
+So really, it's about fitting the use case to the right tier.
+
+81
+00:05:40,220 --> 00:05:46,400
+So, data that gets accessed often should probably not be an Infrequently Accessed storage class.
+
+82
+00:05:46,850 --> 00:05:50,810
+First byte latency is another really important thing to understand.
+
+83
+00:05:50,840 --> 00:05:51,710
+So, what does this mean?
+
+84
+00:05:52,070 --> 00:05:54,920
+It means how long does it take to actually access your data?
+
+85
+00:05:55,370 --> 00:05:59,150
+Now, milliseconds essentially means that your data is immediately accessible.
+
+86
+00:05:59,570 --> 00:06:06,470
+So, if you have your data in the S3 Standard storage class, you can issue an API call and pull an object
+
+87
+00:06:06,470 --> 00:06:07,400
+down immediately.
+
+88
+00:06:08,210 --> 00:06:14,090
+But if you have your data in one of the archival classes like Glacier or Glacier Deep Archive, it's
+
+89
+00:06:14,090 --> 00:06:14,960
+actually archived.
+
+90
+00:06:14,960 --> 00:06:16,310
+It's not immediately available.
+
+91
+00:06:16,730 --> 00:06:22,250
+Think of it in a way like you've got files in a file system and then you move some of those files to
+
+92
+00:06:22,430 --> 00:06:23,300
+a tape drive.
+
+93
+00:06:23,300 --> 00:06:26,180
+So, it's an archive for data that you don't access
+
+94
+00:06:26,180 --> 00:06:29,900
+very often. You've moved it off your file system to save storage space.
+
+95
+00:06:30,530 --> 00:06:32,120
+Now, how do you get that data back?
+
+96
+00:06:32,150 --> 00:06:36,830
+Well, you have to load it from the tape and then you have to access that data, so it takes a bit more
+
+97
+00:06:36,830 --> 00:06:37,250
+time.
+
+98
+00:06:37,670 --> 00:06:42,830
+So, with the archival tier, that's very similar. You're actually archiving your data. So, you cannot
+
+99
+00:06:42,830 --> 00:06:45,410
+issue an API call and just access it immediately.
+
+100
+00:06:45,620 --> 00:06:51,560
+And that's somewhere between minutes and hours for Glacier, or even up to 24 hours for Deep Archive.
+
+101
+00:06:51,920 --> 00:06:54,470
+So that's why Deep Archive is even cheaper.
+
+102
+00:06:54,740 --> 00:06:59,240
+But just remember that it does take longer to get your data from Deep Archive.
+
+103
+00:06:59,450 --> 00:07:02,000
+The final two lines are the same for every storage class.
+
+104
+00:07:02,270 --> 00:07:03,290
+It's always objects.
+
+105
+00:07:03,290 --> 00:07:10,220
+We don't have any other type of file that gets stored in Amazon S3. And we can use lifecycle transitions
+
+106
+00:07:10,220 --> 00:07:11,810
+with all six storage classes.
+
+107
+00:07:12,080 --> 00:07:14,120
+And that's going to be a subject of another lesson.
+
+108
+00:07:14,390 --> 00:07:20,870
+Let's go over a couple of use cases now to help to see how we might fit our use case to a storage class.
+
+109
+00:07:21,350 --> 00:07:28,070
+So, we've got our six storage classes on the left. And here's our first use case. We require long term
+
+110
+00:07:28,070 --> 00:07:33,620
+storage for production data with low cost and immediate access for occasional requests.
+
+111
+00:07:34,010 --> 00:07:38,450
+Well, which storage class do you think is the best fit for this particular scenario?
+
+112
+00:07:38,990 --> 00:07:45,470
+Well, it's Standard-IA. we want long term storage with low cost, but we need immediate access and
+
+113
+00:07:45,470 --> 00:07:46,760
+the requests are occasional.
+
+114
+00:07:47,090 --> 00:07:48,290
+So that makes a lot of sense.
+
+115
+00:07:48,290 --> 00:07:49,340
+We want to lower our cost.
+
+116
+00:07:49,340 --> 00:07:54,890
+We always want to try and find the most cost-effective solution. And the requests are occasional,
+
+117
+00:07:54,890 --> 00:07:59,630
+so, we're not going to be paying that retrieval fee too often. But we do need immediate access, so
+
+118
+00:07:59,630 --> 00:08:01,730
+we can't use an archival tier.
+
+119
+00:08:02,240 --> 00:08:09,110
+The next use case is we want to make a copy of some backup data in a separate AWS region, and we need
+
+120
+00:08:09,110 --> 00:08:11,300
+to be able to access it with minimal latency.
+
+121
+00:08:11,780 --> 00:08:16,280
+So, if you think about this scenario, we have a system somewhere that has some data.
+
+122
+00:08:16,730 --> 00:08:22,610
+That data is then backed up somewhere else. And we're now wanting to take an additional copy of that
+
+123
+00:08:22,610 --> 00:08:26,540
+backup data just in case the main system goes down,
+
+124
+00:08:26,540 --> 00:08:28,010
+there's something wrong with the backup,
+
+125
+00:08:28,190 --> 00:08:29,600
+so now, we've got another copy.
+
+126
+00:08:30,500 --> 00:08:36,500
+Now, a good storage solution for this would be One Zone-IA because it's a bit cheaper than Standard-IA,
+
+127
+00:08:36,530 --> 00:08:39,590
+we're not going to access the data very often.
+
+128
+00:08:39,590 --> 00:08:40,220
+Very rarely,
+
+129
+00:08:40,250 --> 00:08:41,780
+hopefully, if at all.
+
+130
+00:08:42,590 --> 00:08:47,060
+And we're saving a bit more money because it doesn't have all the extra availability now.
+
+131
+00:08:47,060 --> 00:08:53,360
+When we have multiple copies of this data in multiple places, maybe we don't need the extra availability
+
+132
+00:08:53,360 --> 00:08:55,190
+zones within that region.
+
+133
+00:08:55,520 --> 00:08:57,740
+So, this could be a good use case.
+
+134
+00:08:58,100 --> 00:09:03,650
+The next use case is really a couple of different scenarios where the same storage class might be useful
+
+135
+00:09:03,650 --> 00:09:04,400
+for all of these.
+
+136
+00:09:04,760 --> 00:09:07,010
+So, we might have frequently accessed data,
+
+137
+00:09:07,160 --> 00:09:11,450
+we might have ad hoc needs or short-term requirements of less than 30 days.
+
+138
+00:09:11,930 --> 00:09:17,610
+So, for this we would use the Standard storage class. So, it has to be frequently accessed.
+
+139
+00:09:17,630 --> 00:09:23,300
+That's a good idea for Standard because we don't want to have retrieval fees, ad hoc needs, so you might be
+
+140
+00:09:23,300 --> 00:09:25,250
+storing data for a short period of time.
+
+141
+00:09:25,460 --> 00:09:29,570
+You don't know how much it's going to be used or you might be deleting after a few days.
+
+142
+00:09:29,960 --> 00:09:32,020
+And then, yeah, the short-term requirements as well.
+
+143
+00:09:32,030 --> 00:09:37,850
+So, anything less than 30 days, Standard might make the most sense because you can delete it and then
+
+144
+00:09:37,850 --> 00:09:39,110
+stop paying for that data.
+
+145
+00:09:39,770 --> 00:09:45,020
+Lastly, we have some long-term archival data that we must keep for compliance purposes, and we're
+
+146
+00:09:45,020 --> 00:09:46,910
+looking for the absolute lowest cost.
+
+147
+00:09:47,360 --> 00:09:50,930
+Well, in that case, Glacier Deep Archive would be a good use case.
+
+148
+00:09:51,320 --> 00:09:55,730
+With Deep Archive, you can store your data long term at an extremely low cost.
+
+149
+00:09:55,970 --> 00:10:00,980
+And as long as you don't need to access it quickly, then that is going to be the most cost effective
+
+150
+00:10:00,980 --> 00:10:02,000
+storage class for you.
+
+151
+00:10:02,480 --> 00:10:03,830
+So, that's it for this lesson.
+
+152
+00:10:03,830 --> 00:10:04,030
+Hopefully
+
+153
+00:10:04,200 --> 00:10:08,700
+that gives you an understanding of the different storage classes of when you might use them.
+
+154
+00:10:08,940 --> 00:10:10,020
+I'll see you in the next lesson.
+

@@ -1,0 +1,284 @@
+1
+00:00:05,119 --> 00:00:08,039
+In this lesson, I'm going to cover Amazon cloudfront, signed
+
+2
+00:00:08,399 --> 00:00:09,710
+URLS and
+
+3
+00:00:09,930 --> 00:00:10,640
+OAI
+
+4
+00:00:10,829 --> 00:00:10,979
+slash
+
+5
+00:00:11,210 --> 00:00:11,909
+OAC
+
+6
+00:00:12,050 --> 00:00:13,289
+So let's start with signed
+
+7
+00:00:13,590 --> 00:00:17,579
+URLS. These provide more control over access to your content.
+
+8
+00:00:17,729 --> 00:00:20,520
+So it's essentially a way of creating a
+
+9
+00:00:20,809 --> 00:00:25,139
+URL that can be used to access to content that otherwise would not be accessible.
+
+10
+00:00:25,149 --> 00:00:28,780
+You can specify the beginning and expiration date and time for the
+
+11
+00:00:29,000 --> 00:00:32,950
+URL. So it expires and can no longer be used and also IP addresses.
+
+12
+00:00:33,150 --> 00:00:36,270
+So what IP addresses are allowed to use the signed
+
+13
+00:00:36,450 --> 00:00:36,779
+URL.
+
+14
+00:00:37,080 --> 00:00:41,759
+Here we have a mobile application, cloud front and a serverless application.
+
+15
+00:00:41,930 --> 00:00:46,099
+The mobile actually uses the serverless application in order
+
+16
+00:00:46,110 --> 00:00:49,880
+to authenticate to the application and then request a signed
+
+17
+00:00:50,099 --> 00:00:52,889
+URL. So normally the content is restricted
+
+18
+00:00:53,080 --> 00:00:57,700
+and what we're doing here is using this authentication via a function, for example,
+
+19
+00:00:57,709 --> 00:00:59,965
+that might be on lambda and we're gaining
+
+20
+00:00:59,974 --> 00:01:03,014
+that authorization to then access the content.
+
+21
+00:01:03,025 --> 00:01:03,645
+So the signed
+
+22
+00:01:03,825 --> 00:01:07,525
+URL is returned and then the mobile client can actually use the signed
+
+23
+00:01:07,684 --> 00:01:11,044
+URL to access the distribution and the content which
+
+24
+00:01:11,055 --> 00:01:14,464
+has been granted for access to this particular application.
+
+25
+00:01:15,169 --> 00:01:16,360
+So that's the third step.
+
+26
+00:01:16,440 --> 00:01:20,169
+Then of course, the content is delivered securely to the clients. Signed
+
+27
+00:01:20,300 --> 00:01:24,989
+URLS should be used for individual files and clients that don't support cookies.
+
+28
+00:01:25,290 --> 00:01:29,540
+So next we have cloud front signed cookies. These are very similar to signed
+
+29
+00:01:29,769 --> 00:01:32,940
+URLS, but you can use them when you don't want to change
+
+30
+00:01:33,220 --> 00:01:38,230
+URLS. Also when you want to provide access to multiple restricted files.
+
+31
+00:01:38,239 --> 00:01:41,819
+So now a cookie is used for accessing the content.
+
+32
+00:01:41,830 --> 00:01:45,154
+Let's now have a look at origin access identity.
+
+33
+00:01:45,165 --> 00:01:47,845
+So what we have here is an origin, in this case,
+
+34
+00:01:47,855 --> 00:01:52,364
+a custom origin which is an S3 bucket configured as a static website.
+
+35
+00:01:52,375 --> 00:01:54,995
+We have cloud front and we have our users on the internet,
+
+36
+00:01:55,004 --> 00:01:59,425
+the users access the distribution from there, they can access the content
+
+37
+00:01:59,699 --> 00:02:05,129
+and it's secured using an OAI how it's secured is via a bucket policy.
+
+38
+00:02:05,139 --> 00:02:07,660
+So the bucket policy will only allow
+
+39
+00:02:07,930 --> 00:02:10,639
+the cloud front distributions OAI
+
+40
+00:02:10,850 --> 00:02:16,029
+which is essentially a special type of user to access the bucket.
+
+41
+00:02:16,050 --> 00:02:18,199
+We can see that in the principal element here,
+
+42
+00:02:18,210 --> 00:02:23,710
+we have the cloud front user and it's specifying a specific origin access identity.
+
+43
+00:02:23,720 --> 00:02:27,369
+So this is essentially like a user account within cloud front
+
+44
+00:02:27,649 --> 00:02:32,470
+and the bucket will only allow access from this user account. OK.
+
+45
+00:02:32,479 --> 00:02:35,339
+So it's restricting access to the OAI only.
+
+46
+00:02:35,350 --> 00:02:39,509
+That means that if you try to access the bucket directly,
+
+47
+00:02:39,669 --> 00:02:41,020
+then that would not work.
+
+48
+00:02:41,279 --> 00:02:43,460
+So that's the purpose of an OAI
+
+49
+00:02:43,630 --> 00:02:44,270
+and OAI
+
+50
+00:02:44,389 --> 00:02:46,850
+is only useful for S3.
+
+51
+00:02:46,860 --> 00:02:51,630
+It's no use if you're using an origin, that's an EC2 instance or a load balancer.
+
+52
+00:02:51,639 --> 00:02:52,470
+For example
+
+53
+00:02:52,589 --> 00:02:54,509
+only S3. Also the OAI
+
+54
+00:02:54,610 --> 00:02:56,509
+has been deprecated.
+
+55
+00:02:56,520 --> 00:03:01,410
+There's actually a new thing called an origin access control or OAC.
+
+56
+00:03:01,690 --> 00:03:04,869
+So what is an OAC? Well, it's like an OAI
+
+57
+00:03:04,979 --> 00:03:07,710
+but it supports additional use cases. And
+
+58
+00:03:07,940 --> 00:03:12,289
+AWS recommend using the OAC instead of the OAI.
+
+59
+00:03:12,449 --> 00:03:15,770
+It also requires an S3 bucket policy that allows the cloud
+
+60
+00:03:15,779 --> 00:03:19,559
+front service principle to access the contents of the bucket.
+
+61
+00:03:19,570 --> 00:03:23,399
+And it looks like this. It's a little bit similar to the one that we looked at before.
+
+62
+00:03:23,479 --> 00:03:26,509
+But instead of the cloud front
+
+63
+00:03:26,750 --> 00:03:26,850
+OAI
+
+64
+00:03:27,149 --> 00:03:31,339
+user, the principle is the service. So cloudfront dot Amazon
+
+65
+00:03:31,720 --> 00:03:37,309
+Aws dot com, then we have a condition where a string equals condition for the
+
+66
+00:03:37,479 --> 00:03:38,169
+aws source ARN
+
+67
+00:03:38,460 --> 00:03:41,050
+of the cloudfront distribution itself.
+
+68
+00:03:41,059 --> 00:03:45,330
+Other than that, it's essentially performing exactly the same purpose as the
+
+69
+00:03:45,479 --> 00:03:45,889
+OAI
+
+70
+00:03:46,059 --> 00:03:49,660
+It's ensuring that you can restrict access to your content such
+
+71
+00:03:49,669 --> 00:03:53,580
+that it can only be accessed via the cloudfront distribution.
+

@@ -1,0 +1,316 @@
+1
+00:00:05,440 --> 00:00:09,840
+In this lesson, we're going to use Amazon S3 event notifications.
+
+2
+00:00:09,880 --> 00:00:11,950
+What we're going to do is create an
+
+3
+00:00:11,950 --> 00:00:15,458
+event notification that triggers an email using SNS
+
+4
+00:00:15,483 --> 00:00:18,080
+whenever objects are uploaded to our bucket.
+
+5
+00:00:18,640 --> 00:00:21,850
+Now, the first thing we need to do is create our SNS topic.
+
+6
+00:00:22,240 --> 00:00:26,050
+So in the Simple Notification Service, I'm going to create a new topic,
+
+7
+00:00:26,440 --> 00:00:27,660
+choose standard,
+
+8
+00:00:28,040 --> 00:00:29,060
+give it a name,
+
+9
+00:00:30,340 --> 00:00:34,150
+and then I'm going to scroll down a little way and create this topic.
+
+10
+00:00:35,220 --> 00:00:36,880
+Then I'm going to go to subscriptions
+
+11
+00:00:37,340 --> 00:00:40,160
+and I'm going to create a subscription to my topic.
+
+12
+00:00:40,540 --> 00:00:41,650
+Choose the ARN,
+
+13
+00:00:42,440 --> 00:00:43,820
+select the protocol,
+
+14
+00:00:43,950 --> 00:00:46,320
+here I'm going to choose email.
+
+15
+00:00:46,530 --> 00:00:48,890
+And for endpoint, I'm going to give it my email address.
+
+16
+00:00:49,440 --> 00:00:54,660
+Then I need to go to my email and confirm the subscription so that it starts working.
+
+17
+00:00:55,440 --> 00:01:00,580
+We now need to configure the access policy for our topics. So I've gone to topics.
+
+18
+00:01:00,590 --> 00:01:04,950
+I've selected the name of my topic and here we can see the access policy.
+
+19
+00:01:05,440 --> 00:01:08,560
+Now what I want to do here is I simply want to copy
+
+20
+00:01:08,750 --> 00:01:11,480
+the resource ARN. That's all I need.
+
+21
+00:01:12,030 --> 00:01:15,426
+Then I'm going to come to this file here which is in the course download,
+
+22
+00:01:15,451 --> 00:01:18,520
+Amazon S3 and it's called S3 Event Notification.
+
+23
+00:01:19,340 --> 00:01:23,650
+What I need to do is paste the topic ARN
+
+24
+00:01:24,850 --> 00:01:25,900
+next to resource.
+
+25
+00:01:27,140 --> 00:01:30,560
+I'm then going to take the account number which is this piece here
+
+26
+00:01:31,140 --> 00:01:35,250
+and I'm going to paste it down here where it says bucket owner account ID.
+
+27
+00:01:35,940 --> 00:01:38,590
+And then lastly I need the ARN for my bucket.
+
+28
+00:01:39,040 --> 00:01:41,190
+So I've pasted the ARN for my bucket
+
+29
+00:01:41,320 --> 00:01:43,450
+and now I can simply copy all of this code.
+
+30
+00:01:44,040 --> 00:01:47,550
+And back in SNS I'm going to click on edit for the topic.
+
+31
+00:01:48,040 --> 00:01:50,260
+Come down to access policy again,
+
+32
+00:01:50,940 --> 00:01:54,750
+and let's just delete all of this code, paste my code in,
+
+33
+00:01:55,740 --> 00:01:57,120
+click on save changes.
+
+34
+00:01:57,740 --> 00:02:05,340
+So what we've just done is we've granted the SNS publish API action to the S3 service
+
+35
+00:02:05,520 --> 00:02:09,350
+for a specific resource which is the SNS topic
+
+36
+00:02:09,840 --> 00:02:12,890
+and then the ARN for the bucket.
+
+37
+00:02:12,890 --> 00:02:18,850
+So anything coming from this bucket with this account number is going to be allowed
+
+38
+00:02:19,060 --> 00:02:22,750
+the SNS public API action. So those are the permissions we need.
+
+39
+00:02:22,890 --> 00:02:26,960
+Now we can go back to S3 and create our event notification.
+
+40
+00:02:27,340 --> 00:02:31,190
+So back in S3, on the properties page for my bucket,
+
+41
+00:02:31,330 --> 00:02:33,250
+I'm going to scroll down a little way,
+
+42
+00:02:33,840 --> 00:02:37,860
+find event notifications, click create event notification,
+
+43
+00:02:38,240 --> 00:02:39,260
+give it a name.
+
+44
+00:02:39,940 --> 00:02:45,405
+You can optionally specify a prefix or suffix to apply this to.
+
+45
+00:02:45,429 --> 00:02:46,860
+I'm going to leave those blank.
+
+46
+00:02:47,440 --> 00:02:49,710
+I'm going to select all objects create events.
+
+47
+00:02:49,710 --> 00:02:52,800
+That's Put, Post, Copy, and multipart uploads.
+
+48
+00:02:53,740 --> 00:02:55,450
+Let's scroll down a little way
+
+49
+00:02:56,140 --> 00:02:57,690
+and now we get to choose
+
+50
+00:02:57,860 --> 00:03:04,100
+the destination so we can choose Lambda functions, SNS topics, or SQS queues.
+
+51
+00:03:04,540 --> 00:03:06,160
+So we're going to choose topic.
+
+52
+00:03:06,630 --> 00:03:09,480
+I'm going to choose the Email-Me topic I just created
+
+53
+00:03:09,940 --> 00:03:11,260
+and then save changes.
+
+54
+00:03:12,640 --> 00:03:13,830
+So that's all there is to it.
+
+55
+00:03:13,830 --> 00:03:18,040
+Now if you did get any access denied issues when you were trying to save then
+
+56
+00:03:18,180 --> 00:03:23,030
+that's because you haven't properly specified those permissions in SNS.
+
+57
+00:03:23,050 --> 00:03:27,311
+So just go back to that policy we created and make sure that you have correctly
+
+58
+00:03:27,335 --> 00:03:30,550
+specified the ARNs for your bucket,
+
+59
+00:03:30,940 --> 00:03:34,660
+for your topic as well, and also the account number.
+
+60
+00:03:35,340 --> 00:03:37,490
+So now what we're going to do is go to objects
+
+61
+00:03:37,850 --> 00:03:39,380
+and just upload an object.
+
+62
+00:03:39,750 --> 00:03:42,750
+Doesn't matter what it is. So I'm just going to upload the file.
+
+63
+00:03:43,340 --> 00:03:44,360
+Click on upload,
+
+64
+00:03:44,723 --> 00:03:45,740
+and upload.
+
+65
+00:03:46,240 --> 00:03:49,560
+And now I can go over to my email inbox and see what's been delivered.
+
+66
+00:03:50,540 --> 00:03:53,260
+And this is what turned up in my email inbox.
+
+67
+00:03:53,270 --> 00:03:57,070
+Here we can see an event notification that's just told us
+
+68
+00:03:57,230 --> 00:04:01,100
+an event has happened, and clearly there's quite a bit of information in here.
+
+69
+00:04:01,100 --> 00:04:05,400
+Things like the region, the event time, what type of EPI
+
+70
+00:04:05,400 --> 00:04:07,050
+action was actually initiated.
+
+71
+00:04:07,050 --> 00:04:10,660
+So this was a PUT operation, an object-created operation.
+
+72
+00:04:10,840 --> 00:04:16,425
+We can see the principal ID, so who actually performed this, what IP address
+
+73
+00:04:16,450 --> 00:04:18,459
+they came from and much, much more.
+
+74
+00:04:19,140 --> 00:04:21,399
+So that's really useful information that could be
+
+75
+00:04:21,399 --> 00:04:25,860
+then used by another service to process that information in some way.
+
+76
+00:04:26,440 --> 00:04:27,680
+So that's it for this lesson.
+
+77
+00:04:27,680 --> 00:04:30,710
+And if you are going to be uploading lots of objects to this bucket,
+
+78
+00:04:30,710 --> 00:04:32,660
+make sure you go back and delete your
+
+79
+00:04:32,660 --> 00:04:35,350
+event notification or you're going to get lots of emails.
+

@@ -1,0 +1,352 @@
+1
+00:00:05,520 --> 00:00:13,320
+Amazon CloudFront is a content delivery network, a CDN. The purpose of a CDN is to improve the performance
+
+2
+00:00:13,530 --> 00:00:15,360
+of accessing objects.
+
+3
+00:00:15,600 --> 00:00:20,940
+And what I mean by objects here, it's basically files. So, it could be image files, it could be video
+
+4
+00:00:20,940 --> 00:00:23,280
+files, it could be pretty much any file type.
+
+5
+00:00:23,730 --> 00:00:29,190
+Now, we're specifically looking here at helping performance over a large geographical area, perhaps
+
+6
+00:00:29,190 --> 00:00:30,120
+the entire world.
+
+7
+00:00:30,510 --> 00:00:36,630
+So, you might have some content that's somewhere like North America, but you have users all the way over
+
+8
+00:00:36,840 --> 00:00:41,100
+in China, in Japan, and Australia, and that's a big physical distance.
+
+9
+00:00:41,400 --> 00:00:47,010
+And that long physical distance means that there's more latency and poor performance.
+
+10
+00:00:47,340 --> 00:00:53,190
+So, what we're trying to do is get the content closer to those users. And we have two particular things
+
+11
+00:00:53,190 --> 00:00:58,770
+that you really need to understand that are components of CloudFront, and that's an origin and a distribution.
+
+12
+00:00:59,160 --> 00:00:59,880
+So let's have a look.
+
+13
+00:01:00,480 --> 00:01:05,190
+So, CloudFront origins are literally the origin of where the content is coming from.
+
+14
+00:01:05,640 --> 00:01:12,030
+So, for instance, you can have Amazon S3, so your content can be sitting as objects in Amazon
+
+15
+00:01:12,030 --> 00:01:15,000
+S3 and you want to get that closer to users.
+
+16
+00:01:15,360 --> 00:01:17,510
+Or it could be Amazon EC2.
+
+17
+00:01:17,520 --> 00:01:20,850
+So maybe your content is on an Amazon EC2 instance.
+
+18
+00:01:20,850 --> 00:01:26,790
+Maybe it's a website, maybe it's a mounted file system on EFS, but the content is being served
+
+19
+00:01:27,090 --> 00:01:31,980
+by EC2. And those EC2 instances can also be behind a load balancer.
+
+20
+00:01:32,310 --> 00:01:36,360
+So, that's the origin, and the origin is within a single region.
+
+21
+00:01:36,450 --> 00:01:38,970
+So, it's in one physical place in the world.
+
+22
+00:01:39,420 --> 00:01:41,850
+Now, we then have something called edge locations.
+
+23
+00:01:42,300 --> 00:01:49,170
+Edge locations are actually all over the world. And there's hundreds of edge locations located in different
+
+24
+00:01:49,170 --> 00:01:50,020
+parts of the world.
+
+25
+00:01:50,400 --> 00:01:57,690
+And what happens is the content from the origin gets pushed out and cached in the edge location.
+
+26
+00:01:58,110 --> 00:02:04,590
+And so, the idea being that those edge locations are distributed broadly around the world, and that
+
+27
+00:02:04,590 --> 00:02:09,360
+means your content is somewhere where it can be closer to the users who want to access it.
+
+28
+00:02:10,020 --> 00:02:13,410
+So, we have users accessing the edge locations.
+
+29
+00:02:13,710 --> 00:02:17,410
+So as you can see, these users are in all sorts of different places around the world.
+
+30
+00:02:17,880 --> 00:02:20,760
+So, as you may know, latency is essentially the delay.
+
+31
+00:02:20,760 --> 00:02:26,490
+So it means that the greater the latency, the poorer the performance. If you have high latency when you're
+
+32
+00:02:26,490 --> 00:02:30,480
+trying to access a video, you're going to get a really bad experience.
+
+33
+00:02:30,900 --> 00:02:34,650
+Latency is primarily a factor of distance.
+
+34
+00:02:34,950 --> 00:02:40,970
+The farther you are from, wherever you're trying to play that video, then the greater the latency.
+
+35
+00:02:40,980 --> 00:02:47,280
+But there are also other factors as well such as the number of hops, the number of routers and switches,
+
+36
+00:02:47,610 --> 00:02:53,160
+the amount of congestion and oversubscription on the line somewhere between you and the content you're
+
+37
+00:02:53,160 --> 00:02:54,150
+trying to access.
+
+38
+00:02:54,690 --> 00:02:59,650
+So, CloudFront aims to resolve a lot of this. And it does say a couple of ways.
+
+39
+00:02:59,670 --> 00:03:06,210
+Firstly, the content gets cached in an edge location, which means hopefully it's physically much,
+
+40
+00:03:06,210 --> 00:03:11,490
+much closer to where your users are, so they can then access the content in the edge location.
+
+41
+00:03:11,820 --> 00:03:16,710
+And what happens is users are directed automatically to the closest edge location.
+
+42
+00:03:17,040 --> 00:03:21,900
+So, if your users are in Asia, they might have a different edge location than if they're in Australia
+
+43
+00:03:22,140 --> 00:03:23,460
+or India or so on.
+
+44
+00:03:24,150 --> 00:03:26,670
+So, they get access to that content faster.
+
+45
+00:03:27,030 --> 00:03:32,310
+Now, if the content doesn't happen to be on the edge location at that point in time, maybe it expired
+
+46
+00:03:32,310 --> 00:03:36,000
+from the cache, then it has to be pulled from the origin.
+
+47
+00:03:36,570 --> 00:03:40,800
+But even here, it's going over the AWS global network, not the internet.
+
+48
+00:03:41,070 --> 00:03:43,650
+And that means lower latency and better performance.
+
+49
+00:03:44,190 --> 00:03:47,820
+Let's look at origins and distributions in a bit more detail.
+
+50
+00:03:48,540 --> 00:03:51,780
+So, a distribution is what you create in CloudFront.
+
+51
+00:03:52,050 --> 00:03:58,680
+When you create a distribution, you get a name or an access endpoint for that distribution. And the
+
+52
+00:03:58,680 --> 00:04:01,140
+standard endpoint looks something like this.
+
+53
+00:04:01,140 --> 00:04:06,330
+You'll have some combination of characters and numbers .cloudfront.net.
+
+54
+00:04:06,810 --> 00:04:09,260
+You can then use your own custom domain.
+
+55
+00:04:09,270 --> 00:04:14,490
+That's something you can do, so you can have your own domain name like dctcloudlabs.com,
+
+56
+00:04:14,790 --> 00:04:16,440
+or whatever you have available.
+
+57
+00:04:17,160 --> 00:04:23,670
+Now, when you create your CloudFront distribution, you also specify the origin. And your origin
+
+58
+00:04:23,670 --> 00:04:24,990
+is where your files are.
+
+59
+00:04:25,530 --> 00:04:28,020
+You can even have multiple origins as well.
+
+60
+00:04:28,030 --> 00:04:31,290
+You might have an S3 origin and a custom origin.
+
+61
+00:04:31,320 --> 00:04:35,490
+The custom origin is EC2 or EC2 behind a load balancer.
+
+62
+00:04:36,090 --> 00:04:41,490
+With CloudFront, we're creating something called a web distribution. And this speeds up the distribution
+
+63
+00:04:41,490 --> 00:04:43,530
+of static and dynamic content.
+
+64
+00:04:43,830 --> 00:04:51,510
+So, any of those file types on the screen there. You access your web distribution using HTTP or HTTPS,
+
+65
+00:04:51,960 --> 00:04:56,850
+and you can add, update, or delete objects and even submit data through a web form.
+
+66
+00:04:57,180 --> 00:05:00,990
+You can even use live streaming for real time events as well.
+
+67
+00:05:02,280 --> 00:05:04,790
+Now, there used to be something called an RTMP
+
+68
+00:05:05,000 --> 00:05:05,750
+distribution.
+
+69
+00:05:06,050 --> 00:05:07,550
+These were discontinued.
+
+70
+00:05:07,790 --> 00:05:11,900
+So they're not actually available anymore. And you shouldn't see these coming up in the exam.
+
+71
+00:05:12,320 --> 00:05:17,120
+We also have something called a behavior that we can configure within our distribution.
+
+72
+00:05:17,510 --> 00:05:21,890
+And this means we can look for things like a path pattern. With a path pattern
+
+73
+00:05:21,890 --> 00:05:27,200
+you might say that if somebody is looking for a specific path/something, then they should go
+
+74
+00:05:27,200 --> 00:05:28,280
+to the S3 origin.
+
+75
+00:05:28,520 --> 00:05:32,570
+If they're going to a different path, then maybe they have to go to the customer origin.
+
+76
+00:05:33,170 --> 00:05:40,250
+You can configure the protocol policy you want to use, whether you redirect to HTTPS to stop people making
+
+77
+00:05:40,520 --> 00:05:42,650
+unsecured connections and that kind of thing.
+
+78
+00:05:43,160 --> 00:05:48,710
+You can define the cache policy, which helps you to work out how long things stay in the cache and
+
+79
+00:05:48,710 --> 00:05:50,270
+the origin requests policy.
+
+80
+00:05:50,540 --> 00:05:58,550
+So, how do you configure the security and other factors of the connection from your edge locations to your
+
+81
+00:05:58,550 --> 00:06:00,890
+origin when they need to request content.
+
+82
+00:06:01,340 --> 00:06:06,140
+And by the way, you can also use a static website as an origin running on S3.
+
+83
+00:06:06,500 --> 00:06:08,340
+So that's it for the theory.
+
+84
+00:06:08,360 --> 00:06:13,400
+What we're going to do in the next lesson is create a web distribution in CloudFront.
+
+85
+00:06:13,700 --> 00:06:19,130
+And we're going to have a look at how we can configure caching behaviors so that we can send certain
+
+86
+00:06:19,130 --> 00:06:21,500
+requests to two different S3 origins.
+
+87
+00:06:21,920 --> 00:06:22,840
+So I hope that was useful.
+
+88
+00:06:22,850 --> 00:06:24,050
+I'll see you in the next lesson.
+

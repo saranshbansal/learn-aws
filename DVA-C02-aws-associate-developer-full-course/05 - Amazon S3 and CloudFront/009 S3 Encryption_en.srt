@@ -1,0 +1,272 @@
+1
+00:00:05,139 --> 00:00:06,920
+Welcome to another lesson in this one
+
+2
+00:00:06,929 --> 00:00:10,710
+We're going to cover Amazon S3 encryption with encryption on S3
+
+3
+00:00:10,720 --> 00:00:12,119
+There's a few different options.
+
+4
+00:00:12,130 --> 00:00:18,000
+Firstly, we have what's called server side encryption with S3 manage keys known as
+
+5
+00:00:18,200 --> 00:00:21,459
+SSE-S3. Here, the keys are managed by AWS using a
+
+6
+00:00:21,690 --> 00:00:23,469
+256 bit encryption.
+
+7
+00:00:23,479 --> 00:00:23,639
+And
+
+8
+00:00:23,649 --> 00:00:29,489
+the encryption and decryption takes place on the AWS side within the S3 service.
+
+9
+00:00:29,500 --> 00:00:34,076
+So if you're a user and you upload and objects, when you upload that object,
+
+10
+00:00:34,085 --> 00:00:41,166
+it's secured in transit using TLS, but then it's secured in S3 at rest by
+
+11
+00:00:41,506 --> 00:00:44,726
+AWS encrypting it as it's actually written to the discs.
+
+12
+00:00:44,736 --> 00:00:48,605
+If you then download it, it's decrypted on the S3 side.
+
+13
+00:00:48,616 --> 00:00:51,326
+But then it's encrypted in transit using TLS.
+
+14
+00:00:51,355 --> 00:00:54,276
+Another option is server side encryption with
+
+15
+00:00:54,666 --> 00:00:56,686
+AWS KMS manage keys, SSE
+
+16
+00:00:56,891 --> 00:00:57,301
+KMS.
+
+17
+00:00:57,821 --> 00:01:02,141
+So here we're using the key management service. The keys are managed by KMS.
+
+18
+00:01:02,212 --> 00:01:03,102
+They can be
+
+19
+00:01:03,431 --> 00:01:06,821
+Aws managed keys or customer managed KMS keys.
+
+20
+00:01:06,832 --> 00:01:10,662
+Again, the encryption and decryption is taking place in S3.
+
+21
+00:01:10,671 --> 00:01:14,592
+Next, we have server side encryption with client provided keys
+
+22
+00:01:14,751 --> 00:01:15,162
+known as
+
+23
+00:01:15,611 --> 00:01:16,382
+SSE-C
+
+24
+00:01:16,391 --> 00:01:20,461
+We still have the encryption decryption taking place in S3 here,
+
+25
+00:01:20,472 --> 00:01:22,681
+but the keys are managed on the client side,
+
+26
+00:01:22,970 --> 00:01:23,839
+they're not stored on
+
+27
+00:01:24,250 --> 00:01:24,269
+AWS
+
+28
+00:01:24,370 --> 00:01:24,800
+at all.
+
+29
+00:01:24,809 --> 00:01:28,800
+Lastly, we have client side encryption here, we have client manage keys,
+
+30
+00:01:28,809 --> 00:01:30,349
+they're not stored on
+
+31
+00:01:30,739 --> 00:01:33,760
+AWS at all, but you can use a KMS key as well. Here
+
+32
+00:01:33,769 --> 00:01:35,970
+The difference is that the encryption and decryption
+
+33
+00:01:35,980 --> 00:01:38,559
+is taking place on the client side.
+
+34
+00:01:38,569 --> 00:01:38,769
+OK.
+
+35
+00:01:38,779 --> 00:01:40,769
+So you have some kind of application that
+
+36
+00:01:40,779 --> 00:01:43,519
+is performing the encryption and the decryption on the
+
+37
+00:01:43,620 --> 00:01:45,500
+client side, not in AWS,
+
+38
+00:01:45,510 --> 00:01:48,230
+Aws will just see the encrypted objects and it
+
+39
+00:01:48,239 --> 00:01:50,910
+has no way of decrypting them for you all
+
+40
+00:01:50,919 --> 00:01:55,339
+Amazon S3 buckets have encryption configured by default. Now,
+
+41
+00:01:55,559 --> 00:01:56,809
+that's the default option.
+
+42
+00:01:56,819 --> 00:02:01,550
+It wasn't always like that you used to have to choose to turn on encryption.
+
+43
+00:02:01,559 --> 00:02:04,169
+But now this is the default setting. All new
+
+44
+00:02:04,269 --> 00:02:07,230
+object uploads to S3 are automatically encrypted and
+
+45
+00:02:07,239 --> 00:02:09,639
+there's no additional cost and there's no impact
+
+46
+00:02:09,649 --> 00:02:12,869
+on the performance objects are automatically encrypted by
+
+47
+00:02:12,880 --> 00:02:16,259
+using server side encryption with S3 manage keys.
+
+48
+00:02:16,270 --> 00:02:18,460
+That's the default. Of course, you can change that
+
+49
+00:02:18,470 --> 00:02:22,210
+If you want to, to encrypt existing unencrypted objects,
+
+50
+00:02:22,300 --> 00:02:24,860
+you can use S3 batch operations.
+
+51
+00:02:25,119 --> 00:02:30,839
+So if you were using S3 before the default encryption option was implemented,
+
+52
+00:02:30,850 --> 00:02:34,729
+then you can encrypt those existing unencrypted objects.
+
+53
+00:02:34,740 --> 00:02:38,009
+You can also encrypt existing objects using the copy objects,
+
+54
+00:02:38,020 --> 00:02:40,889
+API operation or the copy objects,
+
+55
+00:02:41,369 --> 00:02:41,399
+AWS
+
+56
+00:02:41,720 --> 00:02:42,580
+CLI command.
+
+57
+00:02:42,710 --> 00:02:46,729
+You can also use bucket policies to enforce the encryption settings that
+
+58
+00:02:46,740 --> 00:02:51,580
+you want this particular one enforces encryption using SSE KMS.
+
+59
+00:02:52,149 --> 00:02:54,309
+We can also enforce encryption
+
+60
+00:02:54,500 --> 00:02:56,289
+using a bucket policy.
+
+61
+00:02:56,300 --> 00:03:03,929
+So for example, we might want to force the use of SSE KMS rather than SSE S3.
+
+62
+00:03:03,940 --> 00:03:05,669
+This policy would do that.
+
+63
+00:03:05,679 --> 00:03:11,429
+So here we have a deny for the put objects API action, we can specify our bucket name.
+
+64
+00:03:11,440 --> 00:03:12,949
+And then there's a condition that says that the
+
+65
+00:03:12,960 --> 00:03:18,330
+string not equals S3 X AM Z server side encryption
+
+66
+00:03:18,520 --> 00:03:19,929
+AWS KMS.
+
+67
+00:03:20,250 --> 00:03:26,699
+So if KMS is not present in the put request as it is in this one here, then
+
+68
+00:03:26,919 --> 00:03:29,660
+the bucket policy will deny access.
+

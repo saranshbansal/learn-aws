@@ -1,0 +1,112 @@
+1
+00:00:05,240 --> 00:00:08,450
+Hi guys. In this lesson, I'm going to cover a quick bit of theory
+
+2
+00:00:08,460 --> 00:00:12,740
+on performance optimization in relation to Amazon S3.
+
+3
+00:00:12,750 --> 00:00:16,850
+So let's look at some design patterns for optimizing S3 performance.
+
+4
+00:00:17,340 --> 00:00:22,290
+S3 will automatically scale to very high request rates with at least,
+
+5
+00:00:22,300 --> 00:00:23,910
+and this is per prefix,
+
+6
+00:00:24,080 --> 00:00:27,630
+3,500 Put, copy, post, or delete request per second
+
+7
+00:00:27,790 --> 00:00:31,030
+and 5,500 Get, head request per second.
+
+8
+00:00:31,070 --> 00:00:33,230
+Now you can increase the read and write
+
+9
+00:00:33,230 --> 00:00:38,050
+performance by using parallelization across multiple prefixes.
+
+10
+00:00:38,340 --> 00:00:41,620
+So you're going to spread your data across more prefixes.
+
+11
+00:00:41,690 --> 00:00:45,910
+And these limitations only apply within each prefix.
+
+12
+00:00:46,080 --> 00:00:49,820
+To increase upload speeds over long distances
+
+13
+00:00:49,820 --> 00:00:56,650
+you can use S3 transfer acceleration that leverages the CloudFront network to upload
+
+14
+00:00:56,650 --> 00:01:01,260
+your data and move it into S3 across the AWS global network.
+
+15
+00:01:01,840 --> 00:01:07,180
+You can also use what are called byte-range fetches with the range HTTP header.
+
+16
+00:01:07,490 --> 00:01:10,170
+And that means that you're only transferring the specified
+
+17
+00:01:10,170 --> 00:01:13,200
+byte range from an object that you actually need.
+
+18
+00:01:13,430 --> 00:01:18,320
+You should also look at combining S3 and EC2 in the same AWS region.
+
+19
+00:01:18,740 --> 00:01:22,390
+And use the latest version of the AWS SDKs.
+
+20
+00:01:23,040 --> 00:01:26,680
+You could also use caching services to cache the latest content
+
+21
+00:01:26,880 --> 00:01:29,856
+like a content delivery network like CloudFront
+
+22
+00:01:30,116 --> 00:01:33,070
+or ElastiCache for an in-memory cache.
+
+23
+00:01:33,080 --> 00:01:37,310
+Try to horizontally scale your requests across S3 endpoints.
+
+24
+00:01:37,480 --> 00:01:41,550
+So S3 has lots of public endpoints. You can look up what they are.
+
+25
+00:01:41,840 --> 00:01:44,100
+And you can configure your application to spread
+
+26
+00:01:44,100 --> 00:01:46,650
+the load across those different public endpoints.
+
+27
+00:01:47,220 --> 00:01:51,350
+Now there's more info here. I do suggest that you click on this link and have a look.
+
+28
+00:01:51,350 --> 00:01:54,250
+It's worth a little bit of revision ahead of your exam.
+
