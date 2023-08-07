@@ -1,0 +1,304 @@
+1
+00:00:05,150 --> 00:00:07,790
+Hey, guys, and welcome to this hands on lesson.
+
+2
+00:00:07,790 --> 00:00:12,020
+In this lesson, we're going to create an awareness free tier account.
+
+3
+00:00:12,020 --> 00:00:13,700
+So what are you going to need?
+
+4
+00:00:13,730 --> 00:00:18,620
+You will need a credit card for setting up the account and paying any bills.
+
+5
+00:00:18,620 --> 00:00:25,460
+You'll need a unique email address for this account that shouldn't be used with any other US accounts.
+
+6
+00:00:25,460 --> 00:00:29,540
+But it's okay if your credit card has been used with other accounts.
+
+7
+00:00:29,540 --> 00:00:31,070
+Now just as a tip.
+
+8
+00:00:31,070 --> 00:00:36,740
+Depending on your email provider, you may be able to use something called a dynamic alias.
+
+9
+00:00:36,740 --> 00:00:44,390
+So for example, if your email is John at gmail.com, you can create a dynamic alias that looks like
+
+10
+00:00:44,390 --> 00:00:45,020
+this.
+
+11
+00:00:45,020 --> 00:00:52,430
+You would write John plus and then you would have some unique name and then at gmail.com.
+
+12
+00:00:52,430 --> 00:00:58,430
+In this case what I'm using is the alias for my AWS account, which will come to in a moment.
+
+13
+00:00:58,610 --> 00:01:05,360
+Then if I create additional accounts, I can just put that alias in or maybe add a two on the end.
+
+14
+00:01:05,750 --> 00:01:12,890
+Now the account name and alias needs to be unique across us and you'll see how we create that shortly.
+
+15
+00:01:12,920 --> 00:01:19,040
+Lastly, you need a phone to receive an SMS verification code, so that's all you need.
+
+16
+00:01:19,040 --> 00:01:20,150
+Let's get on with it.
+
+17
+00:01:20,270 --> 00:01:26,180
+The easiest way to find the right web page is to search for a free to in Google.
+
+18
+00:01:26,270 --> 00:01:29,600
+And the very first result here is where we need to go.
+
+19
+00:01:30,280 --> 00:01:33,310
+So here we can create our free tier accounts.
+
+20
+00:01:33,340 --> 00:01:40,940
+Now you'll see that what a US offers is there's 12 months free for many US services.
+
+21
+00:01:40,960 --> 00:01:48,580
+There's also a free tier for some services on an ongoing basis or a certain amount of the resources
+
+22
+00:01:48,580 --> 00:01:49,540
+you can use.
+
+23
+00:01:49,750 --> 00:01:55,560
+Now, if you scroll down a little way, you can see what comes with the free tier and it's really generous.
+
+24
+00:01:55,570 --> 00:02:03,340
+We get 750 hours a month of Amazon EC2, but we've got to make sure we use the right instance type so
+
+25
+00:02:03,340 --> 00:02:04,750
+we don't get charged.
+
+26
+00:02:05,020 --> 00:02:14,230
+Now you can see you get five gigabytes of storage on Amazon, S3 750 hours of ads and 25 gigabytes on
+
+27
+00:02:14,230 --> 00:02:16,400
+the Dynamo DB database service.
+
+28
+00:02:16,420 --> 00:02:22,240
+So we get a really large amount of resources that we can use, and it's usually more than enough for
+
+29
+00:02:22,240 --> 00:02:24,130
+the exercises in the course.
+
+30
+00:02:24,430 --> 00:02:27,460
+So let's click Create a free tier account.
+
+31
+00:02:27,640 --> 00:02:34,120
+Now, on this page, which is the normal sign in page, we just click create a new AWS account.
+
+32
+00:02:34,180 --> 00:02:40,690
+Now the very first thing it asks for is a root user email address, and this is going to be the address
+
+33
+00:02:40,690 --> 00:02:45,330
+we sign in with as the root user after we've created our account.
+
+34
+00:02:45,340 --> 00:02:48,460
+So make sure you have an email address that is unique.
+
+35
+00:02:48,460 --> 00:02:52,150
+On AWS, we also need to provide an account name.
+
+36
+00:02:52,150 --> 00:02:59,680
+So this I've called Neil Dash AWS Dash Labs and you can change this after you've signed up.
+
+37
+00:02:59,980 --> 00:03:01,390
+So I'm ready to go.
+
+38
+00:03:01,390 --> 00:03:03,880
+I'm going to click on Verify email address.
+
+39
+00:03:03,910 --> 00:03:09,160
+I've now been emailed a verification code and I need to put that in and click on Verify.
+
+40
+00:03:09,610 --> 00:03:16,450
+After the verification, we need to enter a strong root user password and then confirm it before continuing
+
+41
+00:03:16,540 --> 00:03:18,400
+on this page of the sign up.
+
+42
+00:03:18,400 --> 00:03:21,020
+We need to enter some contacts information.
+
+43
+00:03:21,040 --> 00:03:26,470
+Now the first thing you need to do is choose personal because we're using this for our own purposes.
+
+44
+00:03:26,470 --> 00:03:31,030
+Then enter all of your personal information and click on Continue.
+
+45
+00:03:31,210 --> 00:03:34,210
+Next, we need to enter our billing information.
+
+46
+00:03:34,210 --> 00:03:41,380
+So enter in your credit card details and then click on Verify and continue on step four or five.
+
+47
+00:03:41,410 --> 00:03:46,420
+You need to enter your phone number, enter the characters from the security check, and then click
+
+48
+00:03:46,420 --> 00:03:52,090
+send SMS so they can verify that your phone number is working on the last page.
+
+49
+00:03:52,090 --> 00:03:56,440
+After you've verified your phone number is to choose a support plan.
+
+50
+00:03:56,440 --> 00:03:58,690
+Now you don't need to pay for support.
+
+51
+00:03:58,690 --> 00:04:04,480
+You can choose the basic support free and then just choose complete sign up and that's it.
+
+52
+00:04:04,480 --> 00:04:08,170
+We have actually created our AWS account.
+
+53
+00:04:08,200 --> 00:04:13,360
+Now, as you can see on the page here, it says that they're activating your account and it should only
+
+54
+00:04:13,360 --> 00:04:14,470
+take a few minutes.
+
+55
+00:04:14,470 --> 00:04:19,810
+So what you need to do is watch out for the email in your inbox and once you receive it, you can go
+
+56
+00:04:19,810 --> 00:04:23,710
+and log into your AWS account as the root user.
+
+57
+00:04:23,740 --> 00:04:29,200
+Now, mine came through very quickly, so I'm going to click on this option to go to the AWS management
+
+58
+00:04:29,200 --> 00:04:29,980
+console.
+
+59
+00:04:29,980 --> 00:04:35,460
+Now, as you can see, the first thing you need to do is enter your account ID or account alias.
+
+60
+00:04:35,470 --> 00:04:39,730
+Now this is actually when you're logging in as an IAM user.
+
+61
+00:04:39,760 --> 00:04:41,490
+Now we're not doing that yet.
+
+62
+00:04:41,500 --> 00:04:48,070
+What we need to do now is actually sign in as the root user using the email address we signed up with.
+
+63
+00:04:48,070 --> 00:04:51,220
+So choose sign in using root user email.
+
+64
+00:04:51,250 --> 00:04:56,260
+Then you need to enter the email that you used when you signed up and click on next.
+
+65
+00:04:56,710 --> 00:04:59,440
+Then enter your password and click on sign in.
+
+66
+00:04:59,650 --> 00:05:00,760
+Okay, so that's it.
+
+67
+00:05:00,760 --> 00:05:04,900
+We are now signed in to the US management console.
+
+68
+00:05:05,110 --> 00:05:10,690
+Now, as you can see in the top right hand corner, we can see the name that I gave to the account,
+
+69
+00:05:10,720 --> 00:05:17,230
+Neil Dash Dash Labs in this case, and I've got the Northern Virginia region selected.
+
+70
+00:05:17,230 --> 00:05:23,320
+Now for most of the hands on exercises we do, you'll need to be in the Northern Virginia region.
+
+71
+00:05:23,320 --> 00:05:28,180
+We'll talk more about regions and see how we can use them later on in the course.
+
+72
+00:05:28,180 --> 00:05:36,490
+So from here you can now access the US services using this menu in the top left hand corner, for example,
+
+73
+00:05:36,490 --> 00:05:40,240
+you can go to compute and then find services like EC2.
+
+74
+00:05:40,240 --> 00:05:41,020
+So that's it.
+
+75
+00:05:41,050 --> 00:05:45,610
+We're in our AWS account ready to start using it and that's it for this lesson.
+
+76
+00:05:45,610 --> 00:05:50,200
+I'll see you in the next lesson where we're actually going to start configuring our account.
+

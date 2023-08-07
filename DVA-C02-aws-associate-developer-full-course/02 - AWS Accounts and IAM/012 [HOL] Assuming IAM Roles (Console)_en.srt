@@ -1,0 +1,416 @@
+1
+00:00:05,540 --> 00:00:06,628
+Welcome to this lesson.
+
+2
+00:00:06,652 --> 00:00:11,051
+In this lesson, I'm going to show you how to assume an IAM role
+
+3
+00:00:11,075 --> 00:00:12,650
+from the management console.
+
+4
+00:00:13,120 --> 00:00:14,800
+I'm logged into my account and I'm on the
+
+5
+00:00:14,800 --> 00:00:18,130
+dashboard of the identity and access management console.
+
+6
+00:00:18,410 --> 00:00:20,020
+We're going to create a new user.
+
+7
+00:00:20,250 --> 00:00:21,760
+So I'm going to go to users,
+
+8
+00:00:22,140 --> 00:00:23,380
+click add users
+
+9
+00:00:24,546 --> 00:00:26,090
+and I'm going to call my user Paul.
+
+10
+00:00:26,380 --> 00:00:30,950
+I'm only going to provide management console access for Paul at this point in time.
+
+11
+00:00:31,440 --> 00:00:33,690
+I'm going to configure my own password
+
+12
+00:00:34,040 --> 00:00:37,700
+and I'm going to remove the requirement to reset the password.
+
+13
+00:00:38,140 --> 00:00:40,420
+Then we can click next to go to permissions,
+
+14
+00:00:40,736 --> 00:00:44,583
+and I'm not going to provide any permissions to Paul at this point in time.
+
+15
+00:00:45,240 --> 00:00:46,460
+Let's click on next,
+
+16
+00:00:47,143 --> 00:00:48,203
+review.
+
+17
+00:00:48,540 --> 00:00:51,510
+It's going to warn me that of course Paul doesn't have any
+
+18
+00:00:51,510 --> 00:00:53,500
+permission so he's not going to be able to do anything.
+
+19
+00:00:53,500 --> 00:00:58,160
+Now Paul will be able to log into the console but then won't be able to do anything.
+
+20
+00:00:58,640 --> 00:01:00,030
+Now let's just create this user.
+
+21
+00:01:00,340 --> 00:01:01,850
+So the user is being created.
+
+22
+00:01:02,240 --> 00:01:05,430
+And what we're going to do is go back to the main console.
+
+23
+00:01:05,430 --> 00:01:06,568
+So click on close.
+
+24
+00:01:06,866 --> 00:01:10,460
+Now, back on the user's pane here, I'm going to select Paul.
+
+25
+00:01:11,040 --> 00:01:15,970
+And what I want to do is I need Paul's ARN, so the amazon resource name.
+
+26
+00:01:15,970 --> 00:01:19,250
+So I'm going to click copy here to copy that to my clipboard.
+
+27
+00:01:19,640 --> 00:01:22,411
+Now you'll find a file in the course, download
+
+28
+00:01:22,435 --> 00:01:25,180
+which you can download from the last lesson in section one.
+
+29
+00:01:25,640 --> 00:01:30,060
+And in there, once you've unzipped the course download, you'll find a code directory
+
+30
+00:01:30,280 --> 00:01:34,540
+IAM and then you will find this switch-role-trust-policy.JSON.
+
+31
+00:01:35,140 --> 00:01:39,300
+Now what I want to do in here is I need to enter the ARN
+
+32
+00:01:39,300 --> 00:01:42,760
+for Paul between these two inverted commas here.
+
+33
+00:01:43,140 --> 00:01:45,390
+So I'm just going to paste in Paul's ARN
+
+34
+00:01:46,140 --> 00:01:48,660
+and then I can copy all of this code
+
+35
+00:01:49,340 --> 00:01:52,560
+to my clipboard. Now this is the trust policy for the role.
+
+36
+00:01:53,140 --> 00:01:56,070
+Back in IAM, let's go to roles and we're going to create
+
+37
+00:01:56,070 --> 00:01:58,930
+the IAM role that Paul is going to assume.
+
+38
+00:01:59,040 --> 00:02:00,550
+So let's choose create role.
+
+39
+00:02:00,940 --> 00:02:03,160
+I'm going to choose custom trust policy
+
+40
+00:02:03,540 --> 00:02:06,060
+and then I'm going to delete the code in here
+
+41
+00:02:06,060 --> 00:02:09,060
+and paste in the code that we just updated.
+
+42
+00:02:09,840 --> 00:02:12,760
+So now we have a trust policy.
+
+43
+00:02:12,940 --> 00:02:15,750
+And this trust policy is going to allow
+
+44
+00:02:15,820 --> 00:02:19,690
+the principal and it's configured specifically for Paul
+
+45
+00:02:20,010 --> 00:02:21,451
+to assume a role.
+
+46
+00:02:21,475 --> 00:02:26,170
+So it's allowing Paul the privilege to be able to assume an IAM role.
+
+47
+00:02:26,640 --> 00:02:28,050
+Then we click on next.
+
+48
+00:02:28,540 --> 00:02:33,660
+And I'm going to search for EC2. So let's just search for EC2 in the top here.
+
+49
+00:02:34,240 --> 00:02:37,860
+And I'm going to select the Amazon EC2 full access.
+
+50
+00:02:38,090 --> 00:02:42,460
+So this IAM role is going to be assumable by Paul.
+
+51
+00:02:42,460 --> 00:02:44,570
+Paul will be allowed to assume this role.
+
+52
+00:02:44,710 --> 00:02:46,640
+And then when Paul assumes this role,
+
+53
+00:02:46,650 --> 00:02:50,260
+he will have the EC2 full access permissions.
+
+54
+00:02:50,840 --> 00:02:52,160
+So let's click on next.
+
+55
+00:02:52,853 --> 00:02:53,910
+Give it a name.
+
+56
+00:02:54,220 --> 00:02:57,190
+I'm going to call it EC2-full-access.
+
+57
+00:02:57,940 --> 00:03:01,150
+And then let's just scroll down and create that role.
+
+58
+00:03:01,840 --> 00:03:03,200
+So the role has been created.
+
+59
+00:03:03,300 --> 00:03:06,098
+All we need to do now is log in as Paul.
+
+60
+00:03:06,122 --> 00:03:08,470
+And we're going to see if we can assume this role.
+
+61
+00:03:08,750 --> 00:03:11,220
+I'm now logged in as Paul in a private window,
+
+62
+00:03:11,220 --> 00:03:13,610
+so I've still got my management console logged in
+
+63
+00:03:13,610 --> 00:03:17,200
+as myself and then in a private window, I'm logged in as Paul.
+
+64
+00:03:17,740 --> 00:03:21,490
+So if I now go over to the EC2 management console,
+
+65
+00:03:21,940 --> 00:03:25,490
+what we should see is these API errors.
+
+66
+00:03:25,850 --> 00:03:28,180
+And that's because Paul doesn't have any permissions.
+
+67
+00:03:28,180 --> 00:03:30,370
+So essentially it's saying you don't have
+
+68
+00:03:30,380 --> 00:03:33,950
+any permissions to view any of the information
+
+69
+00:03:34,110 --> 00:03:35,195
+in EC2.
+
+70
+00:03:35,219 --> 00:03:38,540
+And he wouldn't be able to launch instances or do anything in EC2.
+
+71
+00:03:39,540 --> 00:03:43,070
+So what we want to do is assume a role so that we can
+
+72
+00:03:43,070 --> 00:03:46,950
+then get those permissions through the IAM role that we created previously.
+
+73
+00:03:47,340 --> 00:03:51,810
+Now back in the console where I'm logged in as myself, I'm logged in as Neal,
+
+74
+00:03:52,240 --> 00:03:55,400
+I'm just going to go into this role. So let's click on the role.
+
+75
+00:03:55,810 --> 00:03:58,690
+And what you'll find is all the information you need to assume
+
+76
+00:03:58,690 --> 00:04:00,590
+the role is actually provided here.
+
+77
+00:04:00,590 --> 00:04:03,140
+There's even a link that you can use to do it for you.
+
+78
+00:04:03,520 --> 00:04:08,460
+Now, all we really need is the account number of the account and the name of the role.
+
+79
+00:04:08,720 --> 00:04:10,960
+So what I'm going to do is the easiest place to find the
+
+80
+00:04:10,960 --> 00:04:13,940
+account number is you just come back up to the dashboard,
+
+81
+00:04:13,950 --> 00:04:16,760
+click on copy and I've got that on my clipboard.
+
+82
+00:04:18,040 --> 00:04:23,050
+Now logged back in as Paul here, I'm going to go up into the top right hand corner,
+
+83
+00:04:23,540 --> 00:04:24,860
+choose switch role,
+
+84
+00:04:25,440 --> 00:04:26,850
+click switch role again,
+
+85
+00:04:27,440 --> 00:04:29,660
+I'm going to paste in my account number.
+
+86
+00:04:30,640 --> 00:04:32,820
+I need to put in the name of the role.
+
+87
+00:04:33,340 --> 00:04:35,360
+And then I can add a display name as well.
+
+88
+00:04:35,660 --> 00:04:38,410
+Once I've entered that information I can choose switch role.
+
+89
+00:04:38,720 --> 00:04:43,000
+And I've now switched roles and as you can see all those API errors have gone.
+
+90
+00:04:43,180 --> 00:04:45,550
+So we can now actually use EC2.
+
+91
+00:04:46,040 --> 00:04:48,430
+So what we've done is we've logged in as Paul.
+
+92
+00:04:48,520 --> 00:04:53,100
+Paul was unable to do anything in EC2 because he doesn't have any permissions
+
+93
+00:04:53,540 --> 00:04:58,180
+But the permission that we did assign was for Paul to be able to assume a role.
+
+94
+00:04:58,440 --> 00:05:00,010
+And once he assumed that role,
+
+95
+00:05:00,020 --> 00:05:04,090
+He had access to whatever the permissions assigned to that role are.
+
+96
+00:05:04,250 --> 00:05:06,680
+In this case, that's EC2 full access.
+
+97
+00:05:07,090 --> 00:05:10,660
+So now Paul is free to do whatever he wants in EC2
+
+98
+00:05:11,040 --> 00:05:12,960
+and could always then switch back
+
+99
+00:05:13,340 --> 00:05:15,050
+by just clicking on switch back
+
+100
+00:05:15,740 --> 00:05:19,170
+and then he will go back to being logged in purely as Paul.
+
+101
+00:05:19,240 --> 00:05:23,750
+And of course all the API errors return because Paul no longer has those permissions.
+
+102
+00:05:24,140 --> 00:05:28,185
+So that's how you assume a role using the AWS management console.
+
+103
+00:05:28,209 --> 00:05:29,480
+A bit later in the course,
+
+104
+00:05:29,480 --> 00:05:33,160
+we'll see how to do it using the command line interface as well.
+

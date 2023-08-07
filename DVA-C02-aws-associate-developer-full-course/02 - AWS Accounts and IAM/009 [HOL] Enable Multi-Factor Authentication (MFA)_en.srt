@@ -1,0 +1,148 @@
+1
+00:00:05,120 --> 00:00:11,330
+In this lesson, we're going to add multifactor authentication to our own individual user account.
+
+2
+00:00:13,000 --> 00:00:14,800
+So let's head over to AWS.
+
+3
+00:00:14,980 --> 00:00:17,680
+I'm in the Identity and Access Management console.
+
+4
+00:00:18,160 --> 00:00:21,580
+And as you can see, we've already got a couple of security recommendations.
+
+5
+00:00:21,940 --> 00:00:26,080
+It's saying that we should add MFA for the root user and for ourselves.
+
+6
+00:00:26,500 --> 00:00:30,940
+Now what we're going to do in this lesson is add MFA for our own user accounts.
+
+7
+00:00:31,330 --> 00:00:37,030
+Now, the process is very similar but slightly different for the root user. I've actually added a link
+
+8
+00:00:37,030 --> 00:00:43,450
+to an AWS article that you can follow if you want to log out and log back in as root and add MFA
+
+9
+00:00:43,450 --> 00:00:43,810
+or root.
+
+10
+00:00:44,170 --> 00:00:47,050
+So that's something you could potentially do after this lesson.
+
+11
+00:00:47,440 --> 00:00:52,270
+Now it's important to note that with IAM, we never need to select a region. So that's something that
+
+12
+00:00:52,270 --> 00:00:54,190
+pops up in exam questions quite a lot.
+
+13
+00:00:54,700 --> 00:01:00,130
+Where you get some kind of scenario, where users are being added to some other geographical area in
+
+14
+00:01:00,130 --> 00:01:04,300
+the world and you need to know what to do with their accounts and how to set up their accounts.
+
+15
+00:01:04,690 --> 00:01:11,020
+Well, with IAM, you only ever have the accounts in one place and you can use those accounts with any
+
+16
+00:01:11,020 --> 00:01:12,100
+region around the world.
+
+17
+00:01:12,280 --> 00:01:14,740
+So let's set up MFA for our user account.
+
+18
+00:01:15,310 --> 00:01:21,910
+I'm going to click on users, select my user account, then click on security credentials, and we can
+
+19
+00:01:21,910 --> 00:01:23,890
+see towards the middle of the screen here
+
+20
+00:01:24,250 --> 00:01:26,200
+next to assigned MFA device,
+
+21
+00:01:26,200 --> 00:01:30,190
+we don't have any assigned devices. So, I'm going to click on manage.
+
+22
+00:01:30,550 --> 00:01:33,700
+We're going to use a virtual MFA device. Now,
+
+23
+00:01:33,700 --> 00:01:39,880
+for this, you will need an authenticator app installed on your mobile device or on your computer.
+
+24
+00:01:40,240 --> 00:01:44,170
+Now I personally use the Google Authenticator app on my phone.
+
+25
+00:01:44,650 --> 00:01:50,560
+So if you don't already have one installed, install the Google Authenticator app and then click on
+
+26
+00:01:50,560 --> 00:01:51,130
+continue.
+
+27
+00:01:51,430 --> 00:01:53,950
+The next thing to do is click show QR code.
+
+28
+00:01:54,220 --> 00:01:59,020
+You'll need to point your phone's camera to the QR code, and it should open Google Authenticator.
+
+29
+00:01:59,230 --> 00:02:04,690
+Once you've done that and you've got Google Authenticator open, it should be generating a code and
+
+30
+00:02:04,690 --> 00:02:06,070
+displaying that on your screen.
+
+31
+00:02:06,640 --> 00:02:09,759
+So what you need to do is add the code that's on the screen right now.
+
+32
+00:02:10,270 --> 00:02:16,200
+I've added mine. And then you need to wait for that code to expire and it'll generate a new code and
+
+33
+00:02:16,210 --> 00:02:21,390
+you need to add that into the MFA code two box and then click on assign MFA.
+
+34
+00:02:21,460 --> 00:02:21,940
+And that's it.
+
+35
+00:02:21,940 --> 00:02:28,150
+You've now got MFA enabled for your accounts, and you can see that we have an ARN for the virtual
+
+36
+00:02:28,150 --> 00:02:28,840
+device here.
+
+37
+00:02:29,470 --> 00:02:35,740
+So next time you log in, you will also be asked to supply the code from your authenticator app.
+

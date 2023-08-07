@@ -1,0 +1,180 @@
+1
+00:00:05,090 --> 00:00:13,250
+In this lesson, we're going to explore the authentication options in AWS and also Multi-Factor Authentication,
+
+2
+00:00:13,250 --> 00:00:14,180
+or MFA.
+
+3
+00:00:14,510 --> 00:00:17,120
+So we have a user account here called John.
+
+4
+00:00:17,720 --> 00:00:20,270
+Now John wants to log into AWS.
+
+5
+00:00:20,780 --> 00:00:27,950
+He does so through using his username and a password, and potentially an MFA token, which we'll talk about
+
+6
+00:00:27,950 --> 00:00:29,180
+more just in a moment.
+
+7
+00:00:29,330 --> 00:00:35,660
+Once he's then authenticated, he can then get access to the management console and perform operations
+
+8
+00:00:35,660 --> 00:00:36,440
+in the console.
+
+9
+00:00:36,620 --> 00:00:44,390
+Now, the other methods of accessing AWS are the CLI and the API and the SDK, which also leverages
+
+10
+00:00:44,390 --> 00:00:45,170
+the API.
+
+11
+00:00:45,410 --> 00:00:52,910
+When you access AWS by one of these methods, you use something called an access key ID and a secret
+
+12
+00:00:52,910 --> 00:00:53,810
+access key.
+
+13
+00:00:54,230 --> 00:00:59,570
+Now, they look like these codes here, so they're a bit more ugly, not as user friendly as a username
+
+14
+00:00:59,570 --> 00:01:00,290
+and password.
+
+15
+00:01:01,170 --> 00:01:08,790
+But these are then used in your code to authenticate to AWS and through to the API so that you can do whatever
+
+16
+00:01:08,790 --> 00:01:10,740
+you want to do in AWS.
+
+17
+00:01:11,070 --> 00:01:18,120
+These are known as access keys, and they're used for programmatic access. We'll create some access keys
+
+18
+00:01:18,120 --> 00:01:20,670
+a bit later on in the course and see how we can use them.
+
+19
+00:01:20,940 --> 00:01:28,420
+Now, the other thing I wanted to talk about here is Multi-Factor Authentication or MFA. In IT security,
+
+20
+00:01:28,470 --> 00:01:35,220
+we often talk about having different factors of authentication, and authentication is just proving who
+
+21
+00:01:35,250 --> 00:01:35,760
+you are.
+
+22
+00:01:36,540 --> 00:01:42,540
+So a way that you can do that is through something you know, and something you know is a password.
+
+23
+00:01:42,870 --> 00:01:50,610
+If you log in to any kind of IT service using a username and password, the username is something which
+
+24
+00:01:50,640 --> 00:01:55,520
+multiple people might know, but the password is something that you alone should know.
+
+25
+00:01:55,530 --> 00:02:00,090
+So that's the secret, and that's the thing that proves that you are who you say you are.
+
+26
+00:02:00,450 --> 00:02:04,530
+Another factor of authentication is something you have. In this case,
+
+27
+00:02:04,530 --> 00:02:12,360
+you have a physical device like a token or a device that generates a code, and only you can know that
+
+28
+00:02:12,360 --> 00:02:16,860
+code and only because you have in your possession that physical device.
+
+29
+00:02:17,130 --> 00:02:18,930
+Lastly, there's something you are.
+
+30
+00:02:18,960 --> 00:02:26,340
+This is biometrics like fingerprints or retina scans. And we don't use these in AWS, but we do use
+
+31
+00:02:26,340 --> 00:02:31,050
+the first two. And that's why we have multiple factors of authentication.
+
+32
+00:02:31,110 --> 00:02:38,640
+So, in AWS, we use something you know, your IAM user account and a password and then something you
+
+33
+00:02:38,640 --> 00:02:39,150
+have.
+
+34
+00:02:39,480 --> 00:02:47,430
+And that's either a virtual MFA device such as Google Authenticator on your mobile phone or a physical
+
+35
+00:02:47,430 --> 00:02:51,000
+MFA device, which is an actual physical token.
+
+36
+00:02:51,330 --> 00:02:56,280
+And I've got a little dollar sign there because they do cost money, whereas Google Authenticator is
+
+37
+00:02:56,280 --> 00:02:57,150
+completely free.
+
+38
+00:02:57,420 --> 00:03:01,110
+Now, the physical tokens can be purchased from third parties.
+
+39
+00:03:01,380 --> 00:03:08,520
+So when you go into the console, if you choose the option to actually use a physical token, you can
+
+40
+00:03:08,520 --> 00:03:09,090
+see it there.
+
+41
+00:03:09,090 --> 00:03:11,310
+You can see an option to click and purchase,
+
+42
+00:03:11,580 --> 00:03:14,700
+but it will take you off to another website like Amazon.com.
+
+43
+00:03:15,270 --> 00:03:19,890
+So remember that for the exam. The physical tokens come from third parties.
+
+44
+00:03:20,340 --> 00:03:21,570
+So that's the theory.
+
+45
+00:03:21,570 --> 00:03:27,630
+And in the next lesson, we're going to secure our accounts by enabling Multi-Factor Authentication.
+

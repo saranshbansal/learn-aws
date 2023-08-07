@@ -1,0 +1,184 @@
+1
+00:00:05,210 --> 00:00:05,780
+Hi, guys.
+
+2
+00:00:05,780 --> 00:00:10,040
+And this lesson we're going to create an IAM user and a group.
+
+3
+00:00:10,040 --> 00:00:16,520
+So I'm logged in to the management console and I'm logged in as my route user account because we don't
+
+4
+00:00:16,520 --> 00:00:18,500
+have an IM user yet.
+
+5
+00:00:18,650 --> 00:00:26,630
+So what I'm going to do is search for I am in the top left in the search box and then choose the IAM
+
+6
+00:00:26,630 --> 00:00:27,470
+service.
+
+7
+00:00:27,530 --> 00:00:35,480
+So in IAM we're going to create a user and that user is going to have full permissions to the AWS account
+
+8
+00:00:35,480 --> 00:00:38,990
+and we're going to assign the permissions through a group.
+
+9
+00:00:39,080 --> 00:00:45,620
+Now we're going to do this so that we can log into our accounts using our own personal IAM user instead
+
+10
+00:00:45,620 --> 00:00:46,610
+of the root user.
+
+11
+00:00:47,160 --> 00:00:53,610
+So the first thing I want to do is go to user groups and I'm going to create a group called Admins.
+
+12
+00:00:53,760 --> 00:00:58,710
+So I'm going to choose, create group, and I'm going to give my group a name, I'm going to call it
+
+13
+00:00:58,710 --> 00:00:59,610
+admins.
+
+14
+00:00:59,610 --> 00:01:03,600
+And then what I need to do is attach permissions policies.
+
+15
+00:01:03,600 --> 00:01:08,370
+So these are going to be the permissions that users who are in the group will obtain.
+
+16
+00:01:08,820 --> 00:01:15,030
+Now I'm going to search for administrator access, and what I should find is there's a few options here,
+
+17
+00:01:15,030 --> 00:01:19,920
+but I want this one that's just called administrator access with no space between.
+
+18
+00:01:20,130 --> 00:01:23,610
+Now, if I expand, I can see the permissions.
+
+19
+00:01:23,850 --> 00:01:29,880
+In this policy, we can see that the effect is allow the action is what's called a wild card.
+
+20
+00:01:29,880 --> 00:01:32,760
+That's a star and the resource is star.
+
+21
+00:01:32,790 --> 00:01:38,190
+That basically means that all actions on all resources will be allowed.
+
+22
+00:01:38,580 --> 00:01:40,080
+So that's what I want.
+
+23
+00:01:40,080 --> 00:01:44,670
+I'm going to select this option, come down to the bottom and create group.
+
+24
+00:01:45,410 --> 00:01:47,810
+So now we have our group called Admins.
+
+25
+00:01:48,320 --> 00:01:53,660
+I'm then going to go to users on the left and I'm going to click on Add users.
+
+26
+00:01:53,750 --> 00:02:00,470
+I'm going to call my user Niel and I'm going to select password for a management console access.
+
+27
+00:02:00,680 --> 00:02:04,280
+We'll create an access key for programmatic access later on.
+
+28
+00:02:04,980 --> 00:02:11,370
+Now I'm going to enter a custom password and I'm going to deselect the requirement to change the password
+
+29
+00:02:11,370 --> 00:02:12,300
+at next log on.
+
+30
+00:02:12,690 --> 00:02:14,850
+Then I click next permissions.
+
+31
+00:02:14,850 --> 00:02:20,610
+I'm going to select the admins group to provide administrative permissions to my user account.
+
+32
+00:02:21,000 --> 00:02:22,290
+Click next.
+
+33
+00:02:22,290 --> 00:02:24,120
+I'm not going to assign any tax.
+
+34
+00:02:24,210 --> 00:02:28,470
+I'm going to go to review and then create user, and that's it.
+
+35
+00:02:28,470 --> 00:02:30,660
+My user account is being created.
+
+36
+00:02:30,660 --> 00:02:33,420
+So now you can see we have a user account.
+
+37
+00:02:33,420 --> 00:02:40,500
+The user is in a group called Admins and the admins group has administrative permissions assigned through
+
+38
+00:02:40,500 --> 00:02:42,330
+this policy that's been attached.
+
+39
+00:02:42,630 --> 00:02:43,800
+So that's great.
+
+40
+00:02:43,800 --> 00:02:47,190
+What I want to do now is sign in as this user.
+
+41
+00:02:47,340 --> 00:02:53,730
+So I'm going to sign out using the menu in the top right hand corner and then log back in again.
+
+42
+00:02:54,390 --> 00:03:00,510
+Now, this time we're going to log in as an IAM user, so we need to enter our account alias.
+
+43
+00:03:00,690 --> 00:03:07,110
+I've entered my alias, I'm going to click on next, enter my IAM username and password.
+
+44
+00:03:07,760 --> 00:03:10,160
+And then click on sign in and that's it.
+
+45
+00:03:10,160 --> 00:03:17,990
+I'm now signed in using my own personal IAM user account to AWAs and I have full administrative permissions
+
+46
+00:03:17,990 --> 00:03:18,980
+over the account.
+

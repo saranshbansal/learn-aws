@@ -1,0 +1,260 @@
+1
+00:00:05,080 --> 00:00:05,800
+Welcome back.
+
+2
+00:00:05,830 --> 00:00:12,370
+In this lesson, we're going to configure our account and we're going to create a budget and an alarm.
+
+3
+00:00:12,370 --> 00:00:14,770
+So what are the steps we're going to follow?
+
+4
+00:00:14,770 --> 00:00:19,570
+Well, we're going to configure an account alias if we haven't already.
+
+5
+00:00:19,570 --> 00:00:24,070
+We're going to enable access to billing for IAM users.
+
+6
+00:00:24,070 --> 00:00:29,350
+We're going to update our billing preferences and we're going to create a budget and alarm.
+
+7
+00:00:29,350 --> 00:00:34,660
+These are really important so that you get notified if you accidentally leave something running and
+
+8
+00:00:34,660 --> 00:00:36,310
+you're going to start running up a bill.
+
+9
+00:00:36,310 --> 00:00:42,910
+I'm logged in to my free tier account and what I'm going to do is in the top left hand corner, use
+
+10
+00:00:42,910 --> 00:00:45,280
+this menu, Select services.
+
+11
+00:00:45,280 --> 00:00:48,910
+Scroll down to security, identity and compliance.
+
+12
+00:00:49,330 --> 00:00:55,960
+In here you will find the IAM Identity and Access Management Service and we're going to use that to
+
+13
+00:00:55,960 --> 00:00:57,970
+configure our account alias.
+
+14
+00:00:57,970 --> 00:00:59,950
+So what is an account alias?
+
+15
+00:00:59,950 --> 00:01:05,440
+Well, it's a name that we can use to sign in instead of using our accounts ID.
+
+16
+00:01:05,530 --> 00:01:09,370
+So for example, you can see this sign in URL.
+
+17
+00:01:09,370 --> 00:01:16,420
+Once we create user accounts, those users will need to know this URL or at least this account number
+
+18
+00:01:16,420 --> 00:01:18,070
+in order to be able to sign in.
+
+19
+00:01:18,070 --> 00:01:20,110
+And that's not really very user friendly.
+
+20
+00:01:20,200 --> 00:01:24,430
+So what we're going to do, I'm going to give it the same name as my account.
+
+21
+00:01:24,490 --> 00:01:33,400
+I'm going to choose, create type in my preferred alias as Neil Dash a dash and then labs and choose
+
+22
+00:01:33,400 --> 00:01:34,480
+save changes.
+
+23
+00:01:34,960 --> 00:01:42,490
+So it's now created the alias for my account and you can see that in the sign in URL here.
+
+24
+00:01:42,520 --> 00:01:46,150
+So now the sign in URL is a little bit easier to remember.
+
+25
+00:01:46,300 --> 00:01:52,150
+The next thing we're going to do is we're going to enable billing access for IAM users.
+
+26
+00:01:52,150 --> 00:01:57,910
+What this means is you may remember that I mentioned that we shouldn't sign in as the root user account
+
+27
+00:01:57,910 --> 00:01:59,530
+on an ongoing basis.
+
+28
+00:01:59,530 --> 00:02:07,060
+It's a best practice to create a user account here in IAM that has the permissions we need to do our
+
+29
+00:02:07,060 --> 00:02:09,250
+jobs and log in and start user.
+
+30
+00:02:09,400 --> 00:02:14,980
+Now that user won't be able to access billing information which is quite useful when it's your own account.
+
+31
+00:02:15,130 --> 00:02:21,490
+So what we're going to do is choose the account option in the dropdown box in the top right hand corner
+
+32
+00:02:21,790 --> 00:02:28,180
+and if you scroll down this page you will find IAM user and role access to billing information.
+
+33
+00:02:28,180 --> 00:02:32,650
+Click on edit, click on Activate IAM access.
+
+34
+00:02:32,650 --> 00:02:37,660
+And then if we supply the permissions to our users, they'll be able to access billing information.
+
+35
+00:02:37,660 --> 00:02:42,610
+Next, we can choose the dropdown in the top right and choose the billing dashboard.
+
+36
+00:02:42,610 --> 00:02:47,680
+Here we're going to go to billing preferences on the left hand side.
+
+37
+00:02:47,680 --> 00:02:52,660
+And what I like to do here is I like to receive my PDF invoice via email.
+
+38
+00:02:52,660 --> 00:02:54,850
+Saves me having to log in when I receive it.
+
+39
+00:02:54,850 --> 00:02:59,770
+I can just view it straight away and I would like to receive free to usage alerts.
+
+40
+00:02:59,770 --> 00:03:05,650
+So that means when we're approaching or have exceeded our free to usage limits, we will get an email
+
+41
+00:03:05,650 --> 00:03:06,790
+to notify us.
+
+42
+00:03:06,790 --> 00:03:10,060
+I'm going to select this box and enter my email address.
+
+43
+00:03:10,360 --> 00:03:16,600
+Lastly, I'm going to select receive billing alerts as well and save these preferences.
+
+44
+00:03:16,780 --> 00:03:22,390
+Now the last thing I want to do is really important, and that is to create a budget so that I can get
+
+45
+00:03:22,390 --> 00:03:27,010
+an alert when my bill is starting to reach a certain limit.
+
+46
+00:03:27,010 --> 00:03:33,970
+So I've chosen budgets on the left hand side here and I can choose create a budget to create my budget.
+
+47
+00:03:34,060 --> 00:03:40,390
+And on this page you can leave the user template, simplified, selected, and then we have a couple
+
+48
+00:03:40,390 --> 00:03:41,200
+of options.
+
+49
+00:03:41,200 --> 00:03:47,050
+Now, you can either create a budget that notifies you once your spending exceeds the free tier limits
+
+50
+00:03:47,260 --> 00:03:49,600
+or choose a monthly cost budget.
+
+51
+00:03:49,630 --> 00:03:56,200
+Now I'm going to choose the monthly cost budget and I'm simply going to enter a small amount like you
+
+52
+00:03:56,200 --> 00:03:58,480
+could put in $5 or $10.
+
+53
+00:03:58,480 --> 00:04:01,210
+Now most of what we do should be in the free tier.
+
+54
+00:04:01,210 --> 00:04:06,310
+So it's unlikely that you're going to spend any money, but sometimes you might have a couple of dollars
+
+55
+00:04:06,310 --> 00:04:07,150
+here and there.
+
+56
+00:04:07,150 --> 00:04:11,440
+So all in all, a really, really cheap way to learn us.
+
+57
+00:04:11,560 --> 00:04:15,730
+Now we can see it's trying to calculate last month's cost, but we didn't have any because it's brand
+
+58
+00:04:15,730 --> 00:04:16,000
+new.
+
+59
+00:04:16,000 --> 00:04:17,170
+So that's not going to work.
+
+60
+00:04:17,440 --> 00:04:23,020
+Now all you need to do here is enter your email address and then create the budget and that's it.
+
+61
+00:04:23,020 --> 00:04:31,390
+I have my monthly cost budget of $5 and I will get some notifications in my email inbox if I start getting
+
+62
+00:04:31,390 --> 00:04:34,360
+close to or exceed that budget.
+
+63
+00:04:34,360 --> 00:04:35,560
+So make sure you do that.
+
+64
+00:04:35,560 --> 00:04:40,870
+It's a great way to just safeguard against something accidental where you might leave something running
+
+65
+00:04:40,870 --> 00:04:42,400
+and rack up a bit of a bill.
+

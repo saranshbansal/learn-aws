@@ -1,0 +1,148 @@
+1
+00:00:00,340 --> 00:00:04,230
+Hello and welcome to our AWS Certified Developer Associate course
+
+2
+00:00:04,500 --> 00:00:09,170
+in this course along with our practice discourse and our cheat sheets,
+
+3
+00:00:09,180 --> 00:00:13,190
+you're going to learn absolutely everything you need to know to pass the exam.
+
+4
+00:00:13,340 --> 00:00:14,980
+So who is this course for
+
+5
+00:00:15,190 --> 00:00:19,150
+this course is for anyone who wants to pass the Developer Associate exam.
+
+6
+00:00:19,410 --> 00:00:22,880
+Now it doesn't matter if you come from a development background or not.
+
+7
+00:00:22,890 --> 00:00:26,480
+I will provide all code samples and provide lots of
+
+8
+00:00:26,480 --> 00:00:31,400
+instruction to help you deploy infrastructure and code on AWS.
+
+9
+00:00:31,750 --> 00:00:33,430
+There'll be lots of hands on lessons
+
+10
+00:00:33,540 --> 00:00:36,960
+and lots of theory to back it up. So you really understand the concepts.
+
+11
+00:00:37,540 --> 00:00:41,050
+The developer Associate is one of free Associate level exams.
+
+12
+00:00:41,440 --> 00:00:43,400
+The other two are the Solutions Architect
+
+13
+00:00:43,400 --> 00:00:46,490
+Associate and the sys ops Administrator Associate.
+
+14
+00:00:46,880 --> 00:00:49,100
+I typically recommend that if you're going to work with
+
+15
+00:00:49,100 --> 00:00:52,690
+AWS or you're looking to get a job in AWS
+
+16
+00:00:52,890 --> 00:00:56,220
+then you should do all free Associate level exams.
+
+17
+00:00:56,550 --> 00:01:00,550
+Most people will start with the solutions architect Associate first
+
+18
+00:01:00,740 --> 00:01:04,080
+and for that reason I go into more depth on some topics
+
+19
+00:01:04,239 --> 00:01:05,790
+in that particular course.
+
+20
+00:01:06,070 --> 00:01:09,130
+In this course I do start at the basics but then
+
+21
+00:01:09,130 --> 00:01:12,320
+I move very quickly through to some of the more advanced topics
+
+22
+00:01:12,430 --> 00:01:14,410
+that are specific to this exam
+
+23
+00:01:14,580 --> 00:01:16,350
+That way I keep the course nice and
+
+24
+00:01:16,350 --> 00:01:19,450
+efficient and it's an easier learning experience for you
+
+25
+00:01:20,040 --> 00:01:21,750
+in terms of how to use the course.
+
+26
+00:01:21,750 --> 00:01:25,100
+I recommend that you follow from the beginning, right the way through to the end,
+
+27
+00:01:25,230 --> 00:01:27,780
+make sure you create your own free tier account
+
+28
+00:01:27,790 --> 00:01:30,580
+and follow along with the numerous hands on lessons
+
+29
+00:01:30,750 --> 00:01:33,740
+That way you get lots of hands on practice which is really
+
+30
+00:01:33,740 --> 00:01:37,610
+useful for building your knowledge and making sure you remember the concepts.
+
+31
+00:01:38,140 --> 00:01:42,020
+There's also a free study plan included with the course that gives you a structured
+
+32
+00:01:42,020 --> 00:01:44,940
+approach for planning out your training using
+
+33
+00:01:44,940 --> 00:01:47,350
+the video course and the practice tests.
+
+34
+00:01:47,740 --> 00:01:49,740
+Now that's it for my quick introduction.
+
+35
+00:01:49,750 --> 00:01:53,220
+I really hope you enjoy the course and I wish you the best with your exam.
+
+36
+00:01:53,250 --> 00:01:56,950
+Now please before you move onto section to make sure you download your
+
+37
+00:01:56,950 --> 00:02:00,360
+course download you're gonna need that as you do the hands on lessons.
+

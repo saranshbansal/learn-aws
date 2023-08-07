@@ -1,0 +1,360 @@
+1
+00:00:05,330 --> 00:00:10,748
+Okay, so let's look into some more details of users, groups, roles, and policies
+
+2
+00:00:10,772 --> 00:00:13,513
+in the Identity and Access Management service.
+
+3
+00:00:14,120 --> 00:00:18,833
+So we have an account here and within an account, we have these various principles.
+
+4
+00:00:18,950 --> 00:00:22,885
+We have users, groups, roles, and policies.
+
+5
+00:00:23,090 --> 00:00:26,781
+A group is a way of organizing users.
+
+6
+00:00:26,870 --> 00:00:31,269
+So we create a group and then we can assign our users to the group.
+
+7
+00:00:31,934 --> 00:00:35,019
+And we can then apply permissions to these users.
+
+8
+00:00:35,044 --> 00:00:36,820
+And we do that through a policy.
+
+9
+00:00:37,280 --> 00:00:42,206
+So the policy defines what the people in this group are allowed to do.
+
+10
+00:00:42,231 --> 00:00:44,822
+So this is a great way to organize.
+
+11
+00:00:45,108 --> 00:00:52,316
+Create a group, put everybody in that group that has similar job responsibilities and therefore need
+
+12
+00:00:52,340 --> 00:00:55,304
+similar permissions and then apply a policy to them.
+
+13
+00:00:55,790 --> 00:01:01,860
+So the policies define the permissions for the identities or resources they're associated with,
+
+14
+00:01:02,506 --> 00:01:06,909
+and the user will gain the permissions applied to the group through the policy.
+
+15
+00:01:07,160 --> 00:01:08,951
+There are different types of policies.
+
+16
+00:01:08,976 --> 00:01:15,185
+One is called an identity-based policy, and these can be applied to users, groups, or roles.
+
+17
+00:01:15,770 --> 00:01:16,963
+So what is a role?
+
+18
+00:01:17,060 --> 00:01:21,043
+A role is a little bit of a more difficult concept to understand.
+
+19
+00:01:21,530 --> 00:01:24,586
+Roles are used for delegation and they're assumed.
+
+20
+00:01:24,800 --> 00:01:26,880
+Now, if that doesn't make sense, don't worry.
+
+21
+00:01:26,910 --> 00:01:32,215
+In another slide, it's going to make a lot more sense when I show you graphically how it works.
+
+22
+00:01:32,239 --> 00:01:34,944
+Let's first go into some more detail on users.
+
+23
+00:01:35,240 --> 00:01:38,660
+So in IAM, we have our account root user.
+
+24
+00:01:39,050 --> 00:01:44,248
+Now the root user is the account that we created when we logged in,
+
+25
+00:01:44,440 --> 00:01:49,523
+so it's the email address that we used to sign up for our AWS account.
+
+26
+00:01:49,910 --> 00:01:56,348
+The root user has full permissions and it's a best practice to avoid using the root user account.
+
+27
+00:01:56,540 --> 00:02:01,890
+And you should also enable multifactor authentication for the root user account.
+
+28
+00:02:02,690 --> 00:02:06,279
+Then we have our individual users.
+
+29
+00:02:06,410 --> 00:02:11,148
+You can create up to 5,000 individual users in IAM.
+
+30
+00:02:11,653 --> 00:02:14,680
+And users will have no permissions by default.
+
+31
+00:02:14,690 --> 00:02:16,466
+That's really important to remember.
+
+32
+00:02:16,640 --> 00:02:23,300
+So you can create a user account and that user is able to log in to AWS, but they can't do anything
+
+33
+00:02:23,390 --> 00:02:25,572
+because they don't have any permissions.
+
+34
+00:02:26,090 --> 00:02:28,786
+So what you then have to do is give them permissions.
+
+35
+00:02:29,510 --> 00:02:32,692
+Now each user will have a friendly name.
+
+36
+00:02:32,840 --> 00:02:40,165
+In this case, the user account name is Andrea, so this person can log in with the user name Andrea.
+
+37
+00:02:40,190 --> 00:02:43,836
+There's also something called an Amazon Resource Name, an ARN.
+
+38
+00:02:44,183 --> 00:02:48,281
+And ARNs are assigned to resources within AWS.
+
+39
+00:02:48,320 --> 00:02:51,590
+They're a bit harder to remember as you can see. They're quite long.
+
+40
+00:02:51,950 --> 00:02:55,806
+They contain the account number for the AWS account.
+
+41
+00:02:56,060 --> 00:03:02,398
+And as you can see, they tell you the type of resource, a user account, and then the actual friendly
+
+42
+00:03:02,423 --> 00:03:03,456
+name is on the end.
+
+43
+00:03:03,530 --> 00:03:08,446
+There's a few ways that our users can actually authenticate to AWS.
+
+44
+00:03:08,630 --> 00:03:15,152
+You remember that you can access AWS through the management console, the Command Line Interface,
+
+45
+00:03:15,200 --> 00:03:16,781
+and also the API.
+
+46
+00:03:17,166 --> 00:03:23,428
+And authentication to the console is enabled through a username and password.
+
+47
+00:03:23,870 --> 00:03:30,234
+And for the CLI and the API, there is something called Access Keys, which we'll explore in more
+
+48
+00:03:30,259 --> 00:03:31,618
+detail a bit later on.
+
+49
+00:03:31,850 --> 00:03:33,497
+Next up, we have groups.
+
+50
+00:03:33,735 --> 00:03:38,545
+With groups we can create our different groups for different users.
+
+51
+00:03:38,690 --> 00:03:43,160
+So here we have an admin group, we have a development group, and we have an operations group.
+
+52
+00:03:43,580 --> 00:03:46,106
+So these are job role specific groups.
+
+53
+00:03:46,310 --> 00:03:50,496
+We can then place our users into these groups as is appropriate.
+
+54
+00:03:51,290 --> 00:03:58,129
+Groups are a collection of users and you can have a user be a member of up to 10 groups.
+
+55
+00:03:58,460 --> 00:04:05,405
+The main purpose of using groups is not just to organize the users, but to organize them and then apply
+
+56
+00:04:05,430 --> 00:04:06,968
+permissions to those users.
+
+57
+00:04:07,190 --> 00:04:10,986
+And we do that by assigning policies to the groups.
+
+58
+00:04:11,240 --> 00:04:16,642
+The user will then gain the permissions applied to the group through the policy.
+
+59
+00:04:16,850 --> 00:04:18,809
+Next, we have IAM roles.
+
+60
+00:04:19,107 --> 00:04:23,687
+An IAM role is an identity that has specific permissions assigned to it.
+
+61
+00:04:24,440 --> 00:04:29,904
+The roles are assumed by users, applications, and services.
+
+62
+00:04:30,102 --> 00:04:35,799
+So we have some user accounts and maybe you have an application or service running somewhere else
+
+63
+00:04:36,417 --> 00:04:38,390
+and we're able to assume the role.
+
+64
+00:04:38,840 --> 00:04:46,414
+So each of these is able to then assume the role and then gain the permissions
+
+65
+00:04:46,438 --> 00:04:47,982
+that's assigned to that role.
+
+66
+00:04:48,200 --> 00:04:52,675
+So once assumed, the identity actually becomes the role.
+
+67
+00:04:52,880 --> 00:04:57,485
+So in other words, you have a user here and the user assumes the role.
+
+68
+00:04:57,530 --> 00:05:03,135
+At that point, the user is no longer acting as the user, they're acting as the role,
+
+69
+00:05:03,506 --> 00:05:06,908
+and they have the permissions that are assigned to the role.
+
+70
+00:05:07,280 --> 00:05:11,201
+And in this case, that might mean that they can access an S3 bucket.
+
+71
+00:05:11,390 --> 00:05:13,223
+Lastly, we have policies.
+
+72
+00:05:13,381 --> 00:05:18,094
+We've seen in this lesson that policies are a way to assign permissions.
+
+73
+00:05:18,410 --> 00:05:23,574
+They're actually documents that define the permissions and they're written in JSON.
+
+74
+00:05:23,599 --> 00:05:25,789
+That's JavaScript Object Notation.
+
+75
+00:05:25,850 --> 00:05:27,290
+They look something like this.
+
+76
+00:05:27,710 --> 00:05:30,706
+And as you can see, there's a bit of code here.
+
+77
+00:05:30,740 --> 00:05:32,120
+This is JSON code.
+
+78
+00:05:32,360 --> 00:05:38,238
+And this one essentially says the effect is to allow any action on any resource.
+
+79
+00:05:38,330 --> 00:05:43,254
+So this is one that you might assign to an administrator who needs to be able to do
+
+80
+00:05:43,278 --> 00:05:44,825
+everything in the account.
+
+81
+00:05:45,500 --> 00:05:47,750
+We then have a bucket policy here.
+
+82
+00:05:48,230 --> 00:05:55,196
+A bucket policy is another type of policy that's just assigned to a resource and it defines
+
+83
+00:05:55,220 --> 00:05:59,469
+who is able to act on that resource, what they're able to do.
+
+84
+00:05:59,600 --> 00:06:03,939
+All permissions are implicitly denied by default in AWS.
+
+85
+00:06:04,220 --> 00:06:10,052
+Now, what that means is that if you don't assign a permission to allow something, then it's just denied.
+
+86
+00:06:10,280 --> 00:06:14,454
+Everything will be denied unless you explicitly allow it.
+
+87
+00:06:15,050 --> 00:06:21,951
+The policy at the top here is an identity-based policy and it can be assigned to users, groups
+
+88
+00:06:21,976 --> 00:06:22,982
+and roles.
+
+89
+00:06:23,510 --> 00:06:30,708
+The resource-based policy at the bottom here can be assigned to specific resources such as
+
+90
+00:06:30,732 --> 00:06:37,420
+an S3 bucket, which is a container for storing data or DynamoDB Table, which is a type of database.
+

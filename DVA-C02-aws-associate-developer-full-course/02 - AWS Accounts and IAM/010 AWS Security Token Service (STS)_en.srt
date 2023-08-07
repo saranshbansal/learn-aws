@@ -1,0 +1,136 @@
+1
+00:00:05,120 --> 00:00:05,900
+Welcome back.
+
+2
+00:00:06,200 --> 00:00:11,660
+I talked a bit earlier about something called STS, the AWS Security Token Service.
+
+3
+00:00:11,840 --> 00:00:17,030
+This is the service that provides what are known as short lived or temporary credentials.
+
+4
+00:00:17,540 --> 00:00:21,770
+So let's have a look at how STS works because it's important to understand this.
+
+5
+00:00:23,260 --> 00:00:25,300
+So we have an EC2 instance.
+
+6
+00:00:25,900 --> 00:00:32,140
+And in this case, this EC2 instance is running an application. And the application needs to write
+
+7
+00:00:32,140 --> 00:00:35,740
+some files or read some files from an S3 bucket.
+
+8
+00:00:36,400 --> 00:00:43,060
+So how does the application running on EC2 get authorized to actually access S3?
+
+9
+00:00:43,480 --> 00:00:49,450
+What we can do is create something called an instance profile and attach an IAM role to the instance
+
+10
+00:00:49,450 --> 00:00:49,910
+profile.
+
+11
+00:00:49,930 --> 00:00:52,570
+We'll see how to actually do this later on in the course.
+
+12
+00:00:52,960 --> 00:01:00,250
+The EC2 instance will then attempt to assume the role by using the STS Assume Role API call.
+
+13
+00:01:00,400 --> 00:01:04,519
+Now there's a couple of different types of policy that apply to the IAM role.
+
+14
+00:01:04,750 --> 00:01:07,400
+You've got a trust policy and a permissions policy.
+
+15
+00:01:07,420 --> 00:01:09,710
+We talked about permissions policies before.
+
+16
+00:01:09,940 --> 00:01:16,300
+These define the permissions that are allowed or denied to this specific entity. But a trust policy
+
+17
+00:01:16,540 --> 00:01:19,240
+actually controls who can assume the role.
+
+18
+00:01:19,630 --> 00:01:24,910
+So who is allowed to assume this role and become that role and acts as if they are the role?
+
+19
+00:01:25,030 --> 00:01:29,920
+And the policy document might look something like this. In this particular example,
+
+20
+00:01:30,490 --> 00:01:39,220
+this policy is allowing the service ec2.amazonaws.com to assume roles using the STS Assume
+
+21
+00:01:39,220 --> 00:01:40,450
+Role API action.
+
+22
+00:01:40,990 --> 00:01:45,940
+So the trust policy is going to allow the EC2 instance to assume the role.
+
+23
+00:01:46,120 --> 00:01:55,210
+So the STS service gets involved and it will return temporary security credentials to EC2. And EC2
+
+24
+00:01:55,210 --> 00:01:59,470
+to can then access the S3 bucket with those temporary credentials.
+
+25
+00:02:00,130 --> 00:02:04,870
+The temporary credentials include an access key and a secret access key.
+
+26
+00:02:05,290 --> 00:02:08,919
+They have an expiration and something called a session token as well.
+
+27
+00:02:09,039 --> 00:02:15,370
+So these are provided to allow short term access. Remember, they expire after a short period of time.
+
+28
+00:02:16,000 --> 00:02:21,400
+And it will be an automatic process to renew the credentials before they expire.
+
+29
+00:02:21,730 --> 00:02:23,710
+And that happens using STS again.
+
+30
+00:02:23,890 --> 00:02:31,030
+Temporary credentials are used in several situations that includes Identity Federation, delegation,
+
+31
+00:02:31,030 --> 00:02:33,700
+cross account access, and IAM roles.
+
+32
+00:02:33,970 --> 00:02:35,230
+That's it for this lesson.
+
+33
+00:02:35,500 --> 00:02:41,770
+STS is used in a lot of the operations that we're going to be looking into in more detail in this course.
+
+34
+00:02:41,780 --> 00:02:46,030
+So it's important to understand how it works. And hopefully, you've now got a good understanding.
+

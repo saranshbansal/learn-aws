@@ -1,0 +1,272 @@
+1
+00:00:05,300 --> 00:00:06,048
+Welcome back.
+
+2
+00:00:06,073 --> 00:00:09,459
+There are a couple of different methods for access control.
+
+3
+00:00:09,770 --> 00:00:15,890
+One is known as Role-Based Access Control and the other is known as Attribute-Based Access Control.
+
+4
+00:00:15,915 --> 00:00:19,709
+So RBAC and ABAC and I'm going to cover those in this lesson.
+
+5
+00:00:19,910 --> 00:00:22,956
+So firstly, we have Role-Based Access Control.
+
+6
+00:00:23,240 --> 00:00:30,259
+Now, this is where we might have multiple groups and those groups are created as containers to hold
+
+7
+00:00:30,284 --> 00:00:32,983
+users who have a specific job role.
+
+8
+00:00:33,110 --> 00:00:37,101
+So in this case, the admin group, the development group, and the operations group.
+
+9
+00:00:37,366 --> 00:00:40,213
+And then we place our users into those groups.
+
+10
+00:00:40,340 --> 00:00:45,446
+We then take permissions policies and apply the permissions policies to the group.
+
+11
+00:00:45,796 --> 00:00:50,961
+So the users inherit the permissions that are assigned to the group and the groups are organized
+
+12
+00:00:50,985 --> 00:00:52,032
+ by job role.
+
+13
+00:00:52,206 --> 00:00:59,078
+This is a good method and it's a way that you can apply the minimum permissions a user needs for
+
+14
+00:00:59,103 --> 00:01:01,284
+their specific job function.
+
+15
+00:01:01,580 --> 00:01:09,180
+So, for example, the operations group here has a user called Andrea and Andrea will have some permissions
+
+16
+00:01:09,205 --> 00:01:16,518
+applied that give her the access she needs as an operations personnel, whereas Lee will get the specific
+
+17
+00:01:16,543 --> 00:01:21,290
+permissions he needs as a developer, but they won't be able to do each other's jobs.
+
+18
+00:01:21,290 --> 00:01:26,120
+So there will be specific permissions that they have which people in other groups don't.
+
+19
+00:01:26,150 --> 00:01:32,747
+So it's about minimizing the permissions you assign to users and giving them exactly what they need
+
+20
+00:01:32,772 --> 00:01:36,528
+for their job and that's known as the principle of least privilege.
+
+21
+00:01:36,620 --> 00:01:39,123
+You'll find several policies in your account.
+
+22
+00:01:39,148 --> 00:01:43,851
+These are AWS managed policies that are known as job function policies.
+
+23
+00:01:43,880 --> 00:01:48,743
+So these are supposed to be closely aligned to industry specific roles.
+
+24
+00:01:48,890 --> 00:01:54,476
+So we have administrator and data scientist and security auditor and system administrator
+
+25
+00:01:54,501 --> 00:01:55,583
+and several others.
+
+26
+00:01:55,910 --> 00:02:00,700
+So you can have a look at these and see whether they fit your specific use case.
+
+27
+00:02:00,860 --> 00:02:02,813
+If they do, then that can be quite useful.
+
+28
+00:02:03,530 --> 00:02:10,020
+It also means that if you don't have much experience in writing IAM policies, then you can use policy
+
+29
+00:02:10,045 --> 00:02:13,117
+documents that have been pre-created by AWS.
+
+30
+00:02:13,310 --> 00:02:18,501
+So, for example, we might have a billing admins group with a user called Joanne
+
+31
+00:02:18,525 --> 00:02:20,572
+and a permissions policy applied.
+
+32
+00:02:20,744 --> 00:02:26,940
+And that permissions policy would use the billing job function policy, the AWS managed policy.
+
+33
+00:02:27,200 --> 00:02:33,898
+And the actual JSON code looks like this and it gives Joanne the specific permissions that she needs
+
+34
+00:02:33,922 --> 00:02:38,028
+to do her specific role as a billing administrator.
+
+35
+00:02:38,120 --> 00:02:44,823
+Attribute-Based Access Control is where we're using attributes in this case, tags to define access
+
+36
+00:02:44,848 --> 00:02:46,174
+to our resources.
+
+37
+00:02:46,400 --> 00:02:49,241
+So we have a DBAdmins group in IAM.
+
+38
+00:02:49,580 --> 00:02:57,005
+We have Dave, who is a member of that group, and Dave has a tag assigned to him to his user account.
+
+39
+00:02:57,140 --> 00:03:02,868
+And that gives him two pieces of information here. So the tag is a piece of metadata.
+
+40
+00:03:02,930 --> 00:03:04,390
+That's a key value pair.
+
+41
+00:03:04,760 --> 00:03:09,893
+We have the key, which is department and the value, which is DBAdmins.
+
+42
+00:03:10,100 --> 00:03:12,949
+So that's a tag applied to that particular user.
+
+43
+00:03:13,130 --> 00:03:19,262
+So tags are a way of signing metadata to resources using key value pairs.
+
+44
+00:03:19,760 --> 00:03:26,576
+Now, we then have a permissions policy assigned to the group and that permissions policy looks like this.
+
+45
+00:03:26,930 --> 00:03:28,762
+So let's try to understand this.
+
+46
+00:03:28,880 --> 00:03:32,855
+Firstly, there's an effect which is "allow", so it's going to allow some access.
+
+47
+00:03:33,110 --> 00:03:36,424
+The action is three different API actions.
+
+48
+00:03:36,449 --> 00:03:41,969
+We've got RebootDBInstance, StartDBinstance, and StopDBInstance.
+
+49
+00:03:42,230 --> 00:03:46,037
+The resource is * so any resource, but there's a condition.
+
+50
+00:03:46,062 --> 00:03:49,150
+So the condition says that the string has to equal.
+
+51
+00:03:49,640 --> 00:03:53,023
+And then we've got two particular tags here.
+
+52
+00:03:53,300 --> 00:03:58,600
+We've got the AWS principal tag. That's the tag applied to the user here.
+
+53
+00:03:58,610 --> 00:04:05,756
+So it's applied to a principal in IAM and that needs to be department/DBadmins.
+
+54
+00:04:06,350 --> 00:04:08,604
+We then have a resource tag.
+
+55
+00:04:08,629 --> 00:04:16,149
+So in this case it's the RDS database and it needs to have the DB tag environment and production.
+
+56
+00:04:16,310 --> 00:04:22,756
+So the permissions will be granted to the resources when the tag matches the correct value.
+
+57
+00:04:23,000 --> 00:04:27,955
+So let's have a look at the tags associated with these two RDS databases.
+
+58
+00:04:28,490 --> 00:04:34,442
+The top one has an environment of production and the bottom one has an environment of development.
+
+59
+00:04:34,930 --> 00:04:42,897
+So when Dave actually tries to reboot the DB instance in production, he's going to get a success because
+
+60
+00:04:42,922 --> 00:04:50,732
+the reboot DB instance action is allowed as long as the department equals DBadmins
+
+61
+00:04:50,757 --> 00:04:53,448
+on the specific principal tag.
+
+62
+00:04:53,820 --> 00:04:59,424
+And the DB tag for the RDS database should equal environment production, which it does.
+
+63
+00:04:59,450 --> 00:05:06,001
+If Dave then tries to stop the other DB instance that's going to fail and that's because the tag
+
+64
+00:05:06,025 --> 00:05:12,823
+associated with that database has an environment of development, and that's not allowed, it's not in
+
+65
+00:05:12,847 --> 00:05:13,905
+the policy.
+
+66
+00:05:13,990 --> 00:05:18,885
+This is a great way of implementing access control as it gives you a lot of flexibility.
+
+67
+00:05:19,060 --> 00:05:20,371
+So that's it for the theory.
+
+68
+00:05:20,396 --> 00:05:27,386
+We will actually perform a lab later on in this section where we'll look at implementing RBAC and ABAC.
+

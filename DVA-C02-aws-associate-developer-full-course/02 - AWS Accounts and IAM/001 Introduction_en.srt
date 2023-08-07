@@ -1,0 +1,76 @@
+1
+00:00:00,140 --> 00:00:01,950
+Hi guys and welcome to this section.
+
+2
+00:00:02,020 --> 00:00:05,780
+In this section we're going to get our AWS account up and running,
+
+3
+00:00:05,820 --> 00:00:08,119
+you're going to create a free tier account
+
+4
+00:00:08,160 --> 00:00:11,020
+and then perform some configuration on that account.
+
+5
+00:00:11,100 --> 00:00:14,370
+Make sure you set up multi factor authentication and it's
+
+6
+00:00:14,370 --> 00:00:16,960
+also very important to set up a billing alarm.
+
+7
+00:00:17,140 --> 00:00:19,620
+So we will be launching lots of services in
+
+8
+00:00:19,620 --> 00:00:22,740
+this course through the many hands on lessons.
+
+9
+00:00:22,750 --> 00:00:25,670
+So you'll want to make sure that you've got a billing alarm just in
+
+10
+00:00:25,670 --> 00:00:30,160
+case you forget to terminate or delete something that might cost you money.
+
+11
+00:00:30,170 --> 00:00:34,190
+So the billing alarm can be set at a low value like $5 and you'll get an
+
+12
+00:00:34,190 --> 00:00:38,260
+email notifying you that you are starting to run up a little bit of a bill.
+
+13
+00:00:38,840 --> 00:00:43,190
+You'll also learn about the AWS identity and access management service.
+
+14
+00:00:43,200 --> 00:00:46,070
+I am and I'm going to teach you about role based
+
+15
+00:00:46,070 --> 00:00:48,830
+access control and attribute based access
+
+16
+00:00:48,830 --> 00:00:51,510
+control to really important concepts for
+
+17
+00:00:51,510 --> 00:00:55,190
+how we can control access to resources and I'll show you
+
+18
+00:00:55,190 --> 00:00:58,850
+how to actually assume an I am role using the console.
+
+19
+00:00:59,240 --> 00:01:01,550
+So I hope you enjoy the lessons. I'll see you in the next one
+

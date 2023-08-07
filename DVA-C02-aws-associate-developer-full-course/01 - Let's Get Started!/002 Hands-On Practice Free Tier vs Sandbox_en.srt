@@ -1,0 +1,200 @@
+1
+00:00:05,600 --> 00:00:10,280
+In this quick video, I just want to discuss a couple of options to getting hands-on practice.
+
+2
+00:00:10,600 --> 00:00:15,920
+Now, whatever technology you're learning, there's no substitute for getting hands-on practice actually
+
+3
+00:00:15,920 --> 00:00:17,180
+using the technology.
+
+4
+00:00:17,300 --> 00:00:18,950
+it really is the best way to learn.
+
+5
+00:00:19,580 --> 00:00:24,260
+Now, in this course, I recommend you open your own AWS free tier account.
+
+6
+00:00:24,410 --> 00:00:27,980
+But there's another additional tool that might be useful called a Sandbox.
+
+7
+00:00:28,310 --> 00:00:30,020
+So let's start off with free tier.
+
+8
+00:00:30,320 --> 00:00:35,390
+With the free tier, you're going to create your very own AWS free tier account, and I'm going to show
+
+9
+00:00:35,390 --> 00:00:36,410
+you how to do that.
+
+10
+00:00:37,070 --> 00:00:42,380
+Now you get full control over this account. It's your account and that means you can do anything
+
+11
+00:00:42,380 --> 00:00:43,490
+you want with the account.
+
+12
+00:00:43,910 --> 00:00:46,910
+Now, this does mean that you're responsible for any bills.
+
+13
+00:00:47,210 --> 00:00:52,250
+You'll need to add a credit card when you sign up for your free tier account and you'll have to pay
+
+14
+00:00:52,250 --> 00:00:53,600
+any bills that you run up.
+
+15
+00:00:54,110 --> 00:01:00,140
+Now, we will operate in the free tier in this course, and if we ever go outside of the free tier, I'm
+
+16
+00:01:00,140 --> 00:01:05,780
+going to warn you. But you always have to follow my instructions and make sure you shut down resources
+
+17
+00:01:05,780 --> 00:01:06,740
+to avoid bills.
+
+18
+00:01:07,370 --> 00:01:12,200
+And we're going to set a billing alarm, so you get a notification if you reach a certain threshold.
+
+19
+00:01:12,530 --> 00:01:18,500
+I highly recommend that you do open your own free tier account so you can follow along with my instructions
+
+20
+00:01:18,500 --> 00:01:21,290
+as we go through the course in the hands-on lessons.
+
+21
+00:01:21,770 --> 00:01:25,700
+An additional resource is known as a Sandbox or a Challenge Lab.
+
+22
+00:01:26,090 --> 00:01:30,770
+Now in this model, the AWS account is actually hosted by a provider,
+
+23
+00:01:30,770 --> 00:01:31,940
+it's not your account.
+
+24
+00:01:32,420 --> 00:01:37,160
+Now that does mean that you will have limited control. For more advanced courses
+
+25
+00:01:37,160 --> 00:01:42,050
+it means you won't be able to do things like cross account access because you'll only have one account
+
+26
+00:01:42,440 --> 00:01:44,330
+and you'll have limited control over it.
+
+27
+00:01:44,690 --> 00:01:47,720
+On the plus side, it means you get no cloud bills.
+
+28
+00:01:47,720 --> 00:01:54,200
+You don't take any risk or responsibility. You pay for the service upfront and there's no risk of running
+
+29
+00:01:54,200 --> 00:01:55,520
+up any additional bills.
+
+30
+00:01:55,820 --> 00:01:56,840
+With Challenge Labs
+
+31
+00:01:56,840 --> 00:02:02,300
+you get scenario-based challenges, so it's a great way to test your skills and learn new skills as
+
+32
+00:02:02,300 --> 00:02:02,660
+well
+
+33
+00:02:02,840 --> 00:02:08,270
+based on a scenario that's been pre-configured for you. It's been designed for you and the lab has
+
+34
+00:02:08,270 --> 00:02:11,270
+been set up to accommodate that particular challenge.
+
+35
+00:02:11,600 --> 00:02:14,810
+I recommend Challenge Labs as an additional training tool.
+
+36
+00:02:15,230 --> 00:02:19,760
+If you do want to gain access to Challenge Labs, then we actually have some on our website.
+
+37
+00:02:19,790 --> 00:02:21,380
+Now this is completely optional.
+
+38
+00:02:21,530 --> 00:02:24,560
+It's not required for this course, but it's an extra learning tool.
+
+39
+00:02:24,830 --> 00:02:28,220
+It does require registration and you have to pay an additional fee.
+
+40
+00:02:28,670 --> 00:02:34,160
+There's a video on this page to show what they look like in action, and in this particular example,
+
+41
+00:02:34,160 --> 00:02:39,410
+there were over 700 labs across many different cloud platforms and technologies.
+
+42
+00:02:39,710 --> 00:02:45,950
+Alternatively, if you're just learning AWS, you can access the AWS Challenge Labs. And you can see an example
+
+43
+00:02:45,950 --> 00:02:49,430
+here of the console. For those who are taking the SysOps exam,
+
+44
+00:02:49,550 --> 00:02:52,880
+this is what you'll see in your AWS exam lab.
+
+45
+00:02:52,880 --> 00:03:00,080
+This is the same provider that AWS used for their new exam labs. So you'll get the AWS management console
+
+46
+00:03:00,080 --> 00:03:05,600
+on the left and some instructions on the right. Or in the case of the exam or the more advanced labs,
+
+47
+00:03:05,840 --> 00:03:09,230
+you just get a scenario and a few hints as to what you need to do.
+
+48
+00:03:09,860 --> 00:03:13,100
+And it also verifies and validates the work that you've done.
+
+49
+00:03:13,580 --> 00:03:18,170
+So these are completely optional, but they're definitely a very useful tool for getting extra practice
+
+50
+00:03:18,320 --> 00:03:20,150
+and validating your own skills.
+

@@ -1,0 +1,128 @@
+1
+00:00:05,250 --> 00:00:10,486
+Hi, guys. In this lesson, I'm going to give you an overview of the IAM service,
+
+2
+00:00:10,510 --> 00:00:13,235
+the Identity and Access Management service.
+
+3
+00:00:13,260 --> 00:00:20,474
+Now, you have seen this in the last section when we logged into AWS and we configured our account.
+
+4
+00:00:20,499 --> 00:00:23,528
+We actually went into the IAM management console.
+
+5
+00:00:23,670 --> 00:00:30,668
+IAM is the Identity and Access Management service, and it's a way that we can authenticate and be
+
+6
+00:00:30,693 --> 00:00:34,475
+authorized to access services on AWS.
+
+7
+00:00:34,500 --> 00:00:41,876
+So let's say we're connecting to an AWS service via either the management console, the Command Line
+
+8
+00:00:41,901 --> 00:00:43,912
+Interface or the API.
+
+9
+00:00:44,564 --> 00:00:51,230
+We'll connect to AWS IAM and we can then authenticate.
+
+10
+00:00:51,500 --> 00:00:56,015
+And all principles must be authenticated to send requests.
+
+11
+00:00:56,040 --> 00:00:57,376
+Now what is a principle?
+
+12
+00:00:57,810 --> 00:01:04,718
+Well, a principle is a person or an application that can make a request for an action
+
+13
+00:01:04,742 --> 00:01:07,174
+or an operation on a resource.
+
+14
+00:01:07,290 --> 00:01:14,748
+Now actions and operations are both where we're using the API to interact with an AWS service.
+
+15
+00:01:15,120 --> 00:01:20,434
+So we have users, roles, federated users, and applications.
+
+16
+00:01:20,730 --> 00:01:23,508
+We then have a couple of types of policy.
+
+17
+00:01:23,760 --> 00:01:31,025
+So we can assign permissions to users and then we can use policies to control access to resources.
+
+18
+00:01:31,290 --> 00:01:36,157
+We have identity-based policies and resource-based policies.
+
+19
+00:01:36,322 --> 00:01:42,677
+And these determine whether to authorize the request, whether to allow or to deny
+
+20
+00:01:42,701 --> 00:01:44,214
+the request to the resource.
+
+21
+00:01:44,730 --> 00:01:51,578
+And once you've got an allow or a deny, assuming it's a deny in this case, you're then able to run
+
+22
+00:01:51,698 --> 00:01:53,992
+an action against a resource.
+
+23
+00:01:54,330 --> 00:01:59,168
+Now, remember, I said that everything in AWS is an API call.
+
+24
+00:01:59,526 --> 00:02:06,970
+So when you're trying to launch an EC2 to instance, you're basically executing the RunInstances command.
+
+25
+00:02:07,470 --> 00:02:14,430
+If you're trying to get information about an S3 bucket, you're running the GetBucket API action.
+
+26
+00:02:14,790 --> 00:02:20,400
+And if you trying to create a user in IAM, you're running the CreateUser action.
+
+27
+00:02:20,640 --> 00:02:28,823
+So whatever resource you're interacting with in AWS, an API action is actually being executed
+
+28
+00:02:29,043 --> 00:02:36,909
+and you need to have the permissions assigned to your account and you need to be allowed through a policy
+
+29
+00:02:37,042 --> 00:02:40,339
+to be able to actually perform that specific action.
+
+30
+00:02:40,440 --> 00:02:44,793
+So the actions are then authorized on the AWS resources.
+
+31
+00:02:45,060 --> 00:02:49,048
+So that's a really quick overview of what this service does.
+
+32
+00:02:49,179 --> 00:02:55,880
+And in the next lesson, we're going to delve in more depth into users, groups, roles, and policies.
+

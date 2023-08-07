@@ -1,0 +1,108 @@
+1
+00:00:05,280 --> 00:00:05,850
+Hi, guys.
+
+2
+00:00:05,850 --> 00:00:11,700
+Before we get started creating our accounts, I'm just going to walk you through what the process is
+
+3
+00:00:11,700 --> 00:00:15,180
+and a little bit of information about what the account includes.
+
+4
+00:00:15,450 --> 00:00:22,470
+So what you're going to need when you sign up to us is a credit card and you're going to need a unique
+
+5
+00:00:22,470 --> 00:00:23,220
+email address.
+
+6
+00:00:23,220 --> 00:00:30,030
+So one that has not been used to create any other accounts, then with these two things through the
+
+7
+00:00:30,030 --> 00:00:33,960
+signup process aways is going to create the account for you.
+
+8
+00:00:34,260 --> 00:00:39,870
+Now, when you sign in to the account, you'll be signing in using the account root user.
+
+9
+00:00:39,900 --> 00:00:46,320
+The root user has full control over the account and you use the email address you signed up with to
+
+10
+00:00:46,320 --> 00:00:48,540
+log in as the account root user.
+
+11
+00:00:49,250 --> 00:00:56,990
+Now you can also use the Identity and Access Management Service to create users, groups, roles and
+
+12
+00:00:56,990 --> 00:01:01,110
+permissions policies, and you should be using those to log in.
+
+13
+00:01:01,130 --> 00:01:08,720
+So, for example, the best thing to do is to create your own individual user accounts in IAM and log
+
+14
+00:01:08,720 --> 00:01:10,310
+in as that account.
+
+15
+00:01:10,520 --> 00:01:16,910
+The root user account is very powerful and it's an IAM best practice to create individual users and
+
+16
+00:01:16,910 --> 00:01:19,550
+avoid using the root account if you can.
+
+17
+00:01:19,550 --> 00:01:25,580
+Now we'll look in more detail at what users, groups, roles and policies are and how they're used within
+
+18
+00:01:25,580 --> 00:01:26,240
+the course.
+
+19
+00:01:26,240 --> 00:01:31,400
+But for now, just understand that when you create your account you'll be using the root user account.
+
+20
+00:01:31,400 --> 00:01:32,780
+When you initially log in.
+
+21
+00:01:33,020 --> 00:01:39,410
+When we log into our US accounts, for example, using the management console, we get authenticated.
+
+22
+00:01:39,440 --> 00:01:45,230
+It's the identity and access management principles that are used to authenticate IAM, whether you're
+
+23
+00:01:45,230 --> 00:01:52,760
+using the management console, the API for programmatic access or the command line interface, then
+
+24
+00:01:52,760 --> 00:01:59,300
+authorization happens and authorization is the process of determining what you're allowed to do.
+
+25
+00:01:59,330 --> 00:02:07,310
+So for example, you may be able to create resources across different regions around the world and all
+
+26
+00:02:07,310 --> 00:02:13,700
+of those resources are created within the AWS account and all of the identities you're using, like
+
+27
+00:02:13,700 --> 00:02:17,600
+the users, the groups, the roles and the policies are within the account.
+
