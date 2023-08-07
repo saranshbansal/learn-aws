@@ -1,0 +1,368 @@
+1
+00:00:05,000 --> 00:00:06,030
+In this lesson,
+
+2
+00:00:06,030 --> 00:00:10,570
+I'm going to show you how you can assume a role using the Command Line Interface.
+
+3
+00:00:11,040 --> 00:00:16,460
+Now back in the IAM management console, we're going to go to users and Paul.
+
+4
+00:00:16,840 --> 00:00:19,930
+And what I want to do is I'm actually just going to remove these
+
+5
+00:00:19,930 --> 00:00:21,138
+managed policies.
+
+6
+00:00:21,323 --> 00:00:25,260
+So I'm going to detach the Amazon EC2 full access.
+
+7
+00:00:25,740 --> 00:00:29,460
+I'm also going to detach the S3 full access.
+
+8
+00:00:29,940 --> 00:00:32,520
+So that means Paul no longer has permissions.
+
+9
+00:00:32,770 --> 00:00:37,650
+So what Paul is going to do is use the CLI to actually assume a role.
+
+10
+00:00:38,340 --> 00:00:40,050
+So what I then want to do
+
+11
+00:00:40,150 --> 00:00:44,510
+is go to roles, come down to EC2 full access.
+
+12
+00:00:44,590 --> 00:00:46,820
+This is the role that Paul is going to assume just like
+
+13
+00:00:46,820 --> 00:00:50,760
+when we did it in the management console in a previous lesson.
+
+14
+00:00:51,440 --> 00:00:54,070
+In this case, he's going to assume the role
+
+15
+00:00:54,230 --> 00:00:57,150
+and hes going to have EC2 full access just as before.
+
+16
+00:00:57,500 --> 00:01:02,560
+Now what I need is the ARN of the role. So I'm copying that to my clipboard.
+
+17
+00:01:03,040 --> 00:01:05,400
+You will then find in the course download
+
+18
+00:01:05,670 --> 00:01:08,250
+that in the code directory IAM,
+
+19
+00:01:08,260 --> 00:01:11,980
+we have this profile, EC2-full-access.config file.
+
+20
+00:01:12,440 --> 00:01:18,480
+And what we need to do here is pace the ARN of our role. So mine has already been done.
+
+21
+00:01:18,500 --> 00:01:23,350
+So make sure you've got the correct ARN with your account number and your role name.
+
+22
+00:01:23,450 --> 00:01:26,150
+We'll then copy this to our clipboards.
+
+23
+00:01:26,540 --> 00:01:28,160
+So I copy that to my clipboard.
+
+24
+00:01:28,840 --> 00:01:32,710
+And I'm going to show this demonstration on Windows remember on Windows,
+
+25
+00:01:32,720 --> 00:01:39,760
+the location of the config and credentials files is users administrator and .AWS.
+
+26
+00:01:40,140 --> 00:01:45,360
+Now, just to prove that I don't have access, I'm going to run AWS EC2
+
+27
+00:01:45,520 --> 00:01:47,590
+and then describe instances.
+
+28
+00:01:48,040 --> 00:01:49,133
+Hit enter.
+
+29
+00:01:49,170 --> 00:01:52,240
+And it tells me I'm not authorized to perform this operation.
+
+30
+00:01:52,640 --> 00:01:55,920
+So what I need to do is open up the config file.
+
+31
+00:01:56,240 --> 00:01:58,760
+I'm going to open it with notepad, click OK.
+
+32
+00:01:59,293 --> 00:02:04,050
+And in here what we're going to do is paste in that information.
+
+33
+00:02:04,840 --> 00:02:07,180
+So what we have is we have a default profile.
+
+34
+00:02:07,180 --> 00:02:12,080
+Now when we run the AWS commands it's going to run as the default profile.
+
+35
+00:02:12,220 --> 00:02:16,360
+And all that we have in here is the region us-east-1.
+
+36
+00:02:17,340 --> 00:02:22,650
+Now, in this case it then uses the credentials that are in the credentials file.
+
+37
+00:02:23,140 --> 00:02:26,580
+But what we're doing now is we're specifying another profile,
+
+38
+00:02:26,740 --> 00:02:30,360
+which is EC2-full-access.
+
+39
+00:02:30,840 --> 00:02:35,960
+When this profile is used and it's something that we specify on the command line,
+
+40
+00:02:36,340 --> 00:02:40,010
+it's going to assume the role that has this role ARN.
+
+41
+00:02:40,010 --> 00:02:43,560
+It's not using the credentials in the credentials file.
+
+42
+00:02:43,940 --> 00:02:46,550
+So that's all I need to do there. I can click on save.
+
+43
+00:02:47,540 --> 00:02:50,660
+I can come back and rerun the command but this time
+
+44
+00:02:50,840 --> 00:02:55,567
+I'm going to type --profile and then I'm going to copy
+
+45
+00:02:55,990 --> 00:02:58,850
+this name here. So this is the name of the profile
+
+46
+00:02:59,740 --> 00:03:01,150
+and then simply paste that in.
+
+47
+00:03:01,540 --> 00:03:02,490
+Hit enter.
+
+48
+00:03:02,650 --> 00:03:04,560
+And now I actually get a response.
+
+49
+00:03:04,720 --> 00:03:07,320
+Now I have instances running so I can see
+
+50
+00:03:07,460 --> 00:03:09,490
+information about those instances.
+
+51
+00:03:09,530 --> 00:03:12,340
+If you don't have any instances then what you'll
+
+52
+00:03:12,340 --> 00:03:14,460
+find is you just don't get an error message.
+
+53
+00:03:14,940 --> 00:03:19,060
+Let's also add S3 permissions now to the role not to Paul
+
+54
+00:03:19,070 --> 00:03:22,650
+and let's see if we can run some commands using S3.
+
+55
+00:03:23,040 --> 00:03:24,240
+So back under roles,
+
+56
+00:03:24,240 --> 00:03:30,730
+what I'm going to do is I'm going to add permissions, attach policies, type in S3,
+
+57
+00:03:30,740 --> 00:03:33,260
+choose the S3 full access,
+
+58
+00:03:33,640 --> 00:03:35,820
+attached, and that's been attached.
+
+59
+00:03:36,010 --> 00:03:40,270
+Now if I come back and I run AWS S3 LS,
+
+60
+00:03:40,740 --> 00:03:45,780
+then I'm not going to be able to run this command, it's access denied as Paul.
+
+61
+00:03:45,900 --> 00:03:48,120
+But if I add the profile information,
+
+62
+00:03:48,330 --> 00:03:49,300
+then it should work.
+
+63
+00:03:49,470 --> 00:03:50,750
+So let's hit enter again.
+
+64
+00:03:51,330 --> 00:03:53,040
+And this time I don't get a response.
+
+65
+00:03:53,540 --> 00:03:56,860
+So it's really easy to assume roles from the command line.
+
+66
+00:03:57,540 --> 00:03:58,980
+Now we can also
+
+67
+00:03:59,090 --> 00:04:03,060
+add additional profiles with different credentials if we want to as well.
+
+68
+00:04:03,440 --> 00:04:06,560
+So for example I can run AWS configure.
+
+69
+00:04:06,940 --> 00:04:10,980
+This time I'm going to put in -profile Neal.
+
+70
+00:04:11,320 --> 00:04:14,550
+So I'm going to create my own profile, hit enter,
+
+71
+00:04:14,940 --> 00:04:19,459
+And it's going to ask me for my access key ID and secret access key.
+
+72
+00:04:19,649 --> 00:04:24,210
+So back in IAM, I'm going to generate some security credentials for my account.
+
+73
+00:04:24,280 --> 00:04:26,010
+I already have an access key,
+
+74
+00:04:26,230 --> 00:04:29,580
+but I'm going to create a new one just to show you how to do it again.
+
+75
+00:04:29,860 --> 00:04:33,150
+Let's copy my access key ID, paste that in.
+
+76
+00:04:33,540 --> 00:04:35,420
+I now need the secret access key
+
+77
+00:04:35,540 --> 00:04:37,440
+so let's copy this to my clipboard,
+
+78
+00:04:37,640 --> 00:04:41,430
+paste that in. I'm going to select the us-east-1 region again
+
+79
+00:04:41,770 --> 00:04:43,050
+as my default region.
+
+80
+00:04:43,440 --> 00:04:44,890
+And that's the command completed.
+
+81
+00:04:45,240 --> 00:04:52,560
+So now I can run commands as myself. So again I can run AWS S3 LS.
+
+82
+00:04:52,940 --> 00:04:56,920
+And this time I can choose --profile Neal.
+
+83
+00:04:57,330 --> 00:05:01,270
+And I get a response using my particular profile.
+
+84
+00:05:01,580 --> 00:05:05,360
+Now what you'll see now if I just close this file so that I can refresh it
+
+85
+00:05:05,810 --> 00:05:08,370
+is when I go into the config file,
+
+86
+00:05:09,640 --> 00:05:13,150
+we have another profile for Neal with us-east-1.
+
+87
+00:05:14,310 --> 00:05:16,760
+And then if we go into credentials,
+
+88
+00:05:18,440 --> 00:05:20,870
+we'll now see two sets of credentials.
+
+89
+00:05:20,870 --> 00:05:24,090
+So we have the default credentials which in this case is Paul
+
+90
+00:05:24,380 --> 00:05:28,250
+and then we have the credentials for the Neal user as well.
+
+91
+00:05:28,920 --> 00:05:30,341
+So that's how that all works.
+
+92
+00:05:30,365 --> 00:05:32,906
+I hope that was useful and I'll see you in the next lesson.
+

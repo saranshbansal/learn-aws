@@ -1,0 +1,72 @@
+1
+00:00:00,340 --> 00:00:02,070
+Hello and welcome to this section.
+
+2
+00:00:02,310 --> 00:00:06,689
+This section is all about the AWS command line interface, the Cli
+
+3
+00:00:06,830 --> 00:00:08,950
+So we will be using the Cli quite a few
+
+4
+00:00:08,950 --> 00:00:11,710
+times in the hands on lessons throughout the course.
+
+5
+00:00:11,830 --> 00:00:14,050
+So this section is about getting you prepared
+
+6
+00:00:14,430 --> 00:00:16,750
+now it is a short section but it's very useful.
+
+7
+00:00:17,010 --> 00:00:21,650
+So what we'll do is we'll look at how we can install the Cli on our computers,
+
+8
+00:00:21,740 --> 00:00:23,750
+whatever operating system you're running.
+
+9
+00:00:24,240 --> 00:00:26,660
+Then we're going to configure credentials that we
+
+10
+00:00:26,660 --> 00:00:31,420
+have authentication and access to AWS Resources.
+
+11
+00:00:31,590 --> 00:00:34,150
+I'll show you around the Cli teach you some
+
+12
+00:00:34,150 --> 00:00:36,800
+of these sort of fundamental ways you can navigate,
+
+13
+00:00:36,840 --> 00:00:39,150
+find help and use some basic commands.
+
+14
+00:00:39,630 --> 00:00:43,000
+And then lastly we're going to carry on from what we did at the
+
+15
+00:00:43,010 --> 00:00:47,960
+end of the previous section where we actually assumed a role using the console
+
+16
+00:00:48,340 --> 00:00:49,210
+in this section.
+
+17
+00:00:49,210 --> 00:00:53,260
+What we're going to do is assume a role using the cli a really useful technique.
+
+18
+00:00:53,740 --> 00:00:56,160
+So I hope you enjoy it and I'll see you in the next lesson.
+

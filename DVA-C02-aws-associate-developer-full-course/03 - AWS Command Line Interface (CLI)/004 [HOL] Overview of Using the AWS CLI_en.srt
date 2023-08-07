@@ -1,0 +1,452 @@
+1
+00:00:05,240 --> 00:00:08,383
+In this lesson, I'm going to give you an overview of actually using the
+
+2
+00:00:08,408 --> 00:00:13,060
+command line interface and you'll get to practice some basic CLI commands.
+
+3
+00:00:13,440 --> 00:00:17,760
+I'm logged into my Linux instance and I have my CLI installed here.
+
+4
+00:00:17,970 --> 00:00:20,270
+And it's configured with Paul's credentials.
+
+5
+00:00:20,270 --> 00:00:22,540
+So we'll be able to run commands as Paul.
+
+6
+00:00:22,564 --> 00:00:25,540
+Now, you need to have the AWS configure
+
+7
+00:00:25,540 --> 00:00:28,310
+command run and you'd supply it some credentials.
+
+8
+00:00:28,320 --> 00:00:30,060
+We did that in a previous lesson.
+
+9
+00:00:30,440 --> 00:00:32,418
+And you can be on any operating system.
+
+10
+00:00:32,442 --> 00:00:35,750
+It doesn't matter if you're using Linux, Mac, or windows.
+
+11
+00:00:36,140 --> 00:00:37,990
+So let's run a couple of commands.
+
+12
+00:00:38,250 --> 00:00:40,760
+First, I'm just going to run AWS Help.
+
+13
+00:00:41,400 --> 00:00:44,620
+The help menu gives us contextual information about
+
+14
+00:00:44,620 --> 00:00:48,180
+the command that we're running, in this case, simply the AWS command.
+
+15
+00:00:48,480 --> 00:00:53,160
+So it tells us a description, synopsis, and it provides some of the options.
+
+16
+00:00:53,840 --> 00:00:55,903
+We can see some information here.
+
+17
+00:00:55,928 --> 00:00:59,030
+We can just keep hitting our space bar to go through
+
+18
+00:00:59,240 --> 00:01:03,130
+Then under available services, we can see the various services
+
+19
+00:01:03,310 --> 00:01:05,960
+that we can interact with using the CLI.
+
+20
+00:01:06,440 --> 00:01:08,750
+So you'll see there's hundreds of services in here.
+
+21
+00:01:09,540 --> 00:01:12,060
+Now typing Q, I'm able to quit.
+
+22
+00:01:12,740 --> 00:01:15,830
+And then I can run another command and in this case,
+
+23
+00:01:15,830 --> 00:01:21,760
+what I'm going to do is I'm going to choose to run the help command against AWS EC2.
+
+24
+00:01:22,540 --> 00:01:27,330
+So now I get the help menu specifically for the EC2 command,
+
+25
+00:01:27,330 --> 00:01:30,760
+so any of the commands that are related to the elastic compute cloud.
+
+26
+00:01:31,440 --> 00:01:35,320
+So again here, if we scroll through, we'll see quite a bit of information.
+
+27
+00:01:35,940 --> 00:01:41,160
+These are all of the options for how we can work with Amazon EC2.
+
+28
+00:01:41,840 --> 00:01:43,750
+So if I just keep hitting enter,
+
+29
+00:01:43,760 --> 00:01:48,280
+you can see lots of options to copy, to cancel, to create.
+
+30
+00:01:48,840 --> 00:01:52,520
+If we go down a bit further, you'll see that you can delete things
+
+31
+00:01:52,670 --> 00:01:57,150
+using the CLI, so you can do pretty much anything with the CLI.
+
+32
+00:01:57,830 --> 00:01:59,750
+If I just keep going down a bit further,
+
+33
+00:02:00,140 --> 00:02:02,245
+we'll get down to the describe.
+
+34
+00:02:02,456 --> 00:02:05,450
+So here we can see we've got the describe options.
+
+35
+00:02:05,940 --> 00:02:10,110
+Let's just scroll down a little bit further. We'll hit enter a couple more times.
+
+36
+00:02:10,400 --> 00:02:14,710
+And what I should find is the describe instances.
+
+37
+00:02:14,850 --> 00:02:17,160
+We can see it right at the bottom of my screen here.
+
+38
+00:02:17,930 --> 00:02:19,650
+So that's an interesting command that will
+
+39
+00:02:19,650 --> 00:02:23,623
+give us some information about the instances running in the account.
+
+40
+00:02:23,780 --> 00:02:24,790
+So let's quit.
+
+41
+00:02:25,240 --> 00:02:30,480
+And what I'm going to do now is run AWS EC2 describe instances.
+
+42
+00:02:30,630 --> 00:02:33,600
+Now, of course, this particular user does have
+
+43
+00:02:33,750 --> 00:02:38,160
+privileges to EC2, and I am actually running a couple of EC2 instances.
+
+44
+00:02:38,610 --> 00:02:40,620
+So if you're not you won't get any output.
+
+45
+00:02:40,630 --> 00:02:43,250
+But in this case I have two instances running.
+
+46
+00:02:43,740 --> 00:02:47,870
+And we can see some information here about those instances.
+
+47
+00:02:48,160 --> 00:02:49,950
+So lots of information is returned.
+
+48
+00:02:50,340 --> 00:02:51,560
+So that's EC2.
+
+49
+00:02:51,900 --> 00:02:54,960
+Let's now have a look at AWS S3.
+
+50
+00:02:55,430 --> 00:02:57,560
+So if I type AWS S3,
+
+51
+00:02:58,010 --> 00:02:58,860
+and then help,
+
+52
+00:02:59,240 --> 00:03:01,750
+we can see the various different command options.
+
+53
+00:03:02,020 --> 00:03:04,630
+Now S3 is the simple storage service
+
+54
+00:03:04,810 --> 00:03:08,520
+and it's an object-based storage system that you'll learn about later in the course.
+
+55
+00:03:09,040 --> 00:03:12,490
+So again we get quite a bit of information about the command,
+
+56
+00:03:12,670 --> 00:03:17,070
+and then we can see various options and examples of how we can use it.
+
+57
+00:03:17,340 --> 00:03:19,560
+Now, what I'm going to do is just quit out of there.
+
+58
+00:03:20,040 --> 00:03:22,280
+And we're going to run a couple of commands.
+
+59
+00:03:22,580 --> 00:03:29,020
+Firstly, I'm going to run the command AWS S3 mb.
+
+60
+00:03:29,200 --> 00:03:34,190
+Now mb is used to create a bucket and bucket is simply the container
+
+61
+00:03:34,420 --> 00:03:36,660
+into which you can upload files.
+
+62
+00:03:37,040 --> 00:03:40,760
+I then need to type S3://
+
+63
+00:03:41,140 --> 00:03:43,151
+and I need to put in a bucket name.
+
+64
+00:03:43,175 --> 00:03:45,760
+So I'm going to call it my test bucket.
+
+65
+00:03:46,440 --> 00:03:50,230
+And the name has to be unique across Amazon S3.
+
+66
+00:03:50,410 --> 00:03:53,960
+So I'm just going to put in a bunch of random characters to make sure it's unique
+
+67
+00:03:54,296 --> 00:03:55,380
+and then hit enter.
+
+68
+00:03:55,663 --> 00:03:56,750
+And that was unique.
+
+69
+00:03:57,240 --> 00:03:59,483
+So I was able to create the bucket.
+
+70
+00:03:59,850 --> 00:04:06,430
+So if I now run AWS S3 LS, we can then see that we have a bucket.
+
+71
+00:04:06,600 --> 00:04:09,940
+Now, what if I want to copy something to S3?
+
+72
+00:04:10,240 --> 00:04:11,575
+Well, let's create a file.
+
+73
+00:04:11,599 --> 00:04:16,370
+So I'll create a file simply called testfile.txt.
+
+74
+00:04:16,394 --> 00:04:20,660
+Of course it's an empty file but it does exist now on my hard drive.
+
+75
+00:04:21,240 --> 00:04:25,530
+So what I'm going to do then is run AWS S3 CP.
+
+76
+00:04:25,640 --> 00:04:28,930
+This is copy, so I'm going to copy the file.
+
+77
+00:04:28,960 --> 00:04:35,530
+So I gave the path to the file, testfile.txt and then S3://.
+
+78
+00:04:35,860 --> 00:04:38,530
+And I'm going to take my bucket name from here,
+
+79
+00:04:38,650 --> 00:04:40,440
+paste that in and hit enter.
+
+80
+00:04:40,620 --> 00:04:42,300
+So now that file has been uploaded.
+
+81
+00:04:42,740 --> 00:04:47,370
+So what I can now do is actually view the contents of the bucket.
+
+82
+00:04:47,370 --> 00:04:48,750
+So I'm going to copy the bucket name.
+
+83
+00:04:48,750 --> 00:04:53,670
+So S3:// and then the bucket name to my clipboard,
+
+84
+00:04:53,820 --> 00:04:57,550
+run AWS S3 LS, put in the bucket,
+
+85
+00:04:58,340 --> 00:05:01,460
+and we can see the contents of the bucket and it has the test file in it.
+
+86
+00:05:01,840 --> 00:05:05,560
+So that's super simple, very easy to work with S3 from the command line.
+
+87
+00:05:06,270 --> 00:05:08,270
+Now I finished with this particular test.
+
+88
+00:05:08,270 --> 00:05:11,250
+So what I want to do is actually remove my bucket.
+
+89
+00:05:11,740 --> 00:05:17,340
+Now, the way I do that is I type in AWS S3 RB for remove bucket,
+
+90
+00:05:17,840 --> 00:05:19,810
+and then I put in the bucket name.
+
+91
+00:05:20,000 --> 00:05:22,931
+Now we do actually have a file in the bucket.
+
+92
+00:05:22,955 --> 00:05:24,950
+So what happens is if we hit enter
+
+93
+00:05:25,540 --> 00:05:28,360
+it doesn't actually work and it tells us that it's not empty.
+
+94
+00:05:28,840 --> 00:05:34,060
+All we need to do to fix that is type --force, hit enter,
+
+95
+00:05:34,440 --> 00:05:35,631
+and now it's been removed.
+
+96
+00:05:35,655 --> 00:05:41,180
+So if we run AWS S3 LS, we no longer have any buckets.
+
+97
+00:05:41,640 --> 00:05:43,070
+So that's it for this lesson.
+
+98
+00:05:43,095 --> 00:05:45,600
+Really just a basic overview. Once you know how to
+
+99
+00:05:45,600 --> 00:05:50,380
+work around the commands and use the help menu, it's very easy.
+
+100
+00:05:50,420 --> 00:05:54,150
+Now I do highly recommend using Google anytime you get stuck
+
+101
+00:05:54,160 --> 00:05:58,210
+with using the CLI, you'll find lots of examples online.
+
+102
+00:05:58,440 --> 00:06:02,890
+And just to show you a quick example, if I had an EC2 instance and I wanted
+
+103
+00:06:02,915 --> 00:06:06,480
+to delete it using the CLI,
+
+104
+00:06:06,750 --> 00:06:09,590
+I could type easy to delete CLI,
+
+105
+00:06:10,160 --> 00:06:11,600
+and then we find some options here.
+
+106
+00:06:11,600 --> 00:06:15,920
+Now, the actual terminology for EC2 is terminate.
+
+107
+00:06:16,090 --> 00:06:19,940
+But even if you didn't know that and you put delete, you would find the answer.
+
+108
+00:06:19,940 --> 00:06:23,220
+Now you can see there is a delete instance but that's for ops works.
+
+109
+00:06:23,640 --> 00:06:27,620
+So by selecting the entry here I can then find
+
+110
+00:06:27,620 --> 00:06:30,410
+lots of information about how to terminate the instance,
+
+111
+00:06:30,600 --> 00:06:33,120
+the various different command line options.
+
+112
+00:06:33,320 --> 00:06:37,480
+And there's typically also an example which you can then use.
+
+113
+00:06:37,860 --> 00:06:40,260
+So that's it for this lesson. I'll see you in the next one.
+
