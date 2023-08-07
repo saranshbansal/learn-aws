@@ -1,0 +1,552 @@
+1
+00:00:05,640 --> 00:00:07,480
+Hi guys, In this hands-on lesson,
+
+2
+00:00:07,480 --> 00:00:10,570
+we're going to practice creating an event source mapping.
+
+3
+00:00:10,680 --> 00:00:14,250
+And we're going to do most of the configuration from the command line.
+
+4
+00:00:14,740 --> 00:00:17,490
+So in this case we're going to have a Lambda function,
+
+5
+00:00:17,760 --> 00:00:21,570
+an SQS queue, and we're also having CloudWatch where
+
+6
+00:00:21,570 --> 00:00:24,250
+we're going to record some information about what happens.
+
+7
+00:00:24,740 --> 00:00:26,030
+So our user
+
+8
+00:00:26,250 --> 00:00:29,860
+is going to add a message manually to the queue, that's us.
+
+9
+00:00:30,300 --> 00:00:34,700
+And then Lambda is going to poll the SQS queue. That's the event source mapping.
+
+10
+00:00:35,140 --> 00:00:36,980
+It then executes its function
+
+11
+00:00:37,150 --> 00:00:39,800
+and it actually writes an event to CloudWatch logs.
+
+12
+00:00:40,089 --> 00:00:41,650
+So that's essentially what we're doing.
+
+13
+00:00:42,040 --> 00:00:43,360
+Let's head over and build it out.
+
+14
+00:00:44,340 --> 00:00:48,045
+In your course download, you'll find in the code AWS Lambda,
+
+15
+00:00:48,069 --> 00:00:50,860
+and then the event source mapping directory you'll find
+
+16
+00:00:51,010 --> 00:00:53,560
+this event-source-mapping.MD file.
+
+17
+00:00:53,970 --> 00:00:56,660
+So we've got some of the commands that we're going to be running in here.
+
+18
+00:00:57,040 --> 00:01:00,890
+What we're going to do is we actually have an index.js file.
+
+19
+00:01:01,340 --> 00:01:04,849
+And we're going to zip that up as function.zip.
+
+20
+00:01:05,540 --> 00:01:08,330
+Then we're going to create the function from the command line.
+
+21
+00:01:08,520 --> 00:01:11,860
+We need to supply some information, we need to give it a name,
+
+22
+00:01:12,240 --> 00:01:16,160
+we need to supply the zip file so that's this command here.
+
+23
+00:01:17,140 --> 00:01:22,340
+We're then going to specify that the handler is index.handler for Lambda.
+
+24
+00:01:22,650 --> 00:01:26,310
+And the runtime is nodejs16.x.
+
+25
+00:01:26,740 --> 00:01:29,351
+And then we're going to supply a role ARN.
+
+26
+00:01:29,375 --> 00:01:31,360
+And we need to go and create that role now.
+
+27
+00:01:31,740 --> 00:01:36,150
+So let's go to the console and create our role and then we can add it to this command.
+
+28
+00:01:36,640 --> 00:01:37,830
+I'm in IAM.
+
+29
+00:01:38,110 --> 00:01:39,450
+I'm going to create a role.
+
+30
+00:01:40,540 --> 00:01:41,950
+So let's go create role.
+
+31
+00:01:42,610 --> 00:01:46,760
+And the service in this case is going to be AWS Lambda.
+
+32
+00:01:47,240 --> 00:01:48,760
+Then let's click on next.
+
+33
+00:01:49,440 --> 00:01:52,925
+And what we need to do here is find the permissions for SQS.
+
+34
+00:01:52,949 --> 00:01:54,710
+So I just search for SQS.
+
+35
+00:01:55,140 --> 00:02:01,260
+And we're going to use this one, AWSLambdaSQSQueueExecutionRole.
+
+36
+00:02:02,140 --> 00:02:03,180
+Click on next,
+
+37
+00:02:03,530 --> 00:02:04,960
+let's give the role a name.
+
+38
+00:02:06,240 --> 00:02:08,080
+Mine's called My SQS Role.
+
+39
+00:02:09,240 --> 00:02:12,430
+And we can see here that the trusted entities are Lambda.
+
+40
+00:02:12,430 --> 00:02:17,160
+So Lambda is gonna use this role and it's going to have permissions to SQS.
+
+41
+00:02:17,740 --> 00:02:19,660
+So that's great, let's create the role.
+
+42
+00:02:21,040 --> 00:02:22,150
+Role is created.
+
+43
+00:02:22,640 --> 00:02:27,390
+We're also going to need an SQS queue, so let's go and create our queue now as well.
+
+44
+00:02:27,820 --> 00:02:30,250
+So we're gonna go to the Simple Queue Service.
+
+45
+00:02:31,040 --> 00:02:33,990
+Now, we're going to learn a lot more about queues a bit later in the course,
+
+46
+00:02:33,990 --> 00:02:38,200
+but this is simply a message bus where we can add messages to the queue
+
+47
+00:02:38,340 --> 00:02:39,970
+and Lambda then processes them.
+
+48
+00:02:40,360 --> 00:02:43,760
+So what we're gonna do here is very simple, we just click create queue.
+
+49
+00:02:43,880 --> 00:02:45,650
+It's going to be a standard queue.
+
+50
+00:02:46,740 --> 00:02:48,450
+I'm simply going to call it My Queue.
+
+51
+00:02:48,940 --> 00:02:51,460
+And for now we can ignore all of this information
+
+52
+00:02:51,840 --> 00:02:53,210
+and simply come down
+
+53
+00:02:53,420 --> 00:02:54,560
+and create the queue.
+
+54
+00:02:55,740 --> 00:02:57,140
+So the queue is created.
+
+55
+00:02:57,410 --> 00:03:00,840
+We have our role as well, let's just find our role in the console.
+
+56
+00:03:01,136 --> 00:03:02,840
+Here it is, My SQS Role.
+
+57
+00:03:03,120 --> 00:03:04,860
+And I'm going to copy the ARN.
+
+58
+00:03:05,540 --> 00:03:06,940
+Back in my file here,
+
+59
+00:03:07,130 --> 00:03:11,220
+I'm going to add the role ARN in here. So I'm going to paste it over the top.
+
+60
+00:03:11,470 --> 00:03:13,550
+So now I have the complete command.
+
+61
+00:03:14,040 --> 00:03:19,560
+The first command we need to run is this zip function.zip index.js command.
+
+62
+00:03:19,560 --> 00:03:24,060
+So this is going to take our index.js and zip it up as function.zip.
+
+63
+00:03:24,540 --> 00:03:27,740
+Now you need to be in the event source mapping folder
+
+64
+00:03:28,030 --> 00:03:29,070
+in the course download.
+
+65
+00:03:29,070 --> 00:03:32,190
+So you should have unzipped this to your computer somewhere. Mine's in users,
+
+66
+00:03:32,190 --> 00:03:33,730
+Neal, documents. Yours will be
+
+67
+00:03:33,890 --> 00:03:35,850
+in a different location on your computer.
+
+68
+00:03:35,970 --> 00:03:39,860
+But then you'll be in the code AWS Lambda EventSource mapping.
+
+69
+00:03:40,540 --> 00:03:44,070
+Now in this directory we have this index.js.
+
+70
+00:03:44,070 --> 00:03:47,680
+If I actually just open this with cat, what you'll see
+
+71
+00:03:47,880 --> 00:03:50,820
+is it's simply the Lambda function code.
+
+72
+00:03:51,840 --> 00:03:55,350
+So what I need to do now is just create my function.zip.
+
+73
+00:03:56,040 --> 00:04:00,960
+If I run the command ls again, we now have our function.zip file.
+
+74
+00:04:01,640 --> 00:04:06,650
+So coming back, we can now copy this entire command to create our function.
+
+75
+00:04:07,330 --> 00:04:10,560
+I'm going to paste this in, I need to enter my profile information
+
+76
+00:04:11,140 --> 00:04:12,160
+and let's hit enter.
+
+77
+00:04:12,740 --> 00:04:17,200
+So we can see that we have a function that is being created
+
+78
+00:04:17,300 --> 00:04:19,360
+and the status is creating.
+
+79
+00:04:19,940 --> 00:04:23,060
+So let's quit out of there, and let's go to the console and see if it's there.
+
+80
+00:04:23,840 --> 00:04:28,580
+So in the Lambda console, I clicked on refresh and I now have my EventSource
+
+81
+00:04:28,710 --> 00:04:30,260
+SQS function.
+
+82
+00:04:30,840 --> 00:04:34,280
+So the next thing we're going to do is create the event source mapping.
+
+83
+00:04:34,500 --> 00:04:37,650
+We need to go back to Amazon SQS,
+
+84
+00:04:38,240 --> 00:04:40,360
+copy the ARN for our queue,
+
+85
+00:04:42,110 --> 00:04:44,460
+and then back in our file here,
+
+86
+00:04:44,840 --> 00:04:46,960
+I need to add that onto the end here.
+
+87
+00:04:47,340 --> 00:04:49,350
+So let's have a look at what this command does.
+
+88
+00:04:49,840 --> 00:04:53,780
+Here, we're going to create an EventSource mapping Using AWS Lambda.
+
+89
+00:04:53,960 --> 00:04:56,860
+We supply the name of our function,
+
+90
+00:04:57,320 --> 00:05:00,780
+the batch size is going to be 10, so it can look for up to
+
+91
+00:05:00,900 --> 00:05:02,360
+10 events at the time.
+
+92
+00:05:02,940 --> 00:05:07,350
+And the EventSource ARN is going to be the ARN of our queue.
+
+93
+00:05:08,600 --> 00:05:12,570
+Now, I also need to put that into the next command here.
+
+94
+00:05:12,570 --> 00:05:15,110
+So let's just paste that in there, so that's ready.
+
+95
+00:05:15,840 --> 00:05:17,970
+So let's just copy this first command
+
+96
+00:05:18,270 --> 00:05:20,250
+to create our EventSource mapping.
+
+97
+00:05:20,740 --> 00:05:24,160
+So let's paste that in, and I've cleared my screen to make things a bit neater.
+
+98
+00:05:24,450 --> 00:05:26,160
+I'll put in my profile information
+
+99
+00:05:26,940 --> 00:05:27,890
+and let's hit enter.
+
+100
+00:05:29,040 --> 00:05:31,010
+And we can see that it's being created.
+
+101
+00:05:31,290 --> 00:05:33,520
+Now note that there's a UUID here.
+
+102
+00:05:33,520 --> 00:05:36,260
+So that's an identifier for the EventSource mapping.
+
+103
+00:05:37,140 --> 00:05:38,250
+Let's quit out of here.
+
+104
+00:05:38,940 --> 00:05:41,358
+And back in our file, let's copy this second command
+
+105
+00:05:41,382 --> 00:05:43,550
+and this will list the EventSource mappings.
+
+106
+00:05:46,440 --> 00:05:47,210
+And there we go again,
+
+107
+00:05:47,210 --> 00:05:51,150
+we see the same information. So you can recall this information whenever you need to.
+
+108
+00:05:51,740 --> 00:05:55,180
+Now if at some point you need to delete your EventSource mapping,
+
+109
+00:05:55,260 --> 00:05:57,790
+you can do so here. So you can use this command,
+
+110
+00:05:57,800 --> 00:06:00,330
+AWS Lambda delete EventSource mapping.
+
+111
+00:06:00,660 --> 00:06:03,190
+And that's where you would use that UUID.
+
+112
+00:06:03,840 --> 00:06:05,590
+So coming back to our diagram here,
+
+113
+00:06:05,590 --> 00:06:09,260
+what we've done is we've created the Lambda function from the command line.
+
+114
+00:06:09,840 --> 00:06:13,370
+We've also created the EventSource mapping for SQS.
+
+115
+00:06:13,540 --> 00:06:17,570
+So the last thing to do is to add a message and see what happens.
+
+116
+00:06:18,040 --> 00:06:22,100
+So back in SQS, I'm going to click on send and receive messages
+
+117
+00:06:22,540 --> 00:06:24,660
+and here we can simply send a message.
+
+118
+00:06:25,040 --> 00:06:29,020
+And let's say, Hello from Lambda and click on send message.
+
+119
+00:06:29,330 --> 00:06:31,660
+So now let's go back to our Lambda function
+
+120
+00:06:32,340 --> 00:06:34,560
+and let's choose the function name here.
+
+121
+00:06:35,240 --> 00:06:39,160
+Go to monitor and then view logs in CloudWatch logs.
+
+122
+00:06:39,840 --> 00:06:41,460
+In here, we've got a log stream
+
+123
+00:06:42,040 --> 00:06:43,750
+and we can find our event.
+
+124
+00:06:44,540 --> 00:06:46,830
+So we have the start, we have the end
+
+125
+00:06:46,970 --> 00:06:50,570
+and in the middle here, you'll see the actual message Hello from Lambda.
+
+126
+00:06:50,570 --> 00:06:52,750
+So that's what we typed into SQS.
+
+127
+00:06:53,640 --> 00:06:57,605
+So we've submitted a message straight to the SQS queue,
+
+128
+00:06:57,629 --> 00:06:59,890
+Lambda has then polled the queue.
+
+129
+00:07:00,060 --> 00:07:03,340
+It's then executed the information that it found in the
+
+130
+00:07:03,340 --> 00:07:06,680
+message in the queue and then based on the code,
+
+131
+00:07:06,680 --> 00:07:09,510
+it's then written that to CloudWatch logs.
+
+132
+00:07:09,640 --> 00:07:14,060
+So that's it for this lesson. Now what I do want to do, I'm just going to come in,
+
+133
+00:07:14,060 --> 00:07:16,830
+I don't need this particular queue anymore.
+
+134
+00:07:16,960 --> 00:07:19,481
+So what I'll do, is I'll just delete my queue.
+
+135
+00:07:19,505 --> 00:07:23,350
+It's very simple and you just need to type delete and that's gone.
+
+136
+00:07:23,940 --> 00:07:26,160
+The Lambda function itself can always be cleaned up,
+
+137
+00:07:26,160 --> 00:07:27,600
+but it's not going to cost you anything,
+
+138
+00:07:27,600 --> 00:07:30,560
+so it's okay to leave it there if you want to do some more testing.
+

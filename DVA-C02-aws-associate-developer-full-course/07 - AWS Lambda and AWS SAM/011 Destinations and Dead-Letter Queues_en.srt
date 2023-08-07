@@ -1,0 +1,140 @@
+1
+00:00:05,140 --> 00:00:06,510
+Hi guys. In this lesson,
+
+2
+00:00:06,510 --> 00:00:10,130
+we're going to cover Lambda destinations and Dead Letter Queues.
+
+3
+00:00:10,510 --> 00:00:13,920
+So firstly, success and failure destinations.
+
+4
+00:00:14,260 --> 00:00:17,300
+With these, you can send invocation records to a
+
+5
+00:00:17,300 --> 00:00:21,290
+destination of your choice when your function is invoked.
+
+6
+00:00:21,510 --> 00:00:25,960
+And here's a snippet from the console where we configure our destinations.
+
+7
+00:00:26,340 --> 00:00:31,036
+Firstly we choose the source and this works for asynchronous invocations
+
+8
+00:00:31,096 --> 00:00:37,650
+and for stream based invocations. Stream based would be kinesis or DynamoDB streams.
+
+9
+00:00:38,240 --> 00:00:42,210
+Then we have the condition, so this is either success or failure.
+
+10
+00:00:42,210 --> 00:00:45,260
+So did our invocation succeed or fail?
+
+11
+00:00:45,740 --> 00:00:48,010
+And then we choose the destination type.
+
+12
+00:00:48,210 --> 00:00:54,110
+That can be an SQS queue, an SNS topic, a Lambda function, or EventBridge event bus.
+
+13
+00:00:54,470 --> 00:00:59,680
+The execution record contains details about the request and response
+
+14
+00:00:59,840 --> 00:01:01,630
+in the JSON format.
+
+15
+00:01:02,140 --> 00:01:07,230
+The information that gets sent includes the version, timestamp, request context,
+
+16
+00:01:07,330 --> 00:01:10,560
+request payload and response context,
+
+17
+00:01:11,040 --> 00:01:13,640
+and also the response payload itself.
+
+18
+00:01:13,650 --> 00:01:16,330
+A DLQ is a dead letter queue
+
+19
+00:01:16,330 --> 00:01:19,940
+and this saves unprocessed events for further processing.
+
+20
+00:01:19,940 --> 00:01:25,050
+So for some reason, the processing of a specific event does not succeed
+
+21
+00:01:25,050 --> 00:01:28,260
+then what we want to do is send it to a dead letter queue
+
+22
+00:01:28,370 --> 00:01:30,660
+and then later on we can work out what to do with it.
+
+23
+00:01:31,240 --> 00:01:34,480
+This applies to asynchronous invocations.
+
+24
+00:01:34,940 --> 00:01:39,150
+The DLQ can be an SQs queue or an SNS topic.
+
+25
+00:01:39,300 --> 00:01:42,490
+When editing the asynchronous configuration,
+
+26
+00:01:42,560 --> 00:01:44,960
+you can specify the number of retries.
+
+27
+00:01:45,440 --> 00:01:48,790
+So this is where Lambda is re-trying to see
+
+28
+00:01:48,790 --> 00:01:51,950
+if it can succeed with processing the specific event.
+
+29
+00:01:52,440 --> 00:01:56,020
+So here for example, we would retry two times
+
+30
+00:01:56,160 --> 00:02:01,650
+and then after six hours the event will be discarded and sent to the DLQ.
+
+31
+00:02:01,840 --> 00:02:03,230
+Then from the DLQ,
+
+32
+00:02:03,240 --> 00:02:07,869
+maybe we've got another Lambda function or something else that processes that
+
+33
+00:02:07,929 --> 00:02:12,100
+event and tries to work out through some kind of analytics what happened,
+
+34
+00:02:12,100 --> 00:02:12,950
+what went wrong.
+
+35
+00:02:13,080 --> 00:02:15,260
+And that's it for this lesson. I'll see you the next one.
+

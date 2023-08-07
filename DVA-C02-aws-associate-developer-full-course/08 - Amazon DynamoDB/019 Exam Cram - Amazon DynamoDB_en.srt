@@ -1,0 +1,304 @@
+1
+00:00:05,340 --> 00:00:09,450
+Hi guys and welcome to the exam cram for amazon dynamo DB.
+
+2
+00:00:09,940 --> 00:00:14,010
+So dynamodb is a fully managed no SQL database service.
+
+3
+00:00:14,130 --> 00:00:17,120
+It's a key value store and also a document store.
+
+4
+00:00:17,210 --> 00:00:20,920
+It's non relational key value type of database and data is
+
+5
+00:00:20,920 --> 00:00:25,860
+stored in partitions which are replicated across multiple availability zones.
+
+6
+00:00:26,440 --> 00:00:29,250
+It provides low latency in the milliseconds.
+
+7
+00:00:29,520 --> 00:00:32,530
+Microsecond latency can be achieved if you add
+
+8
+00:00:32,710 --> 00:00:34,720
+dynamodb accelerated dax.
+
+9
+00:00:35,340 --> 00:00:41,850
+All data is stored on SSD storage and replicated across multiple Aziz in a region.
+
+10
+00:00:42,540 --> 00:00:46,160
+Global tables will synchronize tables across regions.
+
+11
+00:00:47,040 --> 00:00:50,540
+Dynamodb table classes are standard which is
+
+12
+00:00:50,540 --> 00:00:52,920
+default and the recommended for most workloads
+
+13
+00:00:53,030 --> 00:00:55,270
+and standard infrequent access,
+
+14
+00:00:55,280 --> 00:00:58,350
+which is lower cost for infrequently accessed data.
+
+15
+00:00:59,240 --> 00:01:04,160
+Dynamodb supports identity based policies, but not resource based policies.
+
+16
+00:01:04,739 --> 00:01:09,970
+There's two types of primary key. You've got a partition key and a composite key.
+
+17
+00:01:10,140 --> 00:01:15,060
+Composite key is a partition key plus a sort key in combination.
+
+18
+00:01:15,740 --> 00:01:19,380
+Best practices are to use high cardinality attributes,
+
+19
+00:01:19,460 --> 00:01:23,640
+use composite attributes and cash, your popular items.
+
+20
+00:01:23,650 --> 00:01:24,880
+So using decks,
+
+21
+00:01:25,340 --> 00:01:30,160
+you can use random numbers for write heavy use cases to spread across partitions.
+
+22
+00:01:30,740 --> 00:01:35,360
+Dynamodb supports eventually consistent and strongly consistent reads
+
+23
+00:01:35,740 --> 00:01:39,420
+with eventually consistent reads. When you read data from a table.
+
+24
+00:01:39,430 --> 00:01:44,560
+The response might not reflect the results of a recently completed write operation
+
+25
+00:01:45,540 --> 00:01:47,280
+with strongly consistent reads.
+
+26
+00:01:47,340 --> 00:01:50,120
+Dynamodb returns a response with the most up to
+
+27
+00:01:50,120 --> 00:01:54,750
+date data reflecting all updates from prior write operations,
+
+28
+00:01:55,310 --> 00:01:58,620
+strongly consistent reads use more throughput capacity
+
+29
+00:01:58,780 --> 00:02:00,890
+than eventually consistent reads
+
+30
+00:02:01,540 --> 00:02:05,050
+and dynamodb uses eventually consistent reads by default.
+
+31
+00:02:05,440 --> 00:02:10,690
+You can configure strongly consistent reads with a get item query and scan A. P. I. S.
+
+32
+00:02:12,140 --> 00:02:13,720
+Dynamodb transactions.
+
+33
+00:02:13,720 --> 00:02:17,920
+Makes coordinated all or nothing changes to multiple items,
+
+34
+00:02:17,930 --> 00:02:20,360
+both within and across tables,
+
+35
+00:02:20,740 --> 00:02:22,080
+transactions provide
+
+36
+00:02:22,260 --> 00:02:25,900
+at emissivity, consistency, isolation and durability
+
+37
+00:02:26,100 --> 00:02:27,360
+in dynamodb
+
+38
+00:02:28,340 --> 00:02:31,390
+enables the reading and writing of multiple items across
+
+39
+00:02:31,390 --> 00:02:34,550
+multiple tables as an all or nothing operation.
+
+40
+00:02:35,140 --> 00:02:39,180
+There's no additional cost to enable transactions for dynamodb tables.
+
+41
+00:02:39,300 --> 00:02:43,360
+You pay only for the reads or writes that are part of your transaction.
+
+42
+00:02:43,740 --> 00:02:47,100
+And dynamodb will perform two underlying reads
+
+43
+00:02:47,110 --> 00:02:49,950
+or writes of every item in the transaction
+
+44
+00:02:50,440 --> 00:02:55,030
+throttling occurs when the configured, R. C. U. Or W. C. You are exceeded
+
+45
+00:02:55,330 --> 00:02:57,190
+and you may receive a provision.
+
+46
+00:02:57,300 --> 00:02:58,960
+Throughput exceeded exceptions.
+
+47
+00:02:59,620 --> 00:03:03,950
+The scan operation returns one or more items and item attributes
+
+48
+00:03:03,950 --> 00:03:08,000
+by accessing every item in a table or a secondary index.
+
+49
+00:03:08,410 --> 00:03:11,360
+A query operation finds items in your table based on
+
+50
+00:03:11,360 --> 00:03:14,860
+the primary key attribute and a distinct value to search for
+
+51
+00:03:15,640 --> 00:03:20,630
+and else I provides an alternative sort key to use for scans and queries.
+
+52
+00:03:20,640 --> 00:03:22,460
+That's the local secondary index.
+
+53
+00:03:22,730 --> 00:03:27,160
+It gives you a different view of your data organized by alternative sort key.
+
+54
+00:03:27,740 --> 00:03:32,640
+A global secondary index. G. S. I is used to speed up crews on non key attributes.
+
+55
+00:03:32,820 --> 00:03:37,700
+You can specify a different partition key as well as a different sort key with a G. S.
+
+56
+00:03:37,700 --> 00:03:38,000
+I.
+
+57
+00:03:39,240 --> 00:03:43,180
+Optimistic locking is a strategy to ensure that the client side
+
+58
+00:03:43,180 --> 00:03:46,920
+item you're updating or deleting is the same as the item
+
+59
+00:03:47,040 --> 00:03:48,390
+in dynamodb
+
+60
+00:03:48,720 --> 00:03:51,660
+that protects database rights from being overwritten by
+
+61
+00:03:51,660 --> 00:03:54,060
+the rights of others and vice versa.
+
+62
+00:03:55,040 --> 00:03:59,510
+A T T L A Time to live attribute lets you define when items
+
+63
+00:03:59,510 --> 00:04:04,360
+in a table expire so that they can be automatically deleted from the database.
+
+64
+00:04:05,040 --> 00:04:10,560
+With GTL enabled on a table, you can set a time stamp for deletion on a per item basis,
+
+65
+00:04:11,010 --> 00:04:16,100
+there's no extra cost and it doesn't consume any W C U S or R C U S.
+
+66
+00:04:16,490 --> 00:04:21,890
+Dynamodb streams captures a time ordered sequence of item level modifications
+
+67
+00:04:22,140 --> 00:04:24,260
+in any dynamodb table.
+
+68
+00:04:24,530 --> 00:04:28,130
+The information is then stored in a log for up to 24 hours
+
+69
+00:04:28,630 --> 00:04:33,690
+tax is a managed service that provides in memory acceleration for dynamodb tables.
+
+70
+00:04:33,840 --> 00:04:37,480
+It will improve the performance from milliseconds to microseconds
+
+71
+00:04:37,660 --> 00:04:40,080
+even at millions of requests per second.
+
+72
+00:04:40,740 --> 00:04:44,810
+Global tables is a fully managed solution for deploying multi region,
+
+73
+00:04:44,850 --> 00:04:46,600
+multi master database.
+
+74
+00:04:47,000 --> 00:04:48,420
+When you create a global table,
+
+75
+00:04:48,420 --> 00:04:52,500
+you specify the regions where you want the table to be available.
+
+76
+00:04:52,750 --> 00:04:55,160
+That's it for this exam, cram, I'll see you in the next one
+

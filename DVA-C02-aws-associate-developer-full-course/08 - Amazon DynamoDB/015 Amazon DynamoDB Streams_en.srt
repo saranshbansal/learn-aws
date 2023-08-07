@@ -1,0 +1,140 @@
+1
+00:00:05,040 --> 00:00:08,700
+Hi guys. In this lesson, I'm going to cover DynamoDB streams.
+
+2
+00:00:09,000 --> 00:00:12,080
+So what is streams? Well, let's have a look at an example.
+
+3
+00:00:12,390 --> 00:00:18,000
+So we have an application here, a DynamoDB table and then DynamoDB streams.
+
+4
+00:00:18,030 --> 00:00:21,570
+Our application is writing items to the table.
+
+5
+00:00:21,660 --> 00:00:25,350
+Maybe it's inserting, updating, or deleting an item.
+
+6
+00:00:25,640 --> 00:00:28,170
+So we can see that as the first operation here.
+
+7
+00:00:28,380 --> 00:00:31,360
+A record is written to the DynamoDB stream.
+
+8
+00:00:31,740 --> 00:00:35,360
+So after a change is made to the DynamoDB table,
+
+9
+00:00:35,370 --> 00:00:39,660
+all changes are then projected into the DynamoDB stream.
+
+10
+00:00:39,780 --> 00:00:42,790
+We might then have a lambda function being triggered
+
+11
+00:00:42,890 --> 00:00:45,840
+and it will do something like process the information
+
+12
+00:00:45,900 --> 00:00:48,560
+in the stream and write something to CloudWatch Logs.
+
+13
+00:00:48,940 --> 00:00:51,490
+So just an example of using a stream.
+
+14
+00:00:52,240 --> 00:00:57,960
+So streams captures a time-ordered sequence of item level modifications
+
+15
+00:00:58,160 --> 00:01:00,150
+in a DynamoDB table.
+
+16
+00:01:00,530 --> 00:01:04,280
+And the information is stored in a log for up to 24 hours.
+
+17
+00:01:04,739 --> 00:01:07,790
+Applications can access that log and view the data
+
+18
+00:01:07,790 --> 00:01:13,900
+items as they appeared before and after they were modified in near real time.
+
+19
+00:01:14,020 --> 00:01:16,650
+You can also use the create table or update
+
+20
+00:01:16,650 --> 00:01:20,760
+table API operations to enable or modify a stream.
+
+21
+00:01:20,940 --> 00:01:25,800
+The stream specification parameter determines how the stream is configured.
+
+22
+00:01:26,340 --> 00:01:31,200
+So stream enabled specifies that a stream is enabled if it's true or disabled
+
+23
+00:01:31,210 --> 00:01:32,090
+if it's false.
+
+24
+00:01:32,620 --> 00:01:36,680
+Stream view type specifies the information that will be written
+
+25
+00:01:36,680 --> 00:01:40,170
+to the stream whenever data in the table is modified.
+
+26
+00:01:40,740 --> 00:01:46,650
+So what we can do is we can decide what information we want to replicate into streams.
+
+27
+00:01:47,040 --> 00:01:51,750
+Either keys only, that means only the key attributes of the modified item.
+
+28
+00:01:52,140 --> 00:01:57,500
+New image. So the entire item as it appears after it was modified
+
+29
+00:01:57,610 --> 00:02:02,520
+Old image. The entire item as it appeared before it was modified.
+
+30
+00:02:02,783 --> 00:02:08,120
+Or new and old images and that's both the new and old images of the item.
+
+31
+00:02:08,130 --> 00:02:12,660
+So this is a great way to record the information that's changed in your table.
+
+32
+00:02:12,840 --> 00:02:16,780
+Maybe you want to take the old items so you can archive it in some way.
+
+33
+00:02:16,780 --> 00:02:20,920
+So you've got a record of the items before they were modified.
+
+34
+00:02:20,990 --> 00:02:26,400
+Or maybe you want to take the new information and process that outside of DynamoDB
+
+35
+00:02:26,400 --> 00:02:31,290
+by using a Lambda function or some other processing element to read from the stream.
+

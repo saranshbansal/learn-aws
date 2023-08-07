@@ -1,0 +1,80 @@
+1
+00:00:00,440 --> 00:00:03,660
+this section is all about amazon DynamoDB.
+
+2
+00:00:03,660 --> 00:00:07,880
+So an entire section about one database service and that's because
+
+3
+00:00:07,880 --> 00:00:12,560
+the developer associate has a lot of coverage of amazon DynamoDB.
+
+4
+00:00:12,940 --> 00:00:20,120
+So DynamoDB is a no SQL server list database that runs on AWS. It's an AWS service.
+
+5
+00:00:20,130 --> 00:00:23,950
+It's one of the services that they've created themselves. So it's their technology
+
+6
+00:00:24,440 --> 00:00:30,150
+with DynamoDB. We create tables and then we can populate those tables with our data.
+
+7
+00:00:30,270 --> 00:00:34,640
+It's extremely flexible, it's extremely high performance and low latency.
+
+8
+00:00:34,710 --> 00:00:38,710
+So for the exam you will need to understand quite a lot about DynamoDB.
+
+9
+00:00:38,710 --> 00:00:41,530
+So we're going to be building through the knowledge as we go
+
+10
+00:00:41,530 --> 00:00:45,260
+through the section with lots of hands on exercises as always.
+
+11
+00:00:45,640 --> 00:00:51,080
+Now you'll definitely need to understand the pricing and how you allocate R C U.
+
+12
+00:00:51,080 --> 00:00:54,710
+S and W. C. U. S. You'll know what they are a bit later on in this section.
+
+13
+00:00:54,710 --> 00:00:58,950
+Make sure you do follow those exercises closely because there's quite
+
+14
+00:00:58,950 --> 00:01:02,650
+a few questions coming up in exams where you need to calculate
+
+15
+00:01:02,940 --> 00:01:05,850
+RCUs and WCUs for a specific requirement.
+
+16
+00:01:06,140 --> 00:01:10,560
+So you need to know how to do that math in the exam without any calculators.
+
+17
+00:01:10,610 --> 00:01:15,190
+And there are many other features of DynamoDB that get covered in exam questions.
+
+18
+00:01:15,200 --> 00:01:17,990
+Hence the large amount of coverage in this section.
+
+19
+00:01:18,030 --> 00:01:22,180
+So it is quite a long section with lots of hands on and lots of theory.
+
+20
+00:01:22,190 --> 00:01:24,350
+I hope you enjoy it and I'll see you in the next lesson
+

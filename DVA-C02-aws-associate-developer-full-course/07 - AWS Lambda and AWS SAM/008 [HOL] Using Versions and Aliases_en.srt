@@ -1,0 +1,432 @@
+1
+00:00:05,540 --> 00:00:07,020
+In this hands-on lesson we're going to
+
+2
+00:00:07,020 --> 00:00:11,150
+practice with versions and aliases in AWS Lambda.
+
+3
+00:00:11,740 --> 00:00:15,160
+Back in the Lambda console, I'm going to create a new function
+
+4
+00:00:15,700 --> 00:00:17,630
+and I'm going to author from scratch,
+
+5
+00:00:17,880 --> 00:00:20,950
+give it a function name, I'm going to call it myversiontest.
+
+6
+00:00:21,440 --> 00:00:23,290
+Node JS 16 is fine.
+
+7
+00:00:23,440 --> 00:00:26,660
+And I'm going to leave it to create its own execution role.
+
+8
+00:00:26,940 --> 00:00:28,250
+So let's create this function.
+
+9
+00:00:28,820 --> 00:00:31,990
+The function is created and in the code source here we can
+
+10
+00:00:31,990 --> 00:00:36,380
+see that we have that standard Hello from Lambda message.
+
+11
+00:00:36,540 --> 00:00:39,920
+Now I'm going to override this and I'm gonna put publish to Prod.
+
+12
+00:00:41,110 --> 00:00:42,260
+And let's click on deploy.
+
+13
+00:00:43,040 --> 00:00:46,750
+So what we've done here is we've simply saved the code and this is the latest.
+
+14
+00:00:46,750 --> 00:00:49,960
+Remember this is the code that you can modify at any time.
+
+15
+00:00:50,540 --> 00:00:53,880
+But once we've saved that code we might want to publish a version.
+
+16
+00:00:54,610 --> 00:00:59,150
+Now note that at this point in time the function ARN does not have a version number
+
+17
+00:00:59,250 --> 00:01:00,960
+and that's because we're on the latest.
+
+18
+00:01:01,540 --> 00:01:03,610
+So what we can do is go to actions,
+
+19
+00:01:03,720 --> 00:01:04,959
+publish a new version,
+
+20
+00:01:05,239 --> 00:01:06,660
+I'm going to call this V1.
+
+21
+00:01:07,610 --> 00:01:08,760
+And click on publish.
+
+22
+00:01:09,840 --> 00:01:15,300
+So now we have :1 on the end of the function ARN. So that indicates
+
+23
+00:01:15,480 --> 00:01:16,860
+that we're looking at a version.
+
+24
+00:01:17,640 --> 00:01:20,180
+You'll notice at the top of the console, we now
+
+25
+00:01:20,180 --> 00:01:23,990
+get in the functions myversiontest, version1.
+
+26
+00:01:24,000 --> 00:01:26,760
+So we're actually looking at version1.
+
+27
+00:01:27,140 --> 00:01:29,040
+And that means if we go to code
+
+28
+00:01:29,170 --> 00:01:31,413
+we won't be able to modify anything.
+
+29
+00:01:31,438 --> 00:01:33,650
+So, I can't actually type in there.
+
+30
+00:01:34,240 --> 00:01:38,560
+So we now have our version1 of our function and that says publish to prod.
+
+31
+00:01:39,230 --> 00:01:40,720
+If I go back up a level
+
+32
+00:01:41,240 --> 00:01:42,780
+and on the code editor,
+
+33
+00:01:43,080 --> 00:01:46,130
+I'm just going to save. So this is the latest version, remember.
+
+34
+00:01:46,130 --> 00:01:48,160
+So let's put this is latest.
+
+35
+00:01:48,740 --> 00:01:50,050
+And I'm going to deploy.
+
+36
+00:01:50,840 --> 00:01:54,910
+So now we have our main function code, the latest,
+
+37
+00:01:54,910 --> 00:01:57,710
+the one that we can modify, which says this is latest
+
+38
+00:01:58,240 --> 00:02:00,060
+and we have version1
+
+39
+00:02:00,440 --> 00:02:01,660
+under versions here.
+
+40
+00:02:02,140 --> 00:02:06,688
+And that one under code will say published to Prod.
+
+41
+00:02:06,712 --> 00:02:10,360
+So let's now go to our command line and invoke our function.
+
+42
+00:02:10,840 --> 00:02:13,750
+So we're going to run these commands, these two commands first.
+
+43
+00:02:14,240 --> 00:02:17,980
+We're going to run AWS Lambda invoke, give it the function name
+
+44
+00:02:18,240 --> 00:02:23,850
+and we're going to append :\dollar latest to execute the latest version of the code.
+
+45
+00:02:23,850 --> 00:02:25,520
+So that's the changeable version.
+
+46
+00:02:25,940 --> 00:02:28,550
+And then we're going to invoke the version1.
+
+47
+00:02:28,940 --> 00:02:31,360
+So I'm going to copy this command to my clipboard,
+
+48
+00:02:32,040 --> 00:02:34,460
+and on the command line I'm going to run this code.
+
+49
+00:02:35,140 --> 00:02:37,340
+So that returned a 200, which is good.
+
+50
+00:02:37,620 --> 00:02:39,930
+And let's have a look in the response file.
+
+51
+00:02:40,440 --> 00:02:44,600
+And it says this is latest. So that is the latest version of the code.
+
+52
+00:02:45,420 --> 00:02:49,470
+The next command we'll invoke version1 of our code.
+
+53
+00:02:49,740 --> 00:02:51,570
+So let's copy this to our clipboards
+
+54
+00:02:51,760 --> 00:02:54,160
+and back on the command line, I paste that one in.
+
+55
+00:02:54,840 --> 00:02:58,780
+And again we get a 200 code and let's go back and have a look at that
+
+56
+00:02:58,780 --> 00:03:01,560
+information and this time it says published to Prod.
+
+57
+00:03:02,040 --> 00:03:04,040
+So that worked exactly as expected.
+
+58
+00:03:04,340 --> 00:03:07,220
+So if we want to now, we can always execute the
+
+59
+00:03:07,220 --> 00:03:10,790
+latest version of the code or the versions that we've published.
+
+60
+00:03:10,930 --> 00:03:15,560
+Back in the console, I'm gonna go back up to the main
+
+61
+00:03:15,940 --> 00:03:17,650
+latest version of the code
+
+62
+00:03:18,440 --> 00:03:21,400
+and I'm going to change this to say this is
+
+63
+00:03:21,840 --> 00:03:23,360
+a new feature.
+
+64
+00:03:23,840 --> 00:03:25,060
+Let's click on deploy.
+
+65
+00:03:25,540 --> 00:03:29,160
+And this one is going to be then published as version two.
+
+66
+00:03:30,140 --> 00:03:33,295
+So I'll give this a V2 as a description.
+
+67
+00:03:33,319 --> 00:03:34,360
+Click on publish.
+
+68
+00:03:35,130 --> 00:03:36,680
+And we now see that we have
+
+69
+00:03:37,000 --> 00:03:41,850
+the function, myversiontest: 2. So that's the second published version.
+
+70
+00:03:42,640 --> 00:03:44,920
+Now what I want to do is actually create an alias.
+
+71
+00:03:45,540 --> 00:03:47,160
+Let's come back up a level here,
+
+72
+00:03:47,640 --> 00:03:48,930
+click on actions,
+
+73
+00:03:49,050 --> 00:03:50,210
+create alias.
+
+74
+00:03:50,740 --> 00:03:51,760
+I'm going to give it a name.
+
+75
+00:03:52,440 --> 00:03:53,760
+I'll simply call it Myapp.
+
+76
+00:03:54,740 --> 00:03:56,750
+I'm not going to put a description, don't need to
+
+77
+00:03:57,140 --> 00:04:01,900
+But what I will choose is version1. So that's the production version of my code.
+
+78
+00:04:02,440 --> 00:04:07,720
+And let's say I also want to send some traffic to version two.
+
+79
+00:04:07,720 --> 00:04:10,020
+Now of course if you're publishing a new feature,
+
+80
+00:04:10,020 --> 00:04:13,170
+you might send a few percent across to
+
+81
+00:04:13,270 --> 00:04:15,250
+the new version of the code so you can test.
+
+82
+00:04:15,830 --> 00:04:19,390
+For the purposes of this demonstration, I'm going to send 50%.
+
+83
+00:04:19,839 --> 00:04:25,460
+So we should see an even number of responses from version1 and from version2.
+
+84
+00:04:26,040 --> 00:04:27,060
+Let's click on save.
+
+85
+00:04:28,140 --> 00:04:30,660
+And we now have another function ARN.
+
+86
+00:04:31,340 --> 00:04:35,150
+This one has myapp after the colon at the end.
+
+87
+00:04:35,640 --> 00:04:38,830
+Back in the file, we have this simple invocation command
+
+88
+00:04:39,030 --> 00:04:43,650
+and this time we just give it the function name :myapp to indicate the alias.
+
+89
+00:04:44,240 --> 00:04:47,230
+And on the command line, I'm going to run the command
+
+90
+00:04:47,940 --> 00:04:51,610
+and we can see executed version2. So if we come back
+
+91
+00:04:51,900 --> 00:04:55,080
+and run cat response, we can see this is a new feature.
+
+92
+00:04:55,440 --> 00:04:57,010
+If I run the command again,
+
+93
+00:04:57,300 --> 00:05:00,450
+it's again two. So let's run it quickly twice in a row,
+
+94
+00:05:01,040 --> 00:05:04,880
+three times in a row. Okay, there we go. Now we got executed version1.
+
+95
+00:05:05,180 --> 00:05:07,550
+So this time we should get published to PROD.
+
+96
+00:05:08,290 --> 00:05:12,400
+So now we're cycling, it doesn't seem to be quite even but if you are sending a lot
+
+97
+00:05:12,400 --> 00:05:17,260
+of invocation requests in a short period of time it should pretty much be 50% to each.
+
+98
+00:05:17,640 --> 00:05:19,900
+So here we are using our alias
+
+99
+00:05:20,190 --> 00:05:23,100
+and were able to send traffic to two
+
+100
+00:05:23,100 --> 00:05:24,195
+different versions.
+
+101
+00:05:24,219 --> 00:05:26,730
+Until we've tested our feature completely
+
+102
+00:05:26,730 --> 00:05:30,180
+and then we can send all the traffic to the new version of the code.
+
+103
+00:05:30,740 --> 00:05:34,110
+And remember that the alias never needs to change.
+
+104
+00:05:34,110 --> 00:05:38,590
+So you can always update the configuration of the alias and where it points to.
+
+105
+00:05:38,730 --> 00:05:40,760
+You never need to change the alias.
+
+106
+00:05:40,770 --> 00:05:43,970
+If that's embedded in your application code that's okay.
+
+107
+00:05:43,990 --> 00:05:46,860
+It saves you from having to go and update your application.
+
+108
+00:05:47,440 --> 00:05:49,560
+And that's it for this lesson. I'll see you the next one.
+

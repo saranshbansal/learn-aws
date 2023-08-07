@@ -1,0 +1,544 @@
+1
+00:00:05,840 --> 00:00:06,360
+Hi guys.
+
+2
+00:00:06,360 --> 00:00:09,670
+Now, you are expected in the exam to have a solid
+
+3
+00:00:09,680 --> 00:00:13,490
+understanding of the different ways you can invoke Lambda functions.
+
+4
+00:00:13,490 --> 00:00:16,460
+So in this lesson we're going to deep dive into that subject.
+
+5
+00:00:17,340 --> 00:00:20,390
+So Lambda functions can be invoked directly
+
+6
+00:00:20,510 --> 00:00:26,160
+through the Lambda console, a function URL, HTTP or HTTPS endpoint,
+
+7
+00:00:26,540 --> 00:00:28,160
+and the Lambda API.
+
+8
+00:00:28,640 --> 00:00:33,710
+You can also invoke Lambda through the AWS software development kit, the SDK,
+
+9
+00:00:33,860 --> 00:00:37,920
+the CLI, the command line interface, and AWS toolkits.
+
+10
+00:00:38,640 --> 00:00:42,350
+Lambda can be invoked by other AWS services.
+
+11
+00:00:42,740 --> 00:00:47,960
+Lambda can also be invoked when reading from a stream or from a queue.
+
+12
+00:00:48,620 --> 00:00:53,160
+Functions get invoked synchronously or asynchronously.
+
+13
+00:00:53,540 --> 00:00:58,700
+So let's look into more detail on synchronous versus asynchronous invocation.
+
+14
+00:00:59,340 --> 00:01:01,210
+With synchronous invocation,
+
+15
+00:01:01,410 --> 00:01:05,880
+you wait for the function to process the event and return a response.
+
+16
+00:01:05,880 --> 00:01:08,530
+So your application is waiting for the function to
+
+17
+00:01:08,530 --> 00:01:11,360
+process that event and then get a response back.
+
+18
+00:01:12,040 --> 00:01:14,290
+With asynchronous invocation,
+
+19
+00:01:14,420 --> 00:01:18,960
+Lambda will queue the event for processing and returns a response immediately.
+
+20
+00:01:20,160 --> 00:01:21,650
+For asynchronous invocation
+
+21
+00:01:21,650 --> 00:01:26,770
+Lambda handles the retries and can send invocation records to a destination.
+
+22
+00:01:27,240 --> 00:01:31,950
+For synchronous invocation, your application will need to handle any retries.
+
+23
+00:01:32,540 --> 00:01:37,820
+A trigger can be configured to invoke a function in response to a lifecycle event,
+
+24
+00:01:37,960 --> 00:01:41,260
+an external request or on a specific schedule.
+
+25
+00:01:42,020 --> 00:01:46,300
+To process items from a stream or queue, you can create an event
+
+26
+00:01:46,300 --> 00:01:48,910
+source mapping, and we'll look at what that means shortly
+
+27
+00:01:49,050 --> 00:01:51,750
+and we'll see how it works in the hands-on lessons.
+
+28
+00:01:52,640 --> 00:01:56,150
+So now let's go deeper on synchronous invocation.
+
+29
+00:01:56,840 --> 00:01:58,000
+With this option,
+
+30
+00:01:58,010 --> 00:02:01,360
+you wait for the function to process the event and return a response.
+
+31
+00:02:02,240 --> 00:02:05,130
+Lambda runs the function and waits for a response.
+
+32
+00:02:05,310 --> 00:02:07,410
+And when the function execution ends,
+
+33
+00:02:07,490 --> 00:02:10,360
+Lambda returns the response from the functions code.
+
+34
+00:02:11,038 --> 00:02:17,250
+To invoke function synchronously with the AWS CLI, you use the invoke command.
+
+35
+00:02:17,640 --> 00:02:23,050
+So it looks like this. So here's an example of using the CLI to invoke a function.
+
+36
+00:02:23,300 --> 00:02:27,450
+We're using AWS Lambda and then invoke in order to do that.
+
+37
+00:02:27,940 --> 00:02:29,510
+We've defined a function name
+
+38
+00:02:29,610 --> 00:02:32,950
+and a payload which is some key value information.
+
+39
+00:02:33,340 --> 00:02:37,020
+And then response.json is for recording the response.
+
+40
+00:02:37,330 --> 00:02:42,450
+In this case, the latest version was actually executed and we get
+
+41
+00:02:42,450 --> 00:02:45,550
+a status code 200 so it is successful.
+
+42
+00:02:46,240 --> 00:02:49,480
+The payload itself is a string that contains an event
+
+43
+00:02:49,600 --> 00:02:52,620
+in JSON format, it's base64 encoded.
+
+44
+00:02:53,320 --> 00:02:56,410
+The name of the file where the CLI writes the response from
+
+45
+00:02:56,410 --> 00:03:00,650
+the function is response.json. We saw that in the command line.
+
+46
+00:03:01,340 --> 00:03:04,120
+To get the logs for an invocation from the command line,
+
+47
+00:03:04,130 --> 00:03:10,160
+you can use the --log type option with the AWS Lambda CLI command.
+
+48
+00:03:10,840 --> 00:03:15,731
+The response will include a log result field that contains up to 4 KB
+
+49
+00:03:15,755 --> 00:03:19,450
+of base64 encoded logs from the invocation.
+
+50
+00:03:20,010 --> 00:03:22,690
+Now, don't worry if a lot of this is just too theoretical,
+
+51
+00:03:22,690 --> 00:03:25,210
+we're going to do this in the practical exercises too.
+
+52
+00:03:25,350 --> 00:03:28,230
+Now, in this example here, we're using the AWS
+
+53
+00:03:28,230 --> 00:03:31,910
+Lambda invoke CLI command specifying a function
+
+54
+00:03:32,020 --> 00:03:35,470
+and then we've got out, and we've got log type and tail.
+
+55
+00:03:35,470 --> 00:03:38,660
+So we can actually see what's coming up in that log.
+
+56
+00:03:39,040 --> 00:03:42,296
+Now let's go back to asynchronous invocation.
+
+57
+00:03:42,450 --> 00:03:46,750
+Here Lambda queues the event for processing and returns a response immediately.
+
+58
+00:03:47,140 --> 00:03:48,920
+For asynchronous invocation,
+
+59
+00:03:48,920 --> 00:03:53,090
+Lambda handles the retries and can send invocation records
+
+60
+00:03:53,240 --> 00:03:54,460
+to a destination.
+
+61
+00:03:55,040 --> 00:03:57,340
+Lambda places the event in a queue and then
+
+62
+00:03:57,340 --> 00:04:01,460
+it returns a success response without any additional information.
+
+63
+00:04:02,340 --> 00:04:03,620
+To invoke a function
+
+64
+00:04:03,630 --> 00:04:10,090
+asynchronously using the CLI, you can set the invocation type parameter to Event.
+
+65
+00:04:10,470 --> 00:04:11,910
+And here's an example.
+
+66
+00:04:12,090 --> 00:04:14,910
+So now we're using Lambda invoke but we have
+
+67
+00:04:14,910 --> 00:04:20,459
+the invocation type of Event and that's for asynchronous invocation.
+
+68
+00:04:21,230 --> 00:04:23,840
+Now, let's move on to Event Source Mapping.
+
+69
+00:04:24,310 --> 00:04:27,120
+Lambda can process items from a stream or a
+
+70
+00:04:27,120 --> 00:04:30,790
+queue and you can create an event source mapping.
+
+71
+00:04:31,150 --> 00:04:34,460
+So this is an AWS Lambda resource that reads
+
+72
+00:04:34,460 --> 00:04:37,550
+from an event source and invokes the Lambda function.
+
+73
+00:04:38,240 --> 00:04:42,950
+You can use event source mappings to process items from a stream or a queue.
+
+74
+00:04:42,950 --> 00:04:46,190
+So I'm repeating this stuff quite a lot because you've got to remember this.
+
+75
+00:04:46,740 --> 00:04:50,220
+An Event Source Mapping will use permissions in the functions,
+
+76
+00:04:50,230 --> 00:04:52,930
+execution role to read and manage items
+
+77
+00:04:53,080 --> 00:04:54,260
+in the Event Source.
+
+78
+00:04:54,390 --> 00:04:57,130
+So for example, if you're reading from SQS,
+
+79
+00:04:57,310 --> 00:04:58,890
+then your functions
+
+80
+00:04:58,900 --> 00:05:02,940
+execution role needs to have the permissions for SQS
+
+81
+00:05:02,940 --> 00:05:05,660
+because that's where the permissions must be defined.
+
+82
+00:05:06,040 --> 00:05:10,630
+Event Source Mappings are used for processing events in SQS queues,
+
+83
+00:05:10,760 --> 00:05:14,050
+Kinesis streams, and DynamoDB streams.
+
+84
+00:05:14,440 --> 00:05:18,580
+So let's have a look at a diagram for an SQS Event Source Mapping.
+
+85
+00:05:18,800 --> 00:05:22,190
+So here we have an SQS queue, we've got our application
+
+86
+00:05:22,460 --> 00:05:25,460
+and our application is putting some items into the queue.
+
+87
+00:05:25,660 --> 00:05:27,080
+So, message has been added,
+
+88
+00:05:27,230 --> 00:05:28,960
+we've then got our Lambda function.
+
+89
+00:05:29,240 --> 00:05:32,280
+The Lambda function is going to poll the SQS queue.
+
+90
+00:05:32,280 --> 00:05:34,900
+So Lambda is doing the work of checking the queue.
+
+91
+00:05:34,900 --> 00:05:39,200
+We're not creating the Lambda function in this case as a destination.
+
+92
+00:05:39,210 --> 00:05:42,070
+What we're doing is getting Lambda to do the work of
+
+93
+00:05:42,080 --> 00:05:45,160
+monitoring the queue and seeing when there are records there.
+
+94
+00:05:45,540 --> 00:05:48,820
+Once it finds in processes a record, it might do something else.
+
+95
+00:05:48,820 --> 00:05:52,430
+So in this case, simply writing an event to CloudWatch logs.
+
+96
+00:05:53,340 --> 00:05:57,560
+Now, the services that are supported for this poll based event source mapping are
+
+97
+00:05:57,560 --> 00:06:01,260
+our DynamoDB, Kinesis, and SQS. Again, repeating myself,
+
+98
+00:06:01,270 --> 00:06:02,560
+but you've got to know this stuff.
+
+99
+00:06:03,010 --> 00:06:08,020
+The configuration of the event source mapping for the stream and queue based services
+
+100
+00:06:08,170 --> 00:06:09,630
+is made on the Lambda side.
+
+101
+00:06:09,930 --> 00:06:11,970
+For other services like S3,
+
+102
+00:06:12,140 --> 00:06:14,010
+and the simple notification service.
+
+103
+00:06:14,170 --> 00:06:16,430
+The function is invoked asynchronously
+
+104
+00:06:16,610 --> 00:06:22,200
+and the configuration is made on the other server side. So the S3 or SNS side
+
+105
+00:06:22,340 --> 00:06:23,360
+rather than the Lambda.
+
+106
+00:06:24,530 --> 00:06:26,990
+Next up, we have event notifications.
+
+107
+00:06:27,440 --> 00:06:33,460
+So for example, you can use Lambda to process event notifications from Amazon S3.
+
+108
+00:06:33,930 --> 00:06:37,050
+S3 will send an event to a Lambda function when
+
+109
+00:06:37,050 --> 00:06:40,800
+an object gets created or deleted and that's just an example.
+
+110
+00:06:40,800 --> 00:06:43,050
+It can be other actions as well.
+
+111
+00:06:43,840 --> 00:06:47,310
+You configure notification settings on the bucket side
+
+112
+00:06:47,440 --> 00:06:52,540
+and grant S3 the permission to invoke the function on the functions
+
+113
+00:06:52,550 --> 00:06:54,660
+resource-based permissions policy.
+
+114
+00:06:55,140 --> 00:06:58,470
+Amazon S3 invokes your function asynchronously with
+
+115
+00:06:58,470 --> 00:07:01,430
+an event that contains details about the object.
+
+116
+00:07:01,440 --> 00:07:03,810
+So that way you can process that object
+
+117
+00:07:03,810 --> 00:07:06,750
+using Lambda with the information that's supplied.
+
+118
+00:07:07,740 --> 00:07:09,260
+So let's look at a diagram.
+
+119
+00:07:09,640 --> 00:07:14,260
+Here, we have a user who is uploading a JPEG image to an images bucket.
+
+120
+00:07:14,640 --> 00:07:15,860
+We've then got Lambda.
+
+121
+00:07:16,340 --> 00:07:19,970
+Now our S3 bucket is going to send a notification
+
+122
+00:07:19,970 --> 00:07:23,860
+to Lambda to say that a new object has been uploaded.
+
+123
+00:07:24,240 --> 00:07:29,530
+Lambda is going to then process that image and resize the image.
+
+124
+00:07:29,530 --> 00:07:31,030
+So that's just an example
+
+125
+00:07:31,030 --> 00:07:34,670
+use case where we're resizing to create something like a thumbnail
+
+126
+00:07:34,680 --> 00:07:37,420
+of the image or processing it in some other way.
+
+127
+00:07:37,680 --> 00:07:40,640
+Lambda runs the code in response to the event.
+
+128
+00:07:40,640 --> 00:07:43,650
+So the event is the trigger for the invocation.
+
+129
+00:07:43,940 --> 00:07:46,060
+And now we have our resized image
+
+130
+00:07:46,210 --> 00:07:47,020
+in the bucket.
+
+131
+00:07:47,540 --> 00:07:51,170
+And then of course we could do something like write an Event to CloudWatch Logs,
+
+132
+00:07:51,320 --> 00:07:54,810
+save a record in a DynamoDB table or something like that.
+
+133
+00:07:54,810 --> 00:07:57,110
+So an event-driven architecture.
+
+134
+00:07:57,500 --> 00:07:59,360
+So that's it for invocation,
+
+135
+00:07:59,360 --> 00:08:01,210
+lots to take in there and it's all going to
+
+136
+00:08:01,210 --> 00:08:03,860
+make even more sense when we go into the hands-on.
+

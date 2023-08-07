@@ -1,0 +1,288 @@
+1
+00:00:05,340 --> 00:00:06,070
+In this lesson,
+
+2
+00:00:06,070 --> 00:00:11,360
+I'm going to cover the AWS Serverless Application Model known AWS SAM.
+
+3
+00:00:12,050 --> 00:00:16,180
+The Serverless Application Model gives us a shorthand syntax
+
+4
+00:00:16,340 --> 00:00:20,949
+to express functions, APIs, databases, and event source mapping.
+
+5
+00:00:21,100 --> 00:00:24,900
+We can use it to create Lambda functions, API endpoints,
+
+6
+00:00:25,000 --> 00:00:27,400
+DynamoDB tables and other resources.
+
+7
+00:00:27,640 --> 00:00:32,980
+Now by shorthand syntax, what we're talking about is we have a much simpler syntax
+
+8
+00:00:32,980 --> 00:00:37,336
+or much simpler way of expressing what we want to create compared to
+
+9
+00:00:37,361 --> 00:00:39,060
+say a CloudFormation template.
+
+10
+00:00:39,930 --> 00:00:44,640
+Now it looks something like this. So here we have a SAM template in YAML.
+
+11
+00:00:45,140 --> 00:00:50,160
+And what you'll notice at the top here was we got transform AWS serverless
+
+12
+00:00:50,400 --> 00:00:51,331
+and then this date.
+
+13
+00:00:51,355 --> 00:00:54,980
+Now make sure you know that because you will be tested on the exam.
+
+14
+00:00:54,980 --> 00:00:59,970
+It will look for your ability to recognize a SAM template.
+
+15
+00:01:00,120 --> 00:01:02,750
+So that will tell you that this is a SAM template.
+
+16
+00:01:03,040 --> 00:01:07,480
+And then for resources, we've got our function called Hello World Function.
+
+17
+00:01:07,670 --> 00:01:09,590
+The type is a serverless function.
+
+18
+00:01:09,720 --> 00:01:14,230
+And then we've got properties code URI, so where the code is actually coming from,
+
+19
+00:01:14,410 --> 00:01:16,600
+the handler, and then the runtime.
+
+20
+00:01:16,840 --> 00:01:17,800
+So very simple.
+
+21
+00:01:18,340 --> 00:01:21,490
+So we have our template and we have our application code.
+
+22
+00:01:21,850 --> 00:01:25,740
+And then we can run some simple commands. Now we've got our S3 bucket.
+
+23
+00:01:25,870 --> 00:01:29,460
+What we do is we run SAM package, so we're running this
+
+24
+00:01:29,470 --> 00:01:33,060
+on our local machine where we've got our code and our template file.
+
+25
+00:01:33,540 --> 00:01:36,060
+After SAM package, we run SAM deploy
+
+26
+00:01:36,510 --> 00:01:39,800
+and the information gets uploaded to an S3 bucket.
+
+27
+00:01:40,300 --> 00:01:42,850
+SAM will upload the source files to the bucket
+
+28
+00:01:42,950 --> 00:01:45,420
+and then initiate CloudFormation for us.
+
+29
+00:01:45,840 --> 00:01:48,960
+So then CloudFormation will then create a stack
+
+30
+00:01:49,640 --> 00:01:52,610
+based on our simple SAM template
+
+31
+00:01:52,970 --> 00:01:54,300
+and deploy that stack.
+
+32
+00:01:54,470 --> 00:01:56,730
+And you can then use change set to actually
+
+33
+00:01:56,740 --> 00:01:59,470
+update the stack if you need to make changes.
+
+34
+00:01:59,729 --> 00:02:02,630
+A SAM template file is a YAML configuration
+
+35
+00:02:02,630 --> 00:02:06,350
+that represents the architecture of a serverless application
+
+36
+00:02:06,740 --> 00:02:08,550
+and you use that to declare all
+
+37
+00:02:08,550 --> 00:02:11,860
+the resources that comprise your serverless application.
+
+38
+00:02:12,440 --> 00:02:16,200
+They're an extension of CloudFormation templates and typically
+
+39
+00:02:16,210 --> 00:02:19,560
+much simpler than your average template in CloudFormation.
+
+40
+00:02:19,940 --> 00:02:23,130
+Any resource that you can declare in a CloudFormation
+
+41
+00:02:23,130 --> 00:02:26,470
+template can also be declared in a SAM template.
+
+42
+00:02:26,660 --> 00:02:29,190
+So let's look at the SAM commands in a bit more
+
+43
+00:02:29,190 --> 00:02:32,750
+detail as they do definitely come up in exam questions.
+
+44
+00:02:33,340 --> 00:02:35,891
+So firstly we run SAM package.
+
+45
+00:02:35,915 --> 00:02:39,700
+Here, we specify the template file template.yaml,
+
+46
+00:02:40,010 --> 00:02:43,860
+the S3 bucket, we've called that dctlabs for my account,
+
+47
+00:02:44,240 --> 00:02:46,330
+and then the output template file,
+
+48
+00:02:46,340 --> 00:02:49,260
+we've given that a name and then .yaml on the end.
+
+49
+00:02:49,360 --> 00:02:54,040
+Next, you run SAM deploy with the template file specified
+
+50
+00:02:54,230 --> 00:02:56,480
+and the stack name that we want created.
+
+51
+00:02:57,140 --> 00:02:59,190
+Alternatively you can run
+
+52
+00:02:59,410 --> 00:03:03,230
+this command. So rather than using SAM package and SAM deploy,
+
+53
+00:03:03,370 --> 00:03:07,850
+you can use CloudFormation package and CloudFormation deploy.
+
+54
+00:03:07,980 --> 00:03:11,671
+Now be aware that in the exam both options might come up
+
+55
+00:03:11,696 --> 00:03:14,600
+and both will help you to achieve the same outcome,
+
+56
+00:03:14,600 --> 00:03:19,080
+you're still using SAM whichever way you run it because your template file
+
+57
+00:03:19,290 --> 00:03:23,150
+is configured with that transform AWS serverless.
+
+58
+00:03:23,640 --> 00:03:27,480
+So firstly we have SAM package then SAM deploy, otherwise
+
+59
+00:03:27,480 --> 00:03:30,450
+CloudFormation package or cloudformation deploy.
+
+60
+00:03:30,940 --> 00:03:33,570
+Now, it's key to remember this transform header.
+
+61
+00:03:33,780 --> 00:03:37,460
+So the transform header will indicate that it's a SAM template.
+
+62
+00:03:37,780 --> 00:03:41,380
+And we saw that earlier, it's transformed AWS serverless.
+
+63
+00:03:41,940 --> 00:03:43,910
+There are several resource types.
+
+64
+00:03:44,040 --> 00:03:47,980
+We've got a Serverless function so we can deploy a Lambda function.
+
+65
+00:03:48,060 --> 00:03:52,860
+We've got Serverless API, if we want to deploy an API  Gateway API,
+
+66
+00:03:53,240 --> 00:03:57,530
+and serverless simple template is a DynamoDB table.
+
+67
+00:03:57,990 --> 00:04:00,600
+And then we've got Serverless application which is
+
+68
+00:04:00,600 --> 00:04:03,560
+where we're using the serverless application repository.
+
+69
+00:04:04,040 --> 00:04:07,270
+We can also deploy an HTTP API rather than
+
+70
+00:04:07,270 --> 00:04:13,060
+a REST API with API gateway by using AWS Serverless HTTP API.
+
+71
+00:04:13,370 --> 00:04:19,760
+And then lastly we can specify Lambda layers by using AWS serverless layer version.
+
+72
+00:04:20,339 --> 00:04:22,460
+That's it for this lesson. I'll see you in the next one.
+

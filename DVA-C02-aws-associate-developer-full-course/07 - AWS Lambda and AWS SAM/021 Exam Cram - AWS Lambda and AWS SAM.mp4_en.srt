@@ -1,0 +1,412 @@
+1
+00:00:05,340 --> 00:00:10,020
+Hi guys and welcome to the exam cram. For lambda and AWS SAm.
+
+2
+00:00:10,230 --> 00:00:13,200
+With serverless, there are no instances to manage,
+
+3
+00:00:13,250 --> 00:00:15,170
+you don't need to provision hardware and
+
+4
+00:00:15,170 --> 00:00:18,580
+there's no management of operating systems or software
+
+5
+00:00:18,790 --> 00:00:22,860
+capacity provisioning and patching is handled automatically for you.
+
+6
+00:00:23,340 --> 00:00:27,110
+It also provides automatic scaling and high availability
+
+7
+00:00:27,230 --> 00:00:28,460
+and can be very cheap.
+
+8
+00:00:28,840 --> 00:00:33,550
+Lambda executes code only where needed and scales automatically.
+
+9
+00:00:33,940 --> 00:00:37,090
+You pay only for the compute time you actually consume
+
+10
+00:00:37,640 --> 00:00:40,130
+with lambda. There's different types of invocation.
+
+11
+00:00:40,200 --> 00:00:44,070
+We have synchronous invocation using the cli the SDK
+
+12
+00:00:44,080 --> 00:00:47,560
+and a variety of services including api gateway.
+
+13
+00:00:48,040 --> 00:00:51,970
+In this case you wait for the function to process the event and return a response
+
+14
+00:00:52,440 --> 00:00:54,530
+error handling happens, client side
+
+15
+00:00:54,750 --> 00:00:57,260
+re tries exponential back off and more.
+
+16
+00:00:58,040 --> 00:01:00,420
+We then have a synchronous in vocation.
+
+17
+00:01:00,940 --> 00:01:05,459
+This is where you have S three s and s cloudwatch events and other services.
+
+18
+00:01:05,610 --> 00:01:07,860
+A synchronously invoking your function.
+
+19
+00:01:08,080 --> 00:01:09,920
+In that case the event is queued for
+
+20
+00:01:09,920 --> 00:01:13,050
+processing and a response is returned immediately.
+
+21
+00:01:13,410 --> 00:01:15,920
+Lambda will retry up to three times
+
+22
+00:01:16,090 --> 00:01:18,460
+and processing must be item potent.
+
+23
+00:01:18,940 --> 00:01:21,410
+Lastly we have event source mapping.
+
+24
+00:01:21,760 --> 00:01:23,260
+These are using sqs
+
+25
+00:01:23,410 --> 00:01:26,570
+kinesis data streams and dynamodb streams.
+
+26
+00:01:26,750 --> 00:01:30,040
+Lambda will do the polling in this case. So it's polling. The source
+
+27
+00:01:30,440 --> 00:01:32,700
+records are processed in order
+
+28
+00:01:32,900 --> 00:01:35,290
+Except for with sqs standard,
+
+29
+00:01:35,510 --> 00:01:39,280
+you can use lambda to process event notifications from S three
+
+30
+00:01:39,610 --> 00:01:44,990
+S free can send an event to a lambda function when an object is created or deleted.
+
+31
+00:01:45,640 --> 00:01:47,380
+S three invokes your function.
+
+32
+00:01:47,440 --> 00:01:52,060
+A synchronously with an event that contains details about the object
+
+33
+00:01:52,940 --> 00:01:56,460
+versioning means you can have multiple versions of your function.
+
+34
+00:01:56,720 --> 00:01:59,690
+You can use versions to manage the deployment of your
+
+35
+00:02:00,200 --> 00:02:01,360
+lambda functions
+
+36
+00:02:02,140 --> 00:02:06,910
+you work on dollar latest. That's the latest version of the code. And it's mutable.
+
+37
+00:02:06,920 --> 00:02:08,130
+That means you can change it.
+
+38
+00:02:08,300 --> 00:02:10,900
+When you're ready to publish a lambda function,
+
+39
+00:02:10,900 --> 00:02:13,260
+you create a version and they are numbered.
+
+40
+00:02:13,640 --> 00:02:16,250
+Each version will have its own R N.
+
+41
+00:02:16,740 --> 00:02:21,150
+Lambda aliases are pointers to a specific lambda version
+
+42
+00:02:21,740 --> 00:02:22,610
+using an alias.
+
+43
+00:02:22,610 --> 00:02:26,440
+You can invoke a function without having to know which version of the function
+
+44
+00:02:26,630 --> 00:02:28,160
+is actually being referenced.
+
+45
+00:02:28,640 --> 00:02:31,670
+And aliases are also mutable so you can change them.
+
+46
+00:02:31,890 --> 00:02:36,460
+A deployment package is used to deploy function code to lambda.
+
+47
+00:02:36,940 --> 00:02:39,650
+Lambda supports two types of deployment packages,
+
+48
+00:02:39,880 --> 00:02:43,180
+container, images and dot zip file archives.
+
+49
+00:02:43,740 --> 00:02:48,010
+A zip file archive includes your application code and its dependencies.
+
+50
+00:02:48,550 --> 00:02:53,180
+The deployment package is uploaded from Amazon S three or your computer
+
+51
+00:02:53,560 --> 00:02:56,220
+and there are limits to the size of ZIP Archives.
+
+52
+00:02:56,640 --> 00:02:59,850
+50 MB zipped for direct upload to 50
+
+53
+00:02:59,850 --> 00:03:03,560
+unzipped and free megabytes for the console editor.
+
+54
+00:03:04,440 --> 00:03:07,000
+You can configure your lambda function to pull in
+
+55
+00:03:07,000 --> 00:03:10,190
+additional code and content in the form of layers,
+
+56
+00:03:10,470 --> 00:03:13,210
+layers of zip archive that contains libraries,
+
+57
+00:03:13,250 --> 00:03:16,260
+a custom runtime or other dependencies
+
+58
+00:03:16,640 --> 00:03:20,960
+to add layers to your function. Use the update function, configuration command,
+
+59
+00:03:21,740 --> 00:03:24,040
+environment variables can be used to adjust
+
+60
+00:03:24,040 --> 00:03:27,000
+your functions behavior without updating the code.
+
+61
+00:03:27,640 --> 00:03:30,210
+An environment variable is a pair of strings that
+
+62
+00:03:30,210 --> 00:03:33,960
+is stored in a functions version specific configuration.
+
+63
+00:03:34,440 --> 00:03:39,310
+Environment variables are defined on the unpublished version of a function
+
+64
+00:03:39,420 --> 00:03:40,990
+and when they publish a version,
+
+65
+00:03:40,990 --> 00:03:44,160
+the environment variables are locked for that version.
+
+66
+00:03:44,840 --> 00:03:49,980
+The default concurrency limit per aws region is 1000 invocations
+
+67
+00:03:50,120 --> 00:03:51,410
+at any given time.
+
+68
+00:03:51,770 --> 00:03:54,780
+There's no maximum concurrency limit for Î» functions.
+
+69
+00:03:54,830 --> 00:03:56,960
+It really just depends on your use case.
+
+70
+00:03:57,740 --> 00:03:59,570
+Reserve, concurrency guarantees.
+
+71
+00:03:59,570 --> 00:04:05,260
+A set number of concurrent executions will be available for a critical function
+
+72
+00:04:05,940 --> 00:04:06,730
+when provision,
+
+73
+00:04:06,730 --> 00:04:11,360
+concurrency is allocated the function scales with the same burst behavior
+
+74
+00:04:11,470 --> 00:04:13,050
+as standard concurrency.
+
+75
+00:04:13,740 --> 00:04:17,850
+Lambda sends metrics to cloudwatch for performance monitoring
+
+76
+00:04:18,240 --> 00:04:21,660
+and execution logs are stored in cloudwatch logs.
+
+77
+00:04:22,440 --> 00:04:26,150
+The lambda function execution role always must have permissions
+
+78
+00:04:26,280 --> 00:04:30,150
+to write to cloudwatch logs or to use any other service.
+
+79
+00:04:30,640 --> 00:04:34,330
+You can use x ray to visualize the components of your application.
+
+80
+00:04:35,140 --> 00:04:38,100
+You can connect your functions to a VPc as well.
+
+81
+00:04:38,280 --> 00:04:41,040
+And in that case you must connect to a private subnets with
+
+82
+00:04:41,040 --> 00:04:45,160
+a nat gateway for internet access because there's no public I P.
+
+83
+00:04:45,940 --> 00:04:50,500
+Be careful with DNS resolution of public host names as it can add to function.
+
+84
+00:04:50,500 --> 00:04:52,450
+Running time and that means cost
+
+85
+00:04:53,240 --> 00:04:54,800
+to connect to a VPc.
+
+86
+00:04:54,810 --> 00:04:58,080
+Your functions execution role must have the permissions
+
+87
+00:04:58,080 --> 00:05:01,550
+to create the network interface in the VPc.
+
+88
+00:05:02,540 --> 00:05:06,490
+AWS Signer is a fully managed code signing service.
+
+89
+00:05:06,680 --> 00:05:10,540
+It's used to ensure the trust and integrity of code
+
+90
+00:05:10,700 --> 00:05:14,560
+and code is validated against a digital signature
+
+91
+00:05:15,210 --> 00:05:20,350
+with lambda. You can ensure only trusted. Code runs in lambda functions when using
+
+92
+00:05:20,460 --> 00:05:21,620
+AWS Signer.
+
+93
+00:05:22,000 --> 00:05:25,690
+Some best practices for writing function code include
+
+94
+00:05:26,000 --> 00:05:28,960
+separate the lambda handler from your core logic.
+
+95
+00:05:29,340 --> 00:05:32,780
+Take advantage of execution environment reused to
+
+96
+00:05:32,780 --> 00:05:35,190
+improve the performance of your function.
+
+97
+00:05:35,740 --> 00:05:39,850
+Use a keep alive directive to maintain persistent connections.
+
+98
+00:05:40,540 --> 00:05:45,160
+Use environment variables to pass operational parameters to your function,
+
+99
+00:05:45,740 --> 00:05:49,160
+control the dependencies in your functions, deployment package,
+
+100
+00:05:49,530 --> 00:05:53,840
+minimize your deployment package size to its runtime necessities
+
+101
+00:05:54,210 --> 00:05:56,990
+and lastly avoid using recursive code
+
+102
+00:05:57,150 --> 00:05:58,060
+in your function.
+
+103
+00:05:58,540 --> 00:06:01,170
+That's it for this exam, cram see you in the next lesson.
+

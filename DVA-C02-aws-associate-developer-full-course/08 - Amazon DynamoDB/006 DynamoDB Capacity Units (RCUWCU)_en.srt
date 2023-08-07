@@ -1,0 +1,264 @@
+1
+00:00:05,140 --> 00:00:11,416
+Hi guys, in this lesson I'm going to cover DynamoDB capacity units, RCUs and WCUs.
+
+2
+00:00:11,636 --> 00:00:15,430
+For the exam you need to know what these are and also how to calculate them.
+
+3
+00:00:15,560 --> 00:00:19,080
+So there's a couple of modes that we can apply to our table.
+
+4
+00:00:19,080 --> 00:00:23,590
+The first is known as provision capacity and this is the default setting.
+
+5
+00:00:24,110 --> 00:00:28,471
+In this case you specify the reads and writes per second.
+
+6
+00:00:28,495 --> 00:00:32,240
+You can also enable Auto Scaling for dynamic adjustments.
+
+7
+00:00:32,650 --> 00:00:37,290
+And the capacity is specified using both read capacity units
+
+8
+00:00:37,450 --> 00:00:39,150
+and write capacity units.
+
+9
+00:00:39,250 --> 00:00:44,370
+So in the example here we can see we've got read capacity and write capacity,
+
+10
+00:00:44,380 --> 00:00:49,780
+we've got Auto Scaling on, and we've specified the minimum and the maximum
+
+11
+00:00:49,890 --> 00:00:55,040
+and also a target utilization, so what is the utilization that we want to target?
+
+12
+00:00:55,310 --> 00:00:59,660
+So let's look into some more detail of RCUs, read capacity units.
+
+13
+00:01:00,240 --> 00:01:04,849
+Each API called to read data from your table is a read request.
+
+14
+00:01:05,190 --> 00:01:10,350
+Read requests can be strongly consistent, eventually consistent, or transactional.
+
+15
+00:01:10,740 --> 00:01:14,976
+Now think of these as credit. So an RCU is essentially a credit
+
+16
+00:01:15,001 --> 00:01:20,210
+that gives you the ability to use some of the capacity of DynamoDB.
+
+17
+00:01:20,340 --> 00:01:27,451
+Now for items up to 4 KB in size one RCU will equal one strongly consistent read
+
+18
+00:01:27,475 --> 00:01:32,160
+per second, two eventually consistent reads per second
+
+19
+00:01:32,170 --> 00:01:36,820
+or 0.5 transactional read requests per second.
+
+20
+00:01:37,200 --> 00:01:42,410
+For items that are larger than 4 KB, these will require additional RCUs.
+
+21
+00:01:42,450 --> 00:01:46,990
+Now you do need to understand how to calculate RCUs for a given use case.
+
+22
+00:01:47,229 --> 00:01:48,360
+So let's have a look.
+
+23
+00:01:48,640 --> 00:01:52,470
+On the left, we have the requirements and on the right the RCUs needed.
+
+24
+00:01:53,240 --> 00:01:55,720
+So based on the information on the previous slide,
+
+25
+00:01:56,140 --> 00:01:57,870
+we know how to calculate.
+
+26
+00:01:57,880 --> 00:02:04,060
+So in this case we've got 10 strongly consistent reads per second of 4 KB each.
+
+27
+00:02:04,640 --> 00:02:10,550
+So that's 10 * 4 KB / 4 KB = 10 RCUs.
+
+28
+00:02:10,800 --> 00:02:15,780
+And we know this is correct because one RCU equals one strongly consistent read.
+
+29
+00:02:15,930 --> 00:02:18,650
+In the next example we require 10 strongly
+
+30
+00:02:18,650 --> 00:02:22,010
+consistent reads per second of 11 KB each.
+
+31
+00:02:22,250 --> 00:02:28,890
+Now we need to round 11 up to 12 because one RCU is up to 4 KB.
+
+32
+00:02:29,220 --> 00:02:33,370
+So we've got 10 * 12 and then we're dividing it by 4 KB.
+
+33
+00:02:33,370 --> 00:02:35,380
+So we need 30 RCUs.
+
+34
+00:02:35,630 --> 00:02:41,460
+In the next example we need 20 eventually consistent reads per second of 12 KB each.
+
+35
+00:02:41,840 --> 00:02:49,813
+Now in this case the calculation is 20/2*12/4 and that also equals 30 RCUs.
+
+36
+00:02:49,913 --> 00:02:54,900
+Remember that one RCU equals two eventually consistent reads per second.
+
+37
+00:02:54,980 --> 00:03:01,460
+In the next example we have 36 eventually consistent reads per second of 16 KB each.
+
+38
+00:03:01,940 --> 00:03:09,260
+So in this case it's 36/2*16/4 and we need 72 RCU.
+
+39
+00:03:09,640 --> 00:03:12,030
+Now there is a nice tool in the console where you can
+
+40
+00:03:12,030 --> 00:03:14,730
+put in your requirements and it tells you the RCU
+
+41
+00:03:14,810 --> 00:03:17,690
+or WCUs you need. So we'll look at that in the hands-on.
+
+42
+00:03:17,830 --> 00:03:20,460
+Now let's move on to write capacity units.
+
+43
+00:03:20,650 --> 00:03:24,160
+Each API call to write data is a write request.
+
+44
+00:03:24,470 --> 00:03:29,991
+For items up to 1 KB in size one WCU can perform one standard write
+
+45
+00:03:30,015 --> 00:03:35,530
+requests per second or 0.5 transactional write requests per second.
+
+46
+00:03:35,580 --> 00:03:39,790
+Items larger than 1 KB require additional WCUs.
+
+47
+00:03:40,410 --> 00:03:42,390
+So let's look at some examples.
+
+48
+00:03:42,600 --> 00:03:47,360
+In the first requirement we need 10 standard writes per second of 4 KB each.
+
+49
+00:03:47,490 --> 00:03:51,160
+That's simply 10*4=40 WCUs.
+
+50
+00:03:51,740 --> 00:03:57,560
+12 standard writes per second of 9.5 KB each gets rounded up to 10.
+
+51
+00:03:57,570 --> 00:04:04,000
+So we've got 12*10 which is simply 120 WCUs. It's a bit easier with WCUs.
+
+52
+00:04:04,150 --> 00:04:08,770
+Next we have 12 transactional writes per second of four KB each.
+
+53
+00:04:08,970 --> 00:04:14,060
+In this case it's 10*2*4= 80 WCU.
+
+54
+00:04:14,140 --> 00:04:20,209
+And that's because one WCU equals 0.5 transactional write requests per second.
+
+55
+00:04:20,560 --> 00:04:25,150
+In the last example we have 12 transactional write requests per second
+
+56
+00:04:25,420 --> 00:04:29,000
+of 9.5 KB so that will get rounded up to 10.
+
+57
+00:04:29,110 --> 00:04:34,060
+That's 12*2*10=240 WCU.
+
+58
+00:04:34,240 --> 00:04:38,770
+If we don't want to use provision capacity, we can also use on-demand capacity.
+
+59
+00:04:39,000 --> 00:04:42,250
+With on-demand, you don't need to specify your requirements.
+
+60
+00:04:42,430 --> 00:04:48,040
+DynamoDB instantly scales up and down based on the activity of your application.
+
+61
+00:04:48,360 --> 00:04:51,900
+So this is really good for unpredictable or spiky workloads
+
+62
+00:04:52,010 --> 00:04:56,310
+or new workloads where you don't really understand the resource requirements well.
+
+63
+00:04:56,840 --> 00:04:59,770
+You pay for what you use and that's per request.
+
+64
+00:05:00,050 --> 00:05:02,270
+And you can see here where you can specify
+
+65
+00:05:02,280 --> 00:05:04,890
+whether you want to use on-demand or provisioned
+
+66
+00:05:05,120 --> 00:05:07,060
+and you can change between these.
+

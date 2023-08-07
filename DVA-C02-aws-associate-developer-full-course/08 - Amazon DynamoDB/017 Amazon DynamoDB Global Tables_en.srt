@@ -1,0 +1,88 @@
+1
+00:00:05,240 --> 00:00:10,160
+Welcome to this lesson. In this lesson, I'm going to cover DynamoDB Global Tables.
+
+2
+00:00:10,940 --> 00:00:15,020
+Global tables is a fully managed solution for deploying a multi-region
+
+3
+00:00:15,150 --> 00:00:17,150
+and multi-master database.
+
+4
+00:00:17,510 --> 00:00:19,000
+When you create a global table,
+
+5
+00:00:19,000 --> 00:00:22,570
+you specify the regions you want the table to be available in.
+
+6
+00:00:23,040 --> 00:00:28,510
+And DynamoDB performs all the necessary tasks to create identical tables
+
+7
+00:00:28,640 --> 00:00:33,010
+and propagate any ongoing changes to all of those tables.
+
+8
+00:00:33,110 --> 00:00:36,110
+And changes can be made in any of those tables
+
+9
+00:00:36,160 --> 00:00:39,260
+in any region that your global table is replicated to.
+
+10
+00:00:39,740 --> 00:00:41,680
+So let's have a look at a diagram.
+
+11
+00:00:41,920 --> 00:00:46,430
+We've got region A and region B and also region C here.
+
+12
+00:00:46,640 --> 00:00:49,923
+We've got DynamoDB and our application server here
+
+13
+00:00:49,948 --> 00:00:52,850
+and it's reading and writing data in the table.
+
+14
+00:00:53,540 --> 00:01:00,680
+We can then have a replica of the DynamoDB table in each of the other regions as well.
+
+15
+00:01:00,910 --> 00:01:04,530
+And we can perform read and writes to all of those tables and the
+
+16
+00:01:04,530 --> 00:01:09,410
+changes will be replicated across the tables in each of these three regions.
+
+17
+00:01:09,770 --> 00:01:12,950
+Global tables uses asynchronous replication.
+
+18
+00:01:13,440 --> 00:01:18,700
+Global tables is therefore a multi-region, multi-master database.
+
+19
+00:01:19,140 --> 00:01:23,060
+Each replica table stores the same set of data items.
+
+20
+00:01:23,440 --> 00:01:26,200
+And you can use logic in the application layer
+
+21
+00:01:26,200 --> 00:01:29,160
+to failover to a replica region as well.
+
+22
+00:01:30,040 --> 00:01:34,150
+So that gives you really high availability and fault tolerance.
+

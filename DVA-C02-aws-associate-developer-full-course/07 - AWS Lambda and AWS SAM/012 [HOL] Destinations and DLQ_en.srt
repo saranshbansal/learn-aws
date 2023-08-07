@@ -1,0 +1,564 @@
+1
+00:00:05,440 --> 00:00:08,250
+In this hands-on lesson, we're going to create a Lambda function
+
+2
+00:00:08,390 --> 00:00:11,310
+and a destination for Amazon SQS
+
+3
+00:00:11,470 --> 00:00:15,550
+such that when we invoke the function, it's going to add messages to the queue.
+
+4
+00:00:15,940 --> 00:00:18,470
+Now, in the course download, you're going to find some code.
+
+5
+00:00:18,480 --> 00:00:24,130
+We've got the code directory AWS Lambda and then destinations and dlq.md.
+
+6
+00:00:24,310 --> 00:00:26,430
+So in here you're going to find some code.
+
+7
+00:00:26,620 --> 00:00:28,270
+We're going to copy this function
+
+8
+00:00:28,270 --> 00:00:30,930
+code to our clipboards and then create a function.
+
+9
+00:00:31,110 --> 00:00:35,460
+So back in Lambda, I'm going to create a new function. I'll give this one a name.
+
+10
+00:00:35,640 --> 00:00:37,510
+I'm going to leave it as Node.js
+
+11
+00:00:37,740 --> 00:00:39,400
+and just create the function.
+
+12
+00:00:39,820 --> 00:00:42,690
+Then on the code directory, let's remove all of this code,
+
+13
+00:00:42,700 --> 00:00:46,760
+paste our code in and click on deploy to save those changes.
+
+14
+00:00:46,950 --> 00:00:49,840
+This code is actually going to provide different output
+
+15
+00:00:49,840 --> 00:00:53,490
+depending on whether the invocation is a successful or failure.
+
+16
+00:00:53,740 --> 00:00:56,760
+And that depends on information we provide in the payload.
+
+17
+00:00:57,140 --> 00:01:01,660
+So you can see we've got console log success or console log failure.
+
+18
+00:01:02,000 --> 00:01:05,150
+The next thing we need to do is create an SQS queue.
+
+19
+00:01:05,740 --> 00:01:08,230
+So let's go to SQS, create a queue.
+
+20
+00:01:08,530 --> 00:01:10,351
+I'll just call it My Test Queue.
+
+21
+00:01:10,375 --> 00:01:14,560
+Leave all the defaults, scroll down and then simply create the queue.
+
+22
+00:01:15,440 --> 00:01:16,960
+So now we have our queue.
+
+23
+00:01:17,940 --> 00:01:20,110
+We then need to create our destination.
+
+24
+00:01:20,840 --> 00:01:22,250
+So back in Lambda,
+
+25
+00:01:22,640 --> 00:01:24,680
+if you just scroll up, you'll see
+
+26
+00:01:24,830 --> 00:01:28,060
+the options here to add triggers to trigger Lambda
+
+27
+00:01:28,070 --> 00:01:32,260
+or destinations so that when we invoke our function
+
+28
+00:01:32,430 --> 00:01:34,660
+information goes to the destination.
+
+29
+00:01:35,540 --> 00:01:40,050
+Under destination, we can choose asynchronous or streaming vocation,
+
+30
+00:01:40,050 --> 00:01:41,960
+we're going to leave it on asynchronous.
+
+31
+00:01:42,540 --> 00:01:47,250
+Then we have the conditions. So is it a success event or a failure event?
+
+32
+00:01:47,740 --> 00:01:50,460
+So let's leave it on failure for now.
+
+33
+00:01:50,940 --> 00:01:54,780
+Choose SQS queue and then choose our test queue.
+
+34
+00:01:55,040 --> 00:01:56,230
+Now is this going to work?
+
+35
+00:01:56,230 --> 00:01:58,756
+Well actually we don't even have to click save anymore.
+
+36
+00:01:58,949 --> 00:02:00,990
+It's straightaway before we even get there
+
+37
+00:02:00,990 --> 00:02:04,200
+tells us that our execution role doesn't have permission
+
+38
+00:02:04,460 --> 00:02:06,560
+to send results to the destination.
+
+39
+00:02:06,940 --> 00:02:10,330
+But the great thing is we no longer actually have to do this ourselves.
+
+40
+00:02:10,680 --> 00:02:14,310
+AWS will attempt to add those permissions for us.
+
+41
+00:02:14,650 --> 00:02:16,530
+So let's simply click save.
+
+42
+00:02:16,870 --> 00:02:18,760
+And that's our failure destination.
+
+43
+00:02:19,240 --> 00:02:24,160
+So you can see now under destinations, we have our asynchronous invocation.
+
+44
+00:02:24,940 --> 00:02:26,620
+If we go back to permissions,
+
+45
+00:02:26,620 --> 00:02:31,680
+let's just check that our role has the relevant permissions. So we can see
+
+46
+00:02:31,680 --> 00:02:35,860
+some information here but I like to go and actually look at it in IAM.
+
+47
+00:02:36,440 --> 00:02:39,920
+So here we can now see that we do have an additional policy.
+
+48
+00:02:39,920 --> 00:02:45,620
+So the Lambda basic execution was created when we created the Lambda function
+
+49
+00:02:45,760 --> 00:02:47,770
+and this one was added by Lambda.
+
+50
+00:02:47,780 --> 00:02:51,520
+So this is the SQS queue destination execution role.
+
+51
+00:02:51,630 --> 00:02:54,650
+So that gives us the permissions to SQS.
+
+52
+00:02:55,440 --> 00:02:56,850
+So coming back to Lambda,
+
+53
+00:02:57,340 --> 00:03:00,660
+I also want to go back to destinations
+
+54
+00:03:01,040 --> 00:03:03,320
+and we're going to add another destination.
+
+55
+00:03:03,320 --> 00:03:05,750
+So you can do it up here or you can do it here.
+
+56
+00:03:06,630 --> 00:03:09,810
+So this time it's going to be the on success destination.
+
+57
+00:03:10,240 --> 00:03:12,250
+We're going to choose our SQS queue again.
+
+58
+00:03:12,840 --> 00:03:16,210
+And this time there's no error because we already have the permissions.
+
+59
+00:03:17,040 --> 00:03:18,750
+So now we have these two
+
+60
+00:03:19,320 --> 00:03:22,060
+destinations for asynchronous invocation.
+
+61
+00:03:22,440 --> 00:03:25,330
+So next we need to run the invocation command.
+
+62
+00:03:25,330 --> 00:03:28,350
+So the first one generates a success message
+
+63
+00:03:28,540 --> 00:03:30,890
+and the second one here a failure message.
+
+64
+00:03:31,063 --> 00:03:35,570
+And it does so because we add this information into the payload.
+
+65
+00:03:35,880 --> 00:03:38,400
+So success true or success false
+
+66
+00:03:38,700 --> 00:03:43,750
+to actually simulate a successful or unsuccessful invocation of our function.
+
+67
+00:03:44,440 --> 00:03:47,010
+Now we need to base 64encode that information.
+
+68
+00:03:47,010 --> 00:03:50,790
+I already used the same utility we used earlier on in this section.
+
+69
+00:03:50,830 --> 00:03:53,870
+So that information is already here. You can just copy
+
+70
+00:03:54,030 --> 00:03:56,950
+and paste this command straight into your CLI.
+
+71
+00:03:57,540 --> 00:04:01,360
+So back on the CLI, I'm going to paste that in, give my profile information,
+
+72
+00:04:01,940 --> 00:04:02,910
+and hit enter.
+
+73
+00:04:03,140 --> 00:04:08,310
+We get a status code 202, which is a success for asynchronous invocation.
+
+74
+00:04:08,335 --> 00:04:09,410
+So that's good.
+
+75
+00:04:09,650 --> 00:04:13,380
+And if we go to the response information, let's see if there's any output.
+
+76
+00:04:13,380 --> 00:04:16,410
+And of course, there isn't any output because it's asynchronous.
+
+77
+00:04:16,430 --> 00:04:20,959
+Remember only the synchronous invocation provided the output into the response JSON.
+
+78
+00:04:21,440 --> 00:04:24,220
+But what we really need to check is the SQS queue.
+
+79
+00:04:24,470 --> 00:04:26,810
+So back in the console, let's go to SQS,
+
+80
+00:04:27,030 --> 00:04:29,140
+click on send and receive messages,
+
+81
+00:04:29,430 --> 00:04:31,850
+just scroll down and then poll for messages.
+
+82
+00:04:32,240 --> 00:04:34,400
+And here we have a message.
+
+83
+00:04:34,560 --> 00:04:37,960
+If I click on view details, we can see some information.
+
+84
+00:04:38,640 --> 00:04:42,320
+And here we can see that message, where it says success true.
+
+85
+00:04:42,500 --> 00:04:48,530
+So that was the first test that was a simulation of a successful invocation.
+
+86
+00:04:48,720 --> 00:04:50,130
+So let's just close that one
+
+87
+00:04:50,400 --> 00:04:53,710
+and let's go back and simulate an unsuccessful invocation.
+
+88
+00:04:53,880 --> 00:04:58,600
+So now I simply need to copy this second command which already has success false
+
+89
+00:04:58,960 --> 00:05:02,800
+in the payload here as a base 64encoded value.
+
+90
+00:05:02,910 --> 00:05:04,320
+So let's run this command.
+
+91
+00:05:04,420 --> 00:05:06,360
+Again, we get a 202, which is good.
+
+92
+00:05:06,840 --> 00:05:10,120
+So back in SQS, I'm polling for messages.
+
+93
+00:05:10,280 --> 00:05:13,170
+And it hasn't come through yet. This is my original message.
+
+94
+00:05:13,170 --> 00:05:15,560
+So I'm waiting for the new one to come through.
+
+95
+00:05:16,330 --> 00:05:20,100
+Now, don't worry if that takes a couple of minutes with the failure simulation
+
+96
+00:05:20,100 --> 00:05:22,260
+it typically takes a little bit longer.
+
+97
+00:05:22,740 --> 00:05:24,510
+Okay, that took a few minutes actually.
+
+98
+00:05:24,560 --> 00:05:27,450
+And you can see that we now have our message here.
+
+99
+00:05:27,840 --> 00:05:30,650
+So I'm going to select that message, click on view details
+
+100
+00:05:30,750 --> 00:05:35,000
+and this time we get a different message, we can see it's the failure
+
+101
+00:05:35,160 --> 00:05:39,380
+and you can see the success equals false I am failing message.
+
+102
+00:05:39,400 --> 00:05:42,450
+So that was the simulation of a failure event.
+
+103
+00:05:43,440 --> 00:05:48,680
+Now, as you can see each time we poll for messages it actually receives the message.
+
+104
+00:05:48,680 --> 00:05:52,100
+So you can see the received count has gone right up for this message here.
+
+105
+00:05:52,250 --> 00:05:55,340
+And that's because I kept polling and each time you do that,
+
+106
+00:05:55,350 --> 00:05:58,530
+it is actually executing some API actions to
+
+107
+00:05:58,540 --> 00:06:01,260
+check the queue and receive those messages.
+
+108
+00:06:01,590 --> 00:06:02,640
+So anyway, that's good.
+
+109
+00:06:02,640 --> 00:06:07,760
+That has worked and we've done our test of using a destination.
+
+110
+00:06:08,240 --> 00:06:11,700
+And what we're going to do now is I'm just going to actually remove these
+
+111
+00:06:11,880 --> 00:06:14,060
+and we're going to set up a dead letter queue.
+
+112
+00:06:14,640 --> 00:06:19,500
+So let's remove these two asynchronous invocations and we're going
+
+113
+00:06:19,500 --> 00:06:23,060
+to go down to where it says asynchronous invocation here.
+
+114
+00:06:23,840 --> 00:06:24,960
+Click on edit,
+
+115
+00:06:25,640 --> 00:06:31,240
+And we're going to add our SQS queue as a dead letter queue.
+
+116
+00:06:31,500 --> 00:06:36,740
+So this means that messages that are not successfully processed gets sent to the
+
+117
+00:06:36,740 --> 00:06:39,600
+dead letter queue so that we can then check them later on.
+
+118
+00:06:40,140 --> 00:06:44,760
+And we have the maximum number of times to retry when the function returns an error.
+
+119
+00:06:45,540 --> 00:06:47,060
+So let's save.
+
+120
+00:06:47,440 --> 00:06:48,580
+We now have
+
+121
+00:06:48,790 --> 00:06:50,460
+our dead letter queue configured.
+
+122
+00:06:50,940 --> 00:06:54,260
+And let's go back and run the same command we just ran before.
+
+123
+00:06:54,720 --> 00:06:56,610
+So I'm going to rerun this command.
+
+124
+00:06:57,240 --> 00:06:59,140
+Let's just run it a couple of times.
+
+125
+00:06:59,350 --> 00:07:01,678
+And now that should generate some messages.
+
+126
+00:07:01,883 --> 00:07:04,460
+So back in our queue we can poll again
+
+127
+00:07:04,750 --> 00:07:06,930
+and again this could take a few minutes.
+
+128
+00:07:06,930 --> 00:07:09,690
+But then we should start seeing some new messages come in.
+
+129
+00:07:09,960 --> 00:07:14,360
+To clean things up, I'm just going to delete these existing messages
+
+130
+00:07:14,740 --> 00:07:17,660
+so then I know when the new messages come through.
+
+131
+00:07:18,040 --> 00:07:21,530
+So it's been a few minutes and I now have my messages coming through.
+
+132
+00:07:21,710 --> 00:07:23,200
+Let's click on one of these.
+
+133
+00:07:23,480 --> 00:07:27,660
+And we can see that this time the body does not have much information in it.
+
+134
+00:07:28,140 --> 00:07:31,280
+So you've got obviously write your code in a certain way if you want
+
+135
+00:07:31,280 --> 00:07:36,230
+to make sure that you have code that's useful for troubleshooting purposes in here.
+
+136
+00:07:36,240 --> 00:07:40,460
+Otherwise, you might just get something like this payload information here.
+
+137
+00:07:41,040 --> 00:07:44,850
+But that's how a destination works and DLQ.
+
+138
+00:07:45,440 --> 00:07:49,050
+So I'm happy with that. I've finished with this particular lesson.
+
+139
+00:07:49,320 --> 00:07:52,160
+And so what I'm going to do is just delete my queue
+
+140
+00:07:52,640 --> 00:07:56,860
+and that will take all of the information with it, such as the messages.
+
+141
+00:07:57,440 --> 00:07:59,960
+And that's it for this lesson. I will see you in the next one.
+

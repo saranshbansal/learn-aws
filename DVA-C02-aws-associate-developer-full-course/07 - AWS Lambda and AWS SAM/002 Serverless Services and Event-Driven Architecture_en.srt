@@ -1,0 +1,292 @@
+1
+00:00:05,280 --> 00:00:11,010
+Hi, guys. In this lesson, I'm going to give you a general overview of serverless services and how
+
+2
+00:00:11,010 --> 00:00:15,270
+we can use serverless services and what we call an event-driven architecture.
+
+3
+00:00:15,630 --> 00:00:19,140
+Now, an event-driven architecture is an architectural pattern.
+
+4
+00:00:19,410 --> 00:00:26,040
+Now, it leverages technology where we have an event happen in one service that then triggers something
+
+5
+00:00:26,040 --> 00:00:27,630
+that happens in another service.
+
+6
+00:00:27,840 --> 00:00:30,090
+Now, it's not exclusive to serverless.
+
+7
+00:00:30,360 --> 00:00:33,750
+You can use it with non-serverless services as well.
+
+8
+00:00:33,780 --> 00:00:38,910
+But as you'll see, there are some really good use cases when you're building cloud native applications
+
+9
+00:00:38,910 --> 00:00:44,430
+on AWS for combining serverless services into an event driven architecture.
+
+10
+00:00:45,090 --> 00:00:48,120
+Now, we have talked about serverless a few times in this course
+
+11
+00:00:48,120 --> 00:00:55,410
+already. Serverless is a concept in which you don't manage the underlying servers, which run the capability.
+
+12
+00:00:55,680 --> 00:01:01,020
+So, you can have serverless compute services, storage services, databases and so on.
+
+13
+00:01:01,140 --> 00:01:04,129
+Now, there will always be an underlying compute layer to it.
+
+14
+00:01:04,140 --> 00:01:10,110
+There will be a server that's processing the capability, that's providing the capability. But you don't
+
+15
+00:01:10,110 --> 00:01:12,810
+manage it. AWS will manage that for you.
+
+16
+00:01:13,620 --> 00:01:18,280
+So let's have a look how we can use serverless services in an event-driven architecture.
+
+17
+00:01:18,660 --> 00:01:23,160
+So, let's say we have a static website running on Amazon S3. Now,
+
+18
+00:01:23,160 --> 00:01:28,830
+as you know, Amazon S3 is an object-based storage system and it is serverless because you don't
+
+19
+00:01:28,830 --> 00:01:33,180
+have any servers to manage and you can scale this capability seamlessly.
+
+20
+00:01:33,510 --> 00:01:38,310
+So let's say a user is going to upload a file to our S3 static website.
+
+21
+00:01:38,790 --> 00:01:44,970
+Now, what we want to happen is we want a Lambda function to actually then process that file and do something
+
+22
+00:01:44,970 --> 00:01:45,300
+with it.
+
+23
+00:01:45,570 --> 00:01:51,360
+The Lambda function knows that there's a file to process because of an event notification. So, this
+
+24
+00:01:51,360 --> 00:01:56,050
+is the first example of how we have event-driven activities taking place.
+
+25
+00:01:56,460 --> 00:02:02,640
+File gets uploaded to S3, S3 uses event notifications to tell Lambda that there's a file to
+
+26
+00:02:02,640 --> 00:02:03,270
+process.
+
+27
+00:02:03,870 --> 00:02:09,780
+Lambda can then process the file, and maybe it puts some modified objects in another S3 bucket.
+
+28
+00:02:10,289 --> 00:02:16,530
+At the same time, it could also trigger an event and in an SQS queue. So, it could send the file to an
+
+29
+00:02:16,530 --> 00:02:17,010
+SQS
+
+30
+00:02:17,040 --> 00:02:22,500
+queue. And then another Lambda function might be looking at that queue and saying, okay, there's something
+
+31
+00:02:22,500 --> 00:02:23,790
+in the queue to process.
+
+32
+00:02:24,000 --> 00:02:29,040
+Or the queue can be configured to actually trigger the Lambda function. So, it can work both ways.
+
+33
+00:02:29,490 --> 00:02:34,980
+Either way, what will happen is the Lambda function will then look at the queue, process the message, and
+
+34
+00:02:34,980 --> 00:02:38,930
+in this case, maybe it stores a record in the DynamoDB table.
+
+35
+00:02:39,420 --> 00:02:42,170
+DynamoDB is also a serverless service.
+
+36
+00:02:42,180 --> 00:02:43,440
+It's a database service.
+
+37
+00:02:43,890 --> 00:02:49,910
+So in this case, we have a processed object in a bucket and we have a record of the transaction in
+
+38
+00:02:49,920 --> 00:02:51,030
+a database as well.
+
+39
+00:02:51,630 --> 00:02:57,150
+We might also send a notification via an SNS topic. And that could go to somebody's inbox as an
+
+40
+00:02:57,150 --> 00:02:58,950
+email to let them know what's happened.
+
+41
+00:02:59,460 --> 00:03:03,420
+So that's how we use serverless services in an event-driven architecture.
+
+42
+00:03:03,720 --> 00:03:07,350
+And the great thing about AWS is lots of these capabilities,
+
+43
+00:03:07,350 --> 00:03:12,780
+these serverless service capabilities are there for you to use and they have great integration with
+
+44
+00:03:12,780 --> 00:03:13,290
+each other.
+
+45
+00:03:13,590 --> 00:03:17,130
+So, it's very easy to create these kind of event-driven architectures.
+
+46
+00:03:17,490 --> 00:03:23,310
+You simply need to supply the code for your Lambda functions and configure the various services to work
+
+47
+00:03:23,310 --> 00:03:23,760
+together.
+
+48
+00:03:24,090 --> 00:03:28,350
+Let's go over a few key facts about serverless services. With serverless,
+
+49
+00:03:28,360 --> 00:03:30,360
+there are no instances to manage.
+
+50
+00:03:30,690 --> 00:03:36,690
+So, with other services that are not serverless, you often have EC2 as the underlying compute layer.
+
+51
+00:03:37,020 --> 00:03:42,420
+So, you'll have to launch an instance, choose the instance type, the family and so on that you want
+
+52
+00:03:42,420 --> 00:03:42,960
+to use,
+
+53
+00:03:43,410 --> 00:03:45,390
+and then you've got to patch manage that instance.
+
+54
+00:03:45,390 --> 00:03:47,730
+You've got to secure the instance properly.
+
+55
+00:03:47,910 --> 00:03:50,910
+There might be operational management, backups, and so on.
+
+56
+00:03:51,240 --> 00:03:55,470
+So, there's quite a lot of work to do. But with serverless, you don't have any of that operational
+
+57
+00:03:55,470 --> 00:03:55,980
+overhead.
+
+58
+00:03:56,250 --> 00:03:57,790
+You don't need to provision hardware.
+
+59
+00:03:57,810 --> 00:04:02,760
+Of course, there's no underlying instance and there's no hardware supervision. And there's no management
+
+60
+00:04:02,760 --> 00:04:06,090
+of the operating system or the software running on top of it.
+
+61
+00:04:07,260 --> 00:04:10,980
+All capacity provisioning and patching is handled automatically.
+
+62
+00:04:11,340 --> 00:04:17,490
+So, with services like AWS Lambda which we're going to cover very soon, that runs code in response
+
+63
+00:04:17,490 --> 00:04:18,240
+to events.
+
+64
+00:04:18,630 --> 00:04:21,200
+Now, Lambda will scale seamlessly.
+
+65
+00:04:21,209 --> 00:04:25,290
+There's a few configuration parameters you need to define, but it will scale.
+
+66
+00:04:25,680 --> 00:04:31,590
+There's no running out of compute capacity there because you're not actually working with that underlying
+
+67
+00:04:31,590 --> 00:04:32,400
+compute layer
+
+68
+00:04:32,550 --> 00:04:38,160
+as you are with EC2. You get automatic scaling and high availability with serverless services.
+
+69
+00:04:38,550 --> 00:04:40,500
+And it can also be very, very cheap.
+
+70
+00:04:40,800 --> 00:04:44,400
+So, depending on your use case, you have to look at the pricing.
+
+71
+00:04:44,670 --> 00:04:48,990
+But often, services like Lambda can be extremely cheap for processing data.
+
+72
+00:04:49,170 --> 00:04:54,840
+As long as your use case does support Lambda, then Lambda can be a great way to run your code instead
+
+73
+00:04:54,840 --> 00:04:57,270
+of running EC2 instances or containers.
+

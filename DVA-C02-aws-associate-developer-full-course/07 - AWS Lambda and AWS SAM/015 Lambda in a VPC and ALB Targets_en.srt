@@ -1,0 +1,256 @@
+1
+00:00:05,186 --> 00:00:06,110
+In this lesson,
+
+2
+00:00:06,110 --> 00:00:11,590
+we're going to look at how we can connect our functions to a VPC and also use an ALB
+
+3
+00:00:11,590 --> 00:00:14,030
+in front of AWS Lambda.
+
+4
+00:00:14,230 --> 00:00:17,570
+So here we have a diagram of a VPC
+
+5
+00:00:17,580 --> 00:00:21,220
+with two AZs, couple of private subnets with instances
+
+6
+00:00:21,340 --> 00:00:22,890
+and a couple of public subnets.
+
+7
+00:00:23,230 --> 00:00:28,150
+Now we've got our Lambda function and we want to connect our function to this VPC.
+
+8
+00:00:28,840 --> 00:00:33,170
+Now when we specify the configuration information in Lambda,
+
+9
+00:00:33,180 --> 00:00:38,630
+what it will do is establish an Elastic Network Interface in a private subnet.
+
+10
+00:00:38,950 --> 00:00:42,220
+So we now have connected our function so
+
+11
+00:00:42,220 --> 00:00:46,860
+that it can communicate with our application instances
+
+12
+00:00:47,040 --> 00:00:51,540
+in the private subnet or whatever else we want to communicate with in that subnet.
+
+13
+00:00:51,730 --> 00:00:54,230
+Now, it's important to understand that once you connect
+
+14
+00:00:54,230 --> 00:00:56,990
+your Lambda function to a private subnet,
+
+15
+00:00:57,190 --> 00:00:59,710
+you then will not get internet access.
+
+16
+00:01:00,020 --> 00:01:04,700
+So your Lambda function won't be able to call any service that's internet-based.
+
+17
+00:01:05,239 --> 00:01:08,710
+So what we need to do then is establishing NAT Gateway.
+
+18
+00:01:08,800 --> 00:01:12,790
+Now, a NAT Gateway is always established in a public subnet
+
+19
+00:01:13,040 --> 00:01:18,790
+and we specify the destination in the route table of the private subnet.
+
+20
+00:01:19,070 --> 00:01:23,150
+And then that gateway will use the internet gateway to then access the internet.
+
+21
+00:01:23,160 --> 00:01:25,890
+So that's how you make sure your Lambda function can
+
+22
+00:01:25,890 --> 00:01:29,490
+still communicate with any internet-based service it uses.
+
+23
+00:01:29,840 --> 00:01:34,120
+You must connect to a private subnet with a NAT gateway for internet access,
+
+24
+00:01:34,120 --> 00:01:38,330
+as I've just explained, as you don't get a public IP in a private subnet.
+
+25
+00:01:38,940 --> 00:01:42,670
+Be very careful with DNS resolution of public host names as it could
+
+26
+00:01:42,680 --> 00:01:46,460
+add to the function running time and that does incur a cost.
+
+27
+00:01:47,250 --> 00:01:51,010
+You cannot be connected to a dedicated tenancy VPC.
+
+28
+00:01:51,440 --> 00:01:56,490
+And only connects with VPC if you need to, as it can slow down the function execution.
+
+29
+00:01:56,940 --> 00:01:58,860
+Now of course we do need some permissions.
+
+30
+00:01:58,860 --> 00:02:02,860
+So your functions execution role must have the following permissions.
+
+31
+00:02:03,140 --> 00:02:05,370
+We need the CreateNetworkInterface,
+
+32
+00:02:05,520 --> 00:02:07,430
+DescribedNetworkInterfaces
+
+33
+00:02:07,660 --> 00:02:09,449
+and DeleteNetworkInterface.
+
+34
+00:02:09,788 --> 00:02:12,560
+And those are all associated with EC2.
+
+35
+00:02:13,040 --> 00:02:15,870
+These permissions are included in a managed policy
+
+36
+00:02:15,895 --> 00:02:18,120
+and you can see the policy name right there.
+
+37
+00:02:18,250 --> 00:02:22,340
+We can also put an ALB in front of our Lambda function.
+
+38
+00:02:22,550 --> 00:02:24,760
+Now it must be an application load balancer.
+
+39
+00:02:24,760 --> 00:02:28,860
+We cannot use a Network Load Balancer and have a Lambda target.
+
+40
+00:02:29,440 --> 00:02:33,720
+You can register your Lambda function as targets and then configure a listener
+
+41
+00:02:33,720 --> 00:02:37,620
+rule to forward requests to the target group for your Lambda function.
+
+42
+00:02:37,990 --> 00:02:41,690
+Now, here's a diagram, we've got a Lambda function and an ALB.
+
+43
+00:02:42,050 --> 00:02:44,970
+And we've got our internet client connecting to the ALB
+
+44
+00:02:45,220 --> 00:02:47,560
+over HTTP or HTTPS.
+
+45
+00:02:47,840 --> 00:02:51,760
+And then it has a registered target using the Lambda function.
+
+46
+00:02:52,140 --> 00:02:54,770
+The content of the request is passed
+
+47
+00:02:54,940 --> 00:02:57,750
+to the Lambda function in JSON format
+
+48
+00:02:58,140 --> 00:03:02,060
+and then the Lambda function is going to execute the information it receives.
+
+49
+00:03:02,230 --> 00:03:05,700
+So why would you want to put your Lambda function behind an ALB?
+
+50
+00:03:05,760 --> 00:03:07,140
+There are a few use cases.
+
+51
+00:03:07,140 --> 00:03:09,330
+So for example you might have different
+
+52
+00:03:09,330 --> 00:03:11,660
+functions in different target groups and you
+
+53
+00:03:11,660 --> 00:03:16,460
+can use the routing rules like path-based routing and host-based routing.
+
+54
+00:03:16,640 --> 00:03:20,270
+You can also use an SSL/TLS certificate on the ALB,
+
+55
+00:03:20,270 --> 00:03:24,950
+so you add that to your front end for your website or whatever you're running.
+
+56
+00:03:25,180 --> 00:03:28,250
+A bit of information, there are some limits to understand.
+
+57
+00:03:28,420 --> 00:03:31,550
+The Lambda function and target group must be in
+
+58
+00:03:31,550 --> 00:03:34,710
+the same account in the same AWS region.
+
+59
+00:03:34,950 --> 00:03:37,730
+The maximum size of the request body that you can send to
+
+60
+00:03:37,730 --> 00:03:39,950
+a Lambda function is one megabyte.
+
+61
+00:03:40,440 --> 00:03:42,890
+And the maximum size of the response JSON that
+
+62
+00:03:42,890 --> 00:03:46,290
+the Lambda function can send is also one megabyte.
+
+63
+00:03:46,440 --> 00:03:52,800
+Websockets are not supported. Upgrade requests are rejected with an HTTP 400 code.
+
+64
+00:03:53,150 --> 00:03:55,560
+And lastly, local zones are not supported.
+

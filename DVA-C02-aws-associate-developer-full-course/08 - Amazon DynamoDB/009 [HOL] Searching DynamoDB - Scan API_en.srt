@@ -1,0 +1,452 @@
+1
+00:00:05,140 --> 00:00:10,930
+Hi guys. In this lesson, we're going to practice using the scan API with DynamoDB
+
+2
+00:00:10,970 --> 00:00:14,260
+and we're going to do so using the AWS CLI.
+
+3
+00:00:14,730 --> 00:00:17,160
+Now in your course download, you'll find this file.
+
+4
+00:00:17,160 --> 00:00:22,100
+So in the code directory, DynamoDB and then DynamoDB CLI commands.
+
+5
+00:00:22,440 --> 00:00:24,000
+And there's quite a few commands here.
+
+6
+00:00:24,150 --> 00:00:28,560
+Now we might not run every single one of these but you can certainly in your own time.
+
+7
+00:00:29,340 --> 00:00:33,360
+Now what you'll notice is the very first one here actually references a file.
+
+8
+00:00:33,740 --> 00:00:35,200
+So what we're doing here
+
+9
+00:00:35,320 --> 00:00:40,790
+is we're running this command AWS DynamoDB batch write item,
+
+10
+00:00:41,050 --> 00:00:44,420
+request items, and then we're supplying a file.
+
+11
+00:00:44,530 --> 00:00:46,740
+So we're actually going to populate our
+
+12
+00:00:46,740 --> 00:00:50,140
+DynamoDB table with some information that's stored
+
+13
+00:00:50,310 --> 00:00:52,760
+in here, in this mystore.json.
+
+14
+00:00:53,640 --> 00:00:56,810
+So this is the mystore.json file.
+
+15
+00:00:57,340 --> 00:01:02,080
+And what we're actually looking at here is we specify the table name.
+
+16
+00:01:02,080 --> 00:01:05,220
+So remember we created a table earlier called My Store.
+
+17
+00:01:05,280 --> 00:01:07,600
+Now if you created your table with a different name,
+
+18
+00:01:07,600 --> 00:01:09,895
+you need to go back and create My Store.
+
+19
+00:01:10,166 --> 00:01:15,460
+And you need to make sure you have the correct partition key and sort key as I used.
+
+20
+00:01:15,940 --> 00:01:19,230
+So once you've got your My Store table running,
+
+21
+00:01:19,620 --> 00:01:21,550
+then we're able to populate the data.
+
+22
+00:01:22,040 --> 00:01:26,730
+So our command is going to call this file and it's going to issue PUT requests
+
+23
+00:01:26,860 --> 00:01:30,920
+to put certain items into the DynamoDB table.
+
+24
+00:01:31,240 --> 00:01:35,410
+And they include information such as the client ID which is a string value
+
+25
+00:01:35,520 --> 00:01:36,710
+and an email address.
+
+26
+00:01:37,140 --> 00:01:39,060
+Created which is a timestamp,
+
+27
+00:01:39,540 --> 00:01:44,160
+SKU, category, a size and so on, quantity, which is a number.
+
+28
+00:01:44,540 --> 00:01:46,180
+So various information.
+
+29
+00:01:46,733 --> 00:01:49,058
+And the information that's included in
+
+30
+00:01:49,082 --> 00:01:51,793
+each of these different items may be different.
+
+31
+00:01:51,840 --> 00:01:55,930
+With some items, an attribute might have a string value whereas the same
+
+32
+00:01:55,930 --> 00:01:59,150
+attribute in a different item is a number value.
+
+33
+00:01:59,540 --> 00:02:02,360
+So that's the flexibility of DynamoDB.
+
+34
+00:02:03,040 --> 00:02:04,960
+So we've got all these items in here.
+
+35
+00:02:04,970 --> 00:02:09,380
+What we need to do is come back and copy these files to our clipboards
+
+36
+00:02:09,570 --> 00:02:11,160
+and then go to the CLI.
+
+37
+00:02:11,540 --> 00:02:13,870
+So I'm on the CLI here and I'm actually in
+
+38
+00:02:13,880 --> 00:02:16,730
+the directory in my course download where this file is.
+
+39
+00:02:16,770 --> 00:02:18,950
+So I've got mystore.json.
+
+40
+00:02:19,540 --> 00:02:21,660
+So I'm going to paste in that command.
+
+41
+00:02:22,050 --> 00:02:23,880
+And let's run this file.
+
+42
+00:02:24,540 --> 00:02:27,240
+So that looks good. That's a good response.
+
+43
+00:02:27,430 --> 00:02:31,050
+If we go to DynamoDB now, we should be able to find those items.
+
+44
+00:02:31,440 --> 00:02:34,280
+So back in DynamoDB I'm going to choose my store,
+
+45
+00:02:34,530 --> 00:02:35,850
+explore items,
+
+46
+00:02:36,720 --> 00:02:38,410
+and let's just give this a refresh.
+
+47
+00:02:38,740 --> 00:02:41,510
+And now we see all of these new items.
+
+48
+00:02:41,940 --> 00:02:45,460
+So lots of items with various different information.
+
+49
+00:02:45,460 --> 00:02:49,770
+Note that of course because of the composite key, they must all have the client ID
+
+50
+00:02:49,840 --> 00:02:52,350
+and the created values populated.
+
+51
+00:02:52,740 --> 00:02:54,450
+But for everything else it's optional.
+
+52
+00:02:55,040 --> 00:02:59,710
+So we've got various different attributes associated with our various items.
+
+53
+00:02:59,950 --> 00:03:04,560
+Let's now run the first scan command, this AWS DynamoDB scan.
+
+54
+00:03:04,670 --> 00:03:06,740
+And we literally just give it the table name.
+
+55
+00:03:07,040 --> 00:03:08,890
+So let's copy that to our clipboards
+
+56
+00:03:09,340 --> 00:03:10,450
+and I'll paste that in.
+
+57
+00:03:11,440 --> 00:03:13,630
+And we basically get the items.
+
+58
+00:03:13,630 --> 00:03:19,060
+So if I hit my space bar, I'm just finding that essentially all of the items are here.
+
+59
+00:03:19,740 --> 00:03:23,560
+Right at the bottom, it then tells me that the count is 23.
+
+60
+00:03:23,740 --> 00:03:27,080
+So that's how many items there are. That's how many were actually scanned.
+
+61
+00:03:27,640 --> 00:03:29,050
+So let's quit from there.
+
+62
+00:03:29,440 --> 00:03:33,300
+There's also an option to specify a page size parameter
+
+63
+00:03:33,520 --> 00:03:35,510
+and also here a max items.
+
+64
+00:03:35,690 --> 00:03:37,390
+Let's copy the max items.
+
+65
+00:03:37,650 --> 00:03:38,860
+And I've set it to two.
+
+66
+00:03:39,240 --> 00:03:40,690
+So I'm going to paste this one in.
+
+67
+00:03:41,206 --> 00:03:42,260
+and let's head answer.
+
+68
+00:03:43,300 --> 00:03:45,160
+And so now we have two items.
+
+69
+00:03:45,740 --> 00:03:48,200
+But note that the scan count is still 23
+
+70
+00:03:48,200 --> 00:03:51,480
+because remember with a scan it's still scanning everything
+
+71
+00:03:51,680 --> 00:03:55,440
+and it's just returning whatever you filtered it to return.
+
+72
+00:03:55,763 --> 00:04:00,640
+Back in our file, another thing we can do is use a projection expression parameter.
+
+73
+00:04:01,140 --> 00:04:04,880
+And we can specify stuff like the created or the category or the color.
+
+74
+00:04:04,960 --> 00:04:06,400
+So one of the attributes.
+
+75
+00:04:07,040 --> 00:04:09,560
+So let's copy this one, the first one on the list.
+
+76
+00:04:10,240 --> 00:04:11,650
+And let's run this command.
+
+77
+00:04:12,740 --> 00:04:16,540
+So now, note that we're returning just the information
+
+78
+00:04:16,740 --> 00:04:20,339
+about the various items. So we see a list of items
+
+79
+00:04:20,380 --> 00:04:24,090
+but all we're seeing is the created timestamp.
+
+80
+00:04:24,320 --> 00:04:27,420
+And again at the end we've got the scan count as 23.
+
+81
+00:04:27,530 --> 00:04:31,850
+So of course, if we did the same thing with another attribute like color,
+
+82
+00:04:32,340 --> 00:04:33,910
+we get a very similar result.
+
+83
+00:04:34,230 --> 00:04:37,660
+So let's run this command and now it's actually returning the color.
+
+84
+00:04:37,660 --> 00:04:40,140
+And of course in this case a lot of the items
+
+85
+00:04:40,140 --> 00:04:43,350
+do not have this attribute specified so they're just blank.
+
+86
+00:04:43,740 --> 00:04:46,740
+And then we can see the ones that do. There's just two of the items.
+
+87
+00:04:47,110 --> 00:04:49,950
+But again of course, we scanned 23 items.
+
+88
+00:04:50,510 --> 00:04:52,960
+There's then a filter expression parameter.
+
+89
+00:04:53,500 --> 00:04:56,950
+So now rather than filtering based on the attribute here,
+
+90
+00:04:57,340 --> 00:05:00,600
+we're looking for specific values of attributes.
+
+91
+00:05:00,600 --> 00:05:02,670
+So we're looking for the filter expression
+
+92
+00:05:02,800 --> 00:05:07,180
+and we're looking for the client IDs and where the user name is specified.
+
+93
+00:05:07,570 --> 00:05:09,760
+And then the expression attribute value
+
+94
+00:05:09,900 --> 00:05:12,760
+in this case we're looking for a specific user.
+
+95
+00:05:13,240 --> 00:05:16,600
+So let's copy this and go over and run this command.
+
+96
+00:05:17,140 --> 00:05:18,250
+So I'm going to hit enter.
+
+97
+00:05:18,740 --> 00:05:21,760
+And now I can see some items
+
+98
+00:05:22,400 --> 00:05:24,260
+that were ordered by Chris.
+
+99
+00:05:24,810 --> 00:05:28,140
+So you see the various different items here that were ordered by Chris.
+
+100
+00:05:28,940 --> 00:05:33,410
+We see a count of six and of course everything in the table was scanned.
+
+101
+00:05:34,240 --> 00:05:38,420
+In the next filter expression parameter example, we're looking for size
+
+102
+00:05:38,620 --> 00:05:42,960
+and numerical value and we're looking for one that is equal to
+
+103
+00:05:43,440 --> 00:05:45,260
+this specific value of 12.
+
+104
+00:05:45,740 --> 00:05:47,060
+So let's run this command.
+
+105
+00:05:48,040 --> 00:05:51,350
+And now we only get one item which has a size
+
+106
+00:05:51,560 --> 00:05:54,160
+that has a numerical value equal to 12.
+
+107
+00:05:54,540 --> 00:05:59,410
+The next command is very similar but it's looking for size greater than
+
+108
+00:05:59,690 --> 00:06:02,710
+and then the item value of 12.
+
+109
+00:06:03,060 --> 00:06:06,000
+So let's run this command and now we get some more results.
+
+110
+00:06:06,940 --> 00:06:10,570
+So that's just a few examples of how we can use
+
+111
+00:06:10,580 --> 00:06:15,430
+various different commands on the CLI to scan our DynamoDB table.
+
+112
+00:06:15,670 --> 00:06:17,240
+And in the next hands-on lesson,
+
+113
+00:06:17,250 --> 00:06:22,150
+we'll run some queries so you can see the difference between scanning and querying.
+

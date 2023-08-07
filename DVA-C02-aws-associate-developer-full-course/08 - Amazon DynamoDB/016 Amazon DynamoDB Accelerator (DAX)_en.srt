@@ -1,0 +1,180 @@
+1
+00:00:05,340 --> 00:00:09,330
+DynamoDB accelerator, also known as DAX, is a way that we
+
+2
+00:00:09,330 --> 00:00:14,160
+can reduce latency and increase performance for our DynamoDB table.
+
+3
+00:00:14,740 --> 00:00:18,438
+DAX is a managed service that provides in-memory acceleration
+
+4
+00:00:18,462 --> 00:00:20,380
+for our DynamoDB tables.
+
+5
+00:00:20,480 --> 00:00:24,840
+It improves performance from milliseconds to microseconds even at
+
+6
+00:00:24,840 --> 00:00:27,800
+really high rates like millions of requests per second.
+
+7
+00:00:28,050 --> 00:00:31,450
+So remember those keywords millisecond and microsecond.
+
+8
+00:00:31,640 --> 00:00:36,350
+You get millisecond latency with DynamoDB but you get microsecond latency
+
+9
+00:00:36,440 --> 00:00:39,950
+if you put the accelerator in front of DynamoDB.
+
+10
+00:00:40,640 --> 00:00:46,360
+It provides managed cache invalidation, data population, and cluster management.
+
+11
+00:00:46,740 --> 00:00:51,250
+And DAX is used to improve read performance but not writes.
+
+12
+00:00:51,260 --> 00:00:55,430
+So this is about improving reads and not writes to your database.
+
+13
+00:00:55,940 --> 00:00:59,320
+You don't need to modify the application logic because DAX
+
+14
+00:00:59,330 --> 00:01:03,450
+is compatible with DynamoDB API calls.
+
+15
+00:01:03,580 --> 00:01:07,700
+So it's really simple to put DAX in front of your DynamoDB table.
+
+16
+00:01:08,340 --> 00:01:11,485
+So let's look at how it looks in an architectural diagram.
+
+17
+00:01:11,509 --> 00:01:15,460
+We've got DynamoDB, then we've got our application instance.
+
+18
+00:01:15,850 --> 00:01:19,710
+And what we do is we put our cache in front of DynamoDB.
+
+19
+00:01:19,890 --> 00:01:25,160
+Now note that the Cache is within the VPC because it runs on EC2 two instances.
+
+20
+00:01:25,840 --> 00:01:28,750
+Now to make this work, we do need some permissions.
+
+21
+00:01:28,970 --> 00:01:36,010
+The IAM role for the DAX instance must have permissions to access DynamoDB.
+
+22
+00:01:36,270 --> 00:01:39,440
+And the IAM role for the instance, the EC2 instance
+
+23
+00:01:39,540 --> 00:01:43,790
+requires permissions to access both DynamoDB and DAX.
+
+24
+00:01:44,040 --> 00:01:47,030
+If we have a security group we'll need these rules.
+
+25
+00:01:47,146 --> 00:01:50,056
+So in this case we'll need inbound rules.
+
+26
+00:01:50,640 --> 00:01:57,860
+So we'll need TCP 8000 and TCP 8111. Those are for DynamoDB and DAX.
+
+27
+00:01:58,240 --> 00:02:01,860
+And from we can specify from the actual security group ID
+
+28
+00:02:01,860 --> 00:02:05,669
+of the security group itself because our instance and our accelerator
+
+29
+00:02:05,694 --> 00:02:07,360
+are both within the security group.
+
+30
+00:02:07,740 --> 00:02:12,810
+That can be enabled really easily through the management console or using the SDK.
+
+31
+00:02:12,970 --> 00:02:17,160
+And as with DynamoDB, you only pay for the capacity you actually provision.
+
+32
+00:02:17,620 --> 00:02:20,920
+It's provisions through clusters and charged by the node.
+
+33
+00:02:20,920 --> 00:02:24,790
+So it actually runs on EC2 instances so you pay by the node
+
+34
+00:02:24,890 --> 00:02:27,180
+based on the instance type you use.
+
+35
+00:02:27,740 --> 00:02:31,905
+Pricing is per node-hour consumed and is dependent on the instance type
+
+36
+00:02:31,929 --> 00:02:33,140
+that you select.
+
+37
+00:02:33,470 --> 00:02:38,210
+Now, just a quick comparison with ElastiCache another in memory caching solution.
+
+38
+00:02:38,400 --> 00:02:41,590
+So DAX is more optimized for DynamoDB.
+
+39
+00:02:41,600 --> 00:02:45,220
+Obviously it can call the APIs directly so it's much
+
+40
+00:02:45,220 --> 00:02:48,215
+simpler to put in front of a DynamoDB table.
+
+41
+00:02:48,393 --> 00:02:51,420
+With ElastiCache, you also have more management overhead for
+
+42
+00:02:51,420 --> 00:02:54,640
+things like invalidation of items in the cache.
+
+43
+00:02:55,240 --> 00:02:59,070
+With ElastiCache you would also need to modify the application code
+
+44
+00:02:59,095 --> 00:03:00,360
+to point to the cache.
+
+45
+00:03:00,840 --> 00:03:05,100
+That being said, ElastiCache does support more data stores than DAX.
+

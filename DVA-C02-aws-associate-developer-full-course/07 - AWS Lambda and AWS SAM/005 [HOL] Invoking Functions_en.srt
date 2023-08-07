@@ -1,0 +1,712 @@
+1
+00:00:05,540 --> 00:00:10,650
+Hi guys. In this lesson, we're going to test asynchronous and synchronous invocation
+
+2
+00:00:10,650 --> 00:00:13,970
+from the command line using the AWS CLI.
+
+3
+00:00:14,440 --> 00:00:19,970
+So we'll be creating a Lambda function and then using the CLI from our computers,
+
+4
+00:00:19,980 --> 00:00:23,930
+we're then going to initiate an invocation of the function
+
+5
+00:00:24,050 --> 00:00:26,450
+and then the function is going to execute
+
+6
+00:00:26,481 --> 00:00:29,466
+and it will write an event to CloudWatch logs.
+
+7
+00:00:30,140 --> 00:00:35,560
+I'm in the Lambda console and I'm on the dashboard. You can also be under functions.
+
+8
+00:00:35,940 --> 00:00:38,660
+And what you want to do is click on create function.
+
+9
+00:00:39,340 --> 00:00:42,180
+Now there's a few options here, you can author from scratch,
+
+10
+00:00:42,280 --> 00:00:45,010
+you can use a blueprint and there's a whole lot of
+
+11
+00:00:45,010 --> 00:00:49,150
+different blueprints for various functions that will include the function code.
+
+12
+00:00:49,540 --> 00:00:51,310
+You can use container images
+
+13
+00:00:51,740 --> 00:00:54,160
+or the serverless application repository,
+
+14
+00:00:54,160 --> 00:00:55,960
+which we'll look at later on in this section.
+
+15
+00:00:56,440 --> 00:00:59,260
+What we're going to do for now is author from scratch.
+
+16
+00:00:59,720 --> 00:01:02,550
+I'm going to call my function MyTestfunction.
+
+17
+00:01:02,940 --> 00:01:05,110
+We then need to choose the runtime.
+
+18
+00:01:05,269 --> 00:01:08,410
+Now I'm happy using Node.js16.x.
+
+19
+00:01:08,620 --> 00:01:11,990
+There's a whole load of different supported runtimes in here as well.
+
+20
+00:01:12,540 --> 00:01:15,260
+So I'm just gonna leave it on Node.js16.
+
+21
+00:01:15,740 --> 00:01:18,860
+For architecture, I'm happy with x86 64.
+
+22
+00:01:19,640 --> 00:01:20,880
+Now, under permissions,
+
+23
+00:01:20,880 --> 00:01:24,760
+your function needs permissions to call other AWS services.
+
+24
+00:01:25,100 --> 00:01:27,050
+So there's a few different things you can do here.
+
+25
+00:01:27,050 --> 00:01:29,900
+You can create a new role with basic Lambda permissions,
+
+26
+00:01:30,340 --> 00:01:31,660
+use an existing role
+
+27
+00:01:32,040 --> 00:01:35,760
+or you can create a new role from AWS policy templates.
+
+28
+00:01:36,110 --> 00:01:38,620
+If you use the policy templates, you'll see here
+
+29
+00:01:38,720 --> 00:01:41,720
+we have lots of different policy templates to choose from,
+
+30
+00:01:41,730 --> 00:01:44,190
+which give us permissions to various services.
+
+31
+00:01:44,620 --> 00:01:45,600
+For this exercise,
+
+32
+00:01:45,600 --> 00:01:49,256
+I'm happy creating a new role with basic Lambda permissions.
+
+33
+00:01:49,281 --> 00:01:53,060
+And that will include the permissions that I need for Amazon CloudWatch.
+
+34
+00:01:53,540 --> 00:01:55,960
+At the bottom we have the advanced settings.
+
+35
+00:01:56,340 --> 00:01:58,050
+Here, you can enable code signing,
+
+36
+00:01:58,540 --> 00:02:03,280
+you can enable a function URL so that you can assign an HTTPS endpoint.
+
+37
+00:02:03,540 --> 00:02:04,820
+You can enable tags,
+
+38
+00:02:05,010 --> 00:02:07,630
+and if you wanted to deploy your function to a VPC,
+
+39
+00:02:07,630 --> 00:02:10,680
+this is where you would do it and you need to specify the VPC
+
+40
+00:02:10,930 --> 00:02:13,060
+and then the subnets where you will deploy it.
+
+41
+00:02:13,640 --> 00:02:16,630
+Now, I don't want to change any of those settings so, I've left them all blank
+
+42
+00:02:16,790 --> 00:02:18,160
+and I'm going to create my function.
+
+43
+00:02:18,640 --> 00:02:20,510
+Now in this case as we create the function,
+
+44
+00:02:20,510 --> 00:02:23,645
+it's going to create that new IAM role for us with the permissions.
+
+45
+00:02:23,670 --> 00:02:25,730
+And we'll go and have a look at that to make sure
+
+46
+00:02:25,850 --> 00:02:27,460
+it's got all the permissions we need.
+
+47
+00:02:28,340 --> 00:02:30,350
+So here is the main page for the function.
+
+48
+00:02:30,740 --> 00:02:35,060
+Here, we can see the function name in the center console.
+
+49
+00:02:35,440 --> 00:02:39,060
+We've got triggers and destinations, we'll look at all of that in this section.
+
+50
+00:02:39,540 --> 00:02:41,080
+And then a bit further down, you'll see
+
+51
+00:02:41,080 --> 00:02:43,230
+there's various different panes you can go into.
+
+52
+00:02:43,530 --> 00:02:46,350
+So here we're looking at code and you can see
+
+53
+00:02:46,490 --> 00:02:51,150
+the index.Js code here, and this is a simple Hello from Lambda function.
+
+54
+00:02:51,540 --> 00:02:54,860
+If you go to test, we can run test events, we'll be doing that shortly.
+
+55
+00:02:55,440 --> 00:02:56,900
+Under monitor,
+
+56
+00:02:57,200 --> 00:03:00,990
+this is where you can actually then go across and see information
+
+57
+00:03:01,130 --> 00:03:06,110
+in CloudWatch view AWS X-Ray traces in service lens.
+
+58
+00:03:06,390 --> 00:03:10,160
+You can view Lambda insights and profiles in code guru.
+
+59
+00:03:10,540 --> 00:03:14,240
+You can also see the metrics on the page here coming from CloudWatch.
+
+60
+00:03:14,240 --> 00:03:17,103
+So the function reports the information to CloudWatch
+
+61
+00:03:17,128 --> 00:03:20,460
+and then we can display that information on this page.
+
+62
+00:03:21,840 --> 00:03:23,590
+We've also got configuration.
+
+63
+00:03:24,140 --> 00:03:26,660
+Here, there's lots of different tabs for configuration.
+
+64
+00:03:27,140 --> 00:03:29,010
+For example, let's go to permissions.
+
+65
+00:03:29,540 --> 00:03:33,220
+If I click on permissions we can see the role name.
+
+66
+00:03:33,340 --> 00:03:36,160
+If we click on that, that will take us to IAM.
+
+67
+00:03:36,540 --> 00:03:37,780
+We can see the role.
+
+68
+00:03:38,340 --> 00:03:40,830
+We can see the trust relationships. In this case,
+
+69
+00:03:40,950 --> 00:03:44,570
+we're allowing the Lambda service to assume the role.
+
+70
+00:03:45,440 --> 00:03:49,110
+Under permissions, we can see that we have this policy applied.
+
+71
+00:03:49,570 --> 00:03:52,250
+And this policy is going to allow
+
+72
+00:03:52,740 --> 00:03:58,400
+some permissions for Amazon CloudWatch logs. In this case we can create a log stream
+
+73
+00:03:58,650 --> 00:04:01,050
+and we can put event logs into that stream.
+
+74
+00:04:01,640 --> 00:04:04,850
+Now note that this particular execution role
+
+75
+00:04:05,240 --> 00:04:07,460
+is limited to the ARN
+
+76
+00:04:07,840 --> 00:04:10,160
+of the actual Lambda function itself.
+
+77
+00:04:10,160 --> 00:04:14,050
+So you can't use this with another function because if you do
+
+78
+00:04:14,130 --> 00:04:19,149
+it's not going to work unless you go in and actually modify the resource ARN.
+
+79
+00:04:19,540 --> 00:04:22,450
+Now, back in Lambda, we've also then got aliases.
+
+80
+00:04:22,450 --> 00:04:26,251
+We'll look at those a bit later on in this section, and versions.
+
+81
+00:04:26,275 --> 00:04:30,060
+Now for now, for this particular lesson, we're not going to change anything else.
+
+82
+00:04:30,630 --> 00:04:32,460
+Let's come back to test here
+
+83
+00:04:32,940 --> 00:04:34,350
+and create a new test event.
+
+84
+00:04:34,740 --> 00:04:36,260
+I'm just gonna call it T1.
+
+85
+00:04:36,740 --> 00:04:40,220
+And I'm going to leave the default settings, which has
+
+86
+00:04:40,410 --> 00:04:43,960
+the template Hello World and it has this Event JSON.
+
+87
+00:04:44,340 --> 00:04:45,660
+If we save that,
+
+88
+00:04:46,040 --> 00:04:47,230
+and then run test,
+
+89
+00:04:47,640 --> 00:04:49,560
+we've now executed our function.
+
+90
+00:04:50,040 --> 00:04:52,590
+And in the details here we can see what the response is.
+
+91
+00:04:52,590 --> 00:04:57,270
+So this is a successful response. A status code 200 is a success
+
+92
+00:04:57,700 --> 00:05:01,790
+and the body is Hello From Lambda. So it's just returning that information,
+
+93
+00:05:01,800 --> 00:05:03,060
+echoing it on the screen.
+
+94
+00:05:04,040 --> 00:05:08,060
+Further down we can see some information about the initialization duration,
+
+95
+00:05:08,440 --> 00:05:12,480
+the billed duration, so how many milliseconds we actually got billed for?
+
+96
+00:05:12,610 --> 00:05:15,600
+How much memory was used and more.
+
+97
+00:05:15,840 --> 00:05:17,660
+And you can see the log output here.
+
+98
+00:05:18,240 --> 00:05:22,370
+So this output is actually also going to be recorded in CloudWatch logs.
+
+99
+00:05:22,370 --> 00:05:24,450
+Let's go over in a moment and have a look.
+
+100
+00:05:24,840 --> 00:05:28,981
+You can see the start, the end of the request, and then the report
+
+101
+00:05:29,005 --> 00:05:33,360
+which also includes the bill duration and that other information we just looked at.
+
+102
+00:05:34,540 --> 00:05:36,810
+So coming back up, let's go to monitor.
+
+103
+00:05:37,190 --> 00:05:40,760
+and in CloudWatch logs, we should now have an entry.
+
+104
+00:05:40,960 --> 00:05:42,850
+So a log group has been created
+
+105
+00:05:43,240 --> 00:05:45,960
+and within that log group we have this log stream,
+
+106
+00:05:46,340 --> 00:05:49,120
+and in the log stream, we can see the start,
+
+107
+00:05:49,310 --> 00:05:51,650
+the end of the request, and then the report.
+
+108
+00:05:52,546 --> 00:05:55,266
+So that's how we run a test event using the console.
+
+109
+00:05:55,740 --> 00:05:59,090
+Now the purpose of this lesson is to go to the CLI
+
+110
+00:05:59,115 --> 00:06:01,100
+and using the CLI, we're going to run
+
+111
+00:06:01,100 --> 00:06:04,460
+some invocations synchronously and asynchronously.
+
+112
+00:06:04,940 --> 00:06:07,250
+You'll find this file in your course, download.
+
+113
+00:06:07,390 --> 00:06:12,650
+So it's in the code directory, AWS Lambda, and it's called invoking-functions.md.
+
+114
+00:06:13,340 --> 00:06:17,060
+Now, there's a couple of different ways we can invoke our function synchronously.
+
+115
+00:06:17,740 --> 00:06:20,378
+And so what we're going to do first is we're going to run
+
+116
+00:06:20,402 --> 00:06:24,340
+AWS Lambda invoke --function-name.
+
+117
+00:06:24,550 --> 00:06:27,970
+I've already filled out my function name, is called mytestfunction.
+
+118
+00:06:27,995 --> 00:06:31,660
+If you chose a different name for your function, make sure you update that.
+
+119
+00:06:32,240 --> 00:06:33,540
+And then we have payload,
+
+120
+00:06:33,930 --> 00:06:36,760
+And this is a base64 encoded string.
+
+121
+00:06:37,340 --> 00:06:39,000
+We'll see how to create that in a moment.
+
+122
+00:06:39,330 --> 00:06:42,870
+And then the output gets recorded in response.json.
+
+123
+00:06:43,340 --> 00:06:47,560
+So to get this command ready, we need to get this base64 encoded payload string.
+
+124
+00:06:47,940 --> 00:06:52,950
+Back in Lambda, on the test pane, what I'm gonna do is copy this event JSON.
+
+125
+00:06:53,740 --> 00:06:59,470
+I'm then going to go to a new tab and I'm gonna search for base64.
+
+126
+00:06:59,470 --> 00:07:01,720
+So just use Google or whatever your search
+
+127
+00:07:01,720 --> 00:07:05,520
+engine is and you should find this website, base64decode.org.
+
+128
+00:07:06,040 --> 00:07:10,070
+So I click on that link, choose the encode option at the top here.
+
+129
+00:07:10,070 --> 00:07:12,770
+So it changes to encoding our information
+
+130
+00:07:12,910 --> 00:07:15,960
+and then we paste the event data here
+
+131
+00:07:16,910 --> 00:07:18,050
+and click on encode.
+
+132
+00:07:18,640 --> 00:07:20,460
+We now get this string.
+
+133
+00:07:20,840 --> 00:07:22,470
+So what I'm gonna do is copy
+
+134
+00:07:22,600 --> 00:07:26,750
+this base64 encoded information which is our test event
+
+135
+00:07:27,240 --> 00:07:29,520
+and I'm going to paste that into my file here.
+
+136
+00:07:29,520 --> 00:07:34,560
+So I've now got the base64 encoded information here,
+
+137
+00:07:35,340 --> 00:07:38,850
+and I can copy this entire command to my clipboard.
+
+138
+00:07:39,030 --> 00:07:42,060
+And on the command line, I'm going to paste in this information.
+
+139
+00:07:42,110 --> 00:07:46,560
+In my case, I have a profile that I'm using to execute under my account.
+
+140
+00:07:46,940 --> 00:07:49,660
+So I'm going to add that information in and then hit enter.
+
+141
+00:07:50,240 --> 00:07:53,340
+So a status code 200 response is good.
+
+142
+00:07:53,580 --> 00:07:56,360
+That means that our function did execute successfully.
+
+143
+00:07:57,040 --> 00:08:02,700
+So we should have a response.json file in our directory now.
+
+144
+00:08:02,890 --> 00:08:07,450
+And if I look into that file, this is what I get. I get that status 200
+
+145
+00:08:07,475 --> 00:08:10,900
+and then the body, the Hello From Lambda. Exactly the same result
+
+146
+00:08:11,010 --> 00:08:14,950
+as we got when we executed the test event through the console.
+
+147
+00:08:15,240 --> 00:08:19,020
+Back in my file, you'll see that there are other ways we can execute.
+
+148
+00:08:19,020 --> 00:08:23,990
+So we don't necessarily have to enter the base64 encoded information.
+
+149
+00:08:24,120 --> 00:08:27,860
+We can just give it the function name. We already have a test event anyway.
+
+150
+00:08:28,340 --> 00:08:31,440
+So I'm gonna copy this to my clipboard and in this case I
+
+151
+00:08:31,440 --> 00:08:35,580
+just called my out file Out. So that's where the information will go.
+
+152
+00:08:35,630 --> 00:08:36,950
+So let's paste that in.
+
+153
+00:08:37,110 --> 00:08:38,618
+I'm going to use my profile.
+
+154
+00:08:38,642 --> 00:08:43,210
+Let's execute the invocation and again we get a status 200
+
+155
+00:08:43,400 --> 00:08:46,280
+and this time we need to go and check our out file.
+
+156
+00:08:46,740 --> 00:08:48,390
+And we get exactly the same result.
+
+157
+00:08:48,940 --> 00:08:52,160
+So we've synchronously invoked our function.
+
+158
+00:08:52,270 --> 00:08:57,245
+The next test is to use the event invocation type.
+
+159
+00:08:57,269 --> 00:09:00,250
+That causes an asynchronous invocation.
+
+160
+00:09:00,700 --> 00:09:03,160
+So the command is the same up to that point.
+
+161
+00:09:03,540 --> 00:09:08,700
+And then we have the --invocation-type and then we specify events.
+
+162
+00:09:09,080 --> 00:09:13,560
+And then for the payload again, we're going to use this base64 encoded information
+
+163
+00:09:13,940 --> 00:09:17,660
+to run the same test event. So I'm just going to copy that to my clipboard,
+
+164
+00:09:18,240 --> 00:09:19,550
+simply paste that in,
+
+165
+00:09:19,810 --> 00:09:23,160
+and then I can copy this entire command,
+
+166
+00:09:23,740 --> 00:09:24,680
+paste that in,
+
+167
+00:09:25,020 --> 00:09:26,700
+and let's execute our function.
+
+168
+00:09:27,340 --> 00:09:32,230
+Now note that this time you get a status code 202, so that is a success code,
+
+169
+00:09:32,230 --> 00:09:35,440
+but it's indicative of an asynchronous invocation.
+
+170
+00:09:35,500 --> 00:09:40,198
+Now we've used the same response file, so we can actually go and just open that up
+
+171
+00:09:40,222 --> 00:09:42,460
+and let's see is the information any different?
+
+172
+00:09:42,940 --> 00:09:46,010
+Well, yes, actually there is no information in this case.
+
+173
+00:09:46,440 --> 00:09:51,810
+So with the synchronous invocation we do have the response body returned to us.
+
+174
+00:09:52,240 --> 00:09:56,360
+But with the asynchronous invocation, we don't so even though the file is there,
+
+175
+00:09:56,360 --> 00:09:57,800
+the file is actually empty.
+
+176
+00:09:58,070 --> 00:10:02,375
+So that's how we synchronously and asynchronously invoke our functions
+
+177
+00:10:02,399 --> 00:10:03,430
+using the command line.
+
+178
+00:10:03,620 --> 00:10:05,860
+And that's it for this lesson. I'll see you in the next one.
+

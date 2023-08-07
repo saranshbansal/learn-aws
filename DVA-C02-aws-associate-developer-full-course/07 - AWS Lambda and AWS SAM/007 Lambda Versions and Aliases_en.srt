@@ -1,0 +1,308 @@
+1
+00:00:05,040 --> 00:00:08,880
+In this lesson, we're going to look at Lambda versions and aliases.
+
+2
+00:00:09,340 --> 00:00:10,870
+So what are versions?
+
+3
+00:00:10,980 --> 00:00:15,100
+Versioning means you can have multiple versions of your Lambda function.
+
+4
+00:00:15,480 --> 00:00:18,400
+The function version includes the following info.
+
+5
+00:00:18,680 --> 00:00:21,540
+The function code and all its associated dependencies,
+
+6
+00:00:21,730 --> 00:00:24,310
+the Lambda runtime that executes the function,
+
+7
+00:00:24,740 --> 00:00:28,480
+and all the function settings including the environment variables.
+
+8
+00:00:28,630 --> 00:00:32,280
+It also includes a unique Amazon Resource Name, the ARN
+
+9
+00:00:32,280 --> 00:00:35,780
+to identify the specific version of the function.
+
+10
+00:00:36,440 --> 00:00:40,420
+You can use versions to manage the deployment of your Lambda functions.
+
+11
+00:00:40,830 --> 00:00:44,160
+For example, you can publish a new version of a function for
+
+12
+00:00:44,160 --> 00:00:48,760
+beta testing without affecting users of the stable production version.
+
+13
+00:00:49,340 --> 00:00:52,623
+With versions, we work on the $LATEST.
+
+14
+00:00:52,750 --> 00:00:55,680
+That's the latest version of the code and it's mutable,
+
+15
+00:00:55,680 --> 00:00:57,100
+that means it's changeable.
+
+16
+00:00:57,240 --> 00:00:59,830
+That's always why we're updating our code.
+
+17
+00:01:00,140 --> 00:01:01,110
+So for example,
+
+18
+00:01:01,110 --> 00:01:06,620
+the function that's called my function has a $LATEST on the end of it here.
+
+19
+00:01:06,650 --> 00:01:09,460
+That indicates the latest version of the function.
+
+20
+00:01:09,640 --> 00:01:13,660
+When you're ready to publish a Lambda function, you then create a version
+
+21
+00:01:13,685 --> 00:01:14,770
+and they are numbered.
+
+22
+00:01:15,100 --> 00:01:19,910
+So we have MyFunction:1, that's the first version of our function.
+
+23
+00:01:20,160 --> 00:01:23,170
+The numbered versions are assigned a number starting with one
+
+24
+00:01:23,260 --> 00:01:26,200
+and subsequent versions and then incremented by one.
+
+25
+00:01:26,380 --> 00:01:30,860
+So then we get MyFunction2 when we publish a new version of our code.
+
+26
+00:01:31,740 --> 00:01:34,810
+Versions are immutable so they cannot be edited.
+
+27
+00:01:34,960 --> 00:01:38,370
+That's why you have to create new ones from $LATEST.
+
+28
+00:01:38,560 --> 00:01:43,890
+Each version has its own ARN and that allows you to effectively manage them
+
+29
+00:01:43,890 --> 00:01:47,300
+for different environments like production staging or development.
+
+30
+00:01:47,310 --> 00:01:48,720
+Now we have qualified
+
+31
+00:01:48,880 --> 00:01:53,940
+and unqualified ARN. So a qualified ARN has a version suffix.
+
+32
+00:01:54,340 --> 00:01:57,450
+So for this example we have our ARN
+
+33
+00:01:57,610 --> 00:02:01,560
+for our Lambda function on the end, it's got myfunction:2.
+
+34
+00:02:02,140 --> 00:02:06,110
+An unqualified ARN does not have a version suffix.
+
+35
+00:02:06,210 --> 00:02:08,770
+So it just says myfunction on the end here.
+
+36
+00:02:08,940 --> 00:02:12,620
+You cannot create an alias from an unqualified ARN.
+
+37
+00:02:12,630 --> 00:02:16,490
+When you invoke a function using an unqualified ARN,
+
+38
+00:02:16,590 --> 00:02:20,090
+Lambda will implicitly invoke $LATEST
+
+39
+00:02:20,200 --> 00:02:22,040
+rather than a specific version.
+
+40
+00:02:22,180 --> 00:02:23,950
+Next up we have aliases.
+
+41
+00:02:24,140 --> 00:02:25,960
+And I'll start off with a diagram here.
+
+42
+00:02:26,340 --> 00:02:30,580
+So we have our Lambda function and our Lambda function has $LATEST
+
+43
+00:02:30,580 --> 00:02:32,800
+where we're doing our editing of our code.
+
+44
+00:02:33,530 --> 00:02:37,460
+So the developer has edited the code and then created a version
+
+45
+00:02:37,840 --> 00:02:42,240
+and this is the first production deployment which is saved as version 1.
+
+46
+00:02:42,500 --> 00:02:45,410
+Now, what we've done here is create an alias.
+
+47
+00:02:45,610 --> 00:02:47,470
+The alias is like this.
+
+48
+00:02:47,470 --> 00:02:51,360
+So we've got MyFunction: And then rather than a version number,
+
+49
+00:02:51,370 --> 00:02:55,450
+we've got something which we've called, my app alias or whatever you want to call it.
+
+50
+00:02:56,240 --> 00:03:01,610
+Now our application is configured to point to the alias.
+
+51
+00:03:02,260 --> 00:03:07,775
+and the alias is configured to forward the traffic to MyFunction:1
+
+52
+00:03:07,799 --> 00:03:08,940
+so the first version.
+
+53
+00:03:08,950 --> 00:03:13,450
+Now if we upload a new version of the codes, we publish version 2,
+
+54
+00:03:13,460 --> 00:03:20,290
+we can then configure the alias to redirect traffic to the function 2.
+
+55
+00:03:20,315 --> 00:03:24,200
+Now, we can actually have the alias point to two versions at the same time,
+
+56
+00:03:24,220 --> 00:03:25,960
+so we're doing a blue/green here.
+
+57
+00:03:26,040 --> 00:03:30,200
+We might have, you know, a certain percentage of traffic going to one or the other.
+
+58
+00:03:30,270 --> 00:03:32,060
+That's something that you can configure.
+
+59
+00:03:32,440 --> 00:03:36,060
+So here we've got 80 20 in terms of the traffic distribution.
+
+60
+00:03:36,540 --> 00:03:41,850
+So Lambda aliases are pointers to a specific version of a Lambda function.
+
+61
+00:03:42,440 --> 00:03:45,490
+Using an alias you can invoke a function without having to know
+
+62
+00:03:45,490 --> 00:03:48,560
+which version of the function is actually being referenced.
+
+63
+00:03:49,040 --> 00:03:51,860
+And aliases are mutable, they are changeable.
+
+64
+00:03:52,190 --> 00:03:55,440
+So here's a view into the console configuration for an alias.
+
+65
+00:03:55,440 --> 00:03:59,050
+We're creating a new alias here called Testalias.
+
+66
+00:03:59,260 --> 00:04:02,680
+We can specify a version to point the alias at,
+
+67
+00:04:02,920 --> 00:04:07,060
+we can specify one additional version. So we've got version two,
+
+68
+00:04:07,340 --> 00:04:11,150
+and then we can specify a weight. So we're saying let's just send
+
+69
+00:04:11,340 --> 00:04:16,459
+20% of the traffic to version 2 of the function and we can change that at any time.
+
+70
+00:04:16,740 --> 00:04:22,160
+Aliases have static ARNs but can point to any version of the same function.
+
+71
+00:04:22,640 --> 00:04:28,660
+So this is what the full ARN might look like. We've got MyFunction: myappalias.
+
+72
+00:04:29,240 --> 00:04:34,430
+Aliases enable stable configuration of event triggers and destinations
+
+73
+00:04:34,670 --> 00:04:37,930
+and they're great for your application because you can hard code this into
+
+74
+00:04:37,930 --> 00:04:42,010
+your app and you never need to change the alias in your application code.
+
+75
+00:04:42,440 --> 00:04:46,880
+Aliases can also enable that Blue/Green deployment type by assigning weights,
+
+76
+00:04:46,940 --> 00:04:47,928
+as we've just seen.
+
+77
+00:04:47,952 --> 00:04:52,960
+Now, you must create a version for your alias, you cannot use $LATEST.
+

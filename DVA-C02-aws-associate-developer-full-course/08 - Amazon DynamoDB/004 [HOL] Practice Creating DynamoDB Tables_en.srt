@@ -1,0 +1,560 @@
+1
+00:00:05,240 --> 00:00:09,985
+In this hands-on lesson, we're going to create some tables in DynamoDB,
+
+2
+00:00:10,009 --> 00:00:13,200
+add some items and look at some configuration settings.
+
+3
+00:00:14,040 --> 00:00:16,320
+So I'm logged into DynamoDB.
+
+4
+00:00:16,680 --> 00:00:20,250
+And what I'm going to do first here is create a new table.
+
+5
+00:00:20,840 --> 00:00:23,451
+So the first thing we need to do is give it a name.
+
+6
+00:00:23,475 --> 00:00:26,060
+I'm simply going to call mine My Forum.
+
+7
+00:00:26,740 --> 00:00:32,490
+Then we must enter a partition key. So this is mandatory we need a partition key.
+
+8
+00:00:32,500 --> 00:00:34,490
+I'm going to call mine Post ID.
+
+9
+00:00:34,780 --> 00:00:40,170
+So the idea here is that I'm creating a forum and in that forum the
+
+10
+00:00:40,180 --> 00:00:44,950
+partition key will be the ID of the post which should be a unique value.
+
+11
+00:00:45,940 --> 00:00:48,400
+Now optionally you can create a sort key but for
+
+12
+00:00:48,400 --> 00:00:50,760
+this particular table we're not going to do that.
+
+13
+00:00:51,340 --> 00:00:53,500
+Now if I scroll down a little way you can see
+
+14
+00:00:53,610 --> 00:00:56,180
+that we have the default settings applied.
+
+15
+00:00:56,640 --> 00:00:59,850
+If we want to customize settings we can choose customize,
+
+16
+00:01:00,340 --> 00:01:02,300
+we can choose the table class.
+
+17
+00:01:02,400 --> 00:01:07,260
+So we have the standard class or the infrequently-accessed class.
+
+18
+00:01:07,510 --> 00:01:13,050
+So IA would be recommended for tables that store data that's infrequently accessed.
+
+19
+00:01:13,260 --> 00:01:14,763
+And that might save you some money.
+
+20
+00:01:15,740 --> 00:01:19,460
+Then we have the read and write capacity settings.
+
+21
+00:01:19,750 --> 00:01:25,220
+The capacity calculator is a really useful tool for calculating the read
+
+22
+00:01:25,220 --> 00:01:28,850
+capacity units and write capacity units you need for your table.
+
+23
+00:01:29,240 --> 00:01:32,820
+So that will provide the amount of performance that you need.
+
+24
+00:01:33,090 --> 00:01:35,310
+And it also is linked then to billing.
+
+25
+00:01:36,040 --> 00:01:40,230
+So in here you can enter the average item size that you're expecting,
+
+26
+00:01:40,240 --> 00:01:43,660
+how many reads a second, how many writes a second,
+
+27
+00:01:43,880 --> 00:01:47,110
+and then which model you want to use for consistency.
+
+28
+00:01:47,360 --> 00:01:51,090
+Now we'll be covering the RCUs and WCUs.
+
+29
+00:01:51,090 --> 00:01:54,550
+and the various different consistency models a bit later on in this section.
+
+30
+00:01:55,540 --> 00:01:58,610
+So next we actually have the read write capacity settings.
+
+31
+00:01:58,610 --> 00:02:01,280
+So the calculator helps you work out what you need
+
+32
+00:02:01,550 --> 00:02:06,360
+and then you can specify them either using on-demand or provisioned.
+
+33
+00:02:06,750 --> 00:02:10,276
+With on-demand, you're paying for the actual reads and writes
+
+34
+00:02:10,303 --> 00:02:12,194
+that your application performs,
+
+35
+00:02:12,218 --> 00:02:15,990
+whereas provisioned you're actually provisioning a certain allocation
+
+36
+00:02:16,210 --> 00:02:19,070
+and then if you don't use it you still end up paying for it.
+
+37
+00:02:19,070 --> 00:02:21,780
+So you've got to understand what's best for your model.
+
+38
+00:02:22,440 --> 00:02:27,860
+Then we can specify individually the read capacity and write capacity that we need.
+
+39
+00:02:28,340 --> 00:02:31,960
+Secondary indexes are something we're going to cover a bit later in this section.
+
+40
+00:02:32,440 --> 00:02:34,710
+And here we can see an estimated cost.
+
+41
+00:02:35,150 --> 00:02:37,188
+And this should fall well within the free tier.
+
+42
+00:02:37,212 --> 00:02:42,360
+For encryption at rest there's a couple of options for the key that's used.
+
+43
+00:02:42,470 --> 00:02:44,940
+Now the data is always encrypted but you get to
+
+44
+00:02:44,940 --> 00:02:50,890
+choose whether it's the key that's owned by DynamoDB, whether it's an AWS-managed key
+
+45
+00:02:51,240 --> 00:02:53,210
+or it's one that you're storing in your account.
+
+46
+00:02:53,210 --> 00:02:55,320
+So you're using the key management service.
+
+47
+00:02:56,020 --> 00:02:59,690
+So I'm not changing any of those settings. I'm just going to create my table.
+
+48
+00:03:00,490 --> 00:03:03,460
+The table has been created. That just took a few seconds.
+
+49
+00:03:03,840 --> 00:03:08,760
+Now on the left hand side here we have tables so we can then choose our table
+
+50
+00:03:09,440 --> 00:03:12,860
+and then we go into update settings where we can change the settings
+
+51
+00:03:12,860 --> 00:03:17,370
+of our table or explore items where we can actually see the items.
+
+52
+00:03:17,370 --> 00:03:19,160
+We don't have any items at this point.
+
+53
+00:03:19,840 --> 00:03:23,550
+So under update settings, you'll see that there's various different options here.
+
+54
+00:03:23,550 --> 00:03:26,430
+We will be exploring most of these throughout this section.
+
+55
+00:03:26,940 --> 00:03:31,610
+What I'm going to do now is create a couple of items. So let's go to explore items.
+
+56
+00:03:31,810 --> 00:03:37,860
+I'm going to create an item, so I'm manually going to add an item into my table.
+
+57
+00:03:38,640 --> 00:03:42,300
+So in this example I'm adding a post to my forum.
+
+58
+00:03:42,540 --> 00:03:47,160
+And it has a specific value. So that's the unique value for this post.
+
+59
+00:03:48,020 --> 00:03:52,860
+Now I might also want to add additional attributes, so let's add a string.
+
+60
+00:03:53,640 --> 00:03:55,950
+And this is going to be the subject
+
+61
+00:03:56,640 --> 00:03:58,350
+and I'm simply going to type Hello.
+
+62
+00:03:58,840 --> 00:04:01,420
+Then I'm going to add another attribute.
+
+63
+00:04:01,530 --> 00:04:03,410
+This time it's going to be a number.
+
+64
+00:04:03,570 --> 00:04:05,391
+So you see there's various different
+
+65
+00:04:05,415 --> 00:04:08,370
+options for the type of attribute that we create.
+
+66
+00:04:08,680 --> 00:04:12,820
+And this one will be replies, and we'll give it a number, let's make that 12.
+
+67
+00:04:12,930 --> 00:04:14,610
+So I'm gonna create my item.
+
+68
+00:04:14,980 --> 00:04:16,750
+So my item has been created.
+
+69
+00:04:17,240 --> 00:04:18,950
+And we can now see it in the table.
+
+70
+00:04:19,640 --> 00:04:21,260
+Now I want to create another item.
+
+71
+00:04:21,839 --> 00:04:23,370
+And what I'm gonna do is I'm going to
+
+72
+00:04:23,370 --> 00:04:27,200
+attempt to create another item with the same information.
+
+73
+00:04:27,940 --> 00:04:31,450
+So let's just enter all of the same values as before
+
+74
+00:04:32,000 --> 00:04:32,960
+add the number.
+
+75
+00:04:33,540 --> 00:04:36,150
+This one is going to be replies 12.
+
+76
+00:04:36,740 --> 00:04:38,360
+And let's try and create this item.
+
+77
+00:04:38,940 --> 00:04:42,690
+And we have a error message. And that is the conditional request failed.
+
+78
+00:04:42,700 --> 00:04:46,480
+An item with the primary key you provided already exists.
+
+79
+00:04:47,040 --> 00:04:49,520
+So of course we could change the number of replies.
+
+80
+00:04:49,940 --> 00:04:50,960
+It doesn't matter.
+
+81
+00:04:51,540 --> 00:04:54,080
+We can change the subject line.
+
+82
+00:04:54,260 --> 00:04:55,650
+That also doesn't matter.
+
+83
+00:04:56,340 --> 00:04:58,350
+The only thing that matters is the post ID.
+
+84
+00:04:58,350 --> 00:05:02,940
+Because we don't have a sort key, so we're not using what's called a composite key.
+
+85
+00:05:03,050 --> 00:05:08,260
+We must have a unique value for this item here.
+
+86
+00:05:08,940 --> 00:05:12,960
+So what I'm going to do is just change that value and create the item.
+
+87
+00:05:13,530 --> 00:05:15,680
+And this time it will work successfully.
+
+88
+00:05:16,080 --> 00:05:18,450
+Now let's go back up to tables.
+
+89
+00:05:18,840 --> 00:05:21,360
+And we're going to create a second table.
+
+90
+00:05:21,940 --> 00:05:24,470
+This one is going to be called my store
+
+91
+00:05:24,810 --> 00:05:29,560
+as if we're creating a store for an eCommerce backend.
+
+92
+00:05:30,540 --> 00:05:32,940
+Now I'm going to add in a partition key.
+
+93
+00:05:33,290 --> 00:05:35,660
+This time it's going to be client ID.
+
+94
+00:05:36,640 --> 00:05:38,460
+It's also going to be a string.
+
+95
+00:05:39,210 --> 00:05:43,810
+And then we're also going to add a sort key. So now we're creating a composite key.
+
+96
+00:05:43,810 --> 00:05:46,960
+So a partition key with a sort key.
+
+97
+00:05:47,490 --> 00:05:49,960
+And the sort key is going to be created.
+
+98
+00:05:50,640 --> 00:05:52,320
+And I'm going to leave that as a string.
+
+99
+00:05:52,640 --> 00:05:56,080
+And there's various different ways you can record dates and times.
+
+100
+00:05:57,140 --> 00:06:00,760
+So other than that, I'm not changing anything. So let's just create this table.
+
+101
+00:06:01,440 --> 00:06:07,760
+So my store has now been created. Let's click on my store, go to explore items.
+
+102
+00:06:08,240 --> 00:06:10,060
+We're going to create an item.
+
+103
+00:06:10,540 --> 00:06:14,890
+Now you'll see that we must enter both the client ID and the created.
+
+104
+00:06:14,890 --> 00:06:17,530
+So both of these boxes are here already for us.
+
+105
+00:06:17,860 --> 00:06:21,600
+I'm going to enter an email address for the client ID.
+
+106
+00:06:22,020 --> 00:06:26,350
+And then I'm going to enter a timestamp for created.
+
+107
+00:06:27,140 --> 00:06:31,460
+And then we could add something else. So this is supposed to be an eCommerce store.
+
+108
+00:06:31,470 --> 00:06:34,550
+So let's say that we're adding a category
+
+109
+00:06:35,140 --> 00:06:36,210
+for our products.
+
+110
+00:06:36,450 --> 00:06:37,960
+And this one might be a phone.
+
+111
+00:06:39,340 --> 00:06:40,860
+And let's just create that item.
+
+112
+00:06:41,540 --> 00:06:45,951
+So now we have that item in our table. We can see the client ID,
+
+113
+00:06:45,975 --> 00:06:48,650
+the created timestamp, and the category.
+
+114
+00:06:48,690 --> 00:06:51,760
+What I want to do now is create an additional item.
+
+115
+00:06:52,240 --> 00:06:57,170
+And it's also going to be another order from the same user, so the same client ID.
+
+116
+00:06:58,030 --> 00:06:59,950
+Now remember that with my forum,
+
+117
+00:07:00,440 --> 00:07:05,560
+we weren't able to do that because there was only a partition key, no sort key.
+
+118
+00:07:06,140 --> 00:07:10,360
+And the post ID in this case had to be unique. We couldn't have two of the same.
+
+119
+00:07:11,240 --> 00:07:13,760
+But that wouldn't be good in a store because we want the
+
+120
+00:07:13,760 --> 00:07:17,010
+same person to come back and buy multiple items from our store.
+
+121
+00:07:17,010 --> 00:07:21,860
+So there's going to be an additional entry from Chris.
+
+122
+00:07:22,840 --> 00:07:25,960
+But as long as there's a different timestamp which there always should be,
+
+123
+00:07:26,440 --> 00:07:31,260
+then the two together become unique. So that's the composite key.
+
+124
+00:07:31,740 --> 00:07:33,180
+So let's create an item.
+
+125
+00:07:33,340 --> 00:07:35,850
+And I'm going to put chris@example.com again.
+
+126
+00:07:36,540 --> 00:07:41,260
+I'm going to paste in a timestamp which is a different timestamp to before.
+
+127
+00:07:41,740 --> 00:07:44,100
+And then we can add in some kind of attributes.
+
+128
+00:07:44,100 --> 00:07:47,650
+So maybe this time I'll add category computer.
+
+129
+00:07:48,210 --> 00:07:49,360
+And let's create that item.
+
+130
+00:07:50,040 --> 00:07:51,560
+So this time it worked.
+
+131
+00:07:52,140 --> 00:07:54,430
+And that's because we have a composite key.
+
+132
+00:07:54,490 --> 00:08:00,750
+So the combination of the client ID and the created timestamp, the sort key here
+
+133
+00:08:01,230 --> 00:08:02,250
+are unique.
+
+134
+00:08:02,640 --> 00:08:05,340
+So that works really well for this eCommerce store.
+
+135
+00:08:05,690 --> 00:08:07,010
+And that's it for this lesson.
+
+136
+00:08:07,010 --> 00:08:10,760
+Now we've finished with my forum but we're going to keep my store.
+
+137
+00:08:11,240 --> 00:08:16,860
+So I'm going to go back to update settings, choose my forum, go to actions,
+
+138
+00:08:17,740 --> 00:08:18,710
+and delete table.
+
+139
+00:08:19,530 --> 00:08:21,280
+And then I just need to type delete
+
+140
+00:08:22,220 --> 00:08:24,200
+and that table will be deleted for us.
+

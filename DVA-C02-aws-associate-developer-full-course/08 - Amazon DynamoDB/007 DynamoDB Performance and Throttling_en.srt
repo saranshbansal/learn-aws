@@ -1,0 +1,128 @@
+1
+00:00:05,540 --> 00:00:09,840
+In this lesson, I'm going to cover DynamoDB performance and throttling.
+
+2
+00:00:10,010 --> 00:00:15,530
+With throttling, this will occur when the configured RCU or WCU is exceeded.
+
+3
+00:00:15,730 --> 00:00:16,900
+And you can get this error.
+
+4
+00:00:16,900 --> 00:00:20,960
+So it's a provisioned throughput exceeded exceptions error.
+
+5
+00:00:21,440 --> 00:00:24,460
+and that indicates that the request rate is too high
+
+6
+00:00:24,540 --> 00:00:28,060
+for the read/write capacity that's provisioned for the table.
+
+7
+00:00:28,820 --> 00:00:32,049
+The AWS SDKs for DynamoDB will
+
+8
+00:00:32,060 --> 00:00:35,850
+automatically retry requests that exceed this exception.
+
+9
+00:00:36,360 --> 00:00:42,000
+The request is eventually successful unless the retry queue is too large to finish.
+
+10
+00:00:42,320 --> 00:00:45,640
+Let's have a look at some possible causes of performance issues.
+
+11
+00:00:45,880 --> 00:00:47,390
+Firstly we've got hot keys.
+
+12
+00:00:47,530 --> 00:00:51,230
+That simply means that one partition key is being read too often.
+
+13
+00:00:51,540 --> 00:00:56,570
+We can also have hot partitions where our data access patterns are imbalanced.
+
+14
+00:00:56,570 --> 00:00:58,780
+So we're trying to get a higher amount of
+
+15
+00:00:58,780 --> 00:01:01,920
+read and writes going to one particular partition.
+
+16
+00:01:02,120 --> 00:01:06,549
+And this comes back to how we designed our partition keys and are sort keys
+
+17
+00:01:06,574 --> 00:01:09,860
+and our composite keys which we looked at earlier on in this section.
+
+18
+00:01:10,540 --> 00:01:14,958
+Also the items may be too large and they're consuming more RCUs
+
+19
+00:01:14,983 --> 00:01:16,780
+and WCUs because of the size.
+
+20
+00:01:17,090 --> 00:01:19,240
+So what are the potential resolutions?
+
+21
+00:01:19,240 --> 00:01:23,760
+Well, you can reduce the frequency of requests and use exponential backoff.
+
+22
+00:01:24,140 --> 00:01:28,410
+You can try and design your application for uniform activity across
+
+23
+00:01:28,420 --> 00:01:32,860
+all logical partition keys in the table and any secondary indexes.
+
+24
+00:01:33,340 --> 00:01:35,620
+You can use burst capacity effectively.
+
+25
+00:01:35,810 --> 00:01:39,570
+And this is because DynamoDB will retain up to five minutes,
+
+26
+00:01:39,570 --> 00:01:43,009
+so 300 seconds of unused read and write capacity
+
+27
+00:01:43,103 --> 00:01:45,490
+which can be consumed in a short period of time.
+
+28
+00:01:45,490 --> 00:01:49,490
+Say, if your workload is bursty rather than consistently high,
+
+29
+00:01:49,640 --> 00:01:50,650
+that might save you.
+
+30
+00:01:52,040 --> 00:01:56,550
+You should also ensure that adaptive capacity is enabled and it is the default.
+
+31
+00:01:56,900 --> 00:02:00,570
+This feature will minimize throttling due to throughput exceptions.
+
+32
+00:02:00,820 --> 00:02:04,610
+Now, that's it for this lesson. Just a few tips on performance and throttling.
+

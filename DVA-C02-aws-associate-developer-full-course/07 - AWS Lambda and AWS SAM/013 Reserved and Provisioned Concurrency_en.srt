@@ -1,0 +1,236 @@
+1
+00:00:05,040 --> 00:00:08,400
+There are a couple of options for how we can control
+
+2
+00:00:08,550 --> 00:00:10,860
+the concurrency with our Lambda function.
+
+3
+00:00:11,340 --> 00:00:16,410
+So you remember from earlier on in this section, we looked at function invocation.
+
+4
+00:00:16,630 --> 00:00:19,560
+And what happens is, when a function is executed,
+
+5
+00:00:19,800 --> 00:00:23,960
+Lambda can invoke more instances of that function.
+
+6
+00:00:24,340 --> 00:00:27,380
+And so they're all running in parallel if they need to
+
+7
+00:00:27,490 --> 00:00:30,550
+so that you can process multiple events at the same time.
+
+8
+00:00:30,940 --> 00:00:35,970
+Additional functions are initialized up to the burst or the account limit.
+
+9
+00:00:36,400 --> 00:00:37,860
+Now there are some quotas
+
+10
+00:00:37,970 --> 00:00:41,920
+and they are region specific and I'm showing those on the screen for you here.
+
+11
+00:00:42,190 --> 00:00:44,680
+If the concurrency limit is exceeded,
+
+12
+00:00:44,680 --> 00:00:48,500
+then throttling will occur and you get this rate exceeded error
+
+13
+00:00:48,620 --> 00:00:52,190
+and a 429 too many requests exception.
+
+14
+00:00:52,540 --> 00:00:56,630
+So that often comes up in exam questions and so you'll know that
+
+15
+00:00:56,630 --> 00:01:01,090
+if you see that what's happened is the concurrency limit has been exceeded.
+
+16
+00:01:01,190 --> 00:01:03,670
+Now, how can we control concurrency limits?
+
+17
+00:01:04,030 --> 00:01:07,260
+Well, firstly, the default concurrency limit per region
+
+18
+00:01:07,390 --> 00:01:10,660
+is 1000 invocations at any given time.
+
+19
+00:01:11,140 --> 00:01:16,250
+And the default burst concurrency quota per region is between 500 and 3,000.
+
+20
+00:01:16,250 --> 00:01:20,200
+And we saw on the previous slide how that's dependent per region.
+
+21
+00:01:20,490 --> 00:01:23,830
+There's no maximum concurrency limit for Lambda functions,
+
+22
+00:01:23,940 --> 00:01:25,990
+it really depends on your use case.
+
+23
+00:01:26,260 --> 00:01:31,150
+So, for example, if you want to apply for an extension and increase in the limit,
+
+24
+00:01:31,340 --> 00:01:34,090
+they'll ask you some questions about your use case
+
+25
+00:01:34,260 --> 00:01:37,550
+and they'll determine based on that, what they want to allow you.
+
+26
+00:01:37,940 --> 00:01:42,860
+To avoid throttling, request limit increases at least two weeks ahead of time.
+
+27
+00:01:43,020 --> 00:01:47,630
+So if you have an event where you know you're going to need an extra a higher limit,
+
+28
+00:01:47,870 --> 00:01:51,538
+then make sure you contact AWS ahead of time to arrange that.
+
+29
+00:01:51,562 --> 00:01:54,070
+Now, there's something called reserved concurrency.
+
+30
+00:01:54,400 --> 00:01:58,270
+This guarantees a set number of concurrent executions will
+
+31
+00:01:58,270 --> 00:02:01,650
+be available for a critical function that you're running.
+
+32
+00:02:02,040 --> 00:02:06,291
+You can reserve up to the unreserved account concurrency value
+
+33
+00:02:06,315 --> 00:02:10,949
+minus 100 for functions that don't have reserved concurrency.
+
+34
+00:02:11,540 --> 00:02:13,600
+So we can see here that what we've done
+
+35
+00:02:13,680 --> 00:02:18,130
+is we've reserved concurrency for a function of 100.
+
+36
+00:02:18,130 --> 00:02:22,490
+So we've got 100 executions that's decremented our
+
+37
+00:02:22,500 --> 00:02:26,530
+unreserved account concurrency from 1000 down to 900.
+
+38
+00:02:26,640 --> 00:02:30,650
+So all other functions will be able to use these 900
+
+39
+00:02:30,820 --> 00:02:36,440
+And we make sure that we've got a minimum of 100 available for our critical function.
+
+40
+00:02:36,640 --> 00:02:38,070
+If you want to throttle a function,
+
+41
+00:02:38,070 --> 00:02:41,010
+you can actually set the reserve concurrency to zero.
+
+42
+00:02:41,240 --> 00:02:43,850
+So if we specified a zero value here,
+
+43
+00:02:43,970 --> 00:02:48,160
+then we wouldn't be able to actually process any events with that function.
+
+44
+00:02:48,290 --> 00:02:50,840
+We also have provision concurrency.
+
+45
+00:02:51,150 --> 00:02:55,220
+If you specify some configuration for your provision concurrency,
+
+46
+00:02:55,220 --> 00:02:58,670
+then the function will scale with the same burst behavior
+
+47
+00:02:58,820 --> 00:03:00,820
+as if you had standard concurrency.
+
+48
+00:03:01,170 --> 00:03:03,620
+And after it's allocated provisioned concurrency,
+
+49
+00:03:03,690 --> 00:03:07,270
+serves incoming requests with much lower latency.
+
+50
+00:03:07,540 --> 00:03:10,270
+And if all provisions currency is in use, the function
+
+51
+00:03:10,270 --> 00:03:14,150
+will scale up normally to handle any additional requests.
+
+52
+00:03:14,740 --> 00:03:19,170
+Application auto scaling can also be used with provision concurrency
+
+53
+00:03:19,330 --> 00:03:22,400
+to provide auto scaling for the amount of
+
+54
+00:03:22,400 --> 00:03:25,360
+provisioned concurrency that you actually have configured.
+
+55
+00:03:25,690 --> 00:03:27,330
+So you can specify it here.
+
+56
+00:03:27,510 --> 00:03:31,520
+And this is what's available in terms of executions.
+
+57
+00:03:31,520 --> 00:03:34,970
+And we can provision a certain amount to reduce the latency
+
+58
+00:03:35,140 --> 00:03:37,830
+associated with scaling our function.
+
+59
+00:03:38,240 --> 00:03:40,910
+And of course, there is a cost associated with this.
+

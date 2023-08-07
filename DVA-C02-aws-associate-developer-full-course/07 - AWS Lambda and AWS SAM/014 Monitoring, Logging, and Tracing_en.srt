@@ -1,0 +1,204 @@
+1
+00:00:05,140 --> 00:00:06,950
+In this lesson, I'm going to cover monitoring,
+
+2
+00:00:06,950 --> 00:00:10,960
+logging, and tracing for our AWS Lambda functions.
+
+3
+00:00:11,440 --> 00:00:13,980
+So firstly we've got performance monitoring and this
+
+4
+00:00:13,980 --> 00:00:16,790
+is where we use the Amazon CloudWatch service.
+
+5
+00:00:17,340 --> 00:00:21,260
+Lambda will send metrics to CloudWatch for performance monitoring.
+
+6
+00:00:21,640 --> 00:00:25,960
+And we can see some of the metrics here. We've got the duration of the execution,
+
+7
+00:00:26,390 --> 00:00:30,600
+the number of invocations, how many concurrent executions there were.
+
+8
+00:00:30,600 --> 00:00:34,620
+So how many instances of the function were actually running concurrently.
+
+9
+00:00:35,000 --> 00:00:39,180
+Any errors that were experienced and any throttles that occurred.
+
+10
+00:00:39,530 --> 00:00:41,810
+And so we can see those being charted out here.
+
+11
+00:00:42,080 --> 00:00:43,510
+Next we have logging.
+
+12
+00:00:43,730 --> 00:00:48,330
+And the execution logs are stored in Amazon CloudWatch logs.
+
+13
+00:00:48,440 --> 00:00:50,450
+Now really important to understand for the exam,
+
+14
+00:00:50,450 --> 00:00:52,970
+this comes up in pretty much every exam.
+
+15
+00:00:53,200 --> 00:00:57,100
+You need to understand that when you're working with Lambda and it's
+
+16
+00:00:57,100 --> 00:01:01,960
+actually trying to use another service such as storing logs in CloudWatch logs,
+
+17
+00:01:02,320 --> 00:01:04,769
+then the function execution role will need to have,
+
+18
+00:01:04,780 --> 00:01:07,970
+IAM permissions to write to CloudWatch logs.
+
+19
+00:01:08,400 --> 00:01:09,560
+So for example,
+
+20
+00:01:09,640 --> 00:01:12,100
+you would want to make sure that you have a policy like this.
+
+21
+00:01:12,110 --> 00:01:18,240
+Here we are allowing action, logs CreateLogStream and logs PutLogEvents.
+
+22
+00:01:18,500 --> 00:01:22,220
+And we have a resource here that specifies the ARN
+
+23
+00:01:22,230 --> 00:01:24,711
+of the log group with the function name in it.
+
+24
+00:01:24,735 --> 00:01:28,150
+Next up we have tracing with AWS X-Ray.
+
+25
+00:01:28,540 --> 00:01:30,330
+This gives you a way to visualize
+
+26
+00:01:30,330 --> 00:01:33,230
+the different components of your application and look
+
+27
+00:01:33,230 --> 00:01:36,390
+for performance bottlenecks and you can troubleshoot
+
+28
+00:01:36,400 --> 00:01:39,060
+any requests that resulted in an error.
+
+29
+00:01:39,170 --> 00:01:43,348
+The Lambda functions send the trace data to X-Ray and then X-Ray will
+
+30
+00:01:43,372 --> 00:01:45,390
+process that data and generate
+
+31
+00:01:45,390 --> 00:01:48,220
+a service map and searchable trace summaries.
+
+32
+00:01:48,430 --> 00:01:49,790
+And it looks something like this.
+
+33
+00:01:50,210 --> 00:01:54,660
+So we can see here we have an AWS Lambda configuration with a Lambda function,
+
+34
+00:01:55,240 --> 00:01:57,810
+on the backend we've got a DynamoDB table
+
+35
+00:01:57,980 --> 00:02:02,450
+and we're also specifying recognition that's part of the application stack.
+
+36
+00:02:02,650 --> 00:02:05,560
+So what's happening here is selfies are getting uploaded,
+
+37
+00:02:05,570 --> 00:02:10,530
+processed, recognition is doing some work to look for information in the images
+
+38
+00:02:10,720 --> 00:02:16,220
+and then we're storing some data about the results perhaps in DynamoDB table.
+
+39
+00:02:16,240 --> 00:02:20,900
+So we can see this service map and we can see the latency that's occurring
+
+40
+00:02:21,010 --> 00:02:23,380
+and we would also be able to see if any errors occurred.
+
+41
+00:02:23,740 --> 00:02:27,490
+The X-Ray Daemon is a software application that gathers
+
+42
+00:02:27,500 --> 00:02:31,280
+raw segment data and relays it to the X-Ray service.
+
+43
+00:02:31,610 --> 00:02:35,090
+And the Daemon works in conjunction with the X-Ray SDKs
+
+44
+00:02:35,280 --> 00:02:39,418
+so that data sent by the SDKs can reach the X-Ray service.
+
+45
+00:02:39,442 --> 00:02:44,230
+When you trace your Lambda function, the X-Ray Daemon will automatically run
+
+46
+00:02:44,340 --> 00:02:49,800
+in the Lambda environment to gather trace data and then send it to AWS X-Ray.
+
+47
+00:02:50,140 --> 00:02:55,280
+And the function again will need permissions to write to X-Ray in the execution role.
+
+48
+00:02:55,290 --> 00:02:59,910
+Another thing that comes up in exam questions. It's going to be the various services
+
+49
+00:03:00,030 --> 00:03:02,850
+that your Lambda function needs to communicate with,
+
+50
+00:03:03,040 --> 00:03:09,170
+DynamoDB, S3 maybe, or CloudWatch logs or maybe AWS X-Ray.
+
+51
+00:03:09,350 --> 00:03:11,070
+You've always got to have the permissions.
+

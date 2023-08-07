@@ -1,0 +1,176 @@
+1
+00:00:05,240 --> 00:00:06,400
+Hi guys. In this lesson,
+
+2
+00:00:06,400 --> 00:00:10,810
+I'm going to give you a brief overview of the Serverless Application Repository.
+
+3
+00:00:10,880 --> 00:00:12,920
+So back on the AWS console,
+
+4
+00:00:12,920 --> 00:00:18,050
+I'm just going to search for SAR and serverless application repository comes up.
+
+5
+00:00:18,640 --> 00:00:19,690
+Okay, so what is this?
+
+6
+00:00:19,690 --> 00:00:24,480
+Well, essentially here we have some applications that have been preconfigured
+
+7
+00:00:24,590 --> 00:00:26,300
+and are ready for deployment.
+
+8
+00:00:26,540 --> 00:00:30,550
+Now it defaults to published applications, but I don't have any of my own.
+
+9
+00:00:31,040 --> 00:00:34,500
+So what we can then do is go to available applications
+
+10
+00:00:34,680 --> 00:00:38,430
+and you'll see all of these public applications that have been deployed.
+
+11
+00:00:38,490 --> 00:00:40,260
+So there's a lot here and there's actually
+
+12
+00:00:40,260 --> 00:00:43,300
+some really interesting ones that you can deploy.
+
+13
+00:00:43,300 --> 00:00:49,460
+So let's say for example, if we head over there is an API with Lambda and DynamoDB,
+
+14
+00:00:49,740 --> 00:00:53,050
+the problem is a lot of these are out of date, unfortunately.
+
+15
+00:00:53,340 --> 00:00:54,320
+It's a great idea
+
+16
+00:00:54,320 --> 00:00:59,070
+when using serverless application repository to package up your own applications,
+
+17
+00:00:59,190 --> 00:01:01,220
+is a really useful utility.
+
+18
+00:01:01,560 --> 00:01:03,750
+And does pop up in the odd exam question.
+
+19
+00:01:04,340 --> 00:01:06,780
+But what you'll find is, when you actually go into these
+
+20
+00:01:06,804 --> 00:01:10,760
+and you can see the information that is included here,
+
+21
+00:01:11,140 --> 00:01:13,450
+and this is the template for deployment.
+
+22
+00:01:14,140 --> 00:01:16,010
+Quite a few of these are using
+
+23
+00:01:16,150 --> 00:01:19,210
+programming languages that are not supported by Lambda.
+
+24
+00:01:19,210 --> 00:01:24,270
+Well, this one should be I think nodeJS12 is I found quite a lot of these have really
+
+25
+00:01:24,270 --> 00:01:28,440
+old versions of the runtime and that means that they
+
+26
+00:01:28,440 --> 00:01:30,610
+will often fail when you try and deploy them,
+
+27
+00:01:30,780 --> 00:01:31,870
+which is a shame.
+
+28
+00:01:31,990 --> 00:01:33,660
+But you know, on a positive side,
+
+29
+00:01:33,740 --> 00:01:38,810
+anyone can create these packaged applications and of course you have to
+
+30
+00:01:38,810 --> 00:01:41,850
+be authorized but then you can actually upload these and present them.
+
+31
+00:01:41,880 --> 00:01:46,470
+Unfortunately, AWS doesn't seem to have any kind of ongoing
+
+32
+00:01:46,610 --> 00:01:50,200
+incentivization to make sure that people keep these up to date.
+
+33
+00:01:50,210 --> 00:01:51,270
+But they are quite useful.
+
+34
+00:01:51,270 --> 00:01:52,700
+So if you find some that work,
+
+35
+00:01:52,700 --> 00:01:54,430
+then it's a good way to sort of play
+
+36
+00:01:54,430 --> 00:01:57,760
+around and then deploy some pre configured applications.
+
+37
+00:01:57,940 --> 00:02:02,760
+Many of these applications will have links to source code on GitHub so you can follow
+
+38
+00:02:02,870 --> 00:02:04,530
+that link and then you'll find
+
+39
+00:02:04,720 --> 00:02:09,830
+the various information here. So we've got our template.yml, package.json,
+
+40
+00:02:09,949 --> 00:02:13,051
+there's a readme and then there is SRC directory.
+
+41
+00:02:13,075 --> 00:02:16,660
+You'll see the code files and the files for deployment.
+
+42
+00:02:17,040 --> 00:02:20,090
+So that is the Serverless Application Repository.
+
+43
+00:02:20,090 --> 00:02:22,610
+It does have some useful examples in here,
+
+44
+00:02:22,610 --> 00:02:26,400
+so feel free to have a play around and understand how this works.
+

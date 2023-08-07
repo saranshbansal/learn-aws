@@ -1,0 +1,532 @@
+1
+00:00:05,640 --> 00:00:07,120
+Hi guys in this lesson,
+
+2
+00:00:07,130 --> 00:00:11,270
+we're going to go over some of the fundamentals of Amazon DynamoDB.
+
+3
+00:00:12,300 --> 00:00:17,400
+So what is DynamoDB. Well, it's a fully managed NoSQL database service.
+
+4
+00:00:17,590 --> 00:00:21,024
+So it's more of an unstructured database compared to SQL
+
+5
+00:00:21,049 --> 00:00:22,820
+which has more of a rigid structure.
+
+6
+00:00:23,430 --> 00:00:26,960
+It's a key value store and also a document store.
+
+7
+00:00:27,340 --> 00:00:29,650
+It's non-relational, key value.
+
+8
+00:00:30,540 --> 00:00:33,790
+It's fully serverless and you get push button scaling.
+
+9
+00:00:33,790 --> 00:00:36,140
+So that means it's very easy to adjust
+
+10
+00:00:36,150 --> 00:00:39,070
+how your database scales by adjusting the throughput,
+
+11
+00:00:39,070 --> 00:00:40,950
+which will look at in this section.
+
+12
+00:00:41,340 --> 00:00:43,740
+So you have a DynamoDB table and it's
+
+13
+00:00:43,740 --> 00:00:47,780
+essentially scaling horizontally as you give it more throughput.
+
+14
+00:00:47,990 --> 00:00:50,390
+And on the backend that's happening across
+
+15
+00:00:50,390 --> 00:00:53,660
+various partitions in the Amazon data center.
+
+16
+00:00:54,140 --> 00:00:56,730
+So data is stored in partitions and they are
+
+17
+00:00:56,730 --> 00:01:01,520
+replicated across multiple AZs within a single region.
+
+18
+00:01:01,800 --> 00:01:06,010
+DynamoDB provides low latency. So it's in the range of milliseconds.
+
+19
+00:01:06,350 --> 00:01:07,920
+If you need lower latency,
+
+20
+00:01:07,920 --> 00:01:12,460
+like microsecond and these are keywords to look for in exam questions
+
+21
+00:01:12,940 --> 00:01:15,660
+then you would need to use DynamoDB accelerator
+
+22
+00:01:15,660 --> 00:01:17,650
+which we'll also cover in this section.
+
+23
+00:01:18,140 --> 00:01:21,280
+All data gets stored on SSD storage.
+
+24
+00:01:21,280 --> 00:01:24,250
+So it's solid state drives which are high performance.
+
+25
+00:01:24,940 --> 00:01:28,205
+Data gets replicated as we mentioned in the previous slide
+
+26
+00:01:28,229 --> 00:01:30,850
+across multiple AZs within a region.
+
+27
+00:01:31,540 --> 00:01:34,930
+And there's a feature called Global Tables and that will synchronize
+
+28
+00:01:34,930 --> 00:01:39,471
+your tables across regions if you need to have
+
+29
+00:01:39,496 --> 00:01:41,130
+replication across regions.
+
+30
+00:01:41,130 --> 00:01:44,670
+Maybe you're running an application in another region or you might
+
+31
+00:01:44,670 --> 00:01:47,860
+be using it in a DR HA set up.
+
+32
+00:01:48,300 --> 00:01:51,280
+Now, let's look at some of the features of DynamoDB.
+
+33
+00:01:51,840 --> 00:01:53,970
+So as I mentioned, it is fully serverless,
+
+34
+00:01:53,980 --> 00:01:56,280
+it's fully managed, and it's fault tolerant.
+
+35
+00:01:56,580 --> 00:02:00,610
+It's highly available with four nines availability and five nines
+
+36
+00:02:00,620 --> 00:02:02,360
+if you use Global Tables.
+
+37
+00:02:02,670 --> 00:02:08,460
+It's a NoSQL type of database with a name/value structure, has a flexible schemer,
+
+38
+00:02:08,470 --> 00:02:13,150
+which is good for when your data is not well structured or it's unpredictable.
+
+39
+00:02:13,690 --> 00:02:16,640
+Scaling is horizontal by adjusting the throughput.
+
+40
+00:02:16,790 --> 00:02:20,418
+And then AWS takes care of how it actually scales your database
+
+41
+00:02:20,516 --> 00:02:22,330
+across partitions on the backend.
+
+42
+00:02:22,520 --> 00:02:24,350
+And you can also use Auto Scaling.
+
+43
+00:02:25,140 --> 00:02:29,290
+DynamoDB streams is a feature that allows you to capture
+
+44
+00:02:29,300 --> 00:02:33,730
+a time-ordered sequence of item level modifications in a table
+
+45
+00:02:33,840 --> 00:02:37,190
+and it stores that information for up to 24 hours.
+
+46
+00:02:37,390 --> 00:02:42,940
+DynamoDB accelerator is a fully managed in-memory cache for DynamoDB.
+
+47
+00:02:42,940 --> 00:02:46,970
+So that reduces the latency to microseconds.
+
+48
+00:02:47,140 --> 00:02:49,340
+And that runs on EC2 instances.
+
+49
+00:02:50,240 --> 00:02:52,070
+There are various transaction options,
+
+50
+00:02:52,070 --> 00:02:55,580
+including strongly consistent and eventually consistent reads
+
+51
+00:02:55,740 --> 00:02:59,690
+and support for ACID transactions. We'll go into more detail about that.
+
+52
+00:02:59,870 --> 00:03:05,360
+For backup, you get point in time recovery down to the second in the last 35 days
+
+53
+00:03:05,540 --> 00:03:07,850
+and also on-demand backup and restore.
+
+54
+00:03:08,340 --> 00:03:13,150
+And global tables is a fully managed multi-region, multi-master solution.
+
+55
+00:03:13,620 --> 00:03:15,871
+So with global tables you can make changes
+
+56
+00:03:15,895 --> 00:03:18,960
+in each of the regions your table is replicated to.
+
+57
+00:03:19,340 --> 00:03:22,760
+So let's look at the core components of DynamoDB.
+
+58
+00:03:23,420 --> 00:03:25,250
+Firstly we have a table.
+
+59
+00:03:25,580 --> 00:03:29,460
+So everything you see here would constitute the contents of a table.
+
+60
+00:03:30,140 --> 00:03:31,840
+Then we have items.
+
+61
+00:03:32,090 --> 00:03:35,970
+An item is essentially a row in the DynamoDB table.
+
+62
+00:03:36,820 --> 00:03:38,700
+And then we have attributes.
+
+63
+00:03:39,000 --> 00:03:42,570
+The attribute is the information that's associated with
+
+64
+00:03:42,580 --> 00:03:44,700
+each of the items in the database.
+
+65
+00:03:45,140 --> 00:03:48,900
+For the exam it's worth understanding some of the API actions.
+
+66
+00:03:49,340 --> 00:03:53,860
+Now all operations are categorized as control plane or data plane.
+
+67
+00:03:54,310 --> 00:03:57,600
+So let's have a look at some control plane. API actions.
+
+68
+00:03:58,040 --> 00:04:00,630
+For instance create table to create a new table,
+
+69
+00:04:00,640 --> 00:04:04,790
+describe table to get information about an existing table,
+
+70
+00:04:05,170 --> 00:04:09,190
+and list tables will return the names of all your tables in a list.
+
+71
+00:04:09,740 --> 00:04:14,810
+Update table is where you're able to modify the settings of a table or its indexes.
+
+72
+00:04:15,070 --> 00:04:18,600
+And then delete table will delete the table and all the contents.
+
+73
+00:04:19,740 --> 00:04:24,590
+Data plane API actions can be performed using PartiQL,
+
+74
+00:04:24,620 --> 00:04:30,218
+which is SQL compatible or classic DynamoDB, create, read, update, delete
+
+75
+00:04:30,242 --> 00:04:31,670
+or CRUD APIs.
+
+76
+00:04:32,140 --> 00:04:34,120
+So let's have a look at some examples.
+
+77
+00:04:34,230 --> 00:04:38,590
+You've got PutItem to write a single item into a table.
+
+78
+00:04:38,730 --> 00:04:43,610
+BatchWriteItem so you can actually write up to 25 items to a table.
+
+79
+00:04:43,610 --> 00:04:45,160
+So that's more efficient.
+
+80
+00:04:45,600 --> 00:04:49,950
+And then GetItem which will retrieve a single item from a table.
+
+81
+00:04:50,540 --> 00:04:54,920
+BatchGetItem retrieves up to 100 items from one or more tables.
+
+82
+00:04:55,240 --> 00:04:57,790
+So the batch options give you more efficiency
+
+83
+00:04:57,790 --> 00:05:00,270
+when you have large reads or large writes.
+
+84
+00:05:00,550 --> 00:05:04,360
+Update item will modify one or more attributes in an item.
+
+85
+00:05:04,740 --> 00:05:08,760
+And we have delete item to delete a single item from a table.
+
+86
+00:05:09,240 --> 00:05:11,870
+Now let's have a look at some of the supported data types.
+
+87
+00:05:12,180 --> 00:05:16,550
+DynamoDB does support many data types and they're categorized as follows.
+
+88
+00:05:16,560 --> 00:05:20,620
+We've got scalar. A scalar type can represent exactly one value.
+
+89
+00:05:20,850 --> 00:05:24,550
+And those are number, string, binary, boolean, and null.
+
+90
+00:05:24,780 --> 00:05:26,490
+We've then got document types.
+
+91
+00:05:26,600 --> 00:05:28,560
+Those are list and map.
+
+92
+00:05:28,940 --> 00:05:33,460
+And we've got set types. A set type represents multiple scalar values
+
+93
+00:05:33,570 --> 00:05:36,880
+and those are set, number set, and binary set.
+
+94
+00:05:38,140 --> 00:05:40,990
+Now there are a couple of classes of table we can use.
+
+95
+00:05:41,360 --> 00:05:45,490
+We've got the standard which is the default and it's recommended for most workloads.
+
+96
+00:05:45,640 --> 00:05:51,660
+We've then got DynamoDB Standard Infrequent Access or DynamoDB Standard IA.
+
+97
+00:05:52,240 --> 00:05:56,690
+This is lower cost storage for tables that store infrequently accessed data.
+
+98
+00:05:56,840 --> 00:06:00,430
+For example, application logs, old social media posts,
+
+99
+00:06:00,640 --> 00:06:04,150
+E-commerce order history, or past gaming achievements.
+
+100
+00:06:04,740 --> 00:06:09,930
+Let's move on to access control. Access control is managed using IAM.
+
+101
+00:06:09,960 --> 00:06:15,750
+So its identity-based policies that we're using to control access to DynamoDB.
+
+102
+00:06:16,240 --> 00:06:19,960
+You can attach a permissions policy to a user or a group in your account
+
+103
+00:06:20,110 --> 00:06:22,840
+and you can apply a permissions policy to a role.
+
+104
+00:06:22,960 --> 00:06:26,860
+And you can grant cross-account permissions through that option as well.
+
+105
+00:06:27,240 --> 00:06:30,790
+DynamoDB does not support resource-based policies.
+
+106
+00:06:31,160 --> 00:06:33,840
+you can use a special IAM condition to
+
+107
+00:06:33,840 --> 00:06:37,070
+restrict user access to only their own records.
+
+108
+00:06:37,630 --> 00:06:41,030
+The primary DynamoDB resources are tables
+
+109
+00:06:41,180 --> 00:06:45,680
+but it also supports additional resource types, indexes, and streams.
+
+110
+00:06:46,340 --> 00:06:50,770
+You can create indexes and streams only in the context of an existing table.
+
+111
+00:06:50,770 --> 00:06:54,860
+So there are several resources of the actual DynamoDB table.
+
+112
+00:06:55,240 --> 00:06:59,560
+The resources and sub resources will have unique ARNs of their own.
+
+113
+00:07:00,040 --> 00:07:02,360
+And we can see in the table here what the format is.
+
+114
+00:07:02,360 --> 00:07:08,120
+So we've got a table, an index, and a stream and you can see the format of the ARN.
+
+115
+00:07:08,350 --> 00:07:12,570
+Of course where it's highlighted in red that's that's where you would actually replace
+
+116
+00:07:12,670 --> 00:07:15,610
+these values with your region, your account ID,
+
+117
+00:07:15,800 --> 00:07:18,360
+and then your table name or your stream label.
+
+118
+00:07:18,840 --> 00:07:21,680
+Now let's have a look at a couple of example policies.
+
+119
+00:07:22,000 --> 00:07:27,040
+The following example policy grants permissions for one DynamoDB action.
+
+120
+00:07:27,040 --> 00:07:29,790
+That's DynamoDB list tables.
+
+121
+00:07:29,980 --> 00:07:32,740
+So we can see the policy here. The effect is allow.
+
+122
+00:07:32,750 --> 00:07:35,940
+The action is DynamoDB list tables.
+
+123
+00:07:36,120 --> 00:07:40,620
+The resource in this case is *, so any DynamoDB table.
+
+124
+00:07:40,940 --> 00:07:46,960
+The resource is * so that means any table. So it's not specifying a specific ARN.
+
+125
+00:07:47,840 --> 00:07:49,310
+Let's look at another policy.
+
+126
+00:07:49,510 --> 00:07:53,390
+This one grants permissions for three DynamoDB actions.
+
+127
+00:07:53,730 --> 00:07:59,030
+And we can see those are DynamoDB describe table, query, and scan
+
+128
+00:07:59,250 --> 00:08:04,250
+and in this case we're actually specifying the ARN of one individual table.
+
+129
+00:08:05,160 --> 00:08:06,660
+That table is named Books.
+
+130
+00:08:07,140 --> 00:08:09,740
+So the actions that are allowed through this policy
+
+131
+00:08:09,750 --> 00:08:12,390
+will only be allowed on that specific table.
+
+132
+00:08:12,670 --> 00:08:16,080
+So that's it for some of the core fundamentals of DynamoDB.
+
+133
+00:08:16,080 --> 00:08:18,906
+We've got lots more to get on with, and I'll see you in the next lesson.
+

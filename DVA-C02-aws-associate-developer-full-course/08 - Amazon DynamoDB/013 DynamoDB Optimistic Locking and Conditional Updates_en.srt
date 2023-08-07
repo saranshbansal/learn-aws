@@ -1,0 +1,180 @@
+1
+00:00:05,020 --> 00:00:08,280
+In this lesson, we're going to look at two different strategies for
+
+2
+00:00:08,280 --> 00:00:12,200
+protecting the consistency of our data in DynamoDB.
+
+3
+00:00:12,200 --> 00:00:16,560
+One's called optimistic locking and then we'll talk about conditional updates.
+
+4
+00:00:16,940 --> 00:00:18,780
+So first optimistic locking.
+
+5
+00:00:19,040 --> 00:00:24,000
+This is a strategy to ensure that the client-side item you're updating or deleting
+
+6
+00:00:24,150 --> 00:00:26,560
+is the same as the item in DynamoDB.
+
+7
+00:00:26,940 --> 00:00:29,870
+And it protects the database writes from being overwritten
+
+8
+00:00:29,880 --> 00:00:32,759
+by the writes of others or vice versa.
+
+9
+00:00:32,890 --> 00:00:35,850
+So best to understand by using an example.
+
+10
+00:00:36,140 --> 00:00:40,820
+So we have a DynamoDB table and we can see some of the items in that table.
+
+11
+00:00:40,880 --> 00:00:42,880
+And here we have a SKU and a price.
+
+12
+00:00:43,440 --> 00:00:46,970
+Now what's happening is application instance here on the left
+
+13
+00:00:47,140 --> 00:00:51,960
+wants to update SKU 1 from 1,299 to 1,499.
+
+14
+00:00:52,340 --> 00:00:53,560
+And that's successful.
+
+15
+00:00:54,040 --> 00:00:56,750
+But then application instance two here
+
+16
+00:00:56,910 --> 00:01:01,890
+then tries to update the SKU 1 to 1,399 and that's also successful.
+
+17
+00:01:02,340 --> 00:01:06,718
+Now perhaps the application on the right hand side here
+
+18
+00:01:06,742 --> 00:01:13,240
+was supposed to write that update before the subsequent update to 1499 but maybe
+
+19
+00:01:13,240 --> 00:01:15,260
+there was some kind of delay in processing.
+
+20
+00:01:15,436 --> 00:01:18,150
+So now we've got the wrong price in the table.
+
+21
+00:01:18,340 --> 00:01:22,900
+Now, a way to resolve that is now what we do with optimistic locking
+
+22
+00:01:23,140 --> 00:01:29,700
+is we specify update SKU 1 to 1,499 if the item version equals one.
+
+23
+00:01:29,950 --> 00:01:31,330
+So it gets updated.
+
+24
+00:01:31,460 --> 00:01:34,830
+Then the other application instance comes along, but it was also given
+
+25
+00:01:34,830 --> 00:01:40,280
+instructions to update SKU 1 to 1399 if item version is one.
+
+26
+00:01:40,500 --> 00:01:46,070
+And that fails because the item was already updated. So that's optimistic locking.
+
+27
+00:01:46,180 --> 00:01:48,190
+Next we have conditional updates.
+
+28
+00:01:48,740 --> 00:01:52,304
+To manipulate data in DynamoDB tables you use the
+
+29
+00:01:52,329 --> 00:01:56,910
+put item, update item, and delete item API operations.
+
+30
+00:01:57,020 --> 00:02:00,100
+You can optionally specify a condition expression
+
+31
+00:02:00,100 --> 00:02:02,330
+to determine which items should be modified.
+
+32
+00:02:02,840 --> 00:02:05,770
+And if the condition expression evaluates to true,
+
+33
+00:02:05,880 --> 00:02:09,460
+the operation succeeds. Otherwise the operation will fail.
+
+34
+00:02:09,940 --> 00:02:11,560
+So let's have a look at an example.
+
+35
+00:02:12,100 --> 00:02:15,130
+This CLI command allows the right to proceed
+
+36
+00:02:15,300 --> 00:02:19,530
+only if the item in question does not already have the same key.
+
+37
+00:02:19,540 --> 00:02:24,840
+In another example, the CLI command uses attribute not exist to delete a product
+
+38
+00:02:24,970 --> 00:02:27,800
+only if it does not have a price attribute.
+
+39
+00:02:28,010 --> 00:02:32,520
+So in both cases we've got attribute not exists, here we've got ID,
+
+40
+00:02:32,590 --> 00:02:33,920
+and here we've got price.
+
+41
+00:02:34,290 --> 00:02:38,500
+In another example, the CLI command only deletes an item if the
+
+42
+00:02:38,500 --> 00:02:42,230
+product category is either sporting goods or gardening supplies
+
+43
+00:02:42,440 --> 00:02:45,550
+and the price is between 500 and 600.
+
+44
+00:02:45,940 --> 00:02:51,050
+So we've got multiple conditions here, product category in cat one and cat two
+
+45
+00:02:51,060 --> 00:02:54,360
+and price between the low and the high that we specify.
+

@@ -1,0 +1,280 @@
+1
+00:00:05,240 --> 00:00:07,190
+Welcome back. In this hands-on lesson,
+
+2
+00:00:07,190 --> 00:00:09,570
+we're basically carrying on from the previous one.
+
+3
+00:00:09,680 --> 00:00:13,730
+In the last lesson we looked at how to use the Scan API.
+
+4
+00:00:13,880 --> 00:00:17,660
+And the Scan API returns all items in a table
+
+5
+00:00:17,810 --> 00:00:20,380
+and then we're able to run various different parameters
+
+6
+00:00:20,380 --> 00:00:22,940
+in the command line to filter the results.
+
+7
+00:00:23,210 --> 00:00:28,150
+But what we want to use now is a query and a query can often be a lot more efficient.
+
+8
+00:00:28,640 --> 00:00:30,440
+So let's run some queries.
+
+9
+00:00:30,750 --> 00:00:33,170
+Now if we scroll down a little way, you'll find that
+
+10
+00:00:33,170 --> 00:00:36,160
+there's two different queries that we have available to us here.
+
+11
+00:00:36,940 --> 00:00:43,000
+So the first one the command is AWS DynamoDB query. We supply our table name.
+
+12
+00:00:43,310 --> 00:00:45,850
+And then we supply key conditions.
+
+13
+00:00:46,240 --> 00:00:50,890
+And the conditions are the client ID. We have a comparison operator of EQ,
+
+14
+00:00:50,890 --> 00:00:52,090
+that's equal to,
+
+15
+00:00:52,640 --> 00:00:57,690
+attribute value list, and then we're looking for an ID
+
+16
+00:00:57,700 --> 00:01:01,550
+that's a string value and it's chris@example.com.
+
+17
+00:01:02,040 --> 00:01:04,560
+So if I copy this to my clipboard.
+
+18
+00:01:05,340 --> 00:01:06,560
+Let's paste this in.
+
+19
+00:01:07,340 --> 00:01:08,650
+And I'm going to run this command.
+
+20
+00:01:09,440 --> 00:01:12,490
+So now I get the items back and again what we're seeing
+
+21
+00:01:12,490 --> 00:01:15,250
+as a result very similar to one of the scans we did
+
+22
+00:01:15,470 --> 00:01:20,450
+is a series of items that have been purchased by chris@example.com.
+
+23
+00:01:21,140 --> 00:01:23,510
+But notice the difference in the summary here.
+
+24
+00:01:23,510 --> 00:01:29,720
+So the scan count is six and that's equal to the actual count of items returned.
+
+25
+00:01:29,980 --> 00:01:32,110
+Whereas when we ran the scan API,
+
+26
+00:01:32,120 --> 00:01:36,960
+we had a count of six items returned but the scan count was 23.
+
+27
+00:01:37,310 --> 00:01:39,560
+So now we're not scanning the whole table,
+
+28
+00:01:39,640 --> 00:01:45,220
+we're querying specifically certain values and that can use fewer RCUs.
+
+29
+00:01:45,840 --> 00:01:49,460
+Next we're going to use a key condition expression parameter.
+
+30
+00:01:49,840 --> 00:01:53,760
+So this one is DynamoDB query. Again, we supply the table name.
+
+31
+00:01:54,140 --> 00:01:56,150
+We have key condition expression.
+
+32
+00:01:56,440 --> 00:01:59,360
+In this case it's client ID name
+
+33
+00:01:59,840 --> 00:02:02,190
+and then expression attribute values,
+
+34
+00:02:02,520 --> 00:02:03,290
+name,
+
+35
+00:02:03,460 --> 00:02:06,650
+and then it's a string value which is chris@example.com.
+
+36
+00:02:07,140 --> 00:02:10,880
+So this should be a very similar query to the one that we just ran.
+
+37
+00:02:11,540 --> 00:02:12,800
+So let's run this command.
+
+38
+00:02:14,040 --> 00:02:17,680
+And now we get a similar list of results.
+
+39
+00:02:18,240 --> 00:02:21,160
+So there's a lot of power to the API
+
+40
+00:02:21,220 --> 00:02:24,150
+and the way that you can scan and query your tables.
+
+41
+00:02:24,610 --> 00:02:29,290
+Now back in DynamoDB itself, we can scan and query items here so
+
+42
+00:02:29,290 --> 00:02:32,060
+we don't always have to use the CLI or the API.
+
+43
+00:02:32,440 --> 00:02:37,550
+We can actually run our search parameters here in the console.
+
+44
+00:02:37,600 --> 00:02:40,500
+So you can choose between scan and query.
+
+45
+00:02:40,710 --> 00:02:43,960
+For example, we can enter an attribute name
+
+46
+00:02:44,540 --> 00:02:47,360
+and I could put in here client ID.
+
+47
+00:02:48,040 --> 00:02:51,250
+And then similar to before, I could put in chris@example.com
+
+48
+00:02:52,040 --> 00:02:52,850
+and then run.
+
+49
+00:02:53,340 --> 00:02:55,320
+And again, we'll have a very similar
+
+50
+00:02:55,330 --> 00:02:57,860
+result where we're actually filtering what's returned.
+
+51
+00:02:58,540 --> 00:03:00,010
+And then using a query,
+
+52
+00:03:00,440 --> 00:03:02,820
+we can now choose our table or index,
+
+53
+00:03:03,440 --> 00:03:05,990
+we can specify the partition key,
+
+54
+00:03:06,330 --> 00:03:09,350
+and then we can specify sort key.
+
+55
+00:03:09,840 --> 00:03:12,970
+And we can add on various filters as well.
+
+56
+00:03:13,640 --> 00:03:16,150
+So the power that we have on the command line,
+
+57
+00:03:16,150 --> 00:03:19,000
+much of that is also available through the console as well.
+
+58
+00:03:19,940 --> 00:03:24,260
+So continuing with our example, let's use chris@example.com.
+
+59
+00:03:24,840 --> 00:03:27,660
+Under the sort key we can use equal to
+
+60
+00:03:28,040 --> 00:03:31,070
+or we can specify one of these different options.
+
+61
+00:03:31,080 --> 00:03:34,840
+So for example, I could say greater than or equal to.
+
+62
+00:03:34,960 --> 00:03:38,750
+And let's specify one of these created keys.
+
+63
+00:03:40,040 --> 00:03:41,000
+Enter that in.
+
+64
+00:03:41,540 --> 00:03:43,160
+And then for attribute name,
+
+65
+00:03:43,840 --> 00:03:45,360
+let's put in category
+
+66
+00:03:46,340 --> 00:03:48,230
+and then simply exists.
+
+67
+00:03:48,570 --> 00:03:50,260
+And let's run that query.
+
+68
+00:03:50,740 --> 00:03:55,750
+So that returned four items and we know that Chris has six items in the table.
+
+69
+00:03:56,240 --> 00:03:59,690
+But in this case the sort key was specified as being greater than
+
+70
+00:03:59,690 --> 00:04:04,850
+or equal to this value and the category must have that attribute populated.
+

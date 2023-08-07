@@ -1,0 +1,108 @@
+1
+00:00:00,840 --> 00:00:05,150
+Hi guys in this section, you're gonna learn all about AWS Lambda.
+
+2
+00:00:05,230 --> 00:00:09,550
+Lambda is a service that is known as a serverless service.
+
+3
+00:00:09,690 --> 00:00:13,790
+That means there's no actual underlying EC2 instances or other
+
+4
+00:00:13,790 --> 00:00:17,250
+servers that you have to manage that's all done for you
+
+5
+00:00:17,740 --> 00:00:18,440
+with lambda.
+
+6
+00:00:18,440 --> 00:00:20,760
+What happens is you add code to lambda,
+
+7
+00:00:20,770 --> 00:00:25,050
+so units of code that you upload through various different mechanisms through the
+
+8
+00:00:25,050 --> 00:00:28,610
+console or from an S3 bucket or from the command line,
+
+9
+00:00:28,610 --> 00:00:29,480
+which we'll see
+
+10
+00:00:29,700 --> 00:00:30,660
+in this section
+
+11
+00:00:31,140 --> 00:00:33,590
+and once you've added your code in then there's
+
+12
+00:00:33,590 --> 00:00:36,260
+various different ways that your functions get triggered.
+
+13
+00:00:36,640 --> 00:00:38,790
+Now you do really need to understand all of
+
+14
+00:00:38,790 --> 00:00:42,810
+these different mechanisms like synchronous and asynchronous invocation.
+
+15
+00:00:43,100 --> 00:00:45,090
+So we're going to be practicing with those
+
+16
+00:00:45,100 --> 00:00:47,210
+after we've been through the theory lessons.
+
+17
+00:00:47,390 --> 00:00:49,610
+So there's lots of theory and lots of hands
+
+18
+00:00:49,610 --> 00:00:51,960
+on exercises where you're going to work with lambda
+
+19
+00:00:52,340 --> 00:00:52,970
+for the exam.
+
+20
+00:00:52,970 --> 00:00:57,690
+You also really need to understand things like lambda versions and aliases.
+
+21
+00:00:57,720 --> 00:01:01,260
+So we're not only going to do theory on those will also have lots
+
+22
+00:01:01,260 --> 00:01:05,590
+of hands on sessions where you'll get to practice using versions and aliases.
+
+23
+00:01:05,950 --> 00:01:07,960
+So you'll learn lots about lambda in this section.
+
+24
+00:01:08,340 --> 00:01:13,270
+Now at the end we actually cover the AWS Serverless application model as well.
+
+25
+00:01:13,280 --> 00:01:19,390
+AWS SAM it's fairly brief because it's not covered in a lot of detail on the exam but
+
+26
+00:01:19,390 --> 00:01:22,950
+I just want to let you know what it is and we'll see how it actually works.
+
+27
+00:01:23,340 --> 00:01:25,860
+So I hope you enjoy the section, I'll see you in the next lesson
+

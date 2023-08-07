@@ -1,0 +1,340 @@
+1
+00:00:05,240 --> 00:00:07,970
+Hi guys, in this lesson we're going to add
+
+2
+00:00:07,980 --> 00:00:11,470
+a Time to Live attribute to items in our database
+
+3
+00:00:11,640 --> 00:00:16,309
+and we're going to see how we can then use that to automatically expire those items.
+
+4
+00:00:17,040 --> 00:00:20,730
+So I'm back in this file here. We do need to recreate our table.
+
+5
+00:00:20,740 --> 00:00:25,240
+So what I'm going to do is create my table and then we're going to run this command.
+
+6
+00:00:25,240 --> 00:00:28,050
+So I'm just going to copy the command to my clipboard.
+
+7
+00:00:28,240 --> 00:00:32,460
+I've come back to Amazon DynamoDB. Let's create the table.
+
+8
+00:00:32,470 --> 00:00:36,180
+We're going to create it with the same settings as we've had before.
+
+9
+00:00:36,180 --> 00:00:38,260
+So it's called My Store.
+
+10
+00:00:38,540 --> 00:00:41,260
+Partition key is client ID.
+
+11
+00:00:41,820 --> 00:00:43,540
+And the sort key is created.
+
+12
+00:00:44,640 --> 00:00:48,420
+And then I'm just going to accept all defaults and create my table.
+
+13
+00:00:49,140 --> 00:00:53,480
+So my table is active and I've come back to the command line.
+
+14
+00:00:53,690 --> 00:00:55,700
+And I'll just paste in that command again.
+
+15
+00:00:55,870 --> 00:00:59,450
+And we're going to add all of those items to our table.
+
+16
+00:01:00,340 --> 00:01:04,736
+So if I go back into my table now and choose explore items,
+
+17
+00:01:04,803 --> 00:01:07,860
+I can see all the items as I could before.
+
+18
+00:01:08,240 --> 00:01:12,520
+Now what we're going to do is we're going to add an attribute to these items.
+
+19
+00:01:12,640 --> 00:01:17,160
+So for example, let's choose one of these items and I'm going to add an attribute.
+
+20
+00:01:17,160 --> 00:01:18,560
+Now, it must be a number.
+
+21
+00:01:18,940 --> 00:01:21,170
+And we're going to call it expiry.
+
+22
+00:01:21,420 --> 00:01:25,060
+You can call this whatever you want, but I'm going to call mine expiry.
+
+23
+00:01:25,620 --> 00:01:28,430
+Now, the actual value associated with this
+
+24
+00:01:28,800 --> 00:01:32,050
+is going to be based on the UNIX epoch time.
+
+25
+00:01:32,540 --> 00:01:34,060
+So let's have a look at what that is.
+
+26
+00:01:34,540 --> 00:01:38,650
+So if I go to a browser window and search for epochs time converter,
+
+27
+00:01:39,540 --> 00:01:42,260
+I'm going to use this UNIX.timestamp.com.
+
+28
+00:01:43,340 --> 00:01:44,616
+Now, what you'll see
+
+29
+00:01:44,840 --> 00:01:48,220
+is it actually comes up with this value, this is the current time
+
+30
+00:01:48,420 --> 00:01:51,200
+in the UNIX epoch time format.
+
+31
+00:01:51,620 --> 00:01:55,760
+And that's actually the number of seconds since January the 1st 1970.
+
+32
+00:01:56,740 --> 00:02:00,840
+Now here, we can see where we can actually create our own values, so we can
+
+33
+00:02:00,840 --> 00:02:04,750
+specify a time and it will convert it to the UNIX epoch time.
+
+34
+00:02:05,440 --> 00:02:09,060
+Now the current epoch time translates to UTC.
+
+35
+00:02:09,538 --> 00:02:15,360
+Now I know that my table is using UTC-4 because it's in North Virginia.
+
+36
+00:02:15,940 --> 00:02:20,040
+So essentially I can take four hours off of this
+
+37
+00:02:20,040 --> 00:02:23,630
+to make it the current time in UTC minus four.
+
+38
+00:02:23,630 --> 00:02:29,650
+So here we have the hour set to 20, so let's change that to 16.
+
+39
+00:02:30,440 --> 00:02:31,716
+click on convert.
+
+40
+00:02:31,820 --> 00:02:34,760
+And what we're going to have is a UNIX timestamp
+
+41
+00:02:35,420 --> 00:02:41,480
+that is 15 minutes ahead of the DynamoDB table. So I'm going to copy that.
+
+42
+00:02:42,140 --> 00:02:43,460
+Let's paste this in.
+
+43
+00:02:44,240 --> 00:02:45,600
+Click on save changes.
+
+44
+00:02:46,240 --> 00:02:48,120
+Then let's add another one.
+
+45
+00:02:48,430 --> 00:02:51,170
+This time we'll change the time to
+
+46
+00:02:51,310 --> 00:02:55,750
+1730, so that's now about an hour and 15 minutes ahead
+
+47
+00:02:56,540 --> 00:02:58,070
+and click on convert.
+
+48
+00:02:58,940 --> 00:03:01,570
+Take this timestamp, copy it.
+
+49
+00:03:02,510 --> 00:03:08,050
+Let's come back. We'll search or we'll open another user's item.
+
+50
+00:03:08,540 --> 00:03:09,460
+Add number,
+
+51
+00:03:10,040 --> 00:03:11,150
+type expiry,
+
+52
+00:03:11,760 --> 00:03:14,160
+and then paste in our UNIX epoch time.
+
+53
+00:03:14,540 --> 00:03:16,040
+And then click on save changes.
+
+54
+00:03:16,940 --> 00:03:20,100
+So we've now got two expiry items here.
+
+55
+00:03:20,100 --> 00:03:23,450
+So these are TTLs, we're going to use these as TTLs at least.
+
+56
+00:03:23,840 --> 00:03:25,590
+One should be 15 minutes ahead,
+
+57
+00:03:25,590 --> 00:03:28,410
+one should be around about an hour and 15 minutes ahead.
+
+58
+00:03:28,940 --> 00:03:33,260
+If I now click on update table settings and go to additional settings,
+
+59
+00:03:33,840 --> 00:03:35,230
+we can see Time to Live.
+
+60
+00:03:35,230 --> 00:03:39,060
+So here you can enable Time to Live or you can just run a preview.
+
+61
+00:03:39,540 --> 00:03:43,860
+So for example, I put in the expiry attribute name,
+
+62
+00:03:44,440 --> 00:03:46,060
+and then I can specify
+
+63
+00:03:47,040 --> 00:03:52,000
+to simulate the next 60 minutes. So what's going to expire in the next 60 minutes?
+
+64
+00:03:52,000 --> 00:03:54,740
+Well, we've got one item that's going to expire in the next
+
+65
+00:03:54,860 --> 00:04:00,060
+60 minutes because we added the expiry which was 15 minutes ahead of current time.
+
+66
+00:04:00,740 --> 00:04:04,060
+If I then change it to next 24 hours, we should now have two.
+
+67
+00:04:05,240 --> 00:04:10,900
+So we now know that if we specify a TTL attribute name of expiry
+
+68
+00:04:11,250 --> 00:04:15,440
+in the table, so we would do that here by enabling our attributes.
+
+69
+00:04:15,440 --> 00:04:16,959
+So let's put in expiry.
+
+70
+00:04:17,829 --> 00:04:19,790
+And now enabled TTL.
+
+71
+00:04:20,240 --> 00:04:21,760
+It will then expire those items.
+
+72
+00:04:21,760 --> 00:04:23,790
+Now note that it does say it can take up
+
+73
+00:04:23,790 --> 00:04:26,890
+to one hour to be applied across all partitions.
+
+74
+00:04:27,710 --> 00:04:31,160
+So let's click on enable TTL and that's going to be put into place.
+
+75
+00:04:31,710 --> 00:04:34,790
+So the TTL is now going to automatically
+
+76
+00:04:34,790 --> 00:04:38,060
+expire those items when the timestamp is reached.
+
+77
+00:04:38,540 --> 00:04:44,168
+So a practical use for the TTL would be in a DynamoDB table
+
+78
+00:04:44,192 --> 00:04:47,505
+where perhaps you're storing something like session state data.
+
+79
+00:04:47,529 --> 00:04:51,980
+So you might not want to expire orders from your table in this ecommerce store.
+
+80
+00:04:52,130 --> 00:04:55,220
+But if you had session state data that only had a limited
+
+81
+00:04:55,220 --> 00:05:00,600
+usefulness so it's only relevant for a period of hours or days, then the TTL
+
+82
+00:05:00,600 --> 00:05:05,470
+is a way of removing those items from the database when you no longer need them.
+
+83
+00:05:05,580 --> 00:05:09,330
+And it does so cost efficiently. It doesn't cost you anything to do this.
+
+84
+00:05:09,340 --> 00:05:14,460
+Whereas if you are scanning or querying, that does incur cost.
+
+85
+00:05:15,133 --> 00:05:18,553
+So that's it for this lesson. I hope you enjoyed it and I'll see you in the next one.
+

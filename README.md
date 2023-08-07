@@ -11,3 +11,8 @@ Author: [DigitalCloud training](https://digitalcloud.training/)
 - 03 - AWS Command Line Interface (CLI)
 - 04 - Amazon VPC, EC2, and ELB
 - 05 - Amazon S3 and CloudFront
+- 06 - Infrastructure as Code and PaaS
+- 07 - AWS Lambda and AWS SAM
+- 08 - Amazon DynamoDB
+- 09 - Application Integration and APIs
+- 10 - Containers on Amazon ECSEKS

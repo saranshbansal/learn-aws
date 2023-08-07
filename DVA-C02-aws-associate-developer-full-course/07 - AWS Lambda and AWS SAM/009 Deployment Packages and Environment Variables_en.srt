@@ -1,0 +1,412 @@
+1
+00:00:05,140 --> 00:00:08,300
+Hi guys. In this lesson, we're going to go over Lambda
+
+2
+00:00:08,300 --> 00:00:12,310
+deployment packages and specifying environment variables.
+
+3
+00:00:12,410 --> 00:00:14,860
+So starting off with deployment packages.
+
+4
+00:00:15,240 --> 00:00:16,790
+The Lambda functions code
+
+5
+00:00:16,890 --> 00:00:21,590
+consists of scripts or compile programs and also the dependencies.
+
+6
+00:00:21,790 --> 00:00:27,290
+A deployment package is then used to deploy the function code to AWS Lambda.
+
+7
+00:00:27,630 --> 00:00:32,080
+Now, there are two types of deployment package. We've got container images
+
+8
+00:00:32,240 --> 00:00:36,190
+and we've got .zip file archives. Obviously container images
+
+9
+00:00:36,340 --> 00:00:39,580
+is if you're running some kind of container on Lambda.
+
+10
+00:00:39,760 --> 00:00:43,660
+Otherwise all your code is going to go in a .zip file archive.
+
+11
+00:00:44,140 --> 00:00:46,280
+So let's look at the container images.
+
+12
+00:00:46,400 --> 00:00:51,430
+A container image will include the base operating system, the runtime,
+
+13
+00:00:51,710 --> 00:00:53,290
+and the Lambda extensions.
+
+14
+00:00:53,470 --> 00:00:56,980
+Also the application code and it's dependencies.
+
+15
+00:00:57,640 --> 00:01:03,660
+Container images are uploaded to the Amazon Elastic Container Registry, ECR.
+
+16
+00:01:04,410 --> 00:01:06,950
+The image is then deployed to the Lambda function.
+
+17
+00:01:07,740 --> 00:01:10,300
+Moving on to the .zip archives.
+
+18
+00:01:10,430 --> 00:01:13,970
+So this is what you're commonly going to use for all other application types.
+
+19
+00:01:14,520 --> 00:01:17,980
+This includes your application code and dependencies.
+
+20
+00:01:18,250 --> 00:01:21,240
+And the deployment packages uploaded from S3
+
+21
+00:01:21,250 --> 00:01:23,560
+or directly from your local machine.
+
+22
+00:01:23,940 --> 00:01:26,490
+Now there are some limits to the size of zip
+
+23
+00:01:26,490 --> 00:01:28,860
+archives and it's worth knowing these for the exam.
+
+24
+00:01:29,150 --> 00:01:34,590
+Firstly, there's a 50 megabyte limit for the zipped for direct upload.
+
+25
+00:01:34,740 --> 00:01:36,450
+So when you zip them and you're directly
+
+26
+00:01:36,450 --> 00:01:38,970
+uploading them, it cannot be more than 50 megabytes.
+
+27
+00:01:39,440 --> 00:01:43,230
+250 MB is the largest unzipped.
+
+28
+00:01:43,500 --> 00:01:46,900
+And three megabytes if you're using the console editor.
+
+29
+00:01:47,260 --> 00:01:49,290
+So for anything larger than three megabytes,
+
+30
+00:01:49,290 --> 00:01:53,690
+you can't go in and directly add your code into the console editor,
+
+31
+00:01:53,700 --> 00:01:56,060
+you must zip it up and upload it.
+
+32
+00:01:56,340 --> 00:02:00,060
+Now, you can also deploy your Lambda function through CloudFormation.
+
+33
+00:02:00,540 --> 00:02:06,360
+The resource that you use is AWS::Lambda::Function.
+
+34
+00:02:06,740 --> 00:02:08,960
+And that will create the Lambda function for you.
+
+35
+00:02:09,639 --> 00:02:13,100
+The zip file must be stored in Amazon S3.
+
+36
+00:02:13,480 --> 00:02:15,150
+And the S3 bucket must be in
+
+37
+00:02:15,150 --> 00:02:18,390
+the same region where you're running CloudFormation,
+
+38
+00:02:18,390 --> 00:02:20,890
+so watch out for that in exam questions.
+
+39
+00:02:20,980 --> 00:02:23,030
+If you're using CloudFormation
+
+40
+00:02:23,150 --> 00:02:27,840
+in let's say, the US East region and your bucket is in the US West region,
+
+41
+00:02:28,060 --> 00:02:32,650
+then you can't have your code in that bucket and use it to create a Lambda function
+
+42
+00:02:32,840 --> 00:02:33,760
+in US East.
+
+43
+00:02:34,540 --> 00:02:37,860
+You also need a CloudFormation template file.
+
+44
+00:02:38,540 --> 00:02:42,771
+You can set the package type to image for container images
+
+45
+00:02:42,796 --> 00:02:45,760
+or zip If it's a .zip archive.
+
+46
+00:02:46,240 --> 00:02:48,520
+Next, we have something called Lambda layers.
+
+47
+00:02:48,640 --> 00:02:51,710
+You can configure your Lambda function to pull in additional
+
+48
+00:02:51,710 --> 00:02:54,760
+code and content in the form of a layer.
+
+49
+00:02:55,350 --> 00:02:58,570
+A layer is a zip archive that contains the libraries
+
+50
+00:02:58,570 --> 00:03:02,910
+that you're using, a custom runtime or some other dependencies.
+
+51
+00:03:03,540 --> 00:03:06,170
+This means you can use other libraries within your
+
+52
+00:03:06,170 --> 00:03:10,260
+function without actually including them in your deployment package.
+
+53
+00:03:10,710 --> 00:03:13,850
+A function can use up to five layers at a time.
+
+54
+00:03:14,440 --> 00:03:18,360
+And layers are extracted to the /opt directory
+
+55
+00:03:18,470 --> 00:03:20,760
+in the function execution environment.
+
+56
+00:03:21,340 --> 00:03:23,960
+Each runtime will look for the libraries in a different
+
+57
+00:03:23,960 --> 00:03:28,450
+location under /opt depending what language you're actually using.
+
+58
+00:03:28,900 --> 00:03:30,960
+If you want to add layers to your function,
+
+59
+00:03:31,110 --> 00:03:34,390
+you can use the update function configuration command.
+
+60
+00:03:35,040 --> 00:03:37,450
+The following example would add two layers,
+
+61
+00:03:37,460 --> 00:03:41,880
+one from the same account as the function and then one from a different account.
+
+62
+00:03:42,300 --> 00:03:44,150
+So you can see we're using the update
+
+63
+00:03:44,160 --> 00:03:48,260
+function configuration with the AWS Lambda CLI command,
+
+64
+00:03:48,740 --> 00:03:51,400
+and then we're specifying the layers here.
+
+65
+00:03:51,500 --> 00:03:54,780
+And we've got two different layers specified in the JSON
+
+66
+00:03:55,110 --> 00:03:58,830
+and each of them has a different account number. So these are in different accounts.
+
+67
+00:03:59,150 --> 00:04:02,020
+And we're specifying the name of the layer here.
+
+68
+00:04:02,390 --> 00:04:04,390
+So let's have a look at some examples.
+
+69
+00:04:04,390 --> 00:04:07,110
+The following example will set two environment
+
+70
+00:04:07,110 --> 00:04:10,400
+variables on a function named My Function.
+
+71
+00:04:10,750 --> 00:04:15,600
+So we can see here that we're specifying to update a function configuration,
+
+72
+00:04:15,610 --> 00:04:16,660
+we give it the name.
+
+73
+00:04:17,040 --> 00:04:19,860
+We then specify --environment,
+
+74
+00:04:20,240 --> 00:04:23,600
+and then we've got variables, and then we've got two
+
+75
+00:04:23,610 --> 00:04:26,220
+different variables here and both are a key value pair.
+
+76
+00:04:26,220 --> 00:04:30,650
+So we've got bucket equals my bucket and then key equals file.
+
+77
+00:04:31,140 --> 00:04:33,630
+If you then view the function configuration
+
+78
+00:04:33,630 --> 00:04:38,460
+by running the get function configuration command, this is what you would see.
+
+79
+00:04:38,840 --> 00:04:42,790
+And so now you can see that the environment variables are specified,
+
+80
+00:04:42,790 --> 00:04:46,360
+bucket equals my bucket, key is file.text.
+
+81
+00:04:46,940 --> 00:04:51,160
+Now lastly, there are some limits that are worth understanding for the exam.
+
+82
+00:04:51,540 --> 00:04:57,130
+Firstly, the memory allocation, it goes up in increments of one megabyte,
+
+83
+00:04:57,140 --> 00:05:03,090
+starting at 128 megabytes up to 10,240 megabytes.
+
+84
+00:05:03,620 --> 00:05:08,170
+The execution time out is 900 seconds, that's 15 minutes.
+
+85
+00:05:08,200 --> 00:05:10,250
+So that's really important to understand.
+
+86
+00:05:10,260 --> 00:05:14,420
+If you actually need to run some kind of long running code,
+
+87
+00:05:14,670 --> 00:05:19,160
+then if it's going to run longer than 15 minutes, Lambda is not the answer.
+
+88
+00:05:19,340 --> 00:05:23,750
+You would need to split the processing into separate executions
+
+89
+00:05:24,040 --> 00:05:27,190
+or you would need to run it on some other compute platform,
+
+90
+00:05:27,190 --> 00:05:31,060
+like a Docker container on ECS or Amazon EC2.
+
+91
+00:05:31,490 --> 00:05:34,860
+The maximum size of environment variables is four kilobytes
+
+92
+00:05:34,860 --> 00:05:37,701
+for all of the functions environment variables.
+
+93
+00:05:37,725 --> 00:05:39,450
+You get up to five layers.
+
+94
+00:05:39,840 --> 00:05:44,960
+Burst concurrency is 500 to 3,000. That depends on the AWS region.
+
+95
+00:05:45,440 --> 00:05:51,170
+For the invocation, payload, the payload for synchronous invocation is a maximum
+
+96
+00:05:51,280 --> 00:05:56,830
+of 6 MB or for asynchronous, it's 256 KB.
+
+97
+00:05:57,530 --> 00:06:01,520
+The deployment package, the .zip archive. We've seen this earlier on
+
+98
+00:06:01,620 --> 00:06:04,760
+50 megabytes for zipped when direct uploading
+
+99
+00:06:05,140 --> 00:06:08,950
+and 254 unzipped and three megabytes for the console.
+
+100
+00:06:09,640 --> 00:06:13,630
+The container, image code package size can't be bigger than 10 GB
+
+101
+00:06:14,140 --> 00:06:19,650
+and the /temp directory storage is again in one megabyte increments,
+
+102
+00:06:19,730 --> 00:06:23,560
+starting at 512 in this case going up to 10,240.
+
+103
+00:06:23,940 --> 00:06:26,850
+So definitely worth understanding some of those for the exam.
+

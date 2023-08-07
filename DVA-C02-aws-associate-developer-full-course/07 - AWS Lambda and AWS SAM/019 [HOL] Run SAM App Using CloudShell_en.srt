@@ -1,0 +1,464 @@
+1
+00:00:05,140 --> 00:00:06,610
+Hi guys. in this lesson,
+
+2
+00:00:06,610 --> 00:00:13,450
+we're going to use AWS CloudShell to practice with the AWS SAM CLI utility.
+
+3
+00:00:14,040 --> 00:00:17,170
+Now I've also added a URL to this lesson
+
+4
+00:00:17,180 --> 00:00:20,940
+where you can actually learn a bit more about AWS SAM.
+
+5
+00:00:21,130 --> 00:00:24,060
+And you'll see in here there's a getting started guide.
+
+6
+00:00:24,540 --> 00:00:29,760
+It shows you how to install the SAM CLI on various different operating systems.
+
+7
+00:00:29,860 --> 00:00:32,030
+Now, I'm using CloudShell because
+
+8
+00:00:32,140 --> 00:00:35,270
+it is a little bit tricky to show people how to do this
+
+9
+00:00:35,370 --> 00:00:39,430
+using one operating system because if you're using a different one to me,
+
+10
+00:00:39,430 --> 00:00:41,250
+then it's going to get a bit complicated.
+
+11
+00:00:41,640 --> 00:00:45,930
+So there are a few prerequisites and programming frameworks and so on
+
+12
+00:00:45,930 --> 00:00:49,050
+that you have to have installed before you can actually run SAM.
+
+13
+00:00:49,740 --> 00:00:51,880
+Hence I'm going to do it in the CloudShell.
+
+14
+00:00:51,890 --> 00:00:53,840
+But if you want to actually practice
+
+15
+00:00:53,880 --> 00:00:56,940
+running these commands locally on your machine,
+
+16
+00:00:56,950 --> 00:01:00,020
+you can actually use Docker and actually run some
+
+17
+00:01:00,020 --> 00:01:04,459
+AWS utilities and applications locally on your machine like Lambda
+
+18
+00:01:04,620 --> 00:01:09,950
+and DynamoDB, then you can use the documentation and the tutorials here
+
+19
+00:01:10,040 --> 00:01:12,440
+to actually do that and it's really worthwhile practice.
+
+20
+00:01:13,240 --> 00:01:16,720
+So what I'm gonna do is go back over to AWS,
+
+21
+00:01:16,940 --> 00:01:19,990
+I'm going to click on the CloudShell icon here
+
+22
+00:01:20,250 --> 00:01:22,860
+and that should launch CloudShell for me.
+
+23
+00:01:23,410 --> 00:01:24,420
+Now, while that's launching,
+
+24
+00:01:24,420 --> 00:01:26,900
+let's go and have a look at the commands we're going to run.
+
+25
+00:01:27,210 --> 00:01:29,910
+So in your course download in the Lambda directory,
+
+26
+00:01:29,920 --> 00:01:32,910
+you'll find this SAM-CLI-commands.md file.
+
+27
+00:01:33,730 --> 00:01:36,040
+And there's just a few commands we need to run.
+
+28
+00:01:36,360 --> 00:01:41,450
+And what it's going to do is it's actually going to deploy a Hello World application
+
+29
+00:01:41,590 --> 00:01:47,350
+that uses an API Gateway API endpoints and an AWS Lambda function.
+
+30
+00:01:47,940 --> 00:01:51,360
+So we can deploy all of that with just a few very simple commands.
+
+31
+00:01:52,040 --> 00:01:55,770
+The first one is this one here, so SAM init.
+
+32
+00:01:55,890 --> 00:01:57,690
+We provide the runtime.
+
+33
+00:01:58,010 --> 00:02:00,060
+The dependency manager is PIP,
+
+34
+00:02:00,540 --> 00:02:02,470
+and then the app template is one of
+
+35
+00:02:02,480 --> 00:02:06,420
+the templates that AWS provides with the SAM utility,
+
+36
+00:02:06,600 --> 00:02:08,288
+and that's called Hello World.
+
+37
+00:02:08,410 --> 00:02:11,160
+And then the actual name of the app will be SAM app.
+
+38
+00:02:11,640 --> 00:02:15,660
+So all I need to do here is simply copy this entire command.
+
+39
+00:02:16,340 --> 00:02:19,960
+And my CloudShell is ready so let's paste this command in
+
+40
+00:02:20,540 --> 00:02:21,560
+and hit enter.
+
+41
+00:02:22,140 --> 00:02:25,460
+And this will use the permissions assigned to my user account.
+
+42
+00:02:26,140 --> 00:02:26,920
+And we can see that
+
+43
+00:02:26,920 --> 00:02:31,180
+what it's done is it's cloned some information from a GitHub repository.
+
+44
+00:02:31,640 --> 00:02:33,050
+So back in our command here,
+
+45
+00:02:33,050 --> 00:02:37,243
+what we want to do is we want to change directories suit to SAM app
+
+46
+00:02:37,503 --> 00:02:41,750
+and then run SAM build and then SAM deploy --guided.
+
+47
+00:02:42,340 --> 00:02:44,650
+So let's change directory to SAM app.
+
+48
+00:02:46,040 --> 00:02:48,320
+And that's our directory and in here you can see
+
+49
+00:02:48,650 --> 00:02:51,390
+that we have these various files and directories.
+
+50
+00:02:52,440 --> 00:02:54,660
+Next we want to run SAM build
+
+51
+00:02:55,340 --> 00:02:57,050
+and that ran very quickly.
+
+52
+00:02:57,740 --> 00:03:01,550
+And it now suggests some commands we can use but we already know what we need to run.
+
+53
+00:03:01,940 --> 00:03:06,460
+We're gonna use SAM deploy --guided.
+
+54
+00:03:07,140 --> 00:03:10,540
+Now this is showing the information here at the bottom of my screen.
+
+55
+00:03:10,580 --> 00:03:14,111
+So what I'm actually gonna do is I'm just going to close out of that,
+
+56
+00:03:14,376 --> 00:03:17,660
+clear the screen, bring it back up to the top and just run that again.
+
+57
+00:03:18,140 --> 00:03:19,850
+So it's going to be a bit easier to see.
+
+58
+00:03:20,630 --> 00:03:23,300
+So the stack name is going to use CloudFormation.
+
+59
+00:03:23,610 --> 00:03:27,390
+So it provides a stack name which is SAM-dash app, I'm happy with that.
+
+60
+00:03:27,940 --> 00:03:29,360
+The region, that's okay,
+
+61
+00:03:29,360 --> 00:03:32,140
+I'm going to leave it as us-east-1. So if you just
+
+62
+00:03:32,140 --> 00:03:34,385
+hit enter essentially you're accepting
+
+63
+00:03:34,409 --> 00:03:36,850
+whatever the default is in the square brackets.
+
+64
+00:03:38,240 --> 00:03:43,260
+So next it's asking me to confirm changes before deploy. That's okay.
+
+65
+00:03:43,260 --> 00:03:44,500
+I don't need to do that.
+
+66
+00:03:44,940 --> 00:03:47,410
+SAM needs permission to be able to create roles
+
+67
+00:03:47,410 --> 00:03:49,980
+to connect to the resources in your template.
+
+68
+00:03:50,440 --> 00:03:53,350
+Well in this case the default is yes, let's make sure.
+
+69
+00:03:54,000 --> 00:03:55,220
+And then it says it's going to
+
+70
+00:03:55,220 --> 00:03:58,370
+preserve the state of previously provisioned resources.
+
+71
+00:03:58,520 --> 00:04:01,330
+Not really interested. So the default of No.
+
+72
+00:04:01,330 --> 00:04:04,160
+So the capitalized N means the default is No.
+
+73
+00:04:04,740 --> 00:04:08,960
+And then it says Hello World function may not have authorization defined.
+
+74
+00:04:08,970 --> 00:04:12,660
+Is this okay? Well no, it's not. So let's put in a Y.
+
+75
+00:04:12,890 --> 00:04:14,160
+We do need that.
+
+76
+00:04:14,540 --> 00:04:16,403
+And then I'm going to accept the defaults.
+
+77
+00:04:16,839 --> 00:04:20,089
+Accept the default for the SAM configuration file,
+
+78
+00:04:20,540 --> 00:04:21,480
+the environment
+
+79
+00:04:22,040 --> 00:04:26,230
+and there we go. So that's now creating this application for us.
+
+80
+00:04:26,940 --> 00:04:31,030
+And we can see what's actually happening on the screen here in CloudShell.
+
+81
+00:04:31,300 --> 00:04:35,170
+But I've also opened CloudFormation, so we can see what's going on here
+
+82
+00:04:35,180 --> 00:04:39,320
+or we can head over to CloudFormation. We've got this create in progress.
+
+83
+00:04:39,570 --> 00:04:42,490
+And if you go to the events tab here, you're going to see
+
+84
+00:04:42,710 --> 00:04:46,290
+the various components of our application being created.
+
+85
+00:04:46,840 --> 00:04:47,930
+Back in CloudShell,
+
+86
+00:04:47,930 --> 00:04:49,870
+I can now see a message at the bottom of
+
+87
+00:04:49,870 --> 00:04:53,160
+my screen that says that it has completed successfully.
+
+88
+00:04:53,640 --> 00:04:57,600
+So if I refresh back in CloudFormation, it's all complete.
+
+89
+00:04:58,240 --> 00:05:03,278
+And if I go to outputs, we now have the Hello World API.
+
+90
+00:05:03,403 --> 00:05:08,950
+So we can actually see the API execution URL here.
+
+91
+00:05:09,740 --> 00:05:15,750
+And if I run that it's simply going to come back with Hello World.
+
+92
+00:05:16,540 --> 00:05:17,940
+So what has been created?
+
+93
+00:05:17,940 --> 00:05:21,600
+Let's go and have a look at a couple of the resources that have been created.
+
+94
+00:05:22,140 --> 00:05:24,150
+So we've got API Gateway.
+
+95
+00:05:25,000 --> 00:05:28,960
+That's the API that's been created and AWS Lambda.
+
+96
+00:05:29,840 --> 00:05:32,060
+Now, those are the main two resources.
+
+97
+00:05:32,740 --> 00:05:36,950
+So if I go to API Gateway, we can see that an API has been created.
+
+98
+00:05:37,420 --> 00:05:39,160
+If I go into that API,
+
+99
+00:05:39,540 --> 00:05:43,760
+We can see that the resources here, there's the /Hello and GET.
+
+100
+00:05:44,240 --> 00:05:47,950
+And that has an integration with Lambda.
+
+101
+00:05:47,960 --> 00:05:51,740
+Now you'll learn a lot more about API Gateway a bit later on in the course.
+
+102
+00:05:51,750 --> 00:05:55,340
+But in this case what's happening is the information we
+
+103
+00:05:55,340 --> 00:06:00,460
+supply in our API request gets proxied straight through the Lambda.
+
+104
+00:06:00,840 --> 00:06:02,460
+And we can see our function.
+
+105
+00:06:03,040 --> 00:06:06,330
+And our function is actually part of an application so we can click
+
+106
+00:06:06,330 --> 00:06:09,610
+on this link here and it's going to take us to the application.
+
+107
+00:06:09,740 --> 00:06:12,040
+So note that you have functions.
+
+108
+00:06:12,190 --> 00:06:13,860
+We've got several functions now.
+
+109
+00:06:14,240 --> 00:06:15,950
+But functions can also be part of an
+
+110
+00:06:15,950 --> 00:06:19,740
+application which then has additional configuration information,
+
+111
+00:06:20,040 --> 00:06:22,550
+such as with this one, it shows the API endpoint.
+
+112
+00:06:23,140 --> 00:06:28,660
+And you can also configure your deployments using code pipeline tools as well.
+
+113
+00:06:29,240 --> 00:06:34,550
+So that was all created very simply through the AWS SAM CLI utility.
+
+114
+00:06:34,943 --> 00:06:36,380
+We've finished with the lesson now.
+
+115
+00:06:36,380 --> 00:06:41,550
+So what I can do is simply come back into CloudFormation and delete my stack,
+
+116
+00:06:42,140 --> 00:06:45,760
+and that should delete all of the components of the application we just created.
+
