@@ -1,0 +1,248 @@
+1
+00:00:05,070 --> 00:00:09,730
+In this lesson, you're going to learn about AWS Cloud nine. So what is cloud nine?
+
+2
+00:00:09,740 --> 00:00:12,940
+It's an integrated development environment I. D.
+
+3
+00:00:12,950 --> 00:00:15,190
+That means developers can use this environment
+
+4
+00:00:15,190 --> 00:00:17,830
+to write code and validate their code.
+
+5
+00:00:17,840 --> 00:00:21,670
+So it's used by developers to write run as well as debugging code.
+
+6
+00:00:21,680 --> 00:00:25,670
+The editor provides syntax highlighting, code completion and error checking.
+
+7
+00:00:25,680 --> 00:00:29,600
+So it helps developers to make sure that they are writing good code.
+
+8
+00:00:29,660 --> 00:00:31,860
+The terminal is used to navigate the fastest.
+
+9
+00:00:32,115 --> 00:00:33,445
+You can run commands
+
+10
+00:00:33,565 --> 00:00:34,695
+and you can manage code.
+
+11
+00:00:34,705 --> 00:00:37,635
+It also provides collaboration features that allow multiple
+
+12
+00:00:37,635 --> 00:00:39,935
+developers to work on the same code base,
+
+13
+00:00:40,085 --> 00:00:43,325
+so you can invite other developers into your project and
+
+14
+00:00:43,325 --> 00:00:46,175
+then you can each work on the same code base.
+
+15
+00:00:46,225 --> 00:00:48,505
+It also provides a range of debugging tools to
+
+16
+00:00:48,505 --> 00:00:51,335
+help you identify and fix errors in your code.
+
+17
+00:00:51,435 --> 00:00:57,125
+AWS Cloud Nine integrates with lots of AWS services, including AWS lambda
+
+18
+00:00:57,265 --> 00:00:58,535
+amazon Ec two
+
+19
+00:00:58,820 --> 00:01:00,420
+and AWS Codepipeline.
+
+20
+00:01:00,430 --> 00:01:03,730
+Now, there's not too much that you need to understand about this for the exam,
+
+21
+00:01:03,740 --> 00:01:04,540
+other than what's here,
+
+22
+00:01:04,540 --> 00:01:09,330
+but we'll go over to the AWS console and just do a really quick hands on to
+
+23
+00:01:09,330 --> 00:01:13,100
+show you how to create an environment and then run a really simple piece of code.
+
+24
+00:01:13,110 --> 00:01:17,000
+I'm logged into AWS on the Cloud Nine console here and all I need
+
+25
+00:01:17,000 --> 00:01:20,970
+to do is create an environment and I'll just call this my demo environment.
+
+26
+00:01:21,000 --> 00:01:26,575
+We now have a couple of options for where the Cloud nine I. D. Is going to run.
+
+27
+00:01:26,595 --> 00:01:27,725
+You can choose
+
+28
+00:01:27,865 --> 00:01:32,835
+to launch a new Ec two instance or select an existing compute instance for me,
+
+29
+00:01:32,835 --> 00:01:35,105
+I'm going to create a new ec two instance.
+
+30
+00:01:35,145 --> 00:01:38,055
+I'm going to leave the instance type as T two micro.
+
+31
+00:01:38,065 --> 00:01:42,735
+It's amazon Linux two for the am I got a time out here so that it will auto
+
+32
+00:01:42,735 --> 00:01:46,135
+hibernate after 30 minutes if there's no activity to
+
+33
+00:01:46,135 --> 00:01:48,915
+save you some costs on run in that instance.
+
+34
+00:01:49,005 --> 00:01:50,755
+Next we've got network settings.
+
+35
+00:01:50,855 --> 00:01:52,235
+So how are you going to
+
+36
+00:01:52,830 --> 00:01:55,960
+one option is systems manager and the other option is secure.
+
+37
+00:01:55,960 --> 00:02:00,310
+Shell, probably more secure to use systems manager and optionally you can define
+
+38
+00:02:00,460 --> 00:02:01,640
+the Vpc settings.
+
+39
+00:02:01,650 --> 00:02:03,970
+I'm just gonna leave all the defaults now notice
+
+40
+00:02:03,970 --> 00:02:06,470
+at the bottom there are some service rolls through.
+
+41
+00:02:06,470 --> 00:02:10,479
+I am going to be created for your account so I'm happy with that.
+
+42
+00:02:10,479 --> 00:02:12,230
+Let's create our environment.
+
+43
+00:02:12,240 --> 00:02:14,920
+So now it's creating the environment and as it says,
+
+44
+00:02:14,920 --> 00:02:17,040
+it will take several minutes potentially.
+
+45
+00:02:17,050 --> 00:02:20,455
+And once it's ready we'll go in and have a look at how to you use the editor.
+
+46
+00:02:20,465 --> 00:02:24,685
+So that just took a couple of minutes and now my environment has been created.
+
+47
+00:02:24,695 --> 00:02:28,605
+So let's click on the open button here to open the Cloud nine I. D.
+
+48
+00:02:28,615 --> 00:02:29,505
+So here we are,
+
+49
+00:02:29,505 --> 00:02:31,135
+there's a bit of a welcome page there which
+
+50
+00:02:31,135 --> 00:02:33,455
+you can obviously use and read some information.
+
+51
+00:02:33,455 --> 00:02:35,355
+I'm just going to close out of that one.
+
+52
+00:02:35,365 --> 00:02:39,465
+So this is the editor environment and we have the terminal at the bottom here.
+
+53
+00:02:39,475 --> 00:02:42,725
+So with the terminal, I can do things like create a script.
+
+54
+00:02:42,725 --> 00:02:47,240
+Let's create a script using python that creates the file up in the top left here,
+
+55
+00:02:47,240 --> 00:02:52,620
+you can see the the file system that you can browse, we can select our file,
+
+56
+00:02:52,630 --> 00:02:54,100
+we can put some code in here,
+
+57
+00:02:54,110 --> 00:02:57,340
+like maybe a simple Hello World function and then you can always
+
+58
+00:02:57,340 --> 00:03:00,240
+go and run that code and you get a simple Hello World.
+
+59
+00:03:00,250 --> 00:03:01,790
+So really that's it past that.
+
+60
+00:03:01,790 --> 00:03:06,740
+It's all about using this tool to actually write code, edit code. Debug code.
+
+61
+00:03:06,750 --> 00:03:09,770
+So that's outside of the scope of this course, so I'll leave it there.
+
+62
+00:03:09,780 --> 00:03:13,380
+But if you're a developer obviously this is a really useful tool that you can use.
+

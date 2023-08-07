@@ -1,0 +1,192 @@
+1
+00:00:05,470 --> 00:00:09,580
+In this lesson, we're going to go and have a look at CloudWatch logs and a few of the features.
+
+2
+00:00:10,090 --> 00:00:15,700
+So back in CloudWatch, on the left hand side we have logs and then log groups and log insights.
+
+3
+00:00:16,090 --> 00:00:17,200
+Let's choose log groups.
+
+4
+00:00:18,040 --> 00:00:19,960
+Now we've already logged quite a few times.
+
+5
+00:00:19,960 --> 00:00:25,990
+Sometimes you wouldn't have realized it in this course because the applications that we created automatically
+
+6
+00:00:25,990 --> 00:00:31,900
+logs to CloudWatch Logs. For example, our Fargate cluster sent some information here
+
+7
+00:00:32,049 --> 00:00:35,890
+based on the performance. We can actually see that there's telemetry data.
+
+8
+00:00:36,040 --> 00:00:41,470
+Now, you can also see that the retention varies. So that information has expired now because it was only
+
+9
+00:00:41,470 --> 00:00:42,820
+held here for one day.
+
+10
+00:00:43,210 --> 00:00:48,700
+You can also set it to never expire or whatever value you want, like five days, for example.
+
+11
+00:00:48,850 --> 00:00:55,060
+The top level here is the log group. And you can see through this hierarchy what service is being referenced.
+
+12
+00:00:55,330 --> 00:00:59,110
+So here we have AWS Lambda and then a function.
+
+13
+00:00:59,440 --> 00:01:02,350
+So, all of the information related to that function will be in here.
+
+14
+00:01:03,330 --> 00:01:08,190
+We have another one here, the product visits data handler, which is from an earlier lesson in the
+
+15
+00:01:08,190 --> 00:01:09,120
+serverless section.
+
+16
+00:01:09,840 --> 00:01:13,290
+If we go into the log group, you'll then find the log streams.
+
+17
+00:01:13,770 --> 00:01:16,710
+If you open the log streams, you then get the log events.
+
+18
+00:01:17,160 --> 00:01:21,150
+Each series of events will have a start, an end, and a report.
+
+19
+00:01:21,510 --> 00:01:25,230
+And then in the middle you might have these info events as well.
+
+20
+00:01:25,650 --> 00:01:31,560
+So, if you expand the start, then it just simply gives you some information on the request and a timestamp.
+
+21
+00:01:31,680 --> 00:01:36,510
+The end tells you when it finished with a timestamp and a request ID.
+
+22
+00:01:37,230 --> 00:01:42,660
+And then the report in this case gives you information such as the duration that the function ran,
+
+23
+00:01:42,870 --> 00:01:44,940
+the build duration, and the memory size.
+
+24
+00:01:45,240 --> 00:01:47,370
+And then you also see these info events.
+
+25
+00:01:47,610 --> 00:01:52,290
+Here you can see the JSON code that went into the SQS message.
+
+26
+00:01:52,770 --> 00:01:59,520
+And then the next one along shows the JSON of the actual product that was purchased through our online
+
+27
+00:01:59,520 --> 00:01:59,910
+store.
+
+28
+00:02:00,150 --> 00:02:03,090
+Back up a level, we can see we have a few additional features.
+
+29
+00:02:03,450 --> 00:02:10,110
+Metric filters allow you to monitor events in your log group and do things like counting the specific
+
+30
+00:02:10,110 --> 00:02:13,500
+terms or values that are coming up in the log data.
+
+31
+00:02:13,980 --> 00:02:16,410
+Then we have subscription filters. Here
+
+32
+00:02:16,410 --> 00:02:21,090
+if we create a subscription filter, we get to choose from a few different services.
+
+33
+00:02:21,090 --> 00:02:25,710
+We've got ElasticSearch, we've got Kinesis, Kinesis Firehose, and Lambda.
+
+34
+00:02:26,010 --> 00:02:31,620
+And that means that the information as it comes in the CloudWatch logs is going to get forwarded to
+
+35
+00:02:31,620 --> 00:02:37,710
+the subscribers like an AWS Lambda function, which then might want to process that data as it
+
+36
+00:02:37,710 --> 00:02:38,280
+arrives.
+
+37
+00:02:38,700 --> 00:02:43,350
+Now, I also want to show you the log insights. Within logs insights,
+
+38
+00:02:43,560 --> 00:02:45,780
+what you can do is select your log groups.
+
+39
+00:02:46,080 --> 00:02:51,120
+So let's say that we select several different log groups here, and then you can run a query.
+
+40
+00:02:51,390 --> 00:02:58,950
+And this particular query is going to find the most recent 20 events from across the log groups. So, we
+
+41
+00:02:58,950 --> 00:03:00,900
+can choose a time.
+
+42
+00:03:01,260 --> 00:03:06,630
+I'm going to use absolute and let's just put in the last few weeks and then click on run query.
+
+43
+00:03:06,990 --> 00:03:13,260
+And what we get is the most recent 20 events that have been logged into CloudWatch logs.
+
+44
+00:03:13,860 --> 00:03:19,020
+And of course, you could just go and change that to 200 or whatever you want, and you can run all
+
+45
+00:03:19,020 --> 00:03:21,120
+sorts of other queries with logs insights.
+
+46
+00:03:21,390 --> 00:03:27,630
+So, logs insights is a great way of finding those insights into whatever's happening in your logging.
+
+47
+00:03:28,110 --> 00:03:30,630
+So, that's all I wanted to cover in this hands-on lesson.
+
+48
+00:03:30,660 --> 00:03:31,620
+I'll see you in the next one.
+

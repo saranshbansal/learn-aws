@@ -1,0 +1,280 @@
+1
+00:00:05,070 --> 00:00:09,950
+Hey guys in this lesson, we're going to talk about aWS app Config. So what is the app?
+
+2
+00:00:09,950 --> 00:00:11,060
+Conflict service?
+
+3
+00:00:11,200 --> 00:00:13,530
+This is a service you can use to create,
+
+4
+00:00:13,570 --> 00:00:16,850
+manage and deploy application configurations.
+
+5
+00:00:16,860 --> 00:00:20,820
+So the configuration settings that influence your application,
+
+6
+00:00:20,860 --> 00:00:24,210
+it's actually a capability of AWS Systems Manager.
+
+7
+00:00:24,320 --> 00:00:26,810
+Systems Manager is constantly being expanded.
+
+8
+00:00:26,810 --> 00:00:31,390
+There's always new capabilities being introduced. An app config is one of the rela
+
+9
+00:00:31,603 --> 00:00:36,343
+recent ones within app Config we create something called a configuration and this
+
+10
+00:00:36,343 --> 00:00:40,953
+is a collection of settings that influence the behavior of your application.
+
+11
+00:00:41,093 --> 00:00:45,143
+Now of course these settings need to be defined as a configuration in app
+
+12
+00:00:45,143 --> 00:00:49,633
+config and the application needs to be designed and written in such a way
+
+13
+00:00:49,923 --> 00:00:53,383
+that these settings do influence the behavior of the application.
+
+14
+00:00:53,383 --> 00:00:57,163
+So it's a case of making sure your application is coded the right way
+
+15
+00:00:57,323 --> 00:01:00,956
+and then setting the configuration settings in app conflict and
+
+16
+00:01:00,956 --> 00:01:03,136
+validating that they are the way they should be.
+
+17
+00:01:03,146 --> 00:01:06,736
+And deploying settings as well when you want to change the configuration
+
+18
+00:01:06,886 --> 00:01:11,346
+of your application and that is all done centrally from Systems Manager
+
+19
+00:01:11,516 --> 00:01:16,116
+applications can be hosted on ec, two instances AWS lambda functions,
+
+20
+00:01:16,126 --> 00:01:17,756
+mobile applications
+
+21
+00:01:17,926 --> 00:01:19,556
+and IOT devices.
+
+22
+00:01:19,686 --> 00:01:21,256
+The app conflict service helps to
+
+23
+00:01:21,256 --> 00:01:24,219
+reduce errors associated with configuration changes and
+
+24
+00:01:24,219 --> 00:01:26,449
+it helps you to streamline your deployment
+
+25
+00:01:26,459 --> 00:01:29,409
+of those configuration settings as well.
+
+26
+00:01:29,509 --> 00:01:31,919
+Configurations can be stored in a few places.
+
+27
+00:01:31,919 --> 00:01:36,039
+We've got amazon S three, you got the AWS app config itself,
+
+28
+00:01:36,049 --> 00:01:38,419
+you've got Systems Manager parameter store.
+
+29
+00:01:38,429 --> 00:01:40,569
+Systems Manager document store,
+
+30
+00:01:40,579 --> 00:01:45,729
+you can also put them into bit bucket git hub or codecommit via aWS.
+
+31
+00:01:45,729 --> 00:01:48,719
+Codepipeline applications must be updated to check
+
+32
+00:01:48,719 --> 00:01:51,512
+for and retrieve conf configuration data.
+
+33
+00:01:51,512 --> 00:01:54,722
+So that's something that needs to be coded into your application Now.
+
+34
+00:01:54,722 --> 00:01:57,902
+Some of the API applications include and these are perhaps
+
+35
+00:01:57,902 --> 00:02:01,132
+the two most important ones for connecting your applications.
+
+36
+00:02:01,142 --> 00:02:03,482
+One is start configuration session and the
+
+37
+00:02:03,482 --> 00:02:06,792
+other is get latest configuration validators are
+
+38
+00:02:06,792 --> 00:02:08,842
+something that's used to ensure that configuration
+
+39
+00:02:08,842 --> 00:02:11,952
+data is syntactic lee and semantically correct.
+
+40
+00:02:12,002 --> 00:02:15,862
+Now validators are either Jason schema validators or
+
+41
+00:02:16,152 --> 00:02:16,572
+us
+
+42
+00:02:17,045 --> 00:02:17,975
+validators.
+
+43
+00:02:17,985 --> 00:02:21,235
+When we deploy our configuration settings using app
+
+44
+00:02:21,235 --> 00:02:23,965
+config the deployment type is evil linear.
+
+45
+00:02:23,975 --> 00:02:28,525
+Which uses a growth factor based on a step percentage or exponential,
+
+46
+00:02:28,525 --> 00:02:31,885
+which uses the formula which I'm not going to try and interpret for you,
+
+47
+00:02:31,885 --> 00:02:33,485
+but there's a formula there and there's a bit
+
+48
+00:02:33,485 --> 00:02:36,055
+more information on that one on the AWS website.
+
+49
+00:02:36,055 --> 00:02:39,765
+If you want to understand in more detail. There's also deployment strategies.
+
+50
+00:02:39,765 --> 00:02:42,235
+Now these are app config dot all at once,
+
+51
+00:02:42,235 --> 00:02:45,708
+which is all target at the same time or app conflict dot linear.
+
+52
+00:02:45,708 --> 00:02:47,538
+50% every 30 seconds.
+
+53
+00:02:47,548 --> 00:02:52,548
+Which simply means that 50% of the targets are deployed to every 30 seconds.
+
+54
+00:02:52,718 --> 00:02:56,128
+Let's have a look at a couple of example configurations to help you understand
+
+55
+00:02:56,138 --> 00:02:58,018
+what sort of configuration settings are we
+
+56
+00:02:58,018 --> 00:03:01,058
+defining on our applications using app conflict.
+
+57
+00:03:01,068 --> 00:03:01,198
+Well,
+
+58
+00:03:01,198 --> 00:03:04,338
+here's an example that enables or disables mobile payments
+
+59
+00:03:04,338 --> 00:03:07,028
+and default payments on a per region basis.
+
+60
+00:03:07,198 --> 00:03:08,208
+In another example,
+
+61
+00:03:08,208 --> 00:03:12,001
+this enforces limits on how an application processes requests.
+
+62
+00:03:12,001 --> 00:03:15,501
+So we've got throttle limits here in simultaneous connections and so on.
+
+63
+00:03:15,511 --> 00:03:17,311
+So that's it for app conflict,
+
+64
+00:03:17,311 --> 00:03:19,811
+that should be enough to help you understand the
+
+65
+00:03:19,811 --> 00:03:22,421
+basics of this service and what it's there for.
+
+66
+00:03:22,431 --> 00:03:25,121
+And of course, if you want to do some more reading on app conflict,
+
+67
+00:03:25,121 --> 00:03:28,061
+there's lots more information on the AWS website.
+
+68
+00:03:28,161 --> 00:03:30,141
+It's hard to do a hands on on this one without
+
+69
+00:03:30,141 --> 00:03:33,121
+actually having an application with some settings that we can define.
+
+70
+00:03:33,131 --> 00:03:35,900
+But there may be some tutorials on AWS as well.
+

@@ -1,0 +1,132 @@
+1
+00:00:05,190 --> 00:00:10,509
+In this lesson we'll review the backup and recovery options for RDS databases.
+
+2
+00:00:11,081 --> 00:00:13,861
+So we have our RDS database instance.
+
+3
+00:00:14,190 --> 00:00:19,978
+We can configure a backup window and we can choose that ourselves or we can leave it as no preference
+
+4
+00:00:20,003 --> 00:00:21,676
+and it gets decided for us.
+
+5
+00:00:21,990 --> 00:00:26,573
+So if we choose it, then we can set a start time and also a duration.
+
+6
+00:00:26,760 --> 00:00:31,685
+When we take a backup using an automated backup, it is actually done as a snapshot.
+
+7
+00:00:32,156 --> 00:00:36,205
+And that snapshot can be retained for zero to 35 days.
+
+8
+00:00:36,230 --> 00:00:39,907
+Zero just means that you've basically turned off automatic backups.
+
+9
+00:00:40,080 --> 00:00:41,640
+35 days is the maximum.
+
+10
+00:00:42,700 --> 00:00:47,948
+You can then restore that snapshot and it creates a new database instance.
+
+11
+00:00:48,467 --> 00:00:52,593
+Restore can be to any point in time during the retention period.
+
+12
+00:00:52,828 --> 00:00:54,601
+You've then got manual backups.
+
+13
+00:00:54,760 --> 00:00:57,061
+So this also is using snapshots.
+
+14
+00:00:57,190 --> 00:01:01,850
+It backs up the entire database instance, not just individual databases.
+
+15
+00:01:02,290 --> 00:01:08,153
+Note that for single availability zone database instances there is a brief suspension of I/O,
+
+16
+00:01:08,178 --> 00:01:13,250
+so they can cause a slight interruption to your application, which might be in production.
+
+17
+00:01:13,720 --> 00:01:14,770
+So bear that in mind.
+
+18
+00:01:15,280 --> 00:01:20,892
+And this doesn't happen for multi-AZ because the back up can be taken from the standby instance.
+
+19
+00:01:21,680 --> 00:01:27,576
+For Multi-AZ SQL Server, the I/O activity is briefly suspended on the primary.
+
+20
+00:01:28,061 --> 00:01:35,453
+For multi-AZ MariaDB, MySQL, Oracle and PostgreSQL the snapshot is always taken from the standby,
+
+21
+00:01:35,477 --> 00:01:37,930
+so you don't have to worry about that slight interruption.
+
+22
+00:01:38,240 --> 00:01:42,070
+Snapshots do not expire, so there's no retention period.
+
+23
+00:01:42,230 --> 00:01:48,250
+So unlike the automatic backups where you must specify how long, up to 35 days, you can actually just
+
+24
+00:01:48,275 --> 00:01:49,250
+keep these ones forever.
+
+25
+00:01:49,700 --> 00:01:51,630
+So what about maintenance windows?
+
+26
+00:01:51,860 --> 00:01:57,950
+The operating system and database patching does sometimes require taking the database offline.
+
+27
+00:01:58,700 --> 00:02:02,005
+So this is where you can specify your maintenance window.
+
+28
+00:02:02,030 --> 00:02:07,634
+Again, you can leave it as no preference or select your own window and have a start time and day
+
+29
+00:02:07,659 --> 00:02:08,690
+and also a duration.
+
+30
+00:02:09,050 --> 00:02:13,880
+So the tasks that require the database to be taken offline will happen during the maintenance window.
+
+31
+00:02:14,180 --> 00:02:19,213
+And by default, there's a weekly window that's actually specified or you just go and choose your own.
+
+32
+00:02:19,610 --> 00:02:21,770
+So that's all I wanted to cover in this lesson.
+
+33
+00:02:21,780 --> 00:02:23,180
+I'll see you in the next lesson.
+

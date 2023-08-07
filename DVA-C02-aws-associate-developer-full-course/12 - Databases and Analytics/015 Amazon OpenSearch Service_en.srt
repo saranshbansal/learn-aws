@@ -1,0 +1,376 @@
+1
+00:00:05,200 --> 00:00:11,740
+In this lesson, you're going to learn about the Amazon OpenSearch service, also known as Elasticsearch.
+
+2
+00:00:12,670 --> 00:00:18,220
+So the opensearch service is the successor to Amazon Elasticsearch Service.
+
+3
+00:00:18,460 --> 00:00:23,530
+Now, don't worry if you see one name or the other in exam questions because the concepts I'm going
+
+4
+00:00:23,530 --> 00:00:25,030
+to teach you are the same for both.
+
+5
+00:00:26,250 --> 00:00:27,030
+So what is it?
+
+6
+00:00:27,060 --> 00:00:33,720
+Well, it's a fully managed service that you can use for searching, visualizing and analyzing text
+
+7
+00:00:33,930 --> 00:00:35,310
+and unstructured data.
+
+8
+00:00:35,850 --> 00:00:41,290
+It's petabyte scale and it's secure so you can deploy it into an Amazon VPC.
+
+9
+00:00:41,700 --> 00:00:45,810
+Integrate with IAM and you can encrypt at rest and in transit.
+
+10
+00:00:46,650 --> 00:00:49,410
+It's also highly available and scalable.
+
+11
+00:00:49,410 --> 00:00:56,970
+Now you deploy nodes and replicas into and across availability zones, and we'll go into that in a bit
+
+12
+00:00:56,970 --> 00:00:57,360
+more depth.
+
+13
+00:00:57,360 --> 00:00:57,960
+later on.
+
+14
+00:00:59,090 --> 00:01:01,820
+So it's a distributed search and analytics suite.
+
+15
+00:01:02,210 --> 00:01:10,070
+It's based on the popular open source elastic search service, and it supports queries using SQL syntax
+
+16
+00:01:10,370 --> 00:01:12,620
+and integrates with open source tools.
+
+17
+00:01:13,130 --> 00:01:16,130
+Now you scale by adding or removing instances.
+
+18
+00:01:16,250 --> 00:01:17,540
+It's not a surplus service.
+
+19
+00:01:17,540 --> 00:01:22,760
+You're using the underlying EC2 service for running your open search.
+
+20
+00:01:23,300 --> 00:01:28,880
+We have availability in up to free availability zones, and you can back it up using snapshots.
+
+21
+00:01:29,540 --> 00:01:33,830
+You can also enable encryption at rest and in transit.
+
+22
+00:01:35,060 --> 00:01:36,950
+Now, how do we deploy open search?
+
+23
+00:01:37,580 --> 00:01:43,790
+Well, you create a cluster, you can do so through the management console, the API or the CLI.
+
+24
+00:01:44,060 --> 00:01:47,930
+Now, a cluster is also known as an opensearch service domain.
+
+25
+00:01:48,800 --> 00:01:54,680
+You specify the number of instances and the instance types, and you can have storage options, including
+
+26
+00:01:54,680 --> 00:01:58,070
+ultra warm or cold storage, depending on your needs.
+
+27
+00:01:58,460 --> 00:02:03,620
+So the next thing is, once we've deployed our cluster, we need some data so that we can use that for
+
+28
+00:02:03,620 --> 00:02:07,370
+populating our open search cluster and then searching and analyzing it.
+
+29
+00:02:07,970 --> 00:02:15,020
+So data can come from various different sources, including Kinesis Data, Firehose, Log Stash and
+
+30
+00:02:15,020 --> 00:02:17,890
+the ElasticSearch, an open search APIs.
+
+31
+00:02:18,740 --> 00:02:22,340
+So data gets ingested from these different sources.
+
+32
+00:02:23,120 --> 00:02:29,270
+Now, we might then use an open source tool like Cabana to search, visualize and analyze that data
+
+33
+00:02:29,270 --> 00:02:33,050
+by pointing Cabana Dashboard at the open search service.
+
+34
+00:02:33,620 --> 00:02:41,300
+As I mentioned before, we can deploy our open search cluster into a VPC, so that will allow secure
+
+35
+00:02:41,300 --> 00:02:43,280
+intra VPC communications.
+
+36
+00:02:43,280 --> 00:02:48,800
+If you've got your other components of your solution inside a VPC, then it means you never have to
+
+37
+00:02:48,800 --> 00:02:50,690
+traverse outside the VPC.
+
+38
+00:02:51,260 --> 00:02:58,340
+Now, a VPN or proxy will be required to connect from the internet, whereas public domains are directly
+
+39
+00:02:58,340 --> 00:02:59,000
+accessible.
+
+40
+00:02:59,540 --> 00:03:05,000
+So if you deploy in a public domain, then you can directly access your cluster from
+
+41
+00:03:05,000 --> 00:03:05,480
+the internet.
+
+42
+00:03:05,510 --> 00:03:10,040
+Otherwise, if you deploy in a VPC, you'll need a VPN or proxy service.
+
+43
+00:03:10,490 --> 00:03:16,070
+When you deploy your open search cluster into a VPC, you cannot use IP based access policies.
+
+44
+00:03:16,580 --> 00:03:20,270
+Now there's also some other limitations of VPC deployments.
+
+45
+00:03:20,510 --> 00:03:24,720
+You can't switch from a VPC deployment to a public endpoints.
+
+46
+00:03:24,980 --> 00:03:26,600
+And the reverse is also true.
+
+47
+00:03:26,810 --> 00:03:31,610
+You also can't launch your domain within a VPC that uses dedicated tenancy.
+
+48
+00:03:32,590 --> 00:03:37,270
+After you place a domain within a VPC, you can't then move it to a different VPC.
+
+49
+00:03:37,570 --> 00:03:42,730
+But if you need to, you can change the subnets and security group settings within the VPC.
+
+50
+00:03:44,210 --> 00:03:50,570
+Now there's another concept you need to understand for exam questions, and that's the elk stack. elk
+
+51
+00:03:50,990 --> 00:03:53,990
+stands for ElasticSearch, LogStash and Kibana.
+
+52
+00:03:54,680 --> 00:03:57,770
+So that's where you're actually combining these different services together.
+
+53
+00:03:58,520 --> 00:04:01,180
+So let's say we have an open search service domain.
+
+54
+00:04:01,220 --> 00:04:05,930
+We have logstash and that is ingesting data into open search.
+
+55
+00:04:06,440 --> 00:04:12,320
+Then Kibana is actually used as the dashboard to then perform that search and analytics on the data
+
+56
+00:04:12,470 --> 00:04:14,060
+that's in our open search cluster.
+
+57
+00:04:14,980 --> 00:04:20,829
+This is a very popular combination of different projects, and you can use this to aggregate logs from
+
+58
+00:04:20,829 --> 00:04:25,240
+systems and applications and analyze them and create visualizations as well.
+
+59
+00:04:26,140 --> 00:04:32,830
+Use cases include visualizing application and infrastructure, monitoring, data troubleshooting and
+
+60
+00:04:32,830 --> 00:04:34,120
+security analytics.
+
+61
+00:04:34,540 --> 00:04:39,430
+Let's have a look at access control with open search, so we've got a few different options.
+
+62
+00:04:39,700 --> 00:04:44,080
+We've got resource based policies and these are called domain access policies.
+
+63
+00:04:44,590 --> 00:04:49,870
+Identity based policies which get attached to users or roles are the same as with any other kind of
+
+64
+00:04:49,870 --> 00:04:52,630
+identity based access that we've looked at in the course.
+
+65
+00:04:53,530 --> 00:04:59,410
+And then we have IP based policy to remember you can't use these if you're using a cluster of apps.
+
+66
+00:05:00,220 --> 00:05:04,270
+These restrict access to one or more IP addresses or side blocks.
+
+67
+00:05:04,930 --> 00:05:07,690
+And then lastly, we have fine grained access control.
+
+68
+00:05:07,990 --> 00:05:13,830
+Now this will provide role based access control gives you security at the index document and field level
+
+69
+00:05:14,470 --> 00:05:21,580
+open search dashboards, multi-tenancy and HTTP based authentication for opensearch and opensearch
+
+70
+00:05:21,580 --> 00:05:22,210
+dashboards.
+
+71
+00:05:22,750 --> 00:05:25,090
+We then have the authentication options.
+
+72
+00:05:25,600 --> 00:05:31,930
+These include using federation with SAML, so the security assertion markup language to on-premises
+
+73
+00:05:31,930 --> 00:05:32,630
+directories.
+
+74
+00:05:32,800 --> 00:05:37,480
+So maybe if you have an Active Directory on-premises, you can federate using SAML.
+
+75
+00:05:38,230 --> 00:05:42,400
+You can use Amazon Cognito with social identity providers as well.
+
+76
+00:05:42,970 --> 00:05:46,720
+Lastly, I'm going to cover some opensearch best practices now.
+
+77
+00:05:46,740 --> 00:05:51,460
+This is really important to understand because these do come up quite a lot and in some questions.
+
+78
+00:05:52,520 --> 00:05:59,360
+So one best practice is that you should deploy your opensearch data instances across three availability
+
+79
+00:05:59,360 --> 00:06:01,550
+zones for the best availability.
+
+80
+00:06:02,500 --> 00:06:07,840
+You should provision your instances in multiples of three for equal distribution across AZs.
+
+81
+00:06:09,160 --> 00:06:15,760
+And if three AZ are not available, as is the case in some regions, then use to AZs with equal
+
+82
+00:06:15,760 --> 00:06:16,960
+numbers of instances.
+
+83
+00:06:18,660 --> 00:06:26,280
+You should use three, dedicated masternodes, configure at least one replica for each index and apply
+
+84
+00:06:26,280 --> 00:06:32,580
+restrictive resource based access policies to the domain so you can use that all fine grained access
+
+85
+00:06:32,580 --> 00:06:33,120
+control.
+
+86
+00:06:33,720 --> 00:06:39,960
+You should create the domain within an Amazon VPC and for sensitive data, enable nodes to
+
+87
+00:06:39,960 --> 00:06:42,450
+node Encryption and encryption at rest.
+
+88
+00:06:43,170 --> 00:06:44,900
+Now that's it for opensearch.
+
+89
+00:06:44,910 --> 00:06:49,020
+Now remember, open search and ElasticSearch are essentially the same thing.
+
+90
+00:06:49,320 --> 00:06:54,780
+So if you see even those names in the exam, then the concepts in this lesson will apply the same.
+
+91
+00:06:55,350 --> 00:07:00,120
+Now it does come up in quite a few exam questions these days, but they shouldn't be too difficult,
+
+92
+00:07:00,120 --> 00:07:05,400
+and you certainly don't need strong hands on knowledge of ElasticSearch or open search, as it's now
+
+93
+00:07:05,400 --> 00:07:05,790
+called.
+
+94
+00:07:06,240 --> 00:07:11,100
+Instead, just understand the concepts in this lesson, and that should do you quite well for the exam.
+

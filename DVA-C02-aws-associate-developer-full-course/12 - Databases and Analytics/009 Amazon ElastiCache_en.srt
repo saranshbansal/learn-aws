@@ -1,0 +1,256 @@
+1
+00:00:05,730 --> 00:00:12,600
+Amazon ElastiCache is an in-memory database and is often used for caching data that comes from other
+
+2
+00:00:12,600 --> 00:00:14,580
+databases, so we'll see how that works.
+
+3
+00:00:14,940 --> 00:00:17,220
+Now, let's get through a few facts first.
+
+4
+00:00:17,580 --> 00:00:24,720
+Amazon ElastiCache is a fully managed implementation of the popular Redis and Memcached database
+
+5
+00:00:24,720 --> 00:00:25,230
+engines.
+
+6
+00:00:25,650 --> 00:00:28,290
+ElastiCache is a key value store.
+
+7
+00:00:28,740 --> 00:00:34,830
+It's an in-memory database which offers really high performance and low latency. So, it's often used
+
+8
+00:00:34,830 --> 00:00:41,610
+in use cases where we're trying to improve the performance of an existing database like an RDS database
+
+9
+00:00:41,970 --> 00:00:45,450
+or where we just need that really low latency for storing data.
+
+10
+00:00:45,870 --> 00:00:52,320
+We can put it in front of databases like RDS and DynamoDB, and it's a very common use case. Now,
+
+11
+00:00:52,350 --> 00:00:59,730
+ElastiCache nodes run on Amazon EC2 instances. So, you do need to choose an instance type when
+
+12
+00:00:59,730 --> 00:01:01,770
+you launch your database cluster.
+
+13
+00:01:02,460 --> 00:01:06,930
+So let's have a quick look at a very simple diagram to show you how it works with RDS.
+
+14
+00:01:07,350 --> 00:01:14,040
+So let's say we have an Amazon ElastiCache node and we have an RDS database and an application instance.
+
+15
+00:01:14,490 --> 00:01:18,390
+The application will write data to the RDS database.
+
+16
+00:01:18,900 --> 00:01:25,170
+That data will then get loaded to the ElastiCache node, so it's consistent with the RDS database.
+
+17
+00:01:25,380 --> 00:01:27,180
+Now, that isn't always the way it works,
+
+18
+00:01:27,180 --> 00:01:30,630
+there's a couple of nuances to that, but this is one way it can work.
+
+19
+00:01:31,380 --> 00:01:38,550
+Then if a read for that specific data is issued, then we get a cache hits because it goes to the ElastiCache
+
+20
+00:01:38,550 --> 00:01:42,360
+node and it comes back at higher performance and lower latency.
+
+21
+00:01:42,630 --> 00:01:49,080
+Now, the differences between Redis and Memcached implementations is a key topic for the exam, so
+
+22
+00:01:49,080 --> 00:01:53,700
+you need to understand the differences here. Now in terms of database persistence,
+
+23
+00:01:53,940 --> 00:01:58,440
+the data is not persistent with Memcached, but it is with Redis.
+
+24
+00:01:58,800 --> 00:02:04,620
+Now, as you'll note, there's two columns here for Redis, cluster mode enabled and cluster mode disabled.
+
+25
+00:02:05,130 --> 00:02:11,490
+Memcached is often used with simple data types, whereas Redis is for more complex data types.
+
+26
+00:02:11,970 --> 00:02:15,090
+Partitioning a data does happen in Memcached. We'll
+
+27
+00:02:15,090 --> 00:02:20,820
+see this in more detail in the next lesson. Whereas with Redis, the data is not partitioned.
+
+28
+00:02:21,840 --> 00:02:26,310
+With encryption, you only have options for enabling encryption with Redis.
+
+29
+00:02:26,760 --> 00:02:29,510
+You don't get high availability replication with Memcached
+
+30
+00:02:30,060 --> 00:02:31,110
+but you do with Redis.
+
+31
+00:02:31,620 --> 00:02:33,240
+Now, what about multi-AZ?
+
+32
+00:02:33,690 --> 00:02:37,910
+Well, you do get that with both implementations. With Memcached,
+
+33
+00:02:38,460 --> 00:02:45,060
+you can place nodes in multiple availability zones, but there's no actual failover or replication. With
+
+34
+00:02:45,060 --> 00:02:47,100
+Redis for both implementations,
+
+35
+00:02:47,310 --> 00:02:52,950
+it does allow auto failover and you can have read replicas and they're on a per shard basis.
+
+36
+00:02:53,250 --> 00:02:59,220
+The scaling of the databases is a little bit more complex. And in the next lesson, you'll see diagrams
+
+37
+00:02:59,220 --> 00:03:00,510
+that make it a bit more clear.
+
+38
+00:03:01,020 --> 00:03:07,020
+But essentially, with Memcached, you can scale up in terms of changing the node type and you can scale
+
+39
+00:03:07,020 --> 00:03:08,430
+out by adding nodes.
+
+40
+00:03:08,430 --> 00:03:15,060
+But each of those nodes is a separate partition because remember, it supports partitioning. With Redis,
+
+41
+00:03:15,070 --> 00:03:22,170
+you scale up by the node type or you can add a replica if it's Redis cluster mode disabled or shards
+
+42
+00:03:22,470 --> 00:03:24,300
+if it's Redis cluster mode enabled.
+
+43
+00:03:24,690 --> 00:03:27,990
+Now, Memcached is multi-threaded, whereas Redis is not.
+
+44
+00:03:27,990 --> 00:03:31,320
+So try and remember that one that does come up as an exam question.
+
+45
+00:03:31,680 --> 00:03:39,030
+You don't get any backup with Memcached, whereas you do in terms of automated backups and manual snapshots
+
+46
+00:03:39,150 --> 00:03:39,900
+with Redis.
+
+47
+00:03:40,200 --> 00:03:43,410
+So what are some popular use cases for ElastiCache?
+
+48
+00:03:43,980 --> 00:03:48,210
+You want to use it with data that's relatively static and frequently accessed.
+
+49
+00:03:48,720 --> 00:03:54,090
+Applications need to be tolerant of stale data because sometimes you might not have the synchronization
+
+50
+00:03:54,090 --> 00:03:56,940
+of the data between the backend and the cache,
+
+51
+00:03:57,090 --> 00:04:03,630
+or at least that could be some latency there. You can use it for use cases where it's either slow or expensive
+
+52
+00:04:03,630 --> 00:04:08,010
+to get your data from your existing database compared to the cache.
+
+53
+00:04:08,340 --> 00:04:13,590
+So if the cache is faster or cheaper or maybe both, then that would be a good use case.
+
+54
+00:04:13,950 --> 00:04:18,510
+You get pushbutton scalability for the memory, for the writes, and for the reads.
+
+55
+00:04:18,779 --> 00:04:24,330
+So that is a useful feature of ElastiCache, and you will learn a bit more about that in the next lesson.
+
+56
+00:04:24,660 --> 00:04:28,230
+ElastiCache is very useful for storing session state data.
+
+57
+00:04:28,230 --> 00:04:29,880
+That's another common use case.
+
+58
+00:04:30,120 --> 00:04:32,220
+DynamoDB is another solution.
+
+59
+00:04:32,490 --> 00:04:39,510
+So if you see questions relating to storing session state data, then often ElastiCache or DynamoDB
+
+60
+00:04:39,510 --> 00:04:41,280
+will be good answers.
+
+61
+00:04:41,610 --> 00:04:47,700
+So with that in mind, there's a few examples here like a web session store, database caching, leaderboards,
+
+62
+00:04:47,700 --> 00:04:49,470
+and streaming data dashboards.
+
+63
+00:04:49,830 --> 00:04:51,390
+And that's it for the core theory.
+
+64
+00:04:51,600 --> 00:04:55,080
+And in the next lesson, we'll look at how we can scale ElastiCache.
+

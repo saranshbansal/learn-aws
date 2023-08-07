@@ -1,0 +1,196 @@
+1
+00:00:05,250 --> 00:00:07,820
+In this lesson, we're going to look at cloudwatch logs.
+
+2
+00:00:08,100 --> 00:00:13,280
+So Cloudwatch logs is used to gather and centralize application and system logs
+
+3
+00:00:13,480 --> 00:00:17,610
+in Cloudwatch. So these can come from your applications from system logs.
+
+4
+00:00:17,730 --> 00:00:20,330
+They can come from AWS services and they can
+
+5
+00:00:20,330 --> 00:00:23,940
+come from on premises systems with the agent installed.
+
+6
+00:00:24,230 --> 00:00:29,580
+You can define expiration policies and you can enable encryption using a KMS key.
+
+7
+00:00:29,785 --> 00:00:33,105
+You can send data to Amazon S3, that's an export
+
+8
+00:00:33,425 --> 00:00:34,735
+kinesis data streams
+
+9
+00:00:34,895 --> 00:00:36,745
+and kinesis data firehose.
+
+10
+00:00:36,985 --> 00:00:38,595
+So we've got cloudwatch logs here,
+
+11
+00:00:38,775 --> 00:00:39,775
+EC2
+
+12
+00:00:39,915 --> 00:00:41,185
+on the left hand side
+
+13
+00:00:41,345 --> 00:00:43,935
+and some on premises systems on the right hand side,
+
+14
+00:00:44,195 --> 00:00:49,065
+the unified Cloudwatch agent is installed on EC2 and on the on premises servers.
+
+15
+00:00:49,365 --> 00:00:50,115
+And then
+
+16
+00:00:50,315 --> 00:00:53,835
+those different servers can send information to Cloudwatch logs
+
+17
+00:00:54,280 --> 00:00:56,140
+that includes application logs
+
+18
+00:00:56,280 --> 00:00:57,440
+and system logs.
+
+19
+00:00:57,570 --> 00:01:00,030
+AWS LAMBDA can also send
+
+20
+00:01:00,180 --> 00:01:04,190
+to cloudwatch logs and it will require permissions to cloudwatch logs.
+
+21
+00:01:04,190 --> 00:01:04,810
+So remember,
+
+22
+00:01:04,810 --> 00:01:08,340
+you've always got to make sure you give the right permissions to LAMBDA.
+
+23
+00:01:08,610 --> 00:01:11,000
+Now, information from Cloudwatch logs
+
+24
+00:01:11,140 --> 00:01:12,690
+can be sent to
+
+25
+00:01:12,860 --> 00:01:15,900
+the Amazon Elasticsearch service as well and you
+
+26
+00:01:15,900 --> 00:01:19,240
+get real time log processing with subscription filters
+
+27
+00:01:19,590 --> 00:01:22,040
+that can apply also to lambda
+
+28
+00:01:22,170 --> 00:01:23,190
+and kinesis.
+
+29
+00:01:23,300 --> 00:01:26,110
+So let's have a look at some features of cloudwatch.
+
+30
+00:01:26,260 --> 00:01:30,840
+Cloudwatch logs insights can be used to interactively search and analyze
+
+31
+00:01:31,040 --> 00:01:33,530
+the log data in cloudwatch logs.
+
+32
+00:01:33,720 --> 00:01:37,150
+You can monitor applications and systems using log data.
+
+33
+00:01:37,160 --> 00:01:40,480
+You can create alarms based on API activity
+
+34
+00:01:40,660 --> 00:01:42,540
+that's captured by cloud trail.
+
+35
+00:01:42,570 --> 00:01:46,520
+By default, the logs are kept indefinitely so they don't expire,
+
+36
+00:01:46,860 --> 00:01:50,040
+but you can adjust the retention period for each log group.
+
+37
+00:01:50,280 --> 00:01:54,060
+And that can range from one day to 10 years of retention.
+
+38
+00:01:54,350 --> 00:01:58,630
+Cloudwatch logs can also be used to log information about DNS queries
+
+39
+00:01:58,930 --> 00:02:02,270
+that are received by the Amazon route 53 service.
+
+40
+00:02:02,560 --> 00:02:05,360
+Now, some of the core concepts, of course, we've got log events,
+
+41
+00:02:05,570 --> 00:02:09,860
+that's a record of activity recorded by a service that's monitored.
+
+42
+00:02:10,000 --> 00:02:14,120
+Log streams are a sequence of log events that share the same source
+
+43
+00:02:14,240 --> 00:02:19,450
+log groups are groups of log streams that share the same retention monitoring
+
+44
+00:02:19,600 --> 00:02:21,440
+and access control settings.
+
+45
+00:02:21,810 --> 00:02:26,470
+Metric filters are used to extract metric observations from ingested events
+
+46
+00:02:26,590 --> 00:02:28,700
+and transform them to data points
+
+47
+00:02:28,900 --> 00:02:30,370
+in a cloudwatch metric.
+
+48
+00:02:30,380 --> 00:02:31,040
+And then lastly,
+
+49
+00:02:31,040 --> 00:02:36,090
+the retention settings specify how long events are kept in cloudwatch logs.
+

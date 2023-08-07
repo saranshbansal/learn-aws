@@ -1,0 +1,440 @@
+1
+00:00:05,490 --> 00:00:06,210
+Welcome back.
+
+2
+00:00:06,360 --> 00:00:09,030
+We're now going to continue from where we left off before.
+
+3
+00:00:09,240 --> 00:00:15,330
+And we're going to create a read replica from our Digicloud database and also enable multi-AZ as
+
+4
+00:00:15,330 --> 00:00:15,600
+well.
+
+5
+00:00:16,290 --> 00:00:19,770
+Back in the console, I can see my database is here Digicloud.
+
+6
+00:00:20,160 --> 00:00:24,810
+I've got it selected and under actions, I'm going to create a read replica.
+
+7
+00:00:25,440 --> 00:00:28,530
+Now, you can then change the DB instance class if you want to.
+
+8
+00:00:29,340 --> 00:00:35,880
+You can enable multi-AZ, so you have a multi-AZ copy of your read replica database and you can modify
+
+9
+00:00:35,880 --> 00:00:36,480
+the storage.
+
+10
+00:00:37,050 --> 00:00:39,410
+We're going to leave those defaults. Now,
+
+11
+00:00:39,420 --> 00:00:44,620
+you can also change the region so you could have a read replica in a different region if you want to.
+
+12
+00:00:45,180 --> 00:00:49,920
+You can also specify the availability zone and whether you want this to be publicly accessible.
+
+13
+00:00:50,400 --> 00:00:52,440
+Now again, I'm going to leave all the defaults.
+
+14
+00:00:52,890 --> 00:00:59,310
+We can't actually encrypt because remember with a read replica, it must have the same encryption status
+
+15
+00:00:59,610 --> 00:01:02,430
+as the master database that it has been copied from.
+
+16
+00:01:02,820 --> 00:01:08,550
+So if the primary is encrypted, then you can have an encrypted read replica or you will have encrypted read
+
+17
+00:01:08,550 --> 00:01:08,900
+replica.
+
+18
+00:01:08,910 --> 00:01:10,500
+There's no two ways about it.
+
+19
+00:01:10,860 --> 00:01:15,750
+And if the primary is not encrypted, then it cannot be an encrypted read replica.
+
+20
+00:01:16,200 --> 00:01:19,830
+I'm going to give a slightly different identifier for my database.
+
+21
+00:01:20,460 --> 00:01:24,990
+It's going to be called Digicloud-Replica. And the port is going to be the same.
+
+22
+00:01:25,290 --> 00:01:31,110
+We're going to keep all the remaining defaults as they are and choose to create the read replica.
+
+23
+00:01:31,440 --> 00:01:36,530
+We can now see the Digicloud-replica database in the console here.
+
+24
+00:01:36,540 --> 00:01:43,410
+So it's a separate database and it's in the creating state. And the Digicloud database is in the modifying
+
+25
+00:01:43,410 --> 00:01:43,800
+state.
+
+26
+00:01:44,280 --> 00:01:50,520
+So what's happening is the Digicloud Replica is having the database information replicated across
+
+27
+00:01:50,520 --> 00:01:54,390
+to it, so we're creating a replica of that primary instance.
+
+28
+00:01:55,230 --> 00:02:00,690
+Now, if we click on this identifier, we can then see some information about the database.
+
+29
+00:02:00,960 --> 00:02:04,860
+Now, in this point in time, because it's not complete yet, it's not available,
+
+30
+00:02:05,040 --> 00:02:07,170
+we don't have the endpoints and port.
+
+31
+00:02:07,560 --> 00:02:13,860
+So, in a few minutes, we'll refresh and hopefully we'll get a read replica endpoint. Back up a level,
+
+32
+00:02:13,860 --> 00:02:17,340
+we can see that the Digicloud Replica is still in the creating state,
+
+33
+00:02:17,550 --> 00:02:20,580
+but my main database is available. Now,
+
+34
+00:02:20,580 --> 00:02:26,850
+what I'm going to do while this is completing is select my main database, the primary, choose modify,
+
+35
+00:02:27,750 --> 00:02:29,840
+and what we're going to do is just scroll down.
+
+36
+00:02:29,860 --> 00:02:32,430
+We're not changing any of these settings here.
+
+37
+00:02:32,790 --> 00:02:35,880
+What we want to get to is availability and durability.
+
+38
+00:02:36,150 --> 00:02:39,000
+And we're going to change to a multi-AZ deployment.
+
+39
+00:02:39,690 --> 00:02:43,650
+And then just scroll all the way to the bottom and click on continue.
+
+40
+00:02:44,700 --> 00:02:50,280
+Now, when we want to apply this change, it does warn us that there's a potential performance impact.
+
+41
+00:02:50,640 --> 00:02:57,470
+So, you can actually allow this to happen in a maintenance window or you can apply immediately.
+
+42
+00:02:57,480 --> 00:03:03,120
+We want to apply it immediately. So, make sure you change to that option and then click on modify DB
+
+43
+00:03:03,120 --> 00:03:03,660
+instance.
+
+44
+00:03:04,320 --> 00:03:07,230
+Both of our databases are now in the modifying state.
+
+45
+00:03:07,590 --> 00:03:10,560
+The replica database should be finished very shortly.
+
+46
+00:03:11,010 --> 00:03:17,790
+The main database is now creating a multi-AZ stand by in a separate availability zone.
+
+47
+00:03:18,060 --> 00:03:24,900
+Now, unlike the replica, it's not a separate DB identifier in here, so you can't see it as a separate
+
+48
+00:03:24,900 --> 00:03:28,170
+database that you can interact with and point your applications to.
+
+49
+00:03:28,770 --> 00:03:34,290
+But it is being created, and you might have to give this a few minutes be a bit patient, and hopefully
+
+50
+00:03:34,290 --> 00:03:35,340
+it will be ready very soon.
+
+51
+00:03:35,940 --> 00:03:42,900
+My replica has now become available. So let's click on the replica and under connectivity and security,
+
+52
+00:03:43,110 --> 00:03:46,860
+we can see a different endpoint here, so we have a separate endpoint.
+
+53
+00:03:47,280 --> 00:03:53,400
+So it's really important to remember that when you have a read replica, your application logic needs
+
+54
+00:03:53,400 --> 00:04:01,320
+to know to point to the read replica for any queries and to point to the primary database for any database
+
+55
+00:04:01,320 --> 00:04:01,800
+writes.
+
+56
+00:04:02,460 --> 00:04:08,850
+Now, if we come back up and have a look at the primary database and scroll down, you can actually
+
+57
+00:04:08,850 --> 00:04:15,120
+see under replication here that we have the replica and the replica source is the primary database.
+
+58
+00:04:15,600 --> 00:04:21,510
+It's in the same availability zone in this case, and it's in a replication state at this point in time.
+
+59
+00:04:21,959 --> 00:04:27,240
+So, our read replica is almost ready, just replicating at this point. We just need to wait a couple
+
+60
+00:04:27,240 --> 00:04:33,150
+more minutes now for our main primary database to become available again so that we can have a look
+
+61
+00:04:33,150 --> 00:04:36,900
+at how we can fail over to our multi-AZ standby.
+
+62
+00:04:37,740 --> 00:04:38,310
+So that's it.
+
+63
+00:04:38,330 --> 00:04:43,170
+My database is now available, which means I have a multi-AZ standby ready.
+
+64
+00:04:43,500 --> 00:04:49,950
+Now it did take maybe 15 or so minutes to create that standby in another availability zone. But it's
+
+65
+00:04:49,950 --> 00:04:55,170
+really important to remember that this is a real differentiator of cloud. Before cloud,
+
+66
+00:04:55,380 --> 00:05:01,980
+this kind of deployment where you have a database and then a multi-AZ standby or read replica even
+
+67
+00:05:01,980 --> 00:05:04,830
+in another region that could have cost tens to
+
+68
+00:05:04,960 --> 00:05:06,340
+hundreds of thousands of dollars.
+
+69
+00:05:06,580 --> 00:05:11,710
+And it would take from weeks to months to actually put together a solution like that with all the planning,
+
+70
+00:05:11,860 --> 00:05:13,330
+the deployment and the testing.
+
+71
+00:05:13,600 --> 00:05:15,760
+I know because I've done that many, many times.
+
+72
+00:05:16,330 --> 00:05:22,480
+Now, let's go into our DB identify for the primary database and have a look at what's changed.
+
+73
+00:05:22,950 --> 00:05:25,570
+Under connectivity and security, we can see
+
+74
+00:05:25,570 --> 00:05:26,710
+we have the same endpoint.
+
+75
+00:05:26,710 --> 00:05:28,980
+The endpoint has not changed because it's multi-AZ.
+
+76
+00:05:28,990 --> 00:05:35,560
+This is still where we're going to point our applications. Now, under networking, we can see that
+
+77
+00:05:35,560 --> 00:05:38,170
+our primary is in US-East-1D.
+
+78
+00:05:38,800 --> 00:05:44,770
+If we then click on configuration, scroll down a little way, you'll see multi-AZ and we can see the
+
+79
+00:05:44,770 --> 00:05:47,740
+secondary zone is US-East-1F.
+
+80
+00:05:48,670 --> 00:05:51,250
+So that's where our stand by instance is running.
+
+81
+00:05:51,880 --> 00:05:56,320
+Now, if we come back to the top now, by the way, if you don't see that yet, you need to wait and
+
+82
+00:05:56,320 --> 00:05:59,100
+refresh until you see the secondary zone.
+
+83
+00:05:59,110 --> 00:06:02,440
+Otherwise, you won't be able to do the next part of the exercise correctly.
+
+84
+00:06:03,190 --> 00:06:09,610
+So, what we're going to do now is go to actions, and from the actions menu you see we can create a read
+
+85
+00:06:09,610 --> 00:06:13,660
+replica, take a snapshot, restore to a specific point in time.
+
+86
+00:06:14,110 --> 00:06:15,820
+But what we want to do is reboot.
+
+87
+00:06:16,210 --> 00:06:22,780
+We're going to reboot with failover, and that means we're going to switch the primary from the current
+
+88
+00:06:22,780 --> 00:06:24,370
+primary to the standby.
+
+89
+00:06:24,640 --> 00:06:28,840
+The standby will become the new primary in a different availability zone.
+
+90
+00:06:29,230 --> 00:06:31,150
+So, with reboot with failover selected,
+
+91
+00:06:31,150 --> 00:06:32,050
+click on confirm.
+
+92
+00:06:32,920 --> 00:06:36,020
+And again, you'll need to wait a few minutes while that takes place.
+
+93
+00:06:36,760 --> 00:06:41,350
+So my database has now successfully failed over to the standby.
+
+94
+00:06:41,770 --> 00:06:48,520
+And so what you can see now is the primary database has change to the US-East-1F availability zone.
+
+95
+00:06:49,390 --> 00:06:56,230
+If we click on the DB identifier, under networking we can see again the availability zone the primary
+
+96
+00:06:56,230 --> 00:06:56,890
+is running in.
+
+97
+00:06:57,910 --> 00:07:04,240
+If we go to configuration, we can now see the secondary is in US-East-1D, so that's where we
+
+98
+00:07:04,240 --> 00:07:07,640
+originally had our primary. So, that all looks good.
+
+99
+00:07:07,660 --> 00:07:09,340
+That's exactly what we were expecting.
+
+100
+00:07:09,730 --> 00:07:15,760
+Now, don't worry if yours hasn't changed availability zones here in the console because sometimes
+
+101
+00:07:15,760 --> 00:07:18,460
+it does take a few minutes for the console to update.
+
+102
+00:07:19,060 --> 00:07:23,620
+Now, that's it for this lesson. And we have actually finished with these databases, but I'm going to
+
+103
+00:07:23,620 --> 00:07:27,790
+leave mine running because I want to show you a couple more things in another lesson.
+
+104
+00:07:28,210 --> 00:07:31,660
+If you want to, you can go now and delete your database.
+
+105
+00:07:31,990 --> 00:07:36,220
+You'll simply select your database, click on actions, delete.
+
+106
+00:07:37,150 --> 00:07:40,210
+You can deselect the option to create a final snapshot.
+
+107
+00:07:40,600 --> 00:07:46,090
+And just select this option to say that you acknowledge that the database, its automated backups, and
+
+108
+00:07:46,090 --> 00:07:48,910
+the system generated snapshots will be deleted.
+
+109
+00:07:49,450 --> 00:07:54,820
+Now, don't worry your snapshot that you took earlier the manual one, that will still be here. And we're
+
+110
+00:07:54,820 --> 00:07:56,290
+going to use that and another lesson.
+

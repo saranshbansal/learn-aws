@@ -1,0 +1,72 @@
+1
+00:00:00,140 --> 00:00:04,110
+Hi guys and welcome to this section on the AWS developer tools.
+
+2
+00:00:04,310 --> 00:00:07,860
+I think this is one of the most interesting and fun sections in the course.
+
+3
+00:00:07,860 --> 00:00:10,160
+I enjoy working with these services a lot.
+
+4
+00:00:10,430 --> 00:00:12,470
+The developer tools are used for
+
+5
+00:00:12,470 --> 00:00:15,270
+continuous integration and continuous deployment.
+
+6
+00:00:15,480 --> 00:00:18,150
+Now, if you've been working in a development environment,
+
+7
+00:00:18,150 --> 00:00:19,680
+you know exactly what that is
+
+8
+00:00:19,840 --> 00:00:21,760
+and if you haven't, you've probably heard of it
+
+9
+00:00:21,940 --> 00:00:25,280
+and we will go into a description in one of the very first
+
+10
+00:00:25,280 --> 00:00:29,180
+lessons to help you make sure you understand what those concepts are.
+
+11
+00:00:29,420 --> 00:00:35,170
+And we're gonna look at these tools provided to us by AWS for managing our code,
+
+12
+00:00:35,190 --> 00:00:40,060
+for testing our code, building it and deploying it to our applications.
+
+13
+00:00:40,340 --> 00:00:42,280
+So those are services such as
+
+14
+00:00:43,030 --> 00:00:43,850
+CodeCommit,
+
+15
+00:00:44,240 --> 00:00:45,810
+AWS Codebuild,
+
+16
+00:00:46,060 --> 00:00:49,550
+AWS codedeploy and AWS Codepipeline,
+
+17
+00:00:50,040 --> 00:00:54,160
+and it's not just theory. Of course, we're going to get hands on with these services.
+
+18
+00:00:54,160 --> 00:00:57,260
+So I hope you enjoyed this section and I'll see you in the next lesson.
+

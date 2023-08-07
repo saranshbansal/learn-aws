@@ -1,0 +1,308 @@
+1
+00:00:05,240 --> 00:00:10,651
+In this lesson, I want to familiarize you with a few KMS, API and CLI commands
+
+2
+00:00:10,676 --> 00:00:14,930
+and also we're going to look at some of the throttling mechanisms of KMS
+
+3
+00:00:15,070 --> 00:00:17,085
+and how we can use caching to overcome them.
+
+4
+00:00:17,110 --> 00:00:19,470
+Something that comes up in exam questions.
+
+5
+00:00:19,510 --> 00:00:23,360
+So let's go through some of the API and CLI commands.
+
+6
+00:00:23,840 --> 00:00:28,781
+So in the first one here, we have encrypt. Encrypt would be the API action.
+
+7
+00:00:28,805 --> 00:00:32,750
+AWS KMS encrypt would be the CLI command.
+
+8
+00:00:33,340 --> 00:00:38,560
+This one would encrypt plain text into cipher text using a KMS key.
+
+9
+00:00:38,940 --> 00:00:43,520
+You can encrypt small amounts of arbitrary data such as personal identifiers,
+
+10
+00:00:43,690 --> 00:00:46,860
+database passwords, and other sensitive information.
+
+11
+00:00:47,440 --> 00:00:52,970
+You can use the encrypt operation to move encrypted data from one region to another.
+
+12
+00:00:53,200 --> 00:00:56,000
+Decrypt is used to decrypt cipher text that was
+
+13
+00:00:56,000 --> 00:00:59,920
+encrypted by a KMS key using any of these operations;
+
+14
+00:01:00,170 --> 00:01:06,420
+Encrypt, GenerateDataKey, GenerateDataKeyPair, or GenerateDataKeyWithoutPlaintext
+
+15
+00:01:06,640 --> 00:01:10,000
+and also GenerateDataKeyPairWithoutPlaintext.
+
+16
+00:01:10,540 --> 00:01:12,230
+Next, we have re-encrypt.
+
+17
+00:01:12,640 --> 00:01:18,160
+This decrypts the cipher text and then re-encrypts it entirely within KMS.
+
+18
+00:01:18,640 --> 00:01:22,790
+You can use it to change the KMS key under which the data is encrypted
+
+19
+00:01:23,010 --> 00:01:25,730
+such as if you manually rotate a KMS key or
+
+20
+00:01:25,730 --> 00:01:29,560
+change the KMS key that protects your encrypted data.
+
+21
+00:01:30,240 --> 00:01:34,570
+You can also use it to re-encrypt cipher text under the same KMS key
+
+22
+00:01:34,620 --> 00:01:38,810
+if you want to change the encryption context of your encrypted data.
+
+23
+00:01:38,900 --> 00:01:41,110
+Next, we have enable-key-rotation.
+
+24
+00:01:41,440 --> 00:01:44,390
+This will enable automatic rotation of the key
+
+25
+00:01:44,390 --> 00:01:47,460
+material for the specified symmetric KMS key.
+
+26
+00:01:47,840 --> 00:01:52,990
+You can't perform this operation on a KMS key in a different AWS account.
+
+27
+00:01:53,040 --> 00:01:55,310
+Next, we have GeneratedDataKey.
+
+28
+00:01:55,570 --> 00:01:58,960
+This will generate a unique symmetric data key.
+
+29
+00:01:59,340 --> 00:02:03,240
+When you run this API it returns a plain text copy of the data key
+
+30
+00:02:03,270 --> 00:02:07,260
+and a copy that's encrypted under a KMS key that you get to specify.
+
+31
+00:02:07,530 --> 00:02:11,030
+You can use the plain text key to then encrypt your data outside
+
+32
+00:02:11,030 --> 00:02:15,450
+of KMS and store the encrypted data key with the encrypted data.
+
+33
+00:02:15,840 --> 00:02:18,750
+Then you get GenerateDataKeyWithoutPlaintext.
+
+34
+00:02:19,040 --> 00:02:21,410
+This generates a unique symmetric data key
+
+35
+00:02:21,540 --> 00:02:25,900
+and returns the data key that's encrypted under a KMS key that you specify.
+
+36
+00:02:26,100 --> 00:02:29,030
+If you want to request an asymmetric data key pair,
+
+37
+00:02:29,040 --> 00:02:34,260
+you can use GenerateDataKeyPair or GenerateDataKeyPairWithoutPlaintext.
+
+38
+00:02:34,440 --> 00:02:37,790
+Now, of course, there are many more API and CLI commands than these.
+
+39
+00:02:37,790 --> 00:02:41,060
+These are a few that I thought I would bring to your attention just
+
+40
+00:02:41,060 --> 00:02:44,420
+because they're the ones that are more likely to come up on the exam.
+
+41
+00:02:44,510 --> 00:02:47,600
+It may be worth having a look through the various KMS
+
+42
+00:02:47,600 --> 00:02:51,960
+API just to familiarize yourself with them as well before the exam.
+
+43
+00:02:52,640 --> 00:02:55,250
+So moving on to throttling and caching.
+
+44
+00:02:55,740 --> 00:03:00,980
+KMS has two types of quotas that enforces. One is a resource quota.
+
+45
+00:03:01,290 --> 00:03:03,360
+The other is a request quota.
+
+46
+00:03:04,040 --> 00:03:08,420
+If you exceed a resource limit and this is where the resource quotas would apply,
+
+47
+00:03:08,700 --> 00:03:11,420
+then requests to create an additional resource of
+
+48
+00:03:11,420 --> 00:03:15,050
+that type will generate a limit exceeded exception error.
+
+49
+00:03:15,540 --> 00:03:18,770
+Request quotas apply to API actions like encrypt,
+
+50
+00:03:18,780 --> 00:03:21,780
+decrypt, re-encrypt and generate data key.
+
+51
+00:03:21,980 --> 00:03:25,810
+If you exceed a request quota, you may get a throttling error.
+
+52
+00:03:26,240 --> 00:03:28,240
+And that might look like this where it says you
+
+53
+00:03:28,240 --> 00:03:31,600
+have exceeded the rate at which you may call KMS,
+
+54
+00:03:31,620 --> 00:03:33,530
+reduce the frequency of your calls.
+
+55
+00:03:33,770 --> 00:03:38,960
+As you can see, there's a status code 400 and error code throttling exception.
+
+56
+00:03:39,540 --> 00:03:43,090
+And if you really saw this, you'd get the request ID of course as well.
+
+57
+00:03:43,180 --> 00:03:44,780
+So what can you do about this?
+
+58
+00:03:45,080 --> 00:03:48,870
+Firstly, you can implement a back off and retry strategy.
+
+59
+00:03:49,120 --> 00:03:51,970
+In this case you would implement this through your code,
+
+60
+00:03:52,080 --> 00:03:54,840
+and your code would back off for a period of time
+
+61
+00:03:54,990 --> 00:04:00,240
+and hopefully be a bit more efficient when it re-tries, so it doesn't overwhelm KMS.
+
+62
+00:04:00,740 --> 00:04:03,720
+You can also request a service quota increase.
+
+63
+00:04:03,730 --> 00:04:06,970
+If you do really need to consistently generate a
+
+64
+00:04:06,970 --> 00:04:10,840
+large amount of API actions against your resources,
+
+65
+00:04:10,960 --> 00:04:13,751
+then using a service quota increase may help.
+
+66
+00:04:13,775 --> 00:04:18,231
+You can also implement something called data key caching, and this does come up
+
+67
+00:04:18,255 --> 00:04:19,459
+in exam questions.
+
+68
+00:04:19,839 --> 00:04:22,340
+Data key caching stores your data keys
+
+69
+00:04:22,520 --> 00:04:25,350
+and related cryptographic material in a cache.
+
+70
+00:04:25,740 --> 00:04:28,260
+So this would be useful if your application
+
+71
+00:04:28,640 --> 00:04:30,180
+can reuse data keys,
+
+72
+00:04:30,410 --> 00:04:32,590
+it generates numerous data keys
+
+73
+00:04:32,750 --> 00:04:37,480
+and it runs cryptographic operations that are unacceptably slow, expensive,
+
+74
+00:04:37,490 --> 00:04:39,650
+limited or resource intensive.
+
+75
+00:04:40,340 --> 00:04:43,610
+Now, you can do this by creating a local cache using
+
+76
+00:04:43,610 --> 00:04:49,550
+the AWS encryption SDK and the local crypto materials cache feature.
+
+77
+00:04:49,940 --> 00:04:52,060
+And that's it for this lesson, I'll see you in the next one.
+

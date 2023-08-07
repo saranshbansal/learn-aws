@@ -1,0 +1,428 @@
+1
+00:00:05,040 --> 00:00:09,480
+Hi guys. In this lesson, I'm going to create a couple of custom KMS keys.
+
+2
+00:00:09,480 --> 00:00:12,180
+So those will be customer managed KMS keys.
+
+3
+00:00:12,270 --> 00:00:14,630
+Now, unfortunately they're not in the free tier,
+
+4
+00:00:14,630 --> 00:00:18,060
+so they do cost $1 for each key per month.
+
+5
+00:00:18,440 --> 00:00:20,960
+For KMS, there's also usage fees,
+
+6
+00:00:20,960 --> 00:00:23,590
+but we won't incur any of those because there's a lot of
+
+7
+00:00:23,590 --> 00:00:26,680
+allocation in the free tier and we won't come anywhere close.
+
+8
+00:00:26,730 --> 00:00:31,160
+So I'm on the KMS homepage here and I'm going to choose to create a key.
+
+9
+00:00:31,640 --> 00:00:36,440
+Firstly, I need to choose whether it's going to be symmetric or asymmetric key.
+
+10
+00:00:36,620 --> 00:00:39,870
+Now I'm going to use these keys for EC2.
+
+11
+00:00:39,920 --> 00:00:45,760
+In other words our EBS volumes, RDS and S3, so I need to choose symmetric.
+
+12
+00:00:46,310 --> 00:00:51,520
+Let's choose advanced options. We firstly need to choose the key material origin.
+
+13
+00:00:51,520 --> 00:00:53,980
+So where is our key material coming from?
+
+14
+00:00:54,120 --> 00:00:56,080
+Is KMS going to generate it?
+
+15
+00:00:56,180 --> 00:00:59,200
+Or are we going to provide our own? So external.
+
+16
+00:00:59,640 --> 00:01:03,150
+Or are we going to use a custom key store CloudHSM.
+
+17
+00:01:03,740 --> 00:01:05,990
+Well, I'm going to choose KMS and that means
+
+18
+00:01:06,000 --> 00:01:09,600
+I can then enable automatic rotation if I want to.
+
+19
+00:01:10,140 --> 00:01:13,940
+For regionality, I'm only going to use this in a single region.
+
+20
+00:01:13,950 --> 00:01:17,360
+So I'm happy keeping it as a single region key.
+
+21
+00:01:17,930 --> 00:01:19,295
+And then I'm going to choose next.
+
+22
+00:01:19,319 --> 00:01:22,330
+For alias, I'm going to call it KMS Key General.
+
+23
+00:01:22,450 --> 00:01:25,990
+I won't put a description in and I'm not going to put any tags in,
+
+24
+00:01:25,990 --> 00:01:29,660
+but you can use tags for things like tracking your costs as well.
+
+25
+00:01:30,140 --> 00:01:31,340
+So let's choose next.
+
+26
+00:01:32,040 --> 00:01:34,820
+So now, I need to choose the key administrators.
+
+27
+00:01:34,820 --> 00:01:38,010
+These are the people who are able to administrate the key.
+
+28
+00:01:38,010 --> 00:01:39,550
+Now remember, from the theory
+
+29
+00:01:39,860 --> 00:01:43,000
+there's administration and there's usage of the key.
+
+30
+00:01:43,180 --> 00:01:46,720
+So firstly, we define who is able to administer the key.
+
+31
+00:01:47,139 --> 00:01:50,074
+Now, I'm just going to set it for myself, Neal.
+
+32
+00:01:50,640 --> 00:01:54,750
+And I'm going to allow the key administrators to delete this key as well.
+
+33
+00:01:55,540 --> 00:01:56,900
+Then I choose next.
+
+34
+00:01:57,030 --> 00:01:59,100
+And here we have the usage permission.
+
+35
+00:01:59,100 --> 00:02:04,220
+So who is allowed to perform cryptographic operations using this key.
+
+36
+00:02:04,438 --> 00:02:06,360
+Again, I'm going to choose my own user account.
+
+37
+00:02:06,840 --> 00:02:08,168
+Then I'll choose next.
+
+38
+00:02:08,940 --> 00:02:13,160
+And what we'll see here is we get the key policy, so the settings
+
+39
+00:02:13,160 --> 00:02:15,518
+that we've just applied through the user interface
+
+40
+00:02:15,763 --> 00:02:17,960
+have now generated this key policy.
+
+41
+00:02:18,440 --> 00:02:22,550
+And I don't need to modify this policy but I can see here that we're allowing
+
+42
+00:02:22,660 --> 00:02:25,790
+the account, so this first ARN here
+
+43
+00:02:25,940 --> 00:02:29,450
+relates to the account not specifically the root user but the account.
+
+44
+00:02:29,450 --> 00:02:33,950
+So it's enabling IAM user permissions for this KMS key.
+
+45
+00:02:34,830 --> 00:02:37,366
+Then we get the allow access for key administrators
+
+46
+00:02:37,391 --> 00:02:41,700
+and we can see the principal and that's my ARN for my account.
+
+47
+00:02:42,020 --> 00:02:44,800
+I'm able to perform all these various actions.
+
+48
+00:02:45,740 --> 00:02:50,170
+And then we get the usage of the key, and again it's the ARN for my account.
+
+49
+00:02:50,460 --> 00:02:55,440
+And I can see that I'm able to use the key by performing these API actions.
+
+50
+00:02:55,780 --> 00:02:58,080
+And there's also some additional permissions here
+
+51
+00:02:58,200 --> 00:03:01,720
+for things like delegation, so allowing the creation of grants.
+
+52
+00:03:02,240 --> 00:03:03,640
+So I'm going to click on finish.
+
+53
+00:03:04,140 --> 00:03:05,880
+And that's my first key created.
+
+54
+00:03:06,380 --> 00:03:07,870
+I'm now going to create another key.
+
+55
+00:03:08,340 --> 00:03:10,770
+Let's create a key. It's going to be symmetric again.
+
+56
+00:03:11,240 --> 00:03:15,650
+I'm going to leave it as a KMS-generated key material in a single region again.
+
+57
+00:03:16,401 --> 00:03:21,710
+And for alias, I'm going to specify KMS Key EBS RDS.
+
+58
+00:03:22,640 --> 00:03:26,930
+Now, in this case, I'm actually going to leave these options blank
+
+59
+00:03:27,040 --> 00:03:31,250
+because what I want to do is come straight through to the policy editor
+
+60
+00:03:31,840 --> 00:03:33,550
+and I'm going to delete all of this code.
+
+61
+00:03:34,120 --> 00:03:37,490
+And we have some code which we're going to use for this exercise.
+
+62
+00:03:37,830 --> 00:03:40,630
+So in your code directory from the course download you'll find
+
+63
+00:03:40,640 --> 00:03:45,944
+AWS KMs folder and then this file, KMS Key EBS RDS.
+
+64
+00:03:46,440 --> 00:03:47,870
+So what is this one going to do?
+
+65
+00:03:47,870 --> 00:03:51,450
+Well, as before, we're allowing access for key administrators.
+
+66
+00:03:51,690 --> 00:03:54,810
+and we're going to specify an ARN here and that's going to be
+
+67
+00:03:54,930 --> 00:03:56,856
+the ARN of my user account again.
+
+68
+00:03:56,983 --> 00:04:02,700
+We're then going to restrict key usage to EC2 and RDS.
+
+69
+00:04:02,740 --> 00:04:06,260
+So again, I'm going to specify the ARN for my user account.
+
+70
+00:04:06,540 --> 00:04:10,560
+I'm going to provide the actions for usage here,
+
+71
+00:04:10,940 --> 00:04:12,500
+and then I'm going to have a condition.
+
+72
+00:04:12,770 --> 00:04:17,589
+And the condition will be using the KMS via service condition key
+
+73
+00:04:17,690 --> 00:04:21,589
+and it's checking that were coming from EC2 or RDS.
+
+74
+00:04:21,589 --> 00:04:26,570
+So we should only be able to use this key with EC2 and RDS.
+
+75
+00:04:26,912 --> 00:04:30,950
+So there's a couple of things we need to change here. We need to change the ARN.
+
+76
+00:04:31,550 --> 00:04:34,990
+And I'm going to put that to my user account and I'm going to do that in two places.
+
+77
+00:04:35,540 --> 00:04:38,860
+So in the IAM console, I'm going to find my usual account
+
+78
+00:04:39,240 --> 00:04:42,810
+and then I'm simply going to copy my ARN.
+
+79
+00:04:43,156 --> 00:04:44,960
+And then I'm going to paste that in here
+
+80
+00:04:45,740 --> 00:04:48,270
+and make sure I put that into the two different places.
+
+81
+00:04:49,250 --> 00:04:51,630
+And then we're going to copy this code.
+
+82
+00:04:51,640 --> 00:04:56,960
+Now note that I have been using us-east-1 region as I mostly do for the course.
+
+83
+00:04:57,340 --> 00:05:02,080
+And you'll see that we've got us-east-1 in the condition key here.
+
+84
+00:05:02,080 --> 00:05:05,450
+So make sure if you are using a different region you need to
+
+85
+00:05:05,450 --> 00:05:09,360
+specify your user account and then you'll need to change the region here.
+
+86
+00:05:10,310 --> 00:05:12,700
+So mine is good. So I'm going to copy all of this code.
+
+87
+00:05:13,140 --> 00:05:16,380
+And back in KMS, I'm going to paste the code into the key policy
+
+88
+00:05:17,040 --> 00:05:18,140
+and click on finish.
+
+89
+00:05:18,540 --> 00:05:20,610
+So now we have these two different keys.
+
+90
+00:05:20,820 --> 00:05:24,060
+They're both symmetric and they allow encryption and decryption.
+
+91
+00:05:24,540 --> 00:05:26,910
+If we go into the first one we created,
+
+92
+00:05:27,340 --> 00:05:32,080
+we can see under key policy the key administrators and it's set to me
+
+93
+00:05:32,540 --> 00:05:35,530
+and the key users and that's set to my account as well.
+
+94
+00:05:35,760 --> 00:05:39,590
+For cryptographic configuration, again, you can see it's a symmetric key.
+
+95
+00:05:39,770 --> 00:05:43,590
+The origin of the key material is AWS KMS.
+
+96
+00:05:44,140 --> 00:05:47,050
+And you can see that it's used for symmetric encryption.
+
+97
+00:05:47,940 --> 00:05:49,950
+Tags, we didn't specify any.
+
+98
+00:05:50,090 --> 00:05:55,120
+For key rotation because we're using KMS generated key material,
+
+99
+00:05:55,340 --> 00:05:58,860
+we could enable automatic rotation if we want to for this key.
+
+100
+00:05:59,740 --> 00:06:03,630
+And you can also create aliases here. So it has one alias.
+
+101
+00:06:03,630 --> 00:06:06,760
+You can create additional aliases if you like as well.
+
+102
+00:06:07,000 --> 00:06:09,360
+To go back up and then just check out our other one,
+
+103
+00:06:09,840 --> 00:06:12,610
+We'll see rather than specifying the user accounts,
+
+104
+00:06:12,620 --> 00:06:17,850
+all we see is the policy because we actually just generated a policy, added that in,
+
+105
+00:06:18,240 --> 00:06:22,060
+and we've specified who is allowed to use this key.
+
+106
+00:06:22,330 --> 00:06:26,120
+Now that's it for this lesson. We now have our two keys and we're going to use those
+
+107
+00:06:26,250 --> 00:06:29,070
+in subsequent hands-on lessons within this section.
+

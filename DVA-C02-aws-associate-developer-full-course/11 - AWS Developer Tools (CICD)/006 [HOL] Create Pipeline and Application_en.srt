@@ -1,0 +1,452 @@
+1
+00:00:05,440 --> 00:00:09,150
+Hi guys. In this lesson, we're going to create a CodePipeline
+
+2
+00:00:09,175 --> 00:00:14,710
+and we're going to integrate it with CodeCommit and Elastic Beanstalk so that we can
+
+3
+00:00:14,710 --> 00:00:18,080
+deploy updated code to a Beanstalk application.
+
+4
+00:00:18,350 --> 00:00:22,260
+Now you saw this diagram before and this is exactly what we're going to be using.
+
+5
+00:00:22,540 --> 00:00:26,350
+So we're going to have our cloned repository on our computers.
+
+6
+00:00:26,440 --> 00:00:28,280
+We're going to make changes to code.
+
+7
+00:00:28,630 --> 00:00:32,640
+It's going to push that code up to CodeCommit, using Git push.
+
+8
+00:00:33,140 --> 00:00:37,150
+And then CodeCommit and Elastic Beanstalk are both in this pipeline.
+
+9
+00:00:37,150 --> 00:00:42,500
+So the pipeline will then automate the movement and the deployment of that code
+
+10
+00:00:42,710 --> 00:00:44,360
+into Elastic Beanstalk.
+
+11
+00:00:44,840 --> 00:00:46,920
+So I'm in the console and the first thing I'm going
+
+12
+00:00:46,920 --> 00:00:50,710
+to do is create a new environment in Elastic Beanstalk.
+
+13
+00:00:50,810 --> 00:00:52,760
+It's going to be a web server environment
+
+14
+00:00:53,240 --> 00:00:55,660
+and I'm going to just call this Developer Labs.
+
+15
+00:00:56,140 --> 00:01:00,010
+Now, all I really need to do, it's going to give me a default environment name.
+
+16
+00:01:00,010 --> 00:01:01,070
+I'm happy with that.
+
+17
+00:01:01,540 --> 00:01:04,420
+All I need to do is change to Node.js,
+
+18
+00:01:04,690 --> 00:01:07,590
+use the sample application, and create the environment.
+
+19
+00:01:07,720 --> 00:01:10,960
+So that will start with a default sample application.
+
+20
+00:01:11,000 --> 00:01:12,351
+It's going to take a few minutes.
+
+21
+00:01:12,375 --> 00:01:15,960
+And while that's happening we can go and create the rest of our configuration.
+
+22
+00:01:16,440 --> 00:01:20,011
+Back on the command line, I deleted the test file that we used
+
+23
+00:01:20,035 --> 00:01:21,780
+in the previous lesson.
+
+24
+00:01:22,230 --> 00:01:27,750
+And what I'm going to do is just commit that change. So I'm going to run Git add -A
+
+25
+00:01:28,320 --> 00:01:32,650
+and then Git commit -m and then just
+
+26
+00:01:33,340 --> 00:01:36,060
+put in the description here that says deleted file.
+
+27
+00:01:37,530 --> 00:01:38,290
+That's done.
+
+28
+00:01:38,410 --> 00:01:40,030
+Let's just push those changes.
+
+29
+00:01:40,320 --> 00:01:43,760
+I just want to make sure we got a clean repository before we get started.
+
+30
+00:01:44,440 --> 00:01:45,803
+So that is ready.
+
+31
+00:01:46,400 --> 00:01:50,510
+Now, in my file system I have the course download the code directory.
+
+32
+00:01:50,660 --> 00:01:55,550
+And if you go into developer tools you will find this Node.js-Blue.zip.
+
+33
+00:01:55,940 --> 00:01:57,350
+I'm going to double click that.
+
+34
+00:01:57,940 --> 00:01:58,750
+Open it up.
+
+35
+00:01:59,250 --> 00:02:02,170
+And then I'm basically just going to select all of these items,
+
+36
+00:02:02,640 --> 00:02:08,250
+copy those to my clipboard and then go to the directory that our repository is in.
+
+37
+00:02:09,038 --> 00:02:13,920
+So my repository directory is developer-labs in my documents directory.
+
+38
+00:02:14,050 --> 00:02:17,160
+And so I'm going to paste in all of these files.
+
+39
+00:02:17,690 --> 00:02:20,900
+So now back on the command line, if I run Git status,
+
+40
+00:02:22,240 --> 00:02:24,423
+we can see that we have these untracked files.
+
+41
+00:02:24,448 --> 00:02:26,230
+Now we're not going to do anything about that yet.
+
+42
+00:02:26,230 --> 00:02:27,960
+We don't want to commit them at this stage
+
+43
+00:02:28,340 --> 00:02:30,160
+because we haven't created our pipeline.
+
+44
+00:02:30,840 --> 00:02:35,250
+So those are there. Let's go over to the console and create our CodePipeline.
+
+45
+00:02:35,600 --> 00:02:37,560
+So back in the console here,
+
+46
+00:02:38,140 --> 00:02:40,180
+I'm going to head down to pipeline,
+
+47
+00:02:40,510 --> 00:02:41,740
+choose pipelines.
+
+48
+00:02:42,240 --> 00:02:43,760
+We're going to create a pipeline.
+
+49
+00:02:44,340 --> 00:02:49,110
+Just keeping the developer labs as the name for everything in this particular lesson.
+
+50
+00:02:49,840 --> 00:02:51,600
+So let's just call that Developer Labs.
+
+51
+00:02:51,960 --> 00:02:55,016
+We're going to allow AWS to create a new service role
+
+52
+00:02:55,123 --> 00:02:56,850
+and it's given us the role name here.
+
+53
+00:02:57,440 --> 00:03:00,560
+We don't need to change any advanced settings. We can click on next.
+
+54
+00:03:01,140 --> 00:03:03,710
+Under source provider, choose CodeCommit.
+
+55
+00:03:04,840 --> 00:03:09,460
+Then you can find the repository and we're going to choose the master branch.
+
+56
+00:03:10,490 --> 00:03:12,860
+We'll leave the default settings here.
+
+57
+00:03:13,440 --> 00:03:14,460
+Click on next.
+
+58
+00:03:15,340 --> 00:03:18,260
+For build provider, this is where you can choose a build provider.
+
+59
+00:03:18,260 --> 00:03:21,263
+We're going to use CodeBuild a bit later on in this section.
+
+60
+00:03:21,288 --> 00:03:23,950
+But for now we're going to skip the build stage.
+
+61
+00:03:24,640 --> 00:03:26,350
+So I'll confirm that I'm skipping.
+
+62
+00:03:26,940 --> 00:03:30,150
+For deployment provider, I do need to select an option.
+
+63
+00:03:30,540 --> 00:03:34,050
+So you can see all the different deployment providers that are supported here.
+
+64
+00:03:34,640 --> 00:03:37,480
+Now we have our application in Elastic Beanstalk
+
+65
+00:03:37,480 --> 00:03:40,460
+so Beanstalk will be able to push the updates.
+
+66
+00:03:41,040 --> 00:03:42,850
+So we choose beanstalk.
+
+67
+00:03:43,010 --> 00:03:45,060
+It's automatically selected the region.
+
+68
+00:03:45,540 --> 00:03:46,950
+I can choose my app.
+
+69
+00:03:47,600 --> 00:03:49,110
+And then my environment name.
+
+70
+00:03:49,640 --> 00:03:50,660
+And click on next.
+
+71
+00:03:51,640 --> 00:03:54,660
+And that's everything. I just scroll down and create the pipeline.
+
+72
+00:03:55,140 --> 00:03:57,670
+So that's it. The pipeline has been created.
+
+73
+00:03:58,140 --> 00:04:01,671
+Now what you'll find happens is it's automatically going to
+
+74
+00:04:01,696 --> 00:04:04,230
+try and pull any changes from CodeCommit.
+
+75
+00:04:04,230 --> 00:04:08,850
+Now, we don't have any at this stage. So that process should actually fail.
+
+76
+00:04:09,710 --> 00:04:11,460
+And now we can see that that did fail.
+
+77
+00:04:11,940 --> 00:04:15,400
+And if we choose details, it says the process to upload the contents of
+
+78
+00:04:15,400 --> 00:04:18,660
+the repository failed for the following reason, null.
+
+79
+00:04:18,670 --> 00:04:19,750
+So there was nothing there,
+
+80
+00:04:19,970 --> 00:04:21,149
+And that's to be expected.
+
+81
+00:04:21,540 --> 00:04:23,640
+So let's go back to the command line
+
+82
+00:04:23,850 --> 00:04:27,150
+and we're going to commit our files and push them into the repository.
+
+83
+00:04:27,540 --> 00:04:30,070
+So back on the command line. I'm going to run Git add
+
+84
+00:04:31,583 --> 00:04:32,560
+-A
+
+85
+00:04:33,940 --> 00:04:37,660
+Git commit -m and add a description.
+
+86
+00:04:39,920 --> 00:04:41,220
+And those are being committed.
+
+87
+00:04:41,640 --> 00:04:47,160
+So now let's push those changes up to our repository.
+
+88
+00:04:47,593 --> 00:04:48,650
+And that's done.
+
+89
+00:04:49,140 --> 00:04:50,630
+So back in our pipeline,
+
+90
+00:04:50,650 --> 00:04:54,010
+what we should find is very soon it's going to start checking CodeCommit.
+
+91
+00:04:54,010 --> 00:04:54,770
+There we go.
+
+92
+00:04:54,940 --> 00:04:57,110
+It's checked. It succeeded.
+
+93
+00:04:57,310 --> 00:05:00,360
+And now we're in the deployment. That's in progress.
+
+94
+00:05:00,740 --> 00:05:03,760
+So it's going to deploy those changes to Elastic Beanstalk.
+
+95
+00:05:04,240 --> 00:05:06,160
+So in Beanstalk, before it changes
+
+96
+00:05:06,160 --> 00:05:09,040
+I should have shown this before but you click on here and it's green.
+
+97
+00:05:09,050 --> 00:05:11,140
+Okay so this is pre-change.
+
+98
+00:05:11,160 --> 00:05:15,670
+So the actual congratulations message has a green background.
+
+99
+00:05:15,670 --> 00:05:18,550
+That's the default when you use the sample application.
+
+100
+00:05:19,040 --> 00:05:22,680
+And we can see that there is an update happening and once that's complete,
+
+101
+00:05:22,910 --> 00:05:25,960
+the background should change to blue. So let's give that a moment.
+
+102
+00:05:26,640 --> 00:05:27,960
+So the update is complete.
+
+103
+00:05:27,960 --> 00:05:31,511
+Let's go to Beanstalk and let's just give this page a refresh.
+
+104
+00:05:31,703 --> 00:05:33,860
+And now the background has changed to blue.
+
+105
+00:05:34,440 --> 00:05:35,930
+So looking at our diagram,
+
+106
+00:05:35,940 --> 00:05:40,650
+what we've done is we've added the files which changed the background to blue
+
+107
+00:05:41,340 --> 00:05:44,691
+into our repository on our local computer, the clone
+
+108
+00:05:44,715 --> 00:05:46,830
+of the repositories in CodeCommit.
+
+109
+00:05:46,890 --> 00:05:49,790
+We then pushed those changes up to CodeCommit
+
+110
+00:05:50,140 --> 00:05:53,550
+and CodePipeline has then picked up those changes,
+
+111
+00:05:53,870 --> 00:05:57,590
+pushed them through the Beanstalk and Beanstalk has then updated the application.
+
+112
+00:05:57,940 --> 00:06:00,830
+So that's it for this lesson. And don't bring anything down.
+
+113
+00:06:00,830 --> 00:06:05,200
+We're going to use Elastic Beanstalk and our pipeline in another hands-on lesson.
+

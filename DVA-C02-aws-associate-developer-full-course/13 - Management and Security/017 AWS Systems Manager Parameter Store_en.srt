@@ -1,0 +1,152 @@
+1
+00:00:05,190 --> 00:00:11,100
+AWS Systems Manager is a service that's not really covered much in the Solutions Architects associate
+
+2
+00:00:11,100 --> 00:00:11,580
+exam.
+
+3
+00:00:11,760 --> 00:00:13,680
+You'll find it a lot in the SysOps
+
+4
+00:00:13,680 --> 00:00:22,080
+Administrator Associate. Now, systems manager is used for managing resources such as Amazon EC2. And
+
+5
+00:00:22,080 --> 00:00:24,870
+there's quite a few different components to Systems Manager.
+
+6
+00:00:25,230 --> 00:00:32,040
+Now, the one which I want to discuss for this lesson is Systems Manager Parameter Store, also known
+
+7
+00:00:32,040 --> 00:00:34,020
+as SSM Parameter Store.
+
+8
+00:00:34,410 --> 00:00:42,420
+This service is used for storing secrets and configuration information, so it's essentially a hierarchical
+
+9
+00:00:42,420 --> 00:00:46,560
+storage solution that allows you to store this information securely.
+
+10
+00:00:46,950 --> 00:00:53,220
+It's highly scalable, available, and durable. And it's used for storing things such as passwords,
+
+11
+00:00:53,460 --> 00:00:59,700
+database connection strings, and license codes. And those are stored as parameter values.
+
+12
+00:01:00,030 --> 00:01:06,840
+You can store values as plaintext, so unencrypted information or as ciphertext, so you can encrypt
+
+13
+00:01:06,840 --> 00:01:10,140
+that information in SSM parameter store as well.
+
+14
+00:01:10,320 --> 00:01:16,260
+You can reference values by using the unique name that you specify when you create the parameter.
+
+15
+00:01:16,500 --> 00:01:22,980
+And as I mentioned, it's hierarchical as well, so you can create a hierarchy of paths to those values,
+
+16
+00:01:22,980 --> 00:01:26,520
+which you can then use in your application code.
+
+17
+00:01:26,790 --> 00:01:33,120
+Now there's no native rotation of the keys, and that's a difference with Secrets Manager, which does
+
+18
+00:01:33,120 --> 00:01:37,620
+do it automatically, and we're going to cover AWS Secrets Manager in another lesson.
+
+19
+00:01:37,770 --> 00:01:44,730
+So what this effectively means is there's no native function within SSM parameter store for updating
+
+20
+00:01:44,730 --> 00:01:45,960
+a password value.
+
+21
+00:01:46,230 --> 00:01:51,270
+Now you can do it, but you have to do it externally using a service like AWS Lambda.
+
+22
+00:01:51,600 --> 00:01:54,540
+Let's have a look at how this works in a very simple diagram.
+
+23
+00:01:54,930 --> 00:02:01,140
+So we've got Amazon EC2, we've got parameter store, and an RDS database. And what we want to do here
+
+24
+00:02:01,140 --> 00:02:05,280
+is connect from our EC2 instance to our RDS database.
+
+25
+00:02:05,610 --> 00:02:11,190
+But maybe we don't want to store the password or even the connection string in the EC2 application
+
+26
+00:02:11,190 --> 00:02:11,580
+code.
+
+27
+00:02:12,000 --> 00:02:17,880
+Instead, we store that information in parameter store and in our application code, we reference that
+
+28
+00:02:17,880 --> 00:02:23,880
+information so we can now make a call to parameter store to find out what the connection information
+
+29
+00:02:23,880 --> 00:02:24,210
+is.
+
+30
+00:02:24,780 --> 00:02:30,330
+Then, once the EC2 instance has that information, it's able to connect to the RDS database.
+
+31
+00:02:30,510 --> 00:02:36,510
+So that's just one simple example of where you would store your connection string and maybe your password
+
+32
+00:02:36,510 --> 00:02:37,590
+in parameter store.
+
+33
+00:02:37,980 --> 00:02:39,730
+So that's really it. It's fairly simple.
+
+34
+00:02:39,780 --> 00:02:41,480
+You don't need to know much more than that.
+
+35
+00:02:41,670 --> 00:02:46,350
+And as I mentioned in a couple of lessons time, we're going to cover Secrets Manager, which is very
+
+36
+00:02:46,350 --> 00:02:49,620
+similar and it has some different characteristics.
+
+37
+00:02:49,620 --> 00:02:54,720
+And I'll point out the differences between the two at the time so that you're clear on how they are
+
+38
+00:02:54,720 --> 00:02:55,530
+different from each other.
+

@@ -1,0 +1,364 @@
+1
+00:00:05,240 --> 00:00:09,230
+Welcome to the exam cram for databases and analytics.
+
+2
+00:00:09,840 --> 00:00:16,160
+So RDS uses easy to instances and you need to choose an instance, family and type
+
+3
+00:00:16,840 --> 00:00:21,760
+relational databases are known as structured, query language or SQL databases.
+
+4
+00:00:22,240 --> 00:00:28,430
+RDS is an online transaction processing O L T P type of database. It's easy to set up.
+
+5
+00:00:28,440 --> 00:00:31,450
+Highly available. Fault tolerant and scalable.
+
+6
+00:00:31,940 --> 00:00:35,670
+Common use cases include online stores and banking systems.
+
+7
+00:00:36,050 --> 00:00:39,310
+You can encrypt your RDS instances and the snapshots at
+
+8
+00:00:39,310 --> 00:00:42,710
+rest by enabling the encryption option for your DB instance
+
+9
+00:00:42,850 --> 00:00:45,460
+and that must be during creation
+
+10
+00:00:45,940 --> 00:00:48,430
+encryption uses the KMs service.
+
+11
+00:00:48,940 --> 00:00:54,680
+RDS scales up by increasing the instant size so compute and storage is allocated.
+
+12
+00:00:55,340 --> 00:00:58,300
+Read replicas are an option for read heavy workloads
+
+13
+00:00:58,440 --> 00:01:01,250
+and that scales out reads and queries.
+
+14
+00:01:01,840 --> 00:01:05,860
+Disaster recovery is available with the multi az option
+
+15
+00:01:06,940 --> 00:01:11,550
+encryption at rest can be enabled that includes the dB storage, the backups,
+
+16
+00:01:11,720 --> 00:01:14,050
+the read replicas and snapshots.
+
+17
+00:01:14,440 --> 00:01:17,610
+You can only enable encryption for your dB when
+
+18
+00:01:17,610 --> 00:01:20,950
+you create it and not after the instance is created
+
+19
+00:01:21,640 --> 00:01:25,750
+instances that are encrypted can't be modified to disable encryption.
+
+20
+00:01:26,440 --> 00:01:31,840
+RDS for oracle and sequel server are also supported using T D E but that might have
+
+21
+00:01:31,990 --> 00:01:34,450
+a performance impact on your database.
+
+22
+00:01:35,140 --> 00:01:37,750
+Kms is used for managing the encryption keys.
+
+23
+00:01:38,340 --> 00:01:39,480
+You can't have
+
+24
+00:01:39,590 --> 00:01:43,460
+an encrypted read replica of an unencrypted DB instance
+
+25
+00:01:43,840 --> 00:01:47,610
+or an unencrypted read replica of an encrypted dB instance.
+
+26
+00:01:48,140 --> 00:01:52,070
+Read replicas of encrypted primary instances are encrypted
+
+27
+00:01:52,480 --> 00:01:56,660
+the same. Kms key is used if in the same region as the primary
+
+28
+00:01:57,040 --> 00:02:01,360
+and if the read replicas in a different region. A different KMs key is used.
+
+29
+00:02:01,840 --> 00:02:07,240
+You cannot restore an unencrypted backup or snapshot to an encrypted dB instance
+
+30
+00:02:08,340 --> 00:02:13,750
+elastic cache is a fully managed implementation of either read this or mem cache D.
+
+31
+00:02:14,000 --> 00:02:15,350
+It's a key value store.
+
+32
+00:02:15,360 --> 00:02:19,650
+It's an in memory database gives you high performance and low latency.
+
+33
+00:02:20,040 --> 00:02:24,860
+You can put it in front of other databases such as RDS or dynamodb
+
+34
+00:02:25,840 --> 00:02:30,960
+Elastic Cache known to run on Ec two. So you got to choose an instant family and type
+
+35
+00:02:31,640 --> 00:02:35,620
+data is not persistent with mem cache de but it can be with Reedus
+
+36
+00:02:36,000 --> 00:02:38,920
+encryption can only be enabled with Reedus.
+
+37
+00:02:39,250 --> 00:02:42,920
+Mem cache D is the only option for multithreaded applications.
+
+38
+00:02:43,250 --> 00:02:47,890
+Cashing options include lazy loading, which loads data only when necessary.
+
+39
+00:02:47,900 --> 00:02:49,280
+If a cache miss occurs
+
+40
+00:02:49,540 --> 00:02:50,410
+and that results
+
+41
+00:02:50,540 --> 00:02:52,260
+in higher latency for reads
+
+42
+00:02:52,640 --> 00:02:54,480
+or you can use right through.
+
+43
+00:02:54,670 --> 00:02:58,980
+In that case the cash is updated whenever a new write or update is made
+
+44
+00:02:59,120 --> 00:03:00,730
+to the underlying database,
+
+45
+00:03:01,110 --> 00:03:03,960
+that results in higher latency for rights
+
+46
+00:03:04,070 --> 00:03:05,830
+with kinesis data streams,
+
+47
+00:03:06,000 --> 00:03:11,990
+producers send data to kinesis and data is stored in shards for 24 hours
+
+48
+00:03:12,140 --> 00:03:14,360
+Or up to seven days,
+
+49
+00:03:14,840 --> 00:03:17,580
+consumers then take the data and process it and
+
+50
+00:03:17,580 --> 00:03:20,020
+data can then be saved into another service.
+
+51
+00:03:20,840 --> 00:03:25,100
+You get real time with latency of 200 milliseconds.
+
+52
+00:03:25,640 --> 00:03:28,170
+The kinesis client library helps you consume and
+
+53
+00:03:28,170 --> 00:03:30,980
+process data from a kinesis data stream.
+
+54
+00:03:31,230 --> 00:03:34,130
+Each shard is processed by exactly one K C.
+
+55
+00:03:34,130 --> 00:03:38,460
+L worker and has exactly one corresponding record processor,
+
+56
+00:03:38,940 --> 00:03:41,740
+one worker can process any number of shards
+
+57
+00:03:41,810 --> 00:03:44,230
+so it's fine If the number of shards exceeds
+
+58
+00:03:44,370 --> 00:03:45,860
+the number of instances
+
+59
+00:03:46,240 --> 00:03:48,700
+producers send data to kinesis
+
+60
+00:03:48,800 --> 00:03:50,000
+data. Firehose
+
+61
+00:03:50,240 --> 00:03:54,850
+there are no chance. It's completely automated and scalability is elastic.
+
+62
+00:03:55,310 --> 00:03:57,680
+Firehose data is sent to another service
+
+63
+00:03:57,680 --> 00:04:00,990
+for storing and data can be optionally processed
+
+64
+00:04:01,150 --> 00:04:03,850
+or transformed using lambda.
+
+65
+00:04:04,340 --> 00:04:08,750
+It gives you near real time delivery with about 60 seconds of latency
+
+66
+00:04:09,440 --> 00:04:12,240
+kinesis data analytics provides real time
+
+67
+00:04:12,240 --> 00:04:15,160
+sequel processing for your streaming data.
+
+68
+00:04:16,140 --> 00:04:18,700
+K D A provides analytics for data coming
+
+69
+00:04:18,709 --> 00:04:22,350
+in from kinesis data streams or data firehose.
+
+70
+00:04:22,940 --> 00:04:25,600
+K. D A destinations can be data streams.
+
+71
+00:04:25,710 --> 00:04:28,550
+Data firehose or AWS lambda
+
+72
+00:04:28,990 --> 00:04:32,880
+amazon. Open Search is a distributed search and analytics suite.
+
+73
+00:04:33,210 --> 00:04:36,910
+It's based on the popular open source elasticsearch.
+
+74
+00:04:37,100 --> 00:04:40,600
+Open search supports queries using sequel syntax.
+
+75
+00:04:40,860 --> 00:04:46,200
+It integrates with open source tools and scales by adding or removing instances.
+
+76
+00:04:46,610 --> 00:04:49,660
+It's available in up to free availability zones
+
+77
+00:04:49,740 --> 00:04:52,300
+and you can back it up using snapshots.
+
+78
+00:04:52,550 --> 00:04:56,320
+It offers encryption at rest and in transit
+
+79
+00:04:56,380 --> 00:04:59,800
+clusters are created using the management console,
+
+80
+00:04:59,810 --> 00:05:00,090
+the A.
+
+81
+00:05:00,090 --> 00:05:01,860
+P I or the Cli.
+
+82
+00:05:02,240 --> 00:05:06,160
+And they are also known as open search service domains.
+
+83
+00:05:06,700 --> 00:05:09,250
+Now let's look at some best practices for open search.
+
+84
+00:05:09,640 --> 00:05:12,650
+You should use free dedicated master notes.
+
+85
+00:05:12,930 --> 00:05:16,410
+Can figure at least one replica for each index
+
+86
+00:05:16,800 --> 00:05:20,320
+and apply restrictive resource based access policies to
+
+87
+00:05:20,320 --> 00:05:23,660
+the domain or use fine grained access control.
+
+88
+00:05:23,940 --> 00:05:26,970
+You should create the domain within an amazon VPc
+
+89
+00:05:27,200 --> 00:05:29,170
+and lastly for sensitive data,
+
+90
+00:05:29,180 --> 00:05:32,310
+enable no two known encryption and encryption at rest,
+
+91
+00:05:32,680 --> 00:05:34,250
+and that's it for this exam crime.
+

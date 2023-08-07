@@ -1,0 +1,252 @@
+1
+00:00:05,350 --> 00:00:10,780
+Hi, guys. In this lesson, we're going to use the command line to send a custom metric to CloudWatch
+
+2
+00:00:10,960 --> 00:00:17,140
+from Amazon EC2. There's a file here from the course download in the CloudWatch folder, EC2-custom-
+
+3
+00:00:17,140 --> 00:00:22,150
+metrics. And we're going to use these commands to PUT metric data.
+
+4
+00:00:22,510 --> 00:00:24,880
+So, it's an AWS CloudWatch command.
+
+5
+00:00:25,300 --> 00:00:31,330
+The API action is PUT metric data. And then we supply some information about the metric.
+
+6
+00:00:31,360 --> 00:00:33,090
+Now, I'm just making this up, right?
+
+7
+00:00:33,100 --> 00:00:35,800
+This is just information which I'm putting in.
+
+8
+00:00:35,980 --> 00:00:38,830
+So, in other words, I can send whatever metrics I want.
+
+9
+00:00:39,460 --> 00:00:44,830
+Now, what you might want to do in the real world is actually find information from your EC2 instance.
+
+10
+00:00:45,070 --> 00:00:48,850
+There's things like Perl Scripts from AWS that can do that for you.
+
+11
+00:00:49,030 --> 00:00:54,100
+In fact, I've added a link to an article from AWS which shows you how to do that.
+
+12
+00:00:54,340 --> 00:00:59,980
+Now, that article is deprecated because what it's actually trying to do is now covered by the Unified
+
+13
+00:00:59,980 --> 00:01:03,190
+CloudWatch Agent which is a much better way of doing it.
+
+14
+00:01:03,640 --> 00:01:09,880
+But essentially, what it does is run some scripts and finds out information about the resource utilization
+
+15
+00:01:09,880 --> 00:01:10,780
+of your instance.
+
+16
+00:01:11,260 --> 00:01:15,490
+And then it will send PUT metric data API commands to CloudWatch.
+
+17
+00:01:16,030 --> 00:01:17,950
+So what we're doing is just creating our own.
+
+18
+00:01:18,310 --> 00:01:20,470
+So, I've created a metric name of Bytes.
+
+19
+00:01:20,860 --> 00:01:22,810
+I've got my own custom namespace.
+
+20
+00:01:23,260 --> 00:01:27,550
+The unit will be bytes. And then the value is whatever value I want to put in there.
+
+21
+00:01:28,030 --> 00:01:32,980
+And the dimensions is then where we can put in the instance ID of our instance.
+
+22
+00:01:33,220 --> 00:01:34,600
+So we need to get that in a moment.
+
+23
+00:01:35,350 --> 00:01:39,460
+The second one has a metric name of Latency in the same namespace.
+
+24
+00:01:39,730 --> 00:01:43,420
+The unit is milliseconds, and then we have a value for the latency.
+
+25
+00:01:43,870 --> 00:01:46,060
+And again, we need to enter our instance ID.
+
+26
+00:01:47,200 --> 00:01:49,480
+So there's a couple of things we need to do to get moving.
+
+27
+00:01:49,780 --> 00:01:54,220
+Firstly, I've already launched a t2.micro Amazon Linux 2 AMI.
+
+28
+00:01:54,520 --> 00:01:59,590
+I need to get the instance ID here. Back in my file where it says instance-ID,
+
+29
+00:01:59,890 --> 00:02:02,860
+I'm just going to paste the real instance ID over the top.
+
+30
+00:02:03,190 --> 00:02:04,150
+So, I have that now.
+
+31
+00:02:04,510 --> 00:02:09,850
+The next thing I need is a role which I'm going to attach to my instance using an instance profile.
+
+32
+00:02:10,180 --> 00:02:15,520
+And that role will supply the permissions to be able to put the metric data in the CloudWatch.
+
+33
+00:02:15,730 --> 00:02:16,930
+So let's create a new role.
+
+34
+00:02:17,200 --> 00:02:19,840
+Use case will be EC2. Click on next.
+
+35
+00:02:20,200 --> 00:02:21,670
+I need to attach a policy.
+
+36
+00:02:21,880 --> 00:02:26,770
+I'm going to search for CloudWatch agent and I want this CloudWatch agent server policy.
+
+37
+00:02:27,100 --> 00:02:33,670
+If you expand this one and look at the JSON, you'll see the action CloudWatch PUT metric data here.
+
+38
+00:02:34,090 --> 00:02:37,720
+So that's going to be allowed. So, I'm going to select this policy.
+
+39
+00:02:38,260 --> 00:02:39,130
+Click on next.
+
+40
+00:02:39,460 --> 00:02:40,330
+Go to review.
+
+41
+00:02:40,720 --> 00:02:45,640
+I'm going to give it a name, which in this case is the same as the policy name and then create that
+
+42
+00:02:45,640 --> 00:02:45,970
+role.
+
+43
+00:02:46,510 --> 00:02:51,400
+Now, I've created the role. I can go back and attach it to my instance using an instance profile.
+
+44
+00:02:51,760 --> 00:02:58,240
+So, in this case, we're going to select our instance, choose actions, security, modify
+
+45
+00:02:58,240 --> 00:03:03,310
+IAM role, and then we're going to select the role which we just created, which is this one here,
+
+46
+00:03:03,310 --> 00:03:05,170
+CloudWatch agent server policy.
+
+47
+00:03:05,740 --> 00:03:09,460
+So let's save that role. And now we should have the permissions we need.
+
+48
+00:03:09,940 --> 00:03:16,480
+You'll now need to connect to your instance using SSH. And then we're going to copy this entire command
+
+49
+00:03:16,780 --> 00:03:21,370
+making sure your region is specified correctly and you've updated your instance
+
+50
+00:03:21,370 --> 00:03:27,700
+ID. I'm connected to my instance using SSH. So, I'm going to put in this command, hit enter. That's
+
+51
+00:03:27,700 --> 00:03:28,420
+been accepted.
+
+52
+00:03:28,750 --> 00:03:31,990
+Copy the second command and run that command now as well.
+
+53
+00:03:32,140 --> 00:03:33,620
+So, those two commands have been run.
+
+54
+00:03:34,030 --> 00:03:39,040
+The next thing to do is to go over to CloudWatch and let's see if we can see those metrics being
+
+55
+00:03:39,040 --> 00:03:41,110
+recorded in the CloudWatch console.
+
+56
+00:03:41,410 --> 00:03:46,390
+In CloudWatch, let's choose all metrics on the left hand side here. And straightaway
+
+57
+00:03:46,390 --> 00:03:52,770
+we can see under custom namespaces that I've got this my custom namespace. And that's the one that
+
+58
+00:03:52,780 --> 00:03:55,210
+we defined in our command line.
+
+59
+00:03:55,720 --> 00:04:01,930
+We can then see that we have the dimensions of instance ID and instance type. And then we have the
+
+60
+00:04:01,930 --> 00:04:05,320
+two metrics which we just sent, bytes and latency.
+
+61
+00:04:05,800 --> 00:04:06,910
+So that worked correctly.
+
+62
+00:04:07,060 --> 00:04:11,800
+Now that's it for this lesson. But I'm going to leave my instance running. And in the next lesson,
+
+63
+00:04:11,950 --> 00:04:15,850
+we'll see how we can add an alarm for our custom metrics.
+

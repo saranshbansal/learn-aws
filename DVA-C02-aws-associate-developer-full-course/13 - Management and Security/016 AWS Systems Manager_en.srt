@@ -1,0 +1,452 @@
+1
+00:00:05,370 --> 00:00:10,195
+Hi guys, in this lesson, I'm going to introduce you to AWS Systems Manager,
+
+2
+00:00:10,440 --> 00:00:14,286
+a product which does come up quite a bit on the Solutions Architect Pro exam.
+
+3
+00:00:14,820 --> 00:00:19,350
+Now, we'll walk through at a high level the various components of systems manager.
+
+4
+00:00:19,530 --> 00:00:24,570
+And then I've got four or five hands-on lessons where we're actually going to go in and have a look
+
+5
+00:00:24,595 --> 00:00:30,134
+at each of those components, not every one of them, but the few key components that make up some of
+
+6
+00:00:30,159 --> 00:00:31,439
+the questions on the exam.
+
+7
+00:00:32,040 --> 00:00:36,396
+So systems manager is a way that you can manage AWS resources.
+
+8
+00:00:36,570 --> 00:00:40,720
+Now, largely we're talking about EC2 but you can manage other resources as well.
+
+9
+00:00:41,490 --> 00:00:43,785
+Systems manager has several components.
+
+10
+00:00:43,810 --> 00:00:49,648
+We've got automation, we've got the run command, inventory, patch manager, session manager
+
+11
+00:00:49,786 --> 00:00:50,960
+and parameter store.
+
+12
+00:00:51,120 --> 00:00:53,608
+So let's have a quick overview of each of these.
+
+13
+00:00:53,986 --> 00:00:57,210
+With systems manager automation you have something called a document.
+
+14
+00:00:57,690 --> 00:01:02,790
+The document defines the actions to perform, and it's written in YAML or JSON.
+
+15
+00:01:03,000 --> 00:01:08,806
+And you can see a bit of an example of one here where this particular document is going to create a
+
+16
+00:01:08,831 --> 00:01:11,384
+snapshot for an RDS instance.
+
+17
+00:01:11,520 --> 00:01:18,360
+The documents are then fed into systems manager automation, which will automate the IT operations
+
+18
+00:01:18,360 --> 00:01:23,948
+and management tasks across the AWS resources such as RDS.
+
+19
+00:01:24,090 --> 00:01:28,288
+And in this case, that means taking a snapshot of the RDS database.
+
+20
+00:01:28,440 --> 00:01:29,865
+We then have run command.
+
+21
+00:01:30,077 --> 00:01:32,743
+Very, very similar, also has documents.
+
+22
+00:01:32,880 --> 00:01:38,051
+And in this case they include things like command, automation, and packages.
+
+23
+00:01:38,100 --> 00:01:43,598
+So, for example, in this example here we are listing the missing Microsoft Windows updates.
+
+24
+00:01:43,869 --> 00:01:47,730
+And we'll then find out what they are and we'll be able to patch then which we'll look at shortly.
+
+25
+00:01:47,910 --> 00:01:53,970
+So in this case, you're using the documents in run command and run command will then actually run the
+
+26
+00:01:53,995 --> 00:01:56,902
+commands on the managed EC2 instances.
+
+27
+00:01:57,240 --> 00:02:00,807
+And in this case, that means checking for missing software updates.
+
+28
+00:02:00,960 --> 00:02:02,490
+Next, we have inventory.
+
+29
+00:02:02,560 --> 00:02:06,869
+Quite simply, this gives you an inventory of the resources that you're managing.
+
+30
+00:02:07,147 --> 00:02:12,850
+Now with systems manager, we'll look at this shortly, but you need to install an agent on your instances.
+
+31
+00:02:13,080 --> 00:02:18,330
+You also need to make sure that they have a role so that they can authenticate and actually have access
+
+32
+00:02:18,377 --> 00:02:21,180
+to send information into systems manager.
+
+33
+00:02:21,420 --> 00:02:24,695
+And we use tags and resource groups as well, which you'll see in the hands-on.
+
+34
+00:02:24,810 --> 00:02:30,433
+Now, once the information is collected, we can then gather all this data here, visualize it,
+
+35
+00:02:30,467 --> 00:02:34,550
+and then drill down into the various components of the inventory.
+
+36
+00:02:34,920 --> 00:02:36,810
+The next service is patch manager.
+
+37
+00:02:37,320 --> 00:02:43,050
+This helps you select and deploy operating system and software patches across your EC2
+
+38
+00:02:43,140 --> 00:02:45,247
+and also on-premise instances.
+
+39
+00:02:45,271 --> 00:02:47,318
+We have something called patch baselines.
+
+40
+00:02:47,610 --> 00:02:53,226
+This is where you can set rules to auto-approve categories of patches to be installed and you can also
+
+41
+00:02:53,251 --> 00:02:55,871
+specify lists of patches that override the rules.
+
+42
+00:02:56,070 --> 00:03:00,526
+You can also schedule maintenance windows for patches so that they are only applied during
+
+43
+00:03:00,551 --> 00:03:01,835
+specific times.
+
+44
+00:03:01,860 --> 00:03:07,072
+Patch manager helps to make sure your software is up to date and meets any compliance policies you might
+
+45
+00:03:07,097 --> 00:03:08,750
+have in your organization.
+
+46
+00:03:09,240 --> 00:03:14,252
+So talking about compliance, systems manager will let you scan your managed instances
+
+47
+00:03:14,450 --> 00:03:18,432
+for patch compliance as well as configuration inconsistencies.
+
+48
+00:03:18,457 --> 00:03:20,593
+We'll see how this works in the hands-on.
+
+49
+00:03:20,618 --> 00:03:21,695
+You'll see it visually.
+
+50
+00:03:21,720 --> 00:03:26,735
+You can collect and aggregate data from multiple accounts and regions and then drill down into
+
+51
+00:03:26,759 --> 00:03:28,669
+the resources that aren't compliant.
+
+52
+00:03:29,016 --> 00:03:33,900
+By default, systems manager will display data about patching and also associations.
+
+53
+00:03:34,140 --> 00:03:39,155
+You can also customize the service, create your own compliance types based on your requirements.
+
+54
+00:03:39,180 --> 00:03:44,499
+So that means if you have some specific configuration that you want to check is deployed across certain
+
+55
+00:03:44,524 --> 00:03:50,310
+resources, then you can create that configuration in systems manager compliance and then check if your
+
+56
+00:03:50,430 --> 00:03:52,920
+instances meet that particular requirement.
+
+57
+00:03:53,100 --> 00:03:55,157
+We then have something called session manager.
+
+58
+00:03:55,382 --> 00:03:59,902
+Now, a really useful tool here and something that definitely comes up in exam questions.
+
+59
+00:04:00,150 --> 00:04:05,748
+The types of questions come up are where the company is using the standard protocols
+
+60
+00:04:05,772 --> 00:04:07,455
+for connecting to EC2.
+
+61
+00:04:07,526 --> 00:04:13,406
+That would be SSH for Linux and RDP for Windows, but they might have some kind of malicious
+
+62
+00:04:13,431 --> 00:04:18,269
+attacks happening or just some general security mandate that says that they don't like to have those
+
+63
+00:04:18,269 --> 00:04:19,098
+ports open.
+
+64
+00:04:19,200 --> 00:04:21,450
+So how else can we manage our instances?
+
+65
+00:04:22,019 --> 00:04:23,880
+Well, we can use session manager.
+
+66
+00:04:24,210 --> 00:04:30,755
+This allows you to actually connect to a command line on your instances without logging into your servers.
+
+67
+00:04:31,020 --> 00:04:35,220
+You don't need bastion hosts, you don't need SSH, you don't need remote PowerShell.
+
+68
+00:04:35,640 --> 00:04:40,244
+And that means you don't need to open up the ports that you typically would for those protocols.
+
+69
+00:04:40,710 --> 00:04:47,430
+It also integrates with IAM for granular permissions and the actions that are taken can be recorded
+
+70
+00:04:47,430 --> 00:04:48,239
+in CloudTrail.
+
+71
+00:04:48,264 --> 00:04:54,120
+So you can see an audit log of what commands are being actually run on your instances through session
+
+72
+00:04:54,120 --> 00:04:54,796
+manager.
+
+73
+00:04:54,820 --> 00:04:59,520
+You can store session logs in S3 and have your output going to CloudWatch logs as well.
+
+74
+00:04:59,940 --> 00:05:04,565
+To enable this to work, you need IAM permissions for the EC2 instance to access
+
+75
+00:05:04,690 --> 00:05:07,235
+SSM, S3 and CloudWatch logs.
+
+76
+00:05:07,759 --> 00:05:10,528
+So the great thing here is you don't need these ports open.
+
+77
+00:05:10,553 --> 00:05:13,648
+You don't need SSH, you don't need the ports for RDP.
+
+78
+00:05:13,690 --> 00:05:15,555
+You're not using those protocols.
+
+79
+00:05:15,580 --> 00:05:22,204
+You're connecting based on the systems manager agent on those particular EC2 instances and avoiding
+
+80
+00:05:22,229 --> 00:05:25,210
+the use of those protocols, so it can be a lot more secure.
+
+81
+00:05:25,540 --> 00:05:27,709
+And again, you don't need bastion hosts.
+
+82
+00:05:27,850 --> 00:05:32,697
+So this way you don't have to set up a bastion host that you connect to in a public subnet in order
+
+83
+00:05:32,722 --> 00:05:34,768
+to then jump into a private subnet.
+
+84
+00:05:34,960 --> 00:05:39,760
+You can just connect directly using session manager to your instances in private subnets.
+
+85
+00:05:39,800 --> 00:05:41,109
+That's quite a big advantage.
+
+86
+00:05:41,170 --> 00:05:44,065
+We then have systems manager parameter store.
+
+87
+00:05:44,320 --> 00:05:49,540
+This is a service that allows you to store configuration data and secrets and it can be hierarchical
+
+88
+00:05:49,540 --> 00:05:50,305
+as well.
+
+89
+00:05:50,350 --> 00:05:52,100
+It's scalable, available and durable.
+
+90
+00:05:52,510 --> 00:05:58,119
+You can store data such as passwords, database strength's, license codes, and they get stored as
+
+91
+00:05:58,144 --> 00:06:00,880
+a parameter value in parameter store.
+
+92
+00:06:01,960 --> 00:06:08,145
+You can store in plain text, so unencrypted or you can use ciphertext so you can encrypt your data in
+
+93
+00:06:08,170 --> 00:06:09,090
+systems manager.
+
+94
+00:06:09,580 --> 00:06:14,960
+You can also reference the values by a unique name that you define when you create the parameter
+
+95
+00:06:14,985 --> 00:06:17,210
+so you can then store that in your application code.
+
+96
+00:06:17,530 --> 00:06:23,612
+Now there's no native rotation of keys and this is a difference between Secrets Manager, which does
+
+97
+00:06:23,637 --> 00:06:25,090
+do that automatically for you.
+
+98
+00:06:25,120 --> 00:06:32,494
+So watch out for exam questions that mention automatic rotation of the actual keys that are stored
+
+99
+00:06:32,519 --> 00:06:36,210
+in the parameter store or in the Secrets Manager database.
+
+100
+00:06:36,220 --> 00:06:41,499
+So if you're storing some kind of secret like a database connection string and you need it automatically
+
+101
+00:06:42,099 --> 00:06:46,825
+rotate it every certain period of time, then Secrets Manager might be a better option
+
+102
+00:06:46,849 --> 00:06:47,909
+than parameter store.
+
+103
+00:06:48,010 --> 00:06:49,938
+So quite simply, this works like this.
+
+104
+00:06:49,963 --> 00:06:54,075
+You've got your EC2 instance, you've got parameter store and you've got a database.
+
+105
+00:06:54,380 --> 00:06:59,981
+And you're EC2 to instance needs a secret connection string with some kind of authentication
+
+106
+00:07:00,006 --> 00:07:02,261
+information to connect to RDS.
+
+107
+00:07:02,650 --> 00:07:07,791
+So it talks to parameter store, pulls the data and now it can talk to RDS.
+
+108
+00:07:07,816 --> 00:07:10,064
+So it's retrieve that connection string.
+
+109
+00:07:10,436 --> 00:07:13,276
+And that means it's not stored in the code so it's much more secure.
+
+110
+00:07:13,360 --> 00:07:16,336
+So that's it for the overview of systems manager.
+
+111
+00:07:16,510 --> 00:07:21,395
+What we would do over the next few lessons is we're going to configure systems manager
+
+112
+00:07:21,419 --> 00:07:22,650
+and then we're going to use it.
+
+113
+00:07:22,660 --> 00:07:28,273
+We're going to look into some of these individual features of systems manager in a hands-on way.
+

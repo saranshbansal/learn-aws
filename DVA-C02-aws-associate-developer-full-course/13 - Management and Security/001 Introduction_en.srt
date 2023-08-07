@@ -1,0 +1,60 @@
+1
+00:00:00,240 --> 00:00:02,220
+Hi guys and welcome to this section.
+
+2
+00:00:02,310 --> 00:00:08,600
+This section is on the AWS management services as well as some security services.
+
+3
+00:00:08,630 --> 00:00:11,050
+So we're going to look at things like performance monitoring
+
+4
+00:00:11,050 --> 00:00:15,860
+tools like amazon cloudwatch auditing tools like AWS cloud trail
+
+5
+00:00:16,120 --> 00:00:20,110
+services for creating and managing encryption keys like the
+
+6
+00:00:20,410 --> 00:00:22,470
+key management service.
+
+7
+00:00:22,710 --> 00:00:26,060
+And we're also going to look at services for storing our secrets,
+
+8
+00:00:26,150 --> 00:00:29,600
+including parameter store and AWS secrets manager.
+
+9
+00:00:29,990 --> 00:00:31,630
+Those are ways that we can store things
+
+10
+00:00:31,630 --> 00:00:35,830
+like database connection credentials or passwords or access keys
+
+11
+00:00:35,940 --> 00:00:40,020
+so that they're securely stored and can be accessed via an API call.
+
+12
+00:00:40,450 --> 00:00:42,860
+And lastly, we'll look at amazon Cognito,
+
+13
+00:00:42,940 --> 00:00:46,960
+a service that doesn't come up too often in an exam but we'll cover some basic theory.
+
+14
+00:00:47,340 --> 00:00:52,160
+Cognito is used for enabling Sign in and sign up for mobile applications.
+
+15
+00:00:52,840 --> 00:00:54,860
+So I hope you enjoy it. And I'll see you in the next lesson.
+

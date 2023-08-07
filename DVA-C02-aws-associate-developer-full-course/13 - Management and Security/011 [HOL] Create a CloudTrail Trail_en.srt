@@ -1,0 +1,264 @@
+1
+00:00:05,620 --> 00:00:09,070
+So let's go into the console now and create a CloudTrail trail.
+
+2
+00:00:09,400 --> 00:00:12,910
+I'm in the management console on the AWS CloudTrail dashboard.
+
+3
+00:00:13,330 --> 00:00:16,990
+Now if you just click the create a trail button here, it doesn't give you many options.
+
+4
+00:00:17,290 --> 00:00:21,190
+What I prefer to do instead is just expand the options on the left here.
+
+5
+00:00:21,820 --> 00:00:24,550
+We're going to come down to trails and create a trail.
+
+6
+00:00:24,820 --> 00:00:25,980
+Now we're going to do that in a moment.
+
+7
+00:00:25,990 --> 00:00:31,330
+Firstly, I want to show you some of the information that's already available in CloudTrail. On the
+
+8
+00:00:31,330 --> 00:00:31,900
+dashboard,
+
+9
+00:00:31,900 --> 00:00:35,140
+this is where you can see your trails and your event history.
+
+10
+00:00:35,530 --> 00:00:39,760
+Another way you can see your event history is by selecting this option on the left.
+
+11
+00:00:40,450 --> 00:00:45,880
+So, as you can see, there's already information being generated in here and being stored.
+
+12
+00:00:46,240 --> 00:00:50,350
+But this will only be stored for 90 days because we haven't created a trail yet.
+
+13
+00:00:50,890 --> 00:00:53,110
+But you can see what's happening in the account.
+
+14
+00:00:53,560 --> 00:00:59,650
+So, for example, we can see a terminate instances event here. With the event selected, in the bottom here,
+
+15
+00:00:59,650 --> 00:01:03,310
+we can see some information about this particular API event.
+
+16
+00:01:03,640 --> 00:01:06,280
+We've got the name, where we can see the actual action,
+
+17
+00:01:06,280 --> 00:01:12,110
+terminate instances, the ID, the time that it happened, the user name, and event source.
+
+18
+00:01:12,130 --> 00:01:14,020
+Now, as you can see, this is not my account.
+
+19
+00:01:14,030 --> 00:01:16,450
+This was not me terminating an instance.
+
+20
+00:01:16,810 --> 00:01:18,820
+This was in response to an alarm
+
+21
+00:01:19,180 --> 00:01:22,390
+and so it was AWS that actually terminated that instance.
+
+22
+00:01:23,140 --> 00:01:28,540
+And you've got information like the source IP, which in this case is an AWS domain name.
+
+23
+00:01:28,690 --> 00:01:30,790
+So there's quite a bit of an information log there.
+
+24
+00:01:31,000 --> 00:01:36,190
+And at the bottom here we have the resource. We have the resource type which is EC2 instance
+
+25
+00:01:36,400 --> 00:01:38,980
+and the resource name which is the ID of that instance.
+
+26
+00:01:39,340 --> 00:01:43,990
+So, we've already got this information, but we want to log it and keep it for a long period of time.
+
+27
+00:01:44,620 --> 00:01:47,830
+So what we're going to do is go to trails, create a trail.
+
+28
+00:01:48,100 --> 00:01:50,560
+As per the suggestion, I'll call it Management Events.
+
+29
+00:01:50,980 --> 00:01:54,790
+Now, I'm not going to enable this one for all accounts, it's just going to be for this account.
+
+30
+00:01:55,000 --> 00:02:00,220
+But within AWS Organizations, you can enable a trail across all of your accounts.
+
+31
+00:02:01,120 --> 00:02:03,250
+Now, it's going to need a storage location.
+
+32
+00:02:03,520 --> 00:02:07,780
+By default, it'll create a new S3 bucket and give it a very unique name.
+
+33
+00:02:08,199 --> 00:02:09,910
+I'm just going to leave that as the default.
+
+34
+00:02:10,270 --> 00:02:13,990
+I do want to encrypt my information in my bucket.
+
+35
+00:02:14,380 --> 00:02:18,460
+So, what I'm going to do is select a new key, call it CloudTrail.
+
+36
+00:02:18,820 --> 00:02:20,920
+We then have log file validation.
+
+37
+00:02:21,340 --> 00:02:22,810
+This is enabled by default.
+
+38
+00:02:23,290 --> 00:02:28,900
+What this will do is it will generate a digest of each log file, which cannot be tampered with.
+
+39
+00:02:29,260 --> 00:02:32,110
+So, it gives you some information about that log file and
+
+40
+00:02:32,110 --> 00:02:37,030
+you can now determine whether your log files have been tampered with or not.
+
+41
+00:02:37,480 --> 00:02:41,950
+So, it's a great way of making sure that you've got that confidence in this information that you might
+
+42
+00:02:41,950 --> 00:02:43,690
+want to use for auditing or compliance.
+
+43
+00:02:44,440 --> 00:02:50,180
+Now, I'm not going to enable SNS. And we can optionally enable CloudWatch logs here.
+
+44
+00:02:50,560 --> 00:02:51,580
+Let's go ahead and do that.
+
+45
+00:02:51,700 --> 00:02:55,920
+It will create a new log route for us. For logging to CloudWatch logs
+
+46
+00:02:55,930 --> 00:02:57,310
+it's going to need some permissions.
+
+47
+00:02:57,550 --> 00:03:00,400
+So, it's going to use an IAM role. In this case,
+
+48
+00:03:00,400 --> 00:03:03,550
+we're going to allow CloudTrail to create the role for us.
+
+49
+00:03:04,240 --> 00:03:06,850
+I'm going to call it CloudTrail Role for CW Logs.
+
+50
+00:03:07,540 --> 00:03:08,470
+Let's click on next.
+
+51
+00:03:09,070 --> 00:03:12,970
+And here you get to select the type of events. We're just going to choose management events.
+
+52
+00:03:13,270 --> 00:03:15,400
+You could optionally enable data events.
+
+53
+00:03:15,760 --> 00:03:20,830
+Now, if you do that and you scroll down, you'll see the different event sources that are available.
+
+54
+00:03:20,860 --> 00:03:27,640
+We've got S3, Lambda, and DynamoDB. Or if we switch to advanced, then we get more.
+
+55
+00:03:27,640 --> 00:03:30,580
+We get Lambda, DynamoDB, Outpost and a few more.
+
+56
+00:03:31,420 --> 00:03:32,560
+Now, we're not going to do that.
+
+57
+00:03:32,570 --> 00:03:35,260
+It does generate a significant amount of information.
+
+58
+00:03:36,070 --> 00:03:37,750
+We're going to deselect data events.
+
+59
+00:03:38,290 --> 00:03:40,960
+I'm not going to enable insights events at this time either.
+
+60
+00:03:41,380 --> 00:03:43,840
+So, we just have management events enabled.
+
+61
+00:03:44,050 --> 00:03:47,260
+We're going to log, read and write API activity.
+
+62
+00:03:47,890 --> 00:03:51,700
+Let's click on next and just scroll down and create our trail.
+
+63
+00:03:51,970 --> 00:03:52,590
+So that's it.
+
+64
+00:03:52,600 --> 00:03:56,290
+Our trail has been created. And that's all we're going to do for this lesson.
+
+65
+00:03:56,290 --> 00:04:00,280
+We're going to leave our trail because we're actually going to use the information that's generated
+
+66
+00:04:00,280 --> 00:04:04,030
+by that trail with Amazon EventBridge in a couple of lessons time.
+

@@ -1,0 +1,208 @@
+1
+00:00:05,020 --> 00:00:09,320
+In this lesson, I'm going to talk about amazon memory dB for regis.
+
+2
+00:00:09,330 --> 00:00:11,870
+So what is memory DB for read this.
+
+3
+00:00:11,880 --> 00:00:15,930
+This is a red is compatible durable in memory database service
+
+4
+00:00:16,070 --> 00:00:18,920
+and it gives you ultra fast performance.
+
+5
+00:00:18,920 --> 00:00:21,900
+So very low latency and very high performance
+
+6
+00:00:21,990 --> 00:00:25,090
+and everything is in memory with memory DB.
+
+7
+00:00:25,100 --> 00:00:29,610
+As the name suggests in this case the entire data set is stored in memory.
+
+8
+00:00:29,610 --> 00:00:32,920
+It's an entire DB solution. So it's different too.
+
+9
+00:00:32,941 --> 00:00:34,631
+For example, elastic cache,
+
+10
+00:00:34,641 --> 00:00:38,031
+which is a cashing engine that sits in front of your database.
+
+11
+00:00:38,031 --> 00:00:42,881
+So typically with elastic cache, whether you're using Reddit or Mem cache D,
+
+12
+00:00:42,891 --> 00:00:44,071
+it will actually
+
+13
+00:00:44,171 --> 00:00:47,891
+cash the queries that are made to your database
+
+14
+00:00:48,011 --> 00:00:52,641
+and then the rest of the data set is actually within a database behind it,
+
+15
+00:00:52,641 --> 00:00:53,231
+for example.
+
+16
+00:00:53,231 --> 00:00:56,311
+Rds. So that's different to the way memory DB works.
+
+17
+00:00:56,311 --> 00:01:00,551
+Now you can have your entire data set in Alaska cash. It's just not always the case.
+
+18
+00:01:00,862 --> 00:01:04,162
+This is purpose built for modern applications with microservices,
+
+19
+00:01:04,172 --> 00:01:05,111
+architectures,
+
+20
+00:01:05,122 --> 00:01:06,962
+you can build applications using the
+
+21
+00:01:06,962 --> 00:01:09,772
+same flexible and friendly reddest data structures
+
+22
+00:01:09,942 --> 00:01:11,432
+ap eyes and command.
+
+23
+00:01:11,432 --> 00:01:15,022
+So fully compatible with Reedus, you get microsecond,
+
+24
+00:01:15,022 --> 00:01:20,012
+read and single digit millisecond write latency and very high free put.
+
+25
+00:01:20,022 --> 00:01:22,812
+So this is a higher performance option compared to
+
+26
+00:01:22,812 --> 00:01:25,762
+Alaska cache data is stored durably across multiple.
+
+27
+00:01:25,762 --> 00:01:26,462
+Aziz
+
+28
+00:01:26,572 --> 00:01:29,873
+using a distributed transaction log.
+
+29
+00:01:29,883 --> 00:01:35,313
+It also supports right scaling with chard NG and read scaling by adding replicas.
+
+30
+00:01:35,503 --> 00:01:37,713
+So lots of redundancy options there.
+
+31
+00:01:37,723 --> 00:01:42,523
+So let's just compare Reedus with elastic cache of course with amazon elasticache.
+
+32
+00:01:42,523 --> 00:01:45,773
+You can choose from using the red this engine or mem cache.
+
+33
+00:01:45,783 --> 00:01:50,233
+So either way, let's compare at a high level the differences between the two.
+
+34
+00:01:50,263 --> 00:01:53,063
+So the last akash, you're cashing DB queries.
+
+35
+00:01:53,233 --> 00:01:55,053
+So typically as I mentioned before,
+
+36
+00:01:55,053 --> 00:01:57,594
+you're going to have a database behind elastic cache.
+
+37
+00:01:57,604 --> 00:01:59,854
+You cash the queries and then
+
+38
+00:01:59,974 --> 00:02:01,244
+depending on the strategy,
+
+39
+00:02:01,244 --> 00:02:05,554
+you're using that data then gets loaded in when it's changed when rights are made
+
+40
+00:02:05,554 --> 00:02:09,734
+to the primary database or just when a call is made using memory DB,
+
+41
+00:02:09,782 --> 00:02:14,384
+you get a full database solution combining the database and the cash.
+
+42
+00:02:14,384 --> 00:02:16,474
+So it's essentially one database
+
+43
+00:02:16,574 --> 00:02:20,254
+with memory DB you get higher performance with lower latency compared
+
+44
+00:02:20,254 --> 00:02:24,604
+to using elastic cache and memory DB offers strong consistency for primary
+
+45
+00:02:24,965 --> 00:02:28,165
+and eventual consistency for replica nodes with
+
+46
+00:02:28,165 --> 00:02:31,915
+elasticache there can be inconsistency and latency depending
+
+47
+00:02:31,915 --> 00:02:35,825
+on the engine that you use and the cashing strategy that you use as well,
+
+48
+00:02:35,835 --> 00:02:38,885
+for example, right through versus lazy loading,
+
+49
+00:02:38,885 --> 00:02:41,835
+which is something we talk about in the elasticache lessons.
+
+50
+00:02:41,975 --> 00:02:45,785
+So that's it. For a quick comparison of the two and memory dB for red.
+
+51
+00:02:45,785 --> 00:02:49,025
+This is something which may come up in the examples of minor question or two.
+
+52
+00:02:49,035 --> 00:02:52,425
+So you should have enough information here to make sure you're prepared
+

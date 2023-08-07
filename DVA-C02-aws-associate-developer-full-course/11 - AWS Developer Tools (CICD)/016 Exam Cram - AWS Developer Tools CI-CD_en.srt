@@ -1,0 +1,296 @@
+1
+00:00:05,740 --> 00:00:09,960
+Welcome to the exam cram for developer tools and c i C D.
+
+2
+00:00:10,820 --> 00:00:14,930
+Codecommit is a fully managed source control service that hosts secure.
+
+3
+00:00:14,940 --> 00:00:16,379
+Get based repositories
+
+4
+00:00:16,740 --> 00:00:20,360
+gets an open source distributed source control system gives
+
+5
+00:00:20,360 --> 00:00:23,710
+you a centralized repository for all your code Binaries,
+
+6
+00:00:23,720 --> 00:00:25,330
+Images and libraries.
+
+7
+00:00:25,540 --> 00:00:28,370
+It tracks and manages code changes
+
+8
+00:00:28,650 --> 00:00:30,510
+and maintains version history.
+
+9
+00:00:31,140 --> 00:00:34,000
+It also manages updates from multiple sources
+
+10
+00:00:34,200 --> 00:00:35,960
+and enables collaboration.
+
+11
+00:00:36,740 --> 00:00:39,260
+Codecommit. Repositories are private.
+
+12
+00:00:39,470 --> 00:00:42,520
+Codecommit is integrated with Jenkins Codebuild
+
+13
+00:00:42,530 --> 00:00:44,920
+and other continuous integration tools.
+
+14
+00:00:45,110 --> 00:00:50,960
+You can transfer your files to and from Codecommit using https or ssh.
+
+15
+00:00:51,540 --> 00:00:52,870
+You need to configure your get
+
+16
+00:00:52,870 --> 00:00:55,840
+client to communicate with codecommit repositories.
+
+17
+00:00:56,540 --> 00:01:00,980
+I am supports co commit with three types of credentials, get credentials.
+
+18
+00:01:00,990 --> 00:01:03,950
+Ssh keys and also access keys.
+
+19
+00:01:04,440 --> 00:01:07,700
+Codepipeline is a managed continuous delivery service
+
+20
+00:01:07,830 --> 00:01:10,610
+that helps you automate release pipelines,
+
+21
+00:01:10,910 --> 00:01:15,920
+it automates the build, test and deploy phases of your release process
+
+22
+00:01:16,130 --> 00:01:17,850
+every time a code change happens.
+
+23
+00:01:18,440 --> 00:01:22,120
+Codepipeline provides tooling integrations for many aws
+
+24
+00:01:22,300 --> 00:01:23,960
+and 3rd party software.
+
+25
+00:01:24,540 --> 00:01:28,190
+Code Guru provides intelligent recommendations for improving
+
+26
+00:01:28,190 --> 00:01:31,860
+application performance efficiency and code quality.
+
+27
+00:01:32,240 --> 00:01:37,360
+Code Guru reviews, java and python code and offers suggestions for improvement
+
+28
+00:01:37,810 --> 00:01:40,460
+suggestions are based on best practices.
+
+29
+00:01:40,940 --> 00:01:45,830
+It finds complex issues such as resource leak and security analysis
+
+30
+00:01:46,240 --> 00:01:48,450
+is made up of two services.
+
+31
+00:01:48,670 --> 00:01:50,430
+Code guru reviewer
+
+32
+00:01:50,600 --> 00:01:52,860
+and code Guru. Profiler.
+
+33
+00:01:53,340 --> 00:01:57,260
+Codebuild is a fully managed continuous integration service.
+
+34
+00:01:57,450 --> 00:01:59,460
+It compiles your source code
+
+35
+00:01:59,640 --> 00:02:02,600
+runs test and produces software packages
+
+36
+00:02:02,800 --> 00:02:04,260
+that are ready to deploy.
+
+37
+00:02:04,640 --> 00:02:06,670
+Codebuild takes the source code from github
+
+38
+00:02:06,850 --> 00:02:10,250
+Codecommit Codepipeline. S free etcetera
+
+39
+00:02:11,038 --> 00:02:13,810
+build instructions can be defied in the code
+
+40
+00:02:13,930 --> 00:02:16,230
+using the builds back dot y mel file,
+
+41
+00:02:16,740 --> 00:02:19,460
+Output logs can be sent to S three
+
+42
+00:02:19,600 --> 00:02:20,880
+and cloudwatch logs.
+
+43
+00:02:21,740 --> 00:02:26,380
+Codedeploy is a deployment service that automates application deployments.
+
+44
+00:02:27,040 --> 00:02:31,220
+It deploys to ec two instances on premises instances.
+
+45
+00:02:31,350 --> 00:02:32,680
+Lambda functions
+
+46
+00:02:32,840 --> 00:02:33,930
+and DCs.
+
+47
+00:02:34,340 --> 00:02:38,660
+You can deploy a nearly unlimited variety of application. Content
+
+48
+00:02:39,240 --> 00:02:42,860
+codedeploy application contains information about what to
+
+49
+00:02:42,860 --> 00:02:45,060
+deploy and how to deploy it.
+
+50
+00:02:45,940 --> 00:02:52,260
+You need to choose the compute platform so easy to slash on premises or lambda or E C s
+
+51
+00:02:53,140 --> 00:02:55,460
+if you use easy to or on premises,
+
+52
+00:02:55,470 --> 00:02:58,800
+traffic is directed using an in place or blue
+
+53
+00:02:58,800 --> 00:03:02,800
+green deployment type to a replacement set of instances.
+
+54
+00:03:03,220 --> 00:03:09,410
+For lambda traffic is shifted using a canary linear or all at once configuration
+
+55
+00:03:09,570 --> 00:03:11,860
+and that's to a new version of the function.
+
+56
+00:03:12,530 --> 00:03:13,160
+For e C.
+
+57
+00:03:13,160 --> 00:03:17,480
+S codedeploy performs a blue green deployment by installing an
+
+58
+00:03:17,490 --> 00:03:21,760
+updated version of the application as a new replacement task set
+
+59
+00:03:22,540 --> 00:03:23,240
+for e C S,
+
+60
+00:03:23,240 --> 00:03:26,520
+traffic is shifted using canary linear or all
+
+61
+00:03:26,520 --> 00:03:29,260
+at once configuration to the replacement task set.
+
+62
+00:03:30,040 --> 00:03:34,640
+Note that all lambda and CCS deployments are blue green and
+
+63
+00:03:34,650 --> 00:03:39,260
+easy to on premises deployment can be in place or blue green
+
+64
+00:03:39,940 --> 00:03:45,880
+code star enables you to quickly develop, build and deploy applications on AWS.
+
+65
+00:03:46,020 --> 00:03:50,420
+It's a pre configured continuous delivery toolchain for developing building,
+
+66
+00:03:50,430 --> 00:03:51,850
+testing and deploying.
+
+67
+00:03:52,240 --> 00:03:58,060
+You can use code editors such as Visual Studio Eclipse or the AWS Cli
+
+68
+00:03:58,740 --> 00:04:01,910
+It uses I am to manage developer identities
+
+69
+00:04:02,160 --> 00:04:06,610
+and has built in role based policies for secure team access,
+
+70
+00:04:07,040 --> 00:04:09,890
+Application code is stored in codecommit.
+
+71
+00:04:10,440 --> 00:04:14,460
+It compiles and packages. Source code using codebuild,
+
+72
+00:04:15,030 --> 00:04:18,959
+and a pre configured pipeline is used through codepipeline.
+
+73
+00:04:19,540 --> 00:04:24,440
+It also has automated deployments with codedeploy and cloud formation.
+
+74
+00:04:24,760 --> 00:04:27,360
+That's it for this exam, cram. I'll see you in the next lesson.
+

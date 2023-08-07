@@ -1,0 +1,448 @@
+1
+00:00:05,240 --> 00:00:08,570
+Hi guys. In this section, we're going to use the Git command line.
+
+2
+00:00:08,570 --> 00:00:11,370
+So what I'm going to do in this lesson is just show you where
+
+3
+00:00:11,370 --> 00:00:15,610
+you can go to find instructions to install Git on your computer
+
+4
+00:00:15,670 --> 00:00:17,350
+and then we're actually going to look at some
+
+5
+00:00:17,350 --> 00:00:19,840
+basic commands so that those of you who are completely
+
+6
+00:00:19,840 --> 00:00:23,360
+new to using Git will have a basic understanding of
+
+7
+00:00:23,370 --> 00:00:25,460
+the commands we're going to use throughout the section.
+
+8
+00:00:25,840 --> 00:00:28,570
+If you head over to Google and search for install Git,
+
+9
+00:00:28,570 --> 00:00:30,060
+you'll find various options.
+
+10
+00:00:30,230 --> 00:00:34,470
+Now, I've chosen this Atlassian page. It comes up as one of the first results.
+
+11
+00:00:34,940 --> 00:00:35,740
+Now in here,
+
+12
+00:00:35,740 --> 00:00:41,970
+you can see that there are instructions for installing Git on Mac OS X, on Windows,
+
+13
+00:00:42,190 --> 00:00:43,290
+and on Linux.
+
+14
+00:00:43,400 --> 00:00:45,310
+So it's fairly straightforward as long as you
+
+15
+00:00:45,310 --> 00:00:48,100
+just go to the operating system of your choice
+
+16
+00:00:48,350 --> 00:00:51,160
+and then follow the instructions that are there.
+
+17
+00:00:51,540 --> 00:00:53,790
+Now, as it's different on different operating systems,
+
+18
+00:00:53,790 --> 00:00:55,390
+I'm not going to show you how to do it,
+
+19
+00:00:55,400 --> 00:00:57,530
+but you should be able to follow these instructions.
+
+20
+00:00:57,810 --> 00:01:02,150
+Now, I've put together a file with some of the really basic commands that you need to
+
+21
+00:01:02,150 --> 00:01:03,949
+know when you're working with Git.
+
+22
+00:01:03,974 --> 00:01:06,290
+And we're going to go through these in this lesson.
+
+23
+00:01:06,410 --> 00:01:11,550
+So go to your course download. In the code directory you'll find AWS Developer Tools
+
+24
+00:01:11,740 --> 00:01:14,470
+and then this file which is basic Git commands.
+
+25
+00:01:14,940 --> 00:01:18,511
+So I'm going to command prompt. I've already installed Git on my machine.
+
+26
+00:01:18,535 --> 00:01:20,760
+And I'm just in my documents folder.
+
+27
+00:01:21,240 --> 00:01:24,558
+And what I want to do is just to make sure that I am running Git
+
+28
+00:01:24,582 --> 00:01:25,740
+and that it's up to date.
+
+29
+00:01:25,800 --> 00:01:27,810
+I can run Git --version.
+
+30
+00:01:28,240 --> 00:01:29,860
+And that shows me the version number.
+
+31
+00:01:30,440 --> 00:01:31,550
+So that all looks good.
+
+32
+00:01:32,040 --> 00:01:33,510
+I'll show you now how you can make
+
+33
+00:01:33,510 --> 00:01:36,230
+and then initialize our repository on your computer.
+
+34
+00:01:36,600 --> 00:01:39,440
+So I'm going to create one called My Repo.
+
+35
+00:01:39,720 --> 00:01:41,960
+So I'm just making a directory on my computer.
+
+36
+00:01:42,340 --> 00:01:45,220
+I'm then going to change to that directory.
+
+37
+00:01:45,530 --> 00:01:46,860
+So I'm in My Repo.
+
+38
+00:01:47,640 --> 00:01:50,550
+And then what I can do is run Git in it.
+
+39
+00:01:50,850 --> 00:01:55,740
+And that will initialize a repository based on this folder that I've created.
+
+40
+00:01:55,890 --> 00:01:59,341
+So now you can see that we are in the master branch.
+
+41
+00:01:59,365 --> 00:02:03,390
+So you can see that we're in a initialized Git repository
+
+42
+00:02:03,690 --> 00:02:05,060
+and we're in the master branch.
+
+43
+00:02:05,300 --> 00:02:07,500
+Now what I'm going to do is create a file.
+
+44
+00:02:07,500 --> 00:02:10,330
+So I'm just going to create a file called my test file.
+
+45
+00:02:10,740 --> 00:02:14,930
+Now I'm on Mac so I'm using the touch utility to do that. That just creates
+
+46
+00:02:15,060 --> 00:02:19,250
+an empty file. So if I ran the LS command I can see that file.
+
+47
+00:02:19,310 --> 00:02:21,700
+If you're on Windows then it might be different.
+
+48
+00:02:21,710 --> 00:02:25,465
+I'm not sure what the best command is for you to use but there will be an equivalent
+
+49
+00:02:25,489 --> 00:02:28,860
+or just go to the directory and create yourself a test file.
+
+50
+00:02:29,240 --> 00:02:33,080
+Now that we have a file, let's run a command which is Git status.
+
+51
+00:02:33,340 --> 00:02:38,045
+Now what happens here is it actually lets me know that there's an untracked file.
+
+52
+00:02:38,069 --> 00:02:42,550
+So just down here we can see it says untracked files, my test file.
+
+53
+00:02:42,900 --> 00:02:46,205
+And that's because I've added a file to the file system
+
+54
+00:02:46,229 --> 00:02:47,750
+but I haven't added it in Git.
+
+55
+00:02:48,050 --> 00:02:49,060
+So I need to do that.
+
+56
+00:02:49,640 --> 00:02:53,060
+I'm going to clear the screen just to bring things down to the middle for you.
+
+57
+00:02:53,510 --> 00:02:55,450
+And I'm going to run Git add.
+
+58
+00:02:56,040 --> 00:03:00,170
+And I can either give it the file name explicitly just to add that one file
+
+59
+00:03:00,170 --> 00:03:03,960
+or if I had more than one file, I can run Git add -A
+
+60
+00:03:04,440 --> 00:03:05,850
+and that will add that file.
+
+61
+00:03:06,440 --> 00:03:09,080
+So now if I run Git status again,
+
+62
+00:03:09,740 --> 00:03:11,060
+you can see things are different.
+
+63
+00:03:11,640 --> 00:03:14,210
+So it now recognizes that a file has been added.
+
+64
+00:03:14,210 --> 00:03:16,820
+It's changed it from being red and untracked
+
+65
+00:03:16,830 --> 00:03:19,860
+to being a new file that's recognized by Git.
+
+66
+00:03:20,240 --> 00:03:23,600
+But it hasn't been committed yet, so it changes to be committed.
+
+67
+00:03:24,340 --> 00:03:26,650
+So to commit it, we can run Git
+
+68
+00:03:27,340 --> 00:03:29,050
+commits -m
+
+69
+00:03:29,500 --> 00:03:30,580
+and then we give it a message.
+
+70
+00:03:30,580 --> 00:03:34,340
+So typically it's a best practice to put in some descriptive
+
+71
+00:03:34,340 --> 00:03:37,560
+message here that lets you know what you've actually committed.
+
+72
+00:03:38,040 --> 00:03:39,860
+I'm just going to call this First Commit
+
+73
+00:03:40,240 --> 00:03:41,050
+and hit enter.
+
+74
+00:03:41,906 --> 00:03:42,921
+And that's done.
+
+75
+00:03:42,945 --> 00:03:45,250
+So now we've actually committed that file.
+
+76
+00:03:45,250 --> 00:03:48,820
+If I clear the screen again and rerun Git status,
+
+77
+00:03:49,540 --> 00:03:53,050
+we can see there's nothing to commit and the working tree is clean.
+
+78
+00:03:53,540 --> 00:03:55,980
+So those were a few very, very simple commands
+
+79
+00:03:56,110 --> 00:03:58,610
+and we're going to be using those commands in this section.
+
+80
+00:03:58,950 --> 00:04:02,571
+The only other command that we'll use is the Git clone command.
+
+81
+00:04:02,595 --> 00:04:05,120
+That's where we clone an existing repository.
+
+82
+00:04:05,310 --> 00:04:08,130
+So what we did here is we created our own directory
+
+83
+00:04:08,290 --> 00:04:10,580
+and we initialized it as a Git repository.
+
+84
+00:04:11,130 --> 00:04:15,640
+The other thing you can do is take the repository URL of a repository
+
+85
+00:04:15,640 --> 00:04:17,024
+that's either in Github,
+
+86
+00:04:17,370 --> 00:04:22,670
+or what we'll be doing in the course is finding a repository in AWS CodeCommit
+
+87
+00:04:22,740 --> 00:04:26,045
+and then we can clone that repository down to our computer
+
+88
+00:04:26,070 --> 00:04:27,860
+and then we can work on the code locally.
+
+89
+00:04:28,440 --> 00:04:31,160
+Now, just to show you how that works. I've gone to Github.
+
+90
+00:04:31,160 --> 00:04:33,720
+I'm looking at this AWS samples page.
+
+91
+00:04:33,800 --> 00:04:36,600
+If I just choose one of these popular repositories
+
+92
+00:04:37,040 --> 00:04:40,520
+and then click on the code here so I get the drop down menu,
+
+93
+00:04:40,640 --> 00:04:42,560
+And we can see this URL.
+
+94
+00:04:43,140 --> 00:04:44,980
+So I can copy this URL.
+
+95
+00:04:45,640 --> 00:04:49,380
+And back on my computer, I'm going to change directories back up to my documents
+
+96
+00:04:50,140 --> 00:04:52,110
+and then I'm going to run Git clone
+
+97
+00:04:52,480 --> 00:04:53,560
+and put in the URL.
+
+98
+00:04:54,140 --> 00:04:59,510
+So that is now cloning the repository from Github down to my local computer.
+
+99
+00:05:00,140 --> 00:05:02,350
+Now I won't be able to make any changes,
+
+100
+00:05:02,400 --> 00:05:04,960
+commit those changes, and then push them back up
+
+101
+00:05:04,960 --> 00:05:07,360
+to the repository because it's not my repository.
+
+102
+00:05:08,240 --> 00:05:11,110
+But when we're working with CodeCommit we will do exactly that.
+
+103
+00:05:11,110 --> 00:05:15,568
+So we'll actually clone our repository from CodeCommit down to our computers,
+
+104
+00:05:15,860 --> 00:05:20,660
+change the code, commit that code, and then push it back up to CodeCommit.
+
+105
+00:05:21,440 --> 00:05:22,888
+So as you can see that's completed.
+
+106
+00:05:22,912 --> 00:05:28,225
+If I change directories into this AWS serverless repository,
+
+107
+00:05:28,476 --> 00:05:33,460
+now I have the master branch of the AWS Serverless workshops.
+
+108
+00:05:33,940 --> 00:05:35,070
+Now we're not going to use this.
+
+109
+00:05:35,080 --> 00:05:39,070
+I'm just going to delete the two repositories that I have on my computer,
+
+110
+00:05:39,100 --> 00:05:42,090
+but this was just to show you an example of working with Git.
+
+111
+00:05:42,420 --> 00:05:44,280
+And in the next hands-on lesson,
+
+112
+00:05:44,290 --> 00:05:49,150
+we'll be going into CodeCommit and creating a repository in AWS CodeCommit.
+

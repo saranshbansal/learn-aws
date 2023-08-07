@@ -1,0 +1,344 @@
+1
+00:00:05,540 --> 00:00:09,290
+Hi guys welcome to the exam cram for management and security.
+
+2
+00:00:09,940 --> 00:00:11,050
+So let's get into IT.
+
+3
+00:00:11,060 --> 00:00:14,320
+Cloudwatch is used for performing monitoring alarms,
+
+4
+00:00:14,320 --> 00:00:16,590
+log collection and automated actions.
+
+5
+00:00:16,870 --> 00:00:22,460
+Core features are cloudwatch metrics. Cloudwatch alarms, Cloudwatch logs
+
+6
+00:00:22,640 --> 00:00:24,100
+and cloudwatch events
+
+7
+00:00:24,540 --> 00:00:28,690
+metrics are sent to cloudwatch for many AWS services.
+
+8
+00:00:28,960 --> 00:00:34,610
+Ec two metrics are sent every five minutes by default and that is free or you enable
+
+9
+00:00:34,610 --> 00:00:38,710
+detailed monitoring and then they get sent every one minute and you have to pay a fee.
+
+10
+00:00:39,440 --> 00:00:42,510
+Unified Cloudwatch agent sends system level metrics
+
+11
+00:00:42,510 --> 00:00:45,260
+for easy to and on premises servers.
+
+12
+00:00:45,640 --> 00:00:48,850
+They include memory and disk usage.
+
+13
+00:00:49,450 --> 00:00:52,600
+The unified cloudwatch agent enables you to do the following,
+
+14
+00:00:53,020 --> 00:00:56,000
+collect those internal system level metrics for your ec.
+
+15
+00:00:56,000 --> 00:00:58,960
+Two instances across operating systems
+
+16
+00:00:59,640 --> 00:01:02,770
+collect system level metrics from on premises servers
+
+17
+00:01:03,240 --> 00:01:07,270
+retrieve custom metrics from your applications or services using the stats.
+
+18
+00:01:07,270 --> 00:01:09,260
+D and collect the protocols
+
+19
+00:01:09,740 --> 00:01:12,350
+and collect logs from ec. Two instances
+
+20
+00:01:12,500 --> 00:01:15,300
+and on premises service for Windows and Linux.
+
+21
+00:01:16,040 --> 00:01:21,110
+The agent must be installed on the server. It can be installed on ec. Two on premises.
+
+22
+00:01:21,760 --> 00:01:23,960
+Windows server or Mac. Os.
+
+23
+00:01:24,740 --> 00:01:28,280
+Cloud trail logs aPI activity for auditing
+
+24
+00:01:28,450 --> 00:01:32,660
+by default management events are logged and retained for 90 days.
+
+25
+00:01:32,950 --> 00:01:38,150
+A cloud trail trail logs any events to s free for then indefinite retention.
+
+26
+00:01:38,740 --> 00:01:42,460
+A trial can be within a region or it can span all regions.
+
+27
+00:01:42,940 --> 00:01:47,050
+Cloudwatch events can be triggered based on aPI calls that are logged in.
+
+28
+00:01:47,050 --> 00:01:47,860
+Cloud trail
+
+29
+00:01:48,240 --> 00:01:51,290
+events can be extreme to cloudwatch logs.
+
+30
+00:01:51,740 --> 00:01:55,260
+Management events provide information about management operations that
+
+31
+00:01:55,260 --> 00:01:58,140
+are performed on resources in your account.
+
+32
+00:01:58,420 --> 00:02:00,790
+We then have data events. These provide
+
+33
+00:02:00,930 --> 00:02:06,050
+information about the resource operations performed on or within a resource
+
+34
+00:02:06,940 --> 00:02:07,590
+insights.
+
+35
+00:02:07,590 --> 00:02:12,550
+Events identify and respond to unusual activity associated with write
+
+36
+00:02:12,560 --> 00:02:17,000
+aPI calls by continuously analyzing cloud trail management events.
+
+37
+00:02:17,440 --> 00:02:20,210
+Kms keys are the primary resources
+
+38
+00:02:20,390 --> 00:02:22,800
+in AWS key management service.
+
+39
+00:02:23,080 --> 00:02:26,750
+They used to be known as customer master keys or C. M. K. S.
+
+40
+00:02:27,140 --> 00:02:32,860
+The KMs key also contains the key material used to encrypt and decrypt data
+
+41
+00:02:33,440 --> 00:02:37,490
+by default, KMs creates the key material for a KMs key.
+
+42
+00:02:37,600 --> 00:02:40,250
+You can also import your own key material.
+
+43
+00:02:40,640 --> 00:02:44,450
+A. K. Meskhi can encrypt data up to four kB in size.
+
+44
+00:02:45,040 --> 00:02:49,390
+A KMs key can generate encrypt and decrypt data encryption keys.
+
+45
+00:02:49,840 --> 00:02:53,930
+Automatic rotation generates new key material every year
+
+46
+00:02:53,940 --> 00:02:56,770
+and that's optional for customer managed keys.
+
+47
+00:02:57,540 --> 00:03:02,400
+It's supported for symmetric keys with key material that AWS KMs creates
+
+48
+00:03:03,210 --> 00:03:05,250
+to share snapshots with another account.
+
+49
+00:03:05,250 --> 00:03:09,050
+You must specify decrypt and create grant permissions.
+
+50
+00:03:09,540 --> 00:03:12,110
+The KMs via service condition key
+
+51
+00:03:12,270 --> 00:03:17,660
+can be used to limit key usage to specific AWS services, cryptographic.
+
+52
+00:03:17,660 --> 00:03:21,830
+Ihr asia means removing the ability to decrypt data and you can
+
+53
+00:03:21,830 --> 00:03:26,660
+achieve that by using imported key material and deleting that key material.
+
+54
+00:03:27,240 --> 00:03:31,950
+You must use the delete imported key material A. P. I. To remove the key material
+
+55
+00:03:32,290 --> 00:03:37,250
+and invalid key I. D. Exception when using the S. S. M. Parameter store
+
+56
+00:03:37,450 --> 00:03:40,060
+indicates the KMs key is not enabled.
+
+57
+00:03:40,380 --> 00:03:43,770
+Make sure you know the differences between AWS managed and
+
+58
+00:03:43,770 --> 00:03:48,150
+customer managed KMs keys and automatic versus manual rotation.
+
+59
+00:03:48,150 --> 00:03:50,360
+That's super important for the exam.
+
+60
+00:03:50,900 --> 00:03:54,610
+Systems manager parameter store provides secure hierarchical
+
+61
+00:03:54,610 --> 00:03:57,470
+storage for configuration data and secrets.
+
+62
+00:03:57,870 --> 00:04:00,520
+It's highly scalable, available and durable.
+
+63
+00:04:00,730 --> 00:04:04,720
+You can store data such as passwords, database strings and license codes
+
+64
+00:04:04,940 --> 00:04:06,270
+as parameter values.
+
+65
+00:04:06,700 --> 00:04:10,760
+It will store values as plaintext, unencrypted data or cipher text,
+
+66
+00:04:10,770 --> 00:04:12,050
+which is encrypted data.
+
+67
+00:04:12,540 --> 00:04:17,250
+It stores and rotates secrets safely without the need for code deployments.
+
+68
+00:04:17,839 --> 00:04:19,440
+We then have Secrets Manager,
+
+69
+00:04:19,850 --> 00:04:24,130
+it offers automatic rotation of credentials and that's built in
+
+70
+00:04:24,300 --> 00:04:27,160
+for RDS with these specific engines
+
+71
+00:04:27,540 --> 00:04:28,500
+or red shift
+
+72
+00:04:28,890 --> 00:04:30,740
+amazon document DB
+
+73
+00:04:30,850 --> 00:04:32,630
+and for other services you can write
+
+74
+00:04:32,630 --> 00:04:35,630
+your own lambda function for automatic rotation.
+
+75
+00:04:35,890 --> 00:04:39,140
+A cognito user pool is a directory for managing
+
+76
+00:04:39,140 --> 00:04:42,650
+sign in and sign up for mobile applications.
+
+77
+00:04:42,840 --> 00:04:44,580
+Users can also sign
+
+78
+00:04:44,700 --> 00:04:47,380
+in using social I. D. P. S.
+
+79
+00:04:47,740 --> 00:04:52,380
+Cognito acts as an identity broker between the I. D. P. And AWS
+
+80
+00:04:52,690 --> 00:04:55,700
+identity pools are used to obtain temporary
+
+81
+00:04:55,710 --> 00:04:59,950
+limited privilege credentials for accessing AWS services
+
+82
+00:05:00,340 --> 00:05:03,270
+identities can come from a cognito user pool
+
+83
+00:05:03,590 --> 00:05:06,510
+and they can also come from Social I. D. P s.
+
+84
+00:05:06,940 --> 00:05:11,650
+Identity paul's used the security token service to obtain the credentials
+
+85
+00:05:12,040 --> 00:05:16,890
+and I am role is then assumed providing access to the AWS services
+
+86
+00:05:17,090 --> 00:05:19,060
+and that's it for this exam Crown
+

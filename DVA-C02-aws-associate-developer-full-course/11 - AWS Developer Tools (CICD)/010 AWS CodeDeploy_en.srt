@@ -1,0 +1,384 @@
+1
+00:00:05,040 --> 00:00:09,790
+In this lesson, you'll learn about AWS CodeDeploy. So what is CodeDeploy?
+
+2
+00:00:09,890 --> 00:00:13,720
+Well, it's a deployment service that will automate your application deployment.
+
+3
+00:00:14,140 --> 00:00:17,960
+It deploys to EC2 instances, on-premises instances,
+
+4
+00:00:18,040 --> 00:00:21,130
+Lambda functions, and Amazon ECS.
+
+5
+00:00:21,640 --> 00:00:24,250
+You can deploy a nearly unlimited variety of
+
+6
+00:00:24,250 --> 00:00:28,290
+application content such as your serverless Lambda functions,
+
+7
+00:00:28,360 --> 00:00:33,325
+Web and configuration files, executables, packages, scripts,
+
+8
+00:00:33,349 --> 00:00:36,200
+and multimedia files and of course, much much more.
+
+9
+00:00:36,560 --> 00:00:39,990
+A CodeDeploy application contains information about what
+
+10
+00:00:39,990 --> 00:00:42,060
+to deploy and how to deploy it.
+
+11
+00:00:42,440 --> 00:00:45,210
+And you need to select your compute platform.
+
+12
+00:00:45,220 --> 00:00:51,050
+It's either going to be EC2 or on-premises, Lambda or Amazon ECS.
+
+13
+00:00:51,440 --> 00:00:54,950
+So let's see what options there are with EC2 and on-premises.
+
+14
+00:00:55,440 --> 00:00:58,730
+So this is where you're deploying to Amazon EC2 of course, or
+
+15
+00:00:58,730 --> 00:01:02,550
+your servers that are actually on-premises or both at the same time.
+
+16
+00:01:03,140 --> 00:01:08,210
+Traffic is directed using an in-place or a blue/green deployment type.
+
+17
+00:01:08,460 --> 00:01:11,620
+Now, for the exam, you will fully need to understand
+
+18
+00:01:11,860 --> 00:01:14,320
+the various different traffic direction options
+
+19
+00:01:14,320 --> 00:01:17,180
+that are available per deployment type.
+
+20
+00:01:17,390 --> 00:01:19,590
+So in this case, EC2 on-premises,
+
+21
+00:01:19,590 --> 00:01:23,460
+you've got to remember you have the options of in place or blue/green.
+
+22
+00:01:24,240 --> 00:01:27,110
+So let's see what these two different deployment types look like.
+
+23
+00:01:27,440 --> 00:01:32,161
+Let's say we have an EC2 instance, CodeDeploy and we send an update.
+
+24
+00:01:32,185 --> 00:01:34,470
+And it's taken the instance out of action
+
+25
+00:01:34,650 --> 00:01:38,010
+and now the instances back again. So the code has been deployed.
+
+26
+00:01:38,740 --> 00:01:41,130
+And that's an example of an in-place deployment.
+
+27
+00:01:41,330 --> 00:01:45,260
+So in this case the actual running instance, the one that's running your code,
+
+28
+00:01:45,260 --> 00:01:49,700
+which potentially could be a production application has had
+
+29
+00:01:49,700 --> 00:01:51,990
+the code updated while it's actually running.
+
+30
+00:01:52,000 --> 00:01:55,660
+So that means the application is likely to experience downtime.
+
+31
+00:01:56,640 --> 00:01:59,070
+So let's see how a blue/green deployment works.
+
+32
+00:01:59,540 --> 00:02:03,350
+Well in this case you might have your live traffic going to target group one.
+
+33
+00:02:04,140 --> 00:02:08,130
+CodeDeploy is going to actually update target group two
+
+34
+00:02:08,508 --> 00:02:11,160
+and then it's going to take out target group one.
+
+35
+00:02:11,710 --> 00:02:14,850
+Next we have the AWS Lambda deployment type.
+
+36
+00:02:15,340 --> 00:02:17,830
+This is used to deploy applications that consists
+
+37
+00:02:17,830 --> 00:02:20,760
+of an updated version of a Lambda function.
+
+38
+00:02:21,140 --> 00:02:24,620
+You can manage the way that traffic is shifted to the new version of
+
+39
+00:02:24,620 --> 00:02:30,350
+the application by choosing either a canary, linear, or all at once configuration.
+
+40
+00:02:30,940 --> 00:02:32,005
+So how does this look?
+
+41
+00:02:32,029 --> 00:02:34,960
+Well, let's say we have our function with version one
+
+42
+00:02:35,340 --> 00:02:37,560
+and our traffic is going to that function.
+
+43
+00:02:38,140 --> 00:02:41,950
+Then CodeDeploy actually deploys function version two
+
+44
+00:02:42,340 --> 00:02:44,610
+and that's our new version of the function.
+
+45
+00:02:44,850 --> 00:02:50,110
+Then traffic is shifted across to it using either the canary, linear, or all at once.
+
+46
+00:02:50,840 --> 00:02:52,380
+And in a moment I'll cover what
+
+47
+00:02:52,380 --> 00:02:55,160
+those different traffic shifting options actually mean.
+
+48
+00:02:55,890 --> 00:02:58,071
+Next we have the ECS deployment type.
+
+49
+00:02:58,095 --> 00:03:02,780
+This is used to deploy an ECS containerized application as a task set.
+
+50
+00:03:03,530 --> 00:03:05,930
+CodeDeploy performs a blue/green deployment by
+
+51
+00:03:05,930 --> 00:03:10,460
+installing an updated version of the application as a new replacement task set.
+
+52
+00:03:10,940 --> 00:03:14,210
+CodeDeploy will then reroute the production traffic from the
+
+53
+00:03:14,210 --> 00:03:16,660
+original task set to the new task set.
+
+54
+00:03:17,140 --> 00:03:21,160
+The original task set is then terminated after a successful deployment.
+
+55
+00:03:21,540 --> 00:03:24,680
+We're able to shift the traffic across again using
+
+56
+00:03:24,680 --> 00:03:28,160
+either a canary, linear, or all at once configuration.
+
+57
+00:03:28,640 --> 00:03:32,370
+And here we can see an example with CodeDeploy and Amazon ECS.
+
+58
+00:03:32,940 --> 00:03:37,385
+So CodeDeploy will coordinate the deployment with Elastic Container Service
+
+59
+00:03:37,409 --> 00:03:39,480
+and the Application Load Balancer.
+
+60
+00:03:39,940 --> 00:03:43,900
+Here comes our new task set and then our original task set will
+
+61
+00:03:43,900 --> 00:03:46,670
+be removed once a successful traffic shifting
+
+62
+00:03:46,670 --> 00:03:48,960
+and a successful deployment has completed.
+
+63
+00:03:49,740 --> 00:03:52,860
+Now, let's have a look into a bit more detail about traffic shifting.
+
+64
+00:03:53,340 --> 00:03:56,220
+So with Lambda, traffic is shifted from one version of
+
+65
+00:03:56,220 --> 00:03:59,760
+a Lambda function to a new version of the same function.
+
+66
+00:04:00,340 --> 00:04:05,250
+With ECS, traffic is shifted from a task set in your ECS service to an updated
+
+67
+00:04:05,360 --> 00:04:09,060
+replacement task set in the same ECS service.
+
+68
+00:04:09,540 --> 00:04:11,280
+With EC2 or on-premises,
+
+69
+00:04:11,305 --> 00:04:15,385
+traffic is shifted from one set of instances in the original environment
+
+70
+00:04:15,520 --> 00:04:17,860
+to a replacement set of instances.
+
+71
+00:04:18,829 --> 00:04:22,660
+Note that all AWS Lambda and ECS deployments are blue/green.
+
+72
+00:04:23,040 --> 00:04:27,450
+An EC2 on-premises deployment can be in-place or blue/green.
+
+73
+00:04:27,840 --> 00:04:29,570
+For Amazon ECS and Lambda,
+
+74
+00:04:29,570 --> 00:04:32,850
+there are three ways traffic can be shifted during a deployment.
+
+75
+00:04:33,240 --> 00:04:35,100
+So firstly we have canary.
+
+76
+00:04:35,520 --> 00:04:38,700
+So here traffic is shifted in two increments.
+
+77
+00:04:38,980 --> 00:04:42,180
+And you get to choose from predefined canary options
+
+78
+00:04:42,180 --> 00:04:46,060
+that specify the percentage of traffic that is shifted to
+
+79
+00:04:46,220 --> 00:04:50,670
+ECS or Lambda in the first increment and the interval in
+
+80
+00:04:50,670 --> 00:04:54,560
+minutes before the remaining traffic is shifted in the second increment.
+
+81
+00:04:55,340 --> 00:04:56,485
+Then we have linear.
+
+82
+00:04:56,770 --> 00:05:01,311
+Here, traffic is shifted in equal increments, with an equal number of minutes
+
+83
+00:05:01,335 --> 00:05:02,750
+between each increment.
+
+84
+00:05:03,140 --> 00:05:05,990
+And you can choose from predefined linear options
+
+85
+00:05:06,130 --> 00:05:09,120
+that specify the percentage of traffic in each increment
+
+86
+00:05:09,130 --> 00:05:11,860
+and the number of minutes between each increment.
+
+87
+00:05:12,340 --> 00:05:13,680
+And then we have all at once.
+
+88
+00:05:13,680 --> 00:05:14,431
+In this case,
+
+89
+00:05:14,455 --> 00:05:19,080
+all traffic is shifted from the original ECS task set or Lambda function,
+
+90
+00:05:19,130 --> 00:05:23,570
+to the updated task set or the new Lambda function version all at once.
+
+91
+00:05:24,340 --> 00:05:28,080
+Now, that was a lot of theory, but you really do need to understand this theory
+
+92
+00:05:28,080 --> 00:05:28,848
+for the exam.
+
+93
+00:05:28,872 --> 00:05:32,140
+We're going to do some hands-on, but the theory is essential for this.
+
+94
+00:05:32,150 --> 00:05:36,750
+You absolutely will see questions that test your knowledge of these various
+
+95
+00:05:36,750 --> 00:05:39,230
+different deployment options and the various
+
+96
+00:05:39,230 --> 00:05:41,560
+different traffic shifting options as well.
+

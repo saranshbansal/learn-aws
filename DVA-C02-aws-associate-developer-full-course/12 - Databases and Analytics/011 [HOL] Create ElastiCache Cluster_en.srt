@@ -1,0 +1,356 @@
+1
+00:00:05,240 --> 00:00:07,160
+Hi, guys. Welcome to this hands-on lesson.
+
+2
+00:00:07,370 --> 00:00:11,390
+What we're going to do is launch an Amazon ElastiCache Redis cluster.
+
+3
+00:00:11,660 --> 00:00:15,200
+So let's head over to the console. In the AWS management console,
+
+4
+00:00:15,380 --> 00:00:19,280
+I'm on the ElastiCache dashboard and I'm going to choose the get started button.
+
+5
+00:00:19,700 --> 00:00:21,620
+I can now choose my cluster engine.
+
+6
+00:00:21,890 --> 00:00:25,490
+Let's have a look first at the different options available for Memcached.
+
+7
+00:00:26,420 --> 00:00:31,700
+We can deploy in the Amazon cloud or on premises if you have AWS Outposts.
+
+8
+00:00:32,479 --> 00:00:34,010
+You can then choose a name.
+
+9
+00:00:34,340 --> 00:00:39,050
+You can specify which version compatibility you want, port numbers and so on.
+
+10
+00:00:39,560 --> 00:00:45,830
+Now, for node type, we might want to change to t2.micro here. So that's an important point to remember
+
+11
+00:00:45,830 --> 00:00:46,880
+about ElastiCache.
+
+12
+00:00:47,060 --> 00:00:51,800
+It is based EC2 instances you're paying for these nodes when they're provisioned.
+
+13
+00:00:52,520 --> 00:00:56,810
+We can now choose the number of nodes we want. With Memcached,
+
+14
+00:00:57,110 --> 00:00:59,870
+each node is a separate partition of data.
+
+15
+00:01:00,410 --> 00:01:02,150
+So maybe I want three nodes.
+
+16
+00:01:02,870 --> 00:01:04,640
+I can now choose my VPC.
+
+17
+00:01:04,970 --> 00:01:12,710
+I'm going to use the default VPC and then I can create a subnet group. So, I've given it a name and a description.
+
+18
+00:01:13,640 --> 00:01:19,340
+Now, I can select the subnets I want to use. So maybe I want to use A, B, and C.
+
+19
+00:01:19,970 --> 00:01:21,380
+I can then select the zones.
+
+20
+00:01:21,920 --> 00:01:26,240
+So now, I can select which zones I want each of my nodes to be in.
+
+21
+00:01:26,660 --> 00:01:29,690
+So maybe I'll choose 1A, 1B, and 1C.
+
+22
+00:01:29,690 --> 00:01:36,230
+So now, I'm using three different availability zones, so each partition of data will be in a separate
+
+23
+00:01:36,230 --> 00:01:36,770
+AZ.
+
+24
+00:01:37,280 --> 00:01:40,880
+You can then choose your security group and your maintenance window.
+
+25
+00:01:41,330 --> 00:01:45,290
+So, we're just going to cancel out of here so we don't have anything saved in the console.
+
+26
+00:01:45,590 --> 00:01:48,290
+Go back to create and choose Redis.
+
+27
+00:01:48,560 --> 00:01:54,200
+Now, of course, with Redis, we have two options, either just Redis on its own with the cluster
+
+28
+00:01:54,200 --> 00:01:56,960
+mode disabled or cluster mode enabled.
+
+29
+00:01:57,470 --> 00:02:00,590
+Now, I'm just going to scroll up and try to get all this on the screen.
+
+30
+00:02:00,950 --> 00:02:06,950
+What I want to show you is what changes down here in the bottom part of the screen when I enable cluster
+
+31
+00:02:06,950 --> 00:02:07,610
+mode enabled.
+
+32
+00:02:07,620 --> 00:02:11,720
+So, keep an eye on the bottom of the screen, let's select the cluster mode enabled.
+
+33
+00:02:12,140 --> 00:02:18,470
+And as you can see, now, we can specify the number of shots and the replicas per shard. If I turn it
+
+34
+00:02:18,470 --> 00:02:18,890
+off,
+
+35
+00:02:19,190 --> 00:02:23,060
+we just get the number of replicas and we have an option for multi-AZ.
+
+36
+00:02:23,480 --> 00:02:26,280
+Now we're going to leave it off. Let's scroll down.
+
+37
+00:02:26,300 --> 00:02:28,820
+Let's give this a name and a description.
+
+38
+00:02:29,180 --> 00:02:34,940
+I'm going to leave the defaults for the version compatibility and the port and the parameter group for
+
+39
+00:02:34,940 --> 00:02:40,910
+node type I will change to t2.micro. Click on save. Under subnet group,
+
+40
+00:02:40,910 --> 00:02:47,930
+I'm first going to change my VPC. Then I'll specify the name of a subnet group and provide a description.
+
+41
+00:02:48,740 --> 00:02:50,750
+And now we can select the subnet.
+
+42
+00:02:50,750 --> 00:02:54,380
+So maybe again, I want to choose A, B, and C.
+
+43
+00:02:55,040 --> 00:03:02,390
+Let's choose our zones and we've got our primary now and two replicas. So we can have those across different
+
+44
+00:03:02,390 --> 00:03:03,560
+availability zones.
+
+45
+00:03:03,980 --> 00:03:09,170
+Now, if I went back up to change the number of replicas here and come back down again,
+
+46
+00:03:09,590 --> 00:03:13,040
+so now I have a third replica and I could put that in a different AZ.
+
+47
+00:03:13,370 --> 00:03:18,020
+I'm just going to stick to two replicas. Let's come back down the page again.
+
+48
+00:03:18,530 --> 00:03:20,450
+Security groups, I'm going to leave as they are.
+
+49
+00:03:20,870 --> 00:03:26,810
+We could select encryption at rest here and choose a default key or a customer managed customer master
+
+50
+00:03:26,810 --> 00:03:27,110
+key.
+
+51
+00:03:27,650 --> 00:03:28,520
+I'm going to leave that off.
+
+52
+00:03:29,090 --> 00:03:34,520
+You can enable encryption in transit and choose from these different access control options.
+
+53
+00:03:34,520 --> 00:03:37,880
+So you've got user group Access Control Lists or Redis Auth.
+
+54
+00:03:37,910 --> 00:03:41,840
+If you use Redis Auth, you have to specify the name of a token.
+
+55
+00:03:42,590 --> 00:03:43,490
+We're going to leave it off.
+
+56
+00:03:43,790 --> 00:03:50,990
+You can enable slow logs for slow running queries, and you can seed the data from an S3 location.
+
+57
+00:03:51,650 --> 00:03:56,600
+Now we're going to leave the remaining defaults, including the backup as enable automatic backups
+
+58
+00:03:56,600 --> 00:04:00,200
+with a retention period of one day. For maintenance window,
+
+59
+00:04:00,200 --> 00:04:02,930
+we'll leave that as the default and just select create.
+
+60
+00:04:03,290 --> 00:04:08,150
+The database is now in the creating state and we'll just need to wait a few minutes for that to complete.
+
+61
+00:04:08,750 --> 00:04:14,990
+My database is now ready and we can see the cluster is in the available state and it's all up to date.
+
+62
+00:04:15,470 --> 00:04:20,750
+If I just expand the menu here, we can see quite a bit of information, including the ARN.
+
+63
+00:04:20,990 --> 00:04:26,210
+We can see the primary endpoints, the engine, availability zones in use and much more.
+
+64
+00:04:26,900 --> 00:04:32,420
+Now, if you want information about the nodes, click on the cluster name and you can see the nodes
+
+65
+00:04:32,420 --> 00:04:32,720
+here.
+
+66
+00:04:33,020 --> 00:04:36,470
+Now, I just want to show you a couple of things back up the cluster level first.
+
+67
+00:04:37,070 --> 00:04:42,170
+If we select the cluster in the action’s menu, we can modify our cluster if we want.
+
+68
+00:04:42,530 --> 00:04:46,340
+Now, this is where we would go if we wanted to change the node type.
+
+69
+00:04:46,340 --> 00:04:51,230
+So, if we wanted to scale up, we could come in here and change to a different node type.
+
+70
+00:04:51,680 --> 00:04:57,740
+I'm going to cancel out of there and then go back in to the nodes. Now, for the nodes
+
+71
+00:04:57,830 --> 00:05:00,440
+we've got the primary and two different replicas.
+
+72
+00:05:00,950 --> 00:05:04,640
+If I choose the primary, actions, I can failover the
+
+73
+00:05:04,700 --> 00:05:13,880
+primary. If I choose a replica and go to actions, I can promote the replica. And then also we can scale
+
+74
+00:05:14,090 --> 00:05:19,760
+horizontally by adding a read replica to the cluster. We just give it a name and then choose the
+
+75
+00:05:19,760 --> 00:05:21,560
+AZ that we want the replica to be in.
+
+76
+00:05:22,160 --> 00:05:27,500
+Now, with a node selected, if we drag up this menu at the bottom here, you can see that we have some
+
+77
+00:05:27,500 --> 00:05:29,630
+node specific CloudWatch metrics.
+
+78
+00:05:30,020 --> 00:05:35,990
+And if we select a different node, we can see some different metrics here. So, you can view that information
+
+79
+00:05:36,230 --> 00:05:42,500
+over in CloudWatch, or you can see it here on a per node basis. Coming back up to the cluster level,
+
+80
+00:05:42,830 --> 00:05:47,750
+if I select the cluster and go to actions, you can also create a backup here as well.
+
+81
+00:05:48,350 --> 00:05:54,350
+So, with my cluster selected, I can give it a name and choose whoever I want to encrypt the backup and create
+
+82
+00:05:54,350 --> 00:06:00,050
+the backup, and that will then be viewable on the left-hand side under backups. Under events on the left
+
+83
+00:06:00,050 --> 00:06:00,580
+hand-side
+
+84
+00:06:00,590 --> 00:06:04,740
+here we can also see some information about recent events for the cluster.
+
+85
+00:06:05,060 --> 00:06:09,830
+We can see the cluster being created and we can see the different cache nodes being added as well.
+
+86
+00:06:10,370 --> 00:06:13,820
+So let's head back up to Redis, and I have finished with this cluster for now.
+
+87
+00:06:14,120 --> 00:06:18,170
+So, what I'm going to do is select the cluster, go to actions, and delete.
+
+88
+00:06:19,040 --> 00:06:22,730
+I don't want to create a final backup, so I just choose no and then delete.
+
+89
+00:06:23,900 --> 00:06:26,420
+And that would take a few minutes now to delete your cluster.
+

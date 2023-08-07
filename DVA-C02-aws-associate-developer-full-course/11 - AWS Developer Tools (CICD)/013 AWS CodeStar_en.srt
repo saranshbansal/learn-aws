@@ -1,0 +1,128 @@
+1
+00:00:05,340 --> 00:00:08,410
+CodeStar is another service that you don't need to know too much
+
+2
+00:00:08,410 --> 00:00:10,880
+about for the exam but it does come up here and there.
+
+3
+00:00:10,890 --> 00:00:15,270
+So just a basic understanding of what it is and how it works will suffice.
+
+4
+00:00:15,840 --> 00:00:21,250
+So, CodeStar enables you to quickly develop, build, and deploy applications on AWS.
+
+5
+00:00:21,420 --> 00:00:24,700
+And it's basically a pre-configured continuous delivery
+
+6
+00:00:24,700 --> 00:00:27,790
+toolchain for developing, building, testing, and deploying.
+
+7
+00:00:27,870 --> 00:00:31,170
+So it pulls together a lot of what we've learned about in this section
+
+8
+00:00:31,290 --> 00:00:33,670
+into one place so that with a couple of clicks,
+
+9
+00:00:33,670 --> 00:00:36,900
+you're building out your entire pipeline and it's deploying your
+
+10
+00:00:36,900 --> 00:00:40,400
+application for you based on some pre-configured options.
+
+11
+00:00:40,840 --> 00:00:45,785
+You can use project templates to develop applications on services like EC2,
+
+12
+00:00:45,809 --> 00:00:47,950
+Lambda, and Elastic Beanstalk.
+
+13
+00:00:48,340 --> 00:00:51,730
+You can also use code editors like Visual Studio, Eclipse,
+
+14
+00:00:51,755 --> 00:00:53,618
+or the AWS CLI.
+
+15
+00:00:53,642 --> 00:00:57,730
+With CodeStar, you use IAM to manage developer identities.
+
+16
+00:00:58,010 --> 00:01:01,980
+And there's built-in role-based policies for secure team access.
+
+17
+00:01:02,440 --> 00:01:07,250
+You get to share projects with your team with three different access levels.
+
+18
+00:01:07,360 --> 00:01:10,310
+You've got owners, contributors, and viewers.
+
+19
+00:01:10,570 --> 00:01:14,380
+Application code is stored in AWS CodeCommit.
+
+20
+00:01:14,490 --> 00:01:18,250
+And CodeStar compiles and packages source code with CodeBuild.
+
+21
+00:01:18,640 --> 00:01:22,730
+And a pre-configured pipeline is created for you using CodePipeline.
+
+22
+00:01:23,070 --> 00:01:25,490
+The actual deployments are automated as well
+
+23
+00:01:25,500 --> 00:01:28,300
+using CodeDeploy and CloudFormation.
+
+24
+00:01:28,700 --> 00:01:30,250
+So pulling all that together,
+
+25
+00:01:30,640 --> 00:01:33,460
+With CodeStar, you can connect your ID
+
+26
+00:01:33,460 --> 00:01:36,160
+to CodeStar, your integrated development environment.
+
+27
+00:01:36,640 --> 00:01:40,330
+CodeStar will then basically take care of everything for you.
+
+28
+00:01:40,570 --> 00:01:44,978
+So it will coordinate CloudFormation, CodeCommit, CodeBuild, and CodeDeploy.
+
+29
+00:01:45,002 --> 00:01:47,230
+And it will create things like buckets,
+
+30
+00:01:47,240 --> 00:01:51,010
+Lambda functions, API endpoints, or part of the application
+
+31
+00:01:51,010 --> 00:01:53,526
+deployment and all managed by CodeStar.
+
+32
+00:01:53,551 --> 00:01:56,050
+And that's it for this lesson. I will see you in the next one.
+

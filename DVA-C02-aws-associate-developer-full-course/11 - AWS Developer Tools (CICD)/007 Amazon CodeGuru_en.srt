@@ -1,0 +1,148 @@
+1
+00:00:05,140 --> 00:00:09,200
+Amazon CodeGuru is one of those services that may come up in
+
+2
+00:00:09,200 --> 00:00:12,190
+the odd exam question or you might not see it at all.
+
+3
+00:00:12,460 --> 00:00:15,740
+If it does come up, you probably only need to know the fundamentals.
+
+4
+00:00:15,740 --> 00:00:19,060
+It's unlikely you'll be tested on the implementation.
+
+5
+00:00:19,540 --> 00:00:22,150
+So let's go over the basics of CodeGuru.
+
+6
+00:00:22,390 --> 00:00:23,120
+So what is it?
+
+7
+00:00:23,120 --> 00:00:25,610
+Well, it's a service that provides intelligent
+
+8
+00:00:25,610 --> 00:00:29,100
+recommendations for improving application performance,
+
+9
+00:00:29,230 --> 00:00:32,080
+efficiency, and the quality of your code.
+
+10
+00:00:32,450 --> 00:00:35,020
+It's made up of two services.
+
+11
+00:00:35,180 --> 00:00:40,800
+The first is CodeGuru Reviewer and the second is CodeGuru Profiler.
+
+12
+00:00:41,340 --> 00:00:43,650
+So let's start off going over Reviewer.
+
+13
+00:00:44,140 --> 00:00:47,180
+This review's your Java and Python code
+
+14
+00:00:47,250 --> 00:00:51,160
+and offers suggestions for improving your code quality.
+
+15
+00:00:51,790 --> 00:00:54,880
+Suggestions are based on best practices.
+
+16
+00:00:55,220 --> 00:01:00,740
+It finds complex issues such as resource leak and security analysis issues.
+
+17
+00:01:01,640 --> 00:01:04,959
+It also integrates with AWS Secrets Manager
+
+18
+00:01:05,110 --> 00:01:11,125
+so that you can use a secret detector that finds unprotected secrets in your code.
+
+19
+00:01:11,149 --> 00:01:15,200
+So if you add something that should be secret into your source code,
+
+20
+00:01:15,380 --> 00:01:21,050
+then it can identify that and hopefully help you to close a potential security hole.
+
+21
+00:01:21,740 --> 00:01:27,725
+It supports the following source providers. So CodeCommit, Bitbucket, GitHub,
+
+22
+00:01:27,749 --> 00:01:33,230
+GitHub Enterprise Cloud, GitHub Enterprise Server, and Amazon S3.
+
+23
+00:01:33,600 --> 00:01:35,750
+Next we have CodeGuru Profiler.
+
+24
+00:01:36,340 --> 00:01:38,200
+What this service does is it collects
+
+25
+00:01:38,200 --> 00:01:41,500
+runtime performance data from your live applications
+
+26
+00:01:41,750 --> 00:01:44,070
+and then provides recommendations that you can
+
+27
+00:01:44,070 --> 00:01:47,070
+use to fine tune application performance.
+
+28
+00:01:47,480 --> 00:01:52,080
+CodeGuru profiler provides various visualizations to help you identify
+
+29
+00:01:52,080 --> 00:01:57,850
+things such as what code is running on your CPU, how much time is consumed,
+
+30
+00:01:58,240 --> 00:02:01,180
+ways to reduce your CPU utilization.
+
+31
+00:02:01,400 --> 00:02:07,150
+Profiling also includes latency and CPU utilization issues in your application
+
+32
+00:02:07,410 --> 00:02:10,180
+and offers recommendations for ways you can reduce
+
+33
+00:02:10,180 --> 00:02:13,400
+your infrastructure costs of running your application.
+
+34
+00:02:13,810 --> 00:02:17,751
+It will also identify application performance issues and help you
+
+35
+00:02:17,776 --> 00:02:21,460
+understand your applications heap utilization over time.
+
+36
+00:02:22,040 --> 00:02:25,520
+So those are the basics. I doubt you'll need to know any more than that.
+
+37
+00:02:25,530 --> 00:02:27,993
+So that's it for this lesson. I'll see you in the next one.
+

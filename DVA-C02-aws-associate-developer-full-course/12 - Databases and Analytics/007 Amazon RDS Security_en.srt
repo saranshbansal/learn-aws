@@ -1,0 +1,200 @@
+1
+00:00:05,400 --> 00:00:11,320
+Hi, guys. In this lesson, we're going to dive a bit deeper into the security aspects of Amazon RDS.
+
+2
+00:00:11,340 --> 00:00:19,170
+So with RDS, we run our RDS databases within a VPC. Our RDS database will have an IP address.
+
+3
+00:00:19,620 --> 00:00:26,820
+Now, we can connect to an RDS database over the internet. And we saw that option in the console where
+
+4
+00:00:26,820 --> 00:00:30,060
+you can select to make your database publicly available.
+
+5
+00:00:30,360 --> 00:00:34,140
+Now we also have security groups assigned to our database.
+
+6
+00:00:34,410 --> 00:00:36,960
+So maybe you've got one called RDS SG.
+
+7
+00:00:37,740 --> 00:00:43,110
+We then have our EC2 instances, our applications that want to connect to the database.
+
+8
+00:00:43,740 --> 00:00:49,710
+They should also have their own security group. And according to best practice, they would have a separate
+
+9
+00:00:49,710 --> 00:00:52,080
+security group to the RDS database.
+
+10
+00:00:52,530 --> 00:00:59,280
+And then we'd create a rule that allows the App Security Group to access the database on the relevant
+
+11
+00:00:59,280 --> 00:00:59,700
+port.
+
+12
+00:01:00,060 --> 00:01:03,150
+If it's MySQL, that will be 3306.
+
+13
+00:01:03,570 --> 00:01:11,550
+Now we can also enable SSL/TLS encryption so that we have encryption in transit for the connection from
+
+14
+00:01:11,550 --> 00:01:15,640
+the application to the database. As well as encryption in transit,
+
+15
+00:01:15,660 --> 00:01:22,620
+we might want to encrypt the actual database volume at rest. For that we can enable RDS encryption,
+
+16
+00:01:22,830 --> 00:01:29,370
+which will encrypt the database at rest including the database volume and any snapshots that we create.
+
+17
+00:01:29,640 --> 00:01:34,440
+And that uses the advanced encryption standard 256-bit encryption.
+
+18
+00:01:34,800 --> 00:01:41,490
+So, with encryption at rest, that includes the database storage, backups, read replicas, and snapshots
+
+19
+00:01:41,490 --> 00:01:42,450
+that you might create.
+
+20
+00:01:42,990 --> 00:01:48,810
+You can only enable encryption at the point in time that you create the database, so it's not something
+
+21
+00:01:48,810 --> 00:01:55,890
+you can change after you've created the database. And that includes disabling encryption for databases
+
+22
+00:01:55,890 --> 00:01:57,210
+that you've already encrypted.
+
+23
+00:01:57,600 --> 00:02:04,740
+The AES 256-bit encryption is a very strong encryption standard, but it has minimal performance impact
+
+24
+00:02:04,740 --> 00:02:05,570
+on RDS.
+
+25
+00:02:05,910 --> 00:02:12,990
+If you're running Oracle or SQL Server, you also have support for the transparent data encryption standard
+
+26
+00:02:13,200 --> 00:02:15,210
+and that can have a performance impact.
+
+27
+00:02:15,540 --> 00:02:21,990
+The AWS Key Management Service, KMS is used for managing the encryption keys that you use to encrypt
+
+28
+00:02:22,260 --> 00:02:23,520
+RDS databases.
+
+29
+00:02:23,880 --> 00:02:27,580
+A couple of really important exam tips for RDS encryption.
+
+30
+00:02:28,170 --> 00:02:35,160
+So just to be clear, you cannot have an encrypted read replica of an unencrypted DB Instance or an
+
+31
+00:02:35,160 --> 00:02:38,550
+unencrypted read replica of an encrypted DB Instance.
+
+32
+00:02:39,030 --> 00:02:45,360
+So in other words, the read replica will always have the same encryption status as the primary. So,
+
+33
+00:02:45,360 --> 00:02:50,160
+a read replica of an encrypted primary will be encrypted. When you create a read replica,
+
+34
+00:02:50,170 --> 00:02:55,500
+the same KMS key is used if the replica is in the same region as the primary.
+
+35
+00:02:55,920 --> 00:03:00,870
+if the replica is in a different region, then a different KMS key will be used.
+
+36
+00:03:01,320 --> 00:03:07,680
+You also can't restore an unencrypted backup or snapshot to an encrypted DB instance.
+
+37
+00:03:08,040 --> 00:03:13,920
+So again, it's about not being able to change the encryption status of an existing database.
+
+38
+00:03:14,220 --> 00:03:17,870
+Now, how do we then change the encryption status of our database?
+
+39
+00:03:17,880 --> 00:03:24,870
+Well, key exam tip is you cannot do it for an existing instance. But what you can do is with your
+
+40
+00:03:24,870 --> 00:03:26,820
+RDS database that's unencrypted,
+
+41
+00:03:27,540 --> 00:03:31,170
+take a DB snapshot, which will also be unencrypted.
+
+42
+00:03:31,500 --> 00:03:38,400
+Copy that snapshot to an encrypted snapshot, and then you'll be able to create an RDS instance
+
+43
+00:03:38,400 --> 00:03:39,420
+with a new endpoint.
+
+44
+00:03:39,780 --> 00:03:42,260
+So the point is, it is a different database,
+
+45
+00:03:42,270 --> 00:03:43,710
+not the same database.
+
+46
+00:03:43,980 --> 00:03:50,820
+It's a copy of the same data, the same database tables, but it is a different database endpoint,
+
+47
+00:03:51,090 --> 00:03:56,070
+so you now need to update your application to point to the new encrypted database.
+
+48
+00:03:56,340 --> 00:03:58,050
+That's it for RDS security.
+
+49
+00:03:58,260 --> 00:04:03,660
+And in the next lesson, we're going to do a hands-on where you'll see how to encrypt a copy of our
+
+50
+00:04:03,660 --> 00:04:06,630
+snapshots and then create a database from it.
+

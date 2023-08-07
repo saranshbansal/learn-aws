@@ -1,0 +1,92 @@
+1
+00:00:05,140 --> 00:00:09,210
+The Kinesis Client Library is an important component of using Kinesis
+
+2
+00:00:09,370 --> 00:00:13,810
+and being able to consume and process messages from Kinesis.
+
+3
+00:00:13,930 --> 00:00:19,000
+So the KCL helps you consume and process data from a Kinesis Data Stream.
+
+4
+00:00:19,280 --> 00:00:23,710
+And it's different from the data streams API that is available in the SDKs.
+
+5
+00:00:23,940 --> 00:00:28,560
+The Kinesis Data Streams API helps you manage many aspects of KDS
+
+6
+00:00:28,570 --> 00:00:32,920
+including creating streams, resharding, and putting and getting records.
+
+7
+00:00:33,370 --> 00:00:35,820
+The KCL provides a layer of abstraction
+
+8
+00:00:35,850 --> 00:00:39,760
+specifically for processing data in a consumer role.
+
+9
+00:00:39,880 --> 00:00:44,660
+So let's say we have a Kinesis Data Stream and here we have our various shards.
+
+10
+00:00:45,040 --> 00:00:49,470
+We then have EC2 instances running the KCL worker.
+
+11
+00:00:49,490 --> 00:00:52,415
+KCL enumerates the shards and instantiates
+
+12
+00:00:52,440 --> 00:00:55,810
+a record processor for each shard that it manages.
+
+13
+00:00:56,010 --> 00:01:00,640
+We can see that these KCL workers may have multiple record processes.
+
+14
+00:01:01,040 --> 00:01:04,560
+Each shard is processed by exactly one KCL
+
+15
+00:01:04,560 --> 00:01:08,720
+worker and has exactly one corresponding record processor.
+
+16
+00:01:08,930 --> 00:01:13,660
+So you don't ever need to have multiple instances to process one shard.
+
+17
+00:01:14,040 --> 00:01:17,070
+But one worker can process any number of shards.
+
+18
+00:01:17,170 --> 00:01:21,480
+So it's okay if the number of shards exceeds the number of instances.
+
+19
+00:01:21,940 --> 00:01:26,090
+So to visualize that we have our Kinesis Data Stream with multiple shards,
+
+20
+00:01:26,150 --> 00:01:30,550
+we have a couple of KCL workers each with multiple record processes.
+
+21
+00:01:30,940 --> 00:01:35,860
+As I said, each shard is processed by exactly one KCL worker.
+
+22
+00:01:36,060 --> 00:01:39,490
+So each of those record processes maps to one shard.
+
+23
+00:01:39,950 --> 00:01:42,760
+And that's it for KCL. I'll see you in the next lesson
+

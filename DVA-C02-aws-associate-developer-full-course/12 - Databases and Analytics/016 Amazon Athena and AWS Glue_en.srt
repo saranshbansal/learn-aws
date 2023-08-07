@@ -1,0 +1,208 @@
+1
+00:00:05,550 --> 00:00:09,462
+Hi, guys. In this lesson, we're going to cover off two analytic services.
+
+2
+00:00:09,600 --> 00:00:12,960
+One is Amazon Athena and the other is AWS Glue.
+
+3
+00:00:13,740 --> 00:00:20,569
+So Amazon Athena is a serverless service that we can use to run SQL queries against data.
+
+4
+00:00:20,730 --> 00:00:24,286
+Now principally, that data is on Amazon S3.
+
+5
+00:00:24,960 --> 00:00:30,480
+So you point Athena at your data source in S3 and then run SQL queries against it.
+
+6
+00:00:30,930 --> 00:00:35,005
+Now, the Athena can actually query data in a few different formats.
+
+7
+00:00:35,030 --> 00:00:40,710
+You've got CSV, TSV, JSON, and Apache Parquet and ORC formats.
+
+8
+00:00:41,430 --> 00:00:48,568
+Now you can also use AWS Glue as a data catalog, so it actually stores the metadata.
+
+9
+00:00:48,966 --> 00:00:51,737
+And that helps you build your tables in Amazon Athena.
+
+10
+00:00:51,761 --> 00:00:53,756
+We'll see this in the hands-on shortly.
+
+11
+00:00:53,940 --> 00:00:57,650
+You can also point Athena at some other data sources.
+
+12
+00:00:57,650 --> 00:01:02,269
+So you see this is straight from the console and we have several different data sources here.
+
+13
+00:01:02,294 --> 00:01:05,622
+Some of them are AWS and some are third party.
+
+14
+00:01:05,910 --> 00:01:10,208
+So we might want to run SQL queries against data in new sources.
+
+15
+00:01:10,233 --> 00:01:16,058
+So, for example, you might want to be able to run SQL queries against information in CloudWatch logs.
+
+16
+00:01:16,350 --> 00:01:20,578
+Well, you can do that with Athena, but you need a Lambda function as well.
+
+17
+00:01:20,850 --> 00:01:26,971
+So the Lambda function connects Athena to the data source and then you can map the data
+
+18
+00:01:26,995 --> 00:01:30,009
+into tables in Athena and query that data.
+
+19
+00:01:31,230 --> 00:01:33,390
+So a few core facts about Athena.
+
+20
+00:01:33,870 --> 00:01:41,098
+It's used for querying data in S3 using SQL and you can also connect some other data sources with Lambda.
+
+21
+00:01:41,160 --> 00:01:44,790
+The data should be in CSV, TSV, Parquet, and ORC.
+
+22
+00:01:45,120 --> 00:01:52,083
+You can use AWS Glue as a managed data catalog to store information and schemas about the databases
+
+23
+00:01:52,230 --> 00:01:53,910
+and tables that you're going to query.
+
+24
+00:01:54,737 --> 00:01:59,415
+Now, something that comes up in the exam in a couple of questions is how to optimize
+
+25
+00:01:59,439 --> 00:02:00,655
+Athena for performance.
+
+26
+00:02:00,680 --> 00:02:04,303
+Now, there's quite a bit here and to be honest, you don't need to know all of it in detail.
+
+27
+00:02:04,530 --> 00:02:06,443
+But just take note of the facts here.
+
+28
+00:02:06,510 --> 00:02:10,309
+And there's also a link attached to this lesson with a bit more information.
+
+29
+00:02:10,830 --> 00:02:14,698
+Partition your data, bucket your data within a single partition.
+
+30
+00:02:15,290 --> 00:02:16,305
+Use compression.
+
+31
+00:02:16,330 --> 00:02:19,628
+So AWS recommend using Apache Parquet or ORC.
+
+32
+00:02:20,186 --> 00:02:24,871
+Optimize you file sizes, optimize columnar data store generation.
+
+33
+00:02:25,369 --> 00:02:27,554
+Optimize ORDER BY and GROUP BY.
+
+34
+00:02:27,919 --> 00:02:31,970
+Use approximate functions and only include the columns that you need.
+
+35
+00:02:32,340 --> 00:02:33,961
+So a few key tips there.
+
+36
+00:02:33,986 --> 00:02:39,756
+Again, read the article that's linked to this lesson and that will give you a bit more of a background
+
+37
+00:02:39,781 --> 00:02:42,030
+on these or what exactly the recommendations are.
+
+38
+00:02:42,120 --> 00:02:44,220
+And that can come up in the odd exam question.
+
+39
+00:02:44,350 --> 00:02:46,559
+So next up, we've got AWS Glue.
+
+40
+00:02:46,650 --> 00:02:50,752
+This is a fully managed ETL service, extract, transform, and load.
+
+41
+00:02:51,210 --> 00:02:57,241
+You can use it for preparing data for analytics and it runs the ETL jobs on a fully managed scale-out
+
+42
+00:02:57,266 --> 00:02:58,688
+Apache Spark environment.
+
+43
+00:02:59,406 --> 00:03:03,900
+Glue can discover the data and then store the metadata in the Glue Data catalog.
+
+44
+00:03:03,900 --> 00:03:06,523
+And that's what we're going to use with Athena as well.
+
+45
+00:03:07,170 --> 00:03:14,898
+It works with data lakes such as data on S3, data warehouses like RedShift and data stores like RDS
+
+46
+00:03:14,923 --> 00:03:15,838
+or EC2.
+
+47
+00:03:16,416 --> 00:03:21,090
+You can use something called a crawler to populate the Glue Data Catalog with tables.
+
+48
+00:03:21,630 --> 00:03:28,001
+A crawler can crawl multiple data stores in a single run and on completion it creates or updates the
+
+49
+00:03:28,026 --> 00:03:30,090
+tables in your data catalog.
+
+50
+00:03:30,510 --> 00:03:37,460
+Then when you create ETL jobs in AWS Glue, it will use the data catalog tables as sources and targets.
+
+51
+00:03:38,190 --> 00:03:39,535
+So those are the key facts.
+
+52
+00:03:39,560 --> 00:03:44,970
+And we will go into our hands-on where you're going to see Athena and AWS Glue working together.
+

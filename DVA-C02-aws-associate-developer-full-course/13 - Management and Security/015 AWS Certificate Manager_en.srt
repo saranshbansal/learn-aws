@@ -1,0 +1,84 @@
+1
+00:00:05,200 --> 00:00:11,740
+AWS Certificate Manager, ACM is a service that we can use for issuing certificates. And we actually
+
+2
+00:00:11,740 --> 00:00:13,180
+used it earlier in the course.
+
+3
+00:00:13,480 --> 00:00:20,110
+Now those certificates are SSL/TLS certificates that we can then use for encryption in transit.
+
+4
+00:00:20,710 --> 00:00:23,230
+So let's look at some key facts about ACM.
+
+5
+00:00:24,100 --> 00:00:30,160
+You can use it to create, store, and renew SSL/TLS X.509 certificates.
+
+6
+00:00:30,610 --> 00:00:36,130
+You can have single domains or multiple domains and even wild cards on the certificates that you issue.
+
+7
+00:00:36,820 --> 00:00:42,100
+It integrates with several AWS services, and those include Elastic Load Balancing,
+
+8
+00:00:42,110 --> 00:00:50,260
+we saw that earlier in the course, Amazon CloudFronts, Elastic Beanstalk, and AWS Nitro Enclaves. And also
+
+9
+00:00:50,290 --> 00:00:51,850
+AWS CloudFormation.
+
+10
+00:00:52,300 --> 00:00:57,370
+The public certificates are signed by the AWS Public Certificate Authority.
+
+11
+00:00:57,880 --> 00:01:04,780
+But you can also create your own private certificate authority within ACM, and if you do that, you
+
+12
+00:01:04,780 --> 00:01:07,450
+can then issue private certificates as well.
+
+13
+00:01:08,230 --> 00:01:11,950
+You can also import certificates from third party issuers.
+
+14
+00:01:12,250 --> 00:01:17,710
+You can take key material that you've created, and you can actually import that and create a certificate
+
+15
+00:01:17,710 --> 00:01:18,970
+in AWS.
+
+16
+00:01:19,210 --> 00:01:23,280
+So those are really the core facts. The exams not going to go to deep in ACM,
+
+17
+00:01:23,470 --> 00:01:25,300
+there's not too much you need to know about it.
+
+18
+00:01:25,540 --> 00:01:32,140
+You just need to be able to differentiate from the certificates that you're issuing with ACM, which
+
+19
+00:01:32,140 --> 00:01:40,220
+are SSL/TLS certificates versus the cryptographic keys that you're issuing using KMS or CloudHSM.
+
+20
+00:01:40,240 --> 00:01:44,100
+So make sure you remember which service is used for encryption in transit,
+
+21
+00:01:44,110 --> 00:01:48,160
+that's ACM, and encryption at rest will be AWS KMS.
+

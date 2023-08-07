@@ -1,0 +1,212 @@
+1
+00:00:05,290 --> 00:00:10,331
+Welcome to this lesson. I'm going to cover Continuous Integration and Continuous Delivery
+
+2
+00:00:10,355 --> 00:00:15,813
+in this particular lesson, just to talk a little bit about how it works and what tools we might use.
+
+3
+00:00:15,846 --> 00:00:20,957
+And then we're going to go into the specific tools for AWS in the next couple of lessons.
+
+4
+00:00:21,730 --> 00:00:23,440
+So with continuous integration
+
+5
+00:00:23,710 --> 00:00:29,100
+we have our developers and we have a repository where they're going to commit their code.
+
+6
+00:00:29,133 --> 00:00:30,718
+So in this case, it's CodeCommit.
+
+7
+00:00:31,162 --> 00:00:33,469
+Now, it could be GitHub or CodeCommit.
+
+8
+00:00:33,496 --> 00:00:35,740
+These are just a couple of the options available.
+
+9
+00:00:35,890 --> 00:00:37,703
+And GitHub is obviously the most popular.
+
+10
+00:00:37,728 --> 00:00:38,775
+It's very well known.
+
+11
+00:00:38,800 --> 00:00:41,203
+CodeCommit is an AWS option.
+
+12
+00:00:41,655 --> 00:00:43,890
+ And CodeCommit is based off Git as well.
+
+13
+00:00:43,900 --> 00:00:48,910
+So the developer is writing their code and then is committing that code to CodeCommit.
+
+14
+00:00:49,030 --> 00:00:51,280
+Then we have something like CodeBuild.
+
+15
+00:00:51,280 --> 00:00:56,530
+So CodeBuild is a service which actually performs build and test for the code.
+
+16
+00:00:57,010 --> 00:00:59,243
+So the code goes from the repository.
+
+17
+00:00:59,535 --> 00:01:05,330
+Automatically the CodeBuild service will pick those changes up, whatever is being committed to
+
+18
+00:01:05,468 --> 00:01:06,820
+the code repository.
+
+19
+00:01:06,970 --> 00:01:09,595
+It's then going to build that code and test the code.
+
+20
+00:01:09,730 --> 00:01:13,209
+Then the results are actually returned back to the developer.
+
+21
+00:01:13,570 --> 00:01:19,015
+So continuous integration really just means that you've got this ongoing cycle where the developer
+
+22
+00:01:19,042 --> 00:01:24,940
+can then work out what happened in the results, determine what they need to change, change the code,
+
+23
+00:01:25,210 --> 00:01:30,443
+commit the code, and then it goes back through the process and gets built and tested again.
+
+24
+00:01:30,670 --> 00:01:32,260
+We then have continuous delivery.
+
+25
+00:01:32,710 --> 00:01:35,830
+So again, we have our developer, our code repository.
+
+26
+00:01:35,830 --> 00:01:37,240
+The developer commits their code.
+
+27
+00:01:37,630 --> 00:01:39,790
+The code then gets built and tested.
+
+28
+00:01:40,120 --> 00:01:44,884
+We have the results returned back to the developer, but we then have the extra piece here, which is
+
+29
+00:01:44,909 --> 00:01:47,740
+to actually deliver or deploy that code to the end
+
+30
+00:01:47,740 --> 00:01:48,797
+resources.
+
+31
+00:01:49,329 --> 00:01:52,420
+In AWS we can use AWS CodeDeploy for this.
+
+32
+00:01:52,810 --> 00:01:58,630
+So the code gets released for deployment and then you have your application and actually gets deployed
+
+33
+00:01:58,630 --> 00:01:59,779
+on the application.
+
+34
+00:01:59,860 --> 00:02:03,746
+Now, all of this can be automated through what we call a pipeline.
+
+35
+00:02:03,790 --> 00:02:06,074
+So we have these three particular phases.
+
+36
+00:02:06,099 --> 00:02:10,213
+We've got the code where it's being written and then committed to a repository,
+
+37
+00:02:10,584 --> 00:02:14,909
+the build and test, where we then have a service for building and testing the code
+
+38
+00:02:14,933 --> 00:02:19,663
+and then the deployment where it gets actually deployed out to the actual end resource,
+
+39
+00:02:19,687 --> 00:02:20,580
+the end application.
+
+40
+00:02:20,590 --> 00:02:23,650
+Of course, we don't have to use AWS for these services.
+
+41
+00:02:23,950 --> 00:02:29,470
+We can use GitHub as a code repository, Jenkins to build and test, and Ansible for deployment.
+
+42
+00:02:29,530 --> 00:02:32,581
+And those are just a few of the most popular options.
+
+43
+00:02:32,620 --> 00:02:35,203
+Now, we can wrap all this up into our pipeline.
+
+44
+00:02:35,228 --> 00:02:36,718
+So we have our three phases.
+
+45
+00:02:36,940 --> 00:02:43,120
+And in the AWS world, if you're using AWS developer tools, you can then use AWS CodePipeline.
+
+46
+00:02:43,540 --> 00:02:47,740
+Now, CodePipeline can also work with third party services like GitHub as well.
+
+47
+00:02:47,740 --> 00:02:54,070
+So the Code pipeline will help to automate the entire process from where the code is committed through to
+
+48
+00:02:54,250 --> 00:02:56,920
+the actual deployment with the build and test in the middle.
+
+49
+00:02:57,370 --> 00:02:59,337
+And you could have stage gates as well.
+
+50
+00:02:59,362 --> 00:03:05,606
+So you can approve or have some kind of checks and balances going on before you actually have your code
+
+51
+00:03:05,631 --> 00:03:08,175
+pushed right out to the end resource.
+
+52
+00:03:08,200 --> 00:03:13,675
+So that's the basic process of the CICD and we're going to see how we can use these AWS tools
+
+53
+00:03:13,699 --> 00:03:15,166
+over the next couple of lessons.
+

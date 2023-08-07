@@ -1,0 +1,108 @@
+1
+00:00:05,250 --> 00:00:05,868
+Hi, guys.
+
+2
+00:00:05,892 --> 00:00:12,192
+The AWS Cloud Development Kit, CDK, is one of those services that you just about need to
+
+3
+00:00:12,217 --> 00:00:14,745
+know a little bit of information for the exam.
+
+4
+00:00:14,897 --> 00:00:16,637
+It doesn't come up very often.
+
+5
+00:00:16,710 --> 00:00:21,380
+And if it does, it might even just be an incorrect answer rather than a correct one.
+
+6
+00:00:21,750 --> 00:00:26,520
+So it really it's just about knowing what it is and at a very basic level, what it's useful.
+
+7
+00:00:27,060 --> 00:00:34,720
+The CDK gives you a framework for defining your cloud applications, using programming languages
+
+8
+00:00:34,847 --> 00:00:37,350
+that your development team might be familiar with.
+
+9
+00:00:37,770 --> 00:00:42,300
+It will provision your resources using AWS CloudFormation.
+
+10
+00:00:42,810 --> 00:00:44,619
+So there's a key point here.
+
+11
+00:00:44,880 --> 00:00:51,998
+You're taking a familiar programming language, for example, Python, TypeScript, Java, and .NET
+
+12
+00:00:52,440 --> 00:00:56,137
+and you're then using CloudFormation to deploy your resources.
+
+13
+00:00:56,162 --> 00:01:03,030
+Now, as you know from our CloudFormation lessons, the CloudFormation templates are written in YAML
+
+14
+00:01:03,030 --> 00:01:03,898
+or JSON.
+
+15
+00:01:04,319 --> 00:01:10,092
+So maybe your developers aren't familiar with those languages and they want to define their applications
+
+16
+00:01:10,200 --> 00:01:13,470
+using Python and TypeScript or Java or .NET.
+
+17
+00:01:13,800 --> 00:01:16,065
+So that's what the Cloud Development Kit does.
+
+18
+00:01:16,470 --> 00:01:20,598
+You can then use existing IDE, testing tools, and workflow patterns.
+
+19
+00:01:20,790 --> 00:01:23,525
+So let's have a look at the flow of how this works.
+
+20
+00:01:23,550 --> 00:01:29,733
+You download pre-configured application components, you then model your infrastructure using
+
+21
+00:01:29,758 --> 00:01:33,884
+one of those familiar programming languages like type TypeScript or Python.
+
+22
+00:01:34,417 --> 00:01:37,830
+And then you deploy with AWS CloudFormation.
+
+23
+00:01:38,220 --> 00:01:41,370
+So you no longer need to use YAML or JSON.
+
+24
+00:01:41,670 --> 00:01:44,365
+It means that your developers can stick to what they know.
+
+25
+00:01:44,597 --> 00:01:46,673
+And that's really it for the Cloud Development Kit.
+
+26
+00:01:46,706 --> 00:01:52,020
+You don't need to know anything else for the exam, but just in case it pops up, this bit of information
+
+27
+00:01:52,020 --> 00:01:52,700
+should help you.
+

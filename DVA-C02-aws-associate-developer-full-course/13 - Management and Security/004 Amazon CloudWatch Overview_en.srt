@@ -1,0 +1,292 @@
+1
+00:00:05,560 --> 00:00:10,960
+Hi, guys. In this lesson, I'm going to cover Amazon CloudWatch. Now, we've already used CloudWatch
+
+2
+00:00:10,960 --> 00:00:12,970
+a few times in the course so far.
+
+3
+00:00:13,180 --> 00:00:18,820
+So, as you know, it's a performance monitoring tool. And we've seen some of the metrics that get sent
+
+4
+00:00:18,820 --> 00:00:22,750
+to CloudWatch by certain services like EC2 and Lambda.
+
+5
+00:00:23,140 --> 00:00:28,660
+Now I'm going to give you a bit more the theory around CloudWatch, what its use cases are, and a few
+
+6
+00:00:28,660 --> 00:00:32,530
+of the details about the types of information that's collected by CloudWatch.
+
+7
+00:00:33,190 --> 00:00:36,700
+CloudWatch is principally a performance monitoring tool.
+
+8
+00:00:37,000 --> 00:00:39,550
+You can also use it to trigger alarms
+
+9
+00:00:39,730 --> 00:00:44,170
+based on that performance information, you can have automated actions set up,
+
+10
+00:00:44,380 --> 00:00:48,220
+and it collects log files from your resources and applications as well.
+
+11
+00:00:48,670 --> 00:00:51,040
+So, what are some of the use cases and benefits?
+
+12
+00:00:51,280 --> 00:00:57,580
+Well, you can use CloudWatch for collecting performance metrics from your AWS services as well as
+
+13
+00:00:57,580 --> 00:01:02,260
+on-premises resources as well, which we'll look a bit later on in the section.
+
+14
+00:01:02,980 --> 00:01:09,490
+You can automate responses to operational changes, so state changes in your resources or performance
+
+15
+00:01:09,490 --> 00:01:14,170
+metrics that are coming in telling you that a resource is overloaded or underused.
+
+16
+00:01:14,770 --> 00:01:18,340
+You can improve operational performance and resource optimization.
+
+17
+00:01:18,640 --> 00:01:24,280
+So, helping you to understand how your resources are performing, do they need more resource or less?
+
+18
+00:01:24,550 --> 00:01:29,830
+You can derive actionable insights from the logs that are collected and get operational visibility and
+
+19
+00:01:29,830 --> 00:01:30,430
+insights.
+
+20
+00:01:30,940 --> 00:01:33,010
+There are a few core features of CloudWatch.
+
+21
+00:01:33,250 --> 00:01:35,140
+First, you've got CloudWatch Metrics.
+
+22
+00:01:35,410 --> 00:01:42,460
+These are time audit data that's sent from your service like EC2 to CloudWatch. CloudWatch then
+
+23
+00:01:42,460 --> 00:01:47,050
+collects that data and you can graph it and respond to that information.
+
+24
+00:01:47,770 --> 00:01:49,450
+We then have CloudWatch alarms.
+
+25
+00:01:49,810 --> 00:01:53,230
+This means you can monitor metrics and then initiate actions.
+
+26
+00:01:53,500 --> 00:01:59,830
+We've seen alarms working when we used auto scaling groups and we responded to the amount of load on
+
+27
+00:01:59,830 --> 00:02:01,030
+our EC2 instance.
+
+28
+00:02:01,420 --> 00:02:07,990
+CloudWatch Logs is a centralized collection system for your system and application logs.
+
+29
+00:02:08,440 --> 00:02:10,150
+And then we have CloudWatch Events.
+
+30
+00:02:10,479 --> 00:02:16,720
+Now this is responding to state changes in your resources. As you know from earlier in the course Event
+
+31
+00:02:16,720 --> 00:02:22,300
+Bridge is a service that's based on CloudWatch Events. They're basically the same thing, but it's separated
+
+32
+00:02:22,300 --> 00:02:27,670
+into a different console. So, you can think of CloudWatch Events and Amazon EventBridge as being the
+
+33
+00:02:27,670 --> 00:02:28,270
+same thing.
+
+34
+00:02:28,840 --> 00:02:35,530
+Let's drill into metrics in a bit more detail. So, the metrics are sent to CloudWatch by AWS services.
+
+35
+00:02:36,010 --> 00:02:41,140
+Now, with EC2, it's important to remember that they're sent every five minutes by default and
+
+36
+00:02:41,140 --> 00:02:42,040
+you don't pay for that.
+
+37
+00:02:42,370 --> 00:02:47,080
+Or every one minute if you enable detailed monitoring and you do have to pay something for that.
+
+38
+00:02:48,010 --> 00:02:50,680
+There's then the Unified CloudWatch Agent.
+
+39
+00:02:51,160 --> 00:02:57,310
+This sends system level metrics for your EC2 instances and your on-premises servers as well.
+
+40
+00:02:57,610 --> 00:03:02,020
+It's called unified because it also collects log files as well as metrics.
+
+41
+00:03:02,590 --> 00:03:06,580
+System level metrics include memory and disk usage.
+
+42
+00:03:06,820 --> 00:03:14,230
+So, you do have to use the Unified CloudWatch Agent if you want to monitor memory and disk usage, something
+
+43
+00:03:14,230 --> 00:03:16,270
+that comes up in quite a few exam questions.
+
+44
+00:03:16,480 --> 00:03:22,660
+It's important to understand without the Unified CloudWatch Agent, the default metrics sent by EC2
+
+45
+00:03:22,690 --> 00:03:25,840
+do not include memory utilization or disk usage.
+
+46
+00:03:26,260 --> 00:03:32,710
+So, quite simply, the way it all works is you have EC2, you have CloudWatch, and your EC2 instance is
+
+47
+00:03:32,710 --> 00:03:36,460
+sending metrics either every five minutes or every one minute.
+
+48
+00:03:36,880 --> 00:03:42,910
+Then if you install the Unified CloudWatch Agent, you also get additional information which includes
+
+49
+00:03:43,150 --> 00:03:44,670
+memory and disk usage.
+
+50
+00:03:44,680 --> 00:03:48,550
+There's more than that, but those are two of the important ones to remember for the exam.
+
+51
+00:03:49,060 --> 00:03:55,330
+I've concentrated a bit on EC2 here, but of course, metrics get sent by almost all AWS services.
+
+52
+00:03:56,140 --> 00:04:01,710
+You can also publish custom metrics. So, this means you can collect whatever information you want to
+
+53
+00:04:01,750 --> 00:04:09,490
+from your instances or from your other applications and send that via the CLI or the API to CloudWatch.
+
+54
+00:04:09,490 --> 00:04:13,120
+Custom metrics come in two different resolutions.
+
+55
+00:04:13,390 --> 00:04:17,350
+You got standard resolution or high resolution. With standard,
+
+56
+00:04:17,350 --> 00:04:23,440
+the granularity is one minute and with high, your data granularity goes right down to one second.
+
+57
+00:04:23,980 --> 00:04:27,670
+The AWS metrics are standard resolution by default.
+
+58
+00:04:28,540 --> 00:04:30,640
+Next up we have CloudWatch Alarms.
+
+59
+00:04:30,970 --> 00:04:32,260
+There's two types of alarm.
+
+60
+00:04:32,590 --> 00:04:38,140
+You have a metric alarm which performs one or more actions based on a single metric and you have a
+
+61
+00:04:38,140 --> 00:04:43,810
+composite alarm. And that uses a rule to take into account multiple alarms at the same time.
+
+62
+00:04:44,140 --> 00:04:46,150
+There are multiple different alarm states.
+
+63
+00:04:46,450 --> 00:04:47,040
+OK
+
+64
+00:04:47,050 --> 00:04:49,930
+is when the metric is within a threshold.
+
+65
+00:04:50,320 --> 00:04:53,770
+Alarm is when the metric is outside of the threshold.
+
+66
+00:04:54,250 --> 00:04:59,800
+And then insufficient data is when the service simply doesn't have enough information yet to make a
+
+67
+00:04:59,800 --> 00:05:00,640
+determination.
+
+68
+00:05:01,690 --> 00:05:04,600
+So, we've seen alarms working with auto scaling
+
+69
+00:05:04,690 --> 00:05:12,160
+earlier in the course. We had Amazon EC2 sending data to CloudWatch about the CPU utilization of the
+
+70
+00:05:12,160 --> 00:05:15,370
+instances. When a threshold is breached,
+
+71
+00:05:15,490 --> 00:05:21,550
+CloudWatch then sends an alarm to auto scaling and auto scaling knows to run more instances.
+
+72
+00:05:22,210 --> 00:05:24,490
+That's it for the core theory on CloudWatch.
+
+73
+00:05:24,790 --> 00:05:29,860
+And in the next lesson, we'll see how we can send a custom metric to CloudWatch from EC2.
+

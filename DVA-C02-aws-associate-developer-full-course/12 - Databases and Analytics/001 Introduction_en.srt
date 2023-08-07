@@ -1,0 +1,72 @@
+1
+00:00:00,840 --> 00:00:04,030
+this section is about databases and analytics.
+
+2
+00:00:04,030 --> 00:00:07,930
+Now of course we did cover dynamodb a bit earlier on in the course.
+
+3
+00:00:07,960 --> 00:00:12,040
+That is a database technology but it's covered in such a large amount of
+
+4
+00:00:12,040 --> 00:00:16,560
+detail in the exam that I had a complete section just for that service.
+
+5
+00:00:16,740 --> 00:00:17,030
+Now,
+
+6
+00:00:17,030 --> 00:00:21,400
+what we're gonna do in this section is cover some of the other database services.
+
+7
+00:00:21,540 --> 00:00:25,870
+Now we've got to learn about amazon relational database service. RDS
+
+8
+00:00:26,260 --> 00:00:30,600
+that's a service we can use for managing relational databases in the cloud
+
+9
+00:00:30,760 --> 00:00:36,180
+such as SQL server or SQL we'll also look at amazon elasticache
+
+10
+00:00:36,190 --> 00:00:39,560
+which is used for running in memory databases in the cloud.
+
+11
+00:00:39,740 --> 00:00:43,320
+Lots of different use cases such as session stores or as a
+
+12
+00:00:43,320 --> 00:00:48,340
+front end to another database like a relational back end like RDS
+
+13
+00:00:48,680 --> 00:00:52,480
+I'll then go into quite a bit of detail on amazon kinesis
+
+14
+00:00:52,700 --> 00:00:55,740
+kinesis is a suite of different services
+
+15
+00:00:55,920 --> 00:01:00,260
+that deal with streaming data and analytics of streaming data.
+
+16
+00:01:00,670 --> 00:01:05,019
+And then lastly I'll cover amazon Opensearch, a relatively new service
+
+17
+00:01:05,140 --> 00:01:07,910
+and the successor to elasticsearch.
+
+18
+00:01:08,100 --> 00:01:10,450
+So lots to get on with. I'll see you in the next lesson
+

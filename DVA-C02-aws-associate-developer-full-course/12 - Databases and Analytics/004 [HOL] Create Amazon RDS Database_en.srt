@@ -1,0 +1,492 @@
+1
+00:00:05,190 --> 00:00:10,680
+In this lesson, we're going to go into the console and create an RDS MySQL database.
+
+2
+00:00:11,070 --> 00:00:16,590
+I'm logged into the AWS management console and I'm on the dashboard for Amazon RDS.
+
+3
+00:00:16,890 --> 00:00:20,040
+Now, as you can see, AWS want to push you towards the Aurora,
+
+4
+00:00:20,280 --> 00:00:22,050
+so there's this great big button up here.
+
+5
+00:00:22,410 --> 00:00:27,240
+But what we want to do is we're going to create an RDS MySQL database.
+
+6
+00:00:27,660 --> 00:00:33,420
+So, under databases choose create database. We can then choose the standard or the easy create.
+
+7
+00:00:33,420 --> 00:00:34,800
+We're going to stick with standard.
+
+8
+00:00:35,460 --> 00:00:39,690
+Again, they're trying to push you towards Aurora, but we're going to select MySQL.
+
+9
+00:00:40,780 --> 00:00:46,570
+Now, if we scroll down to templates, there's three pre-defined templates, production, dev/test, and
+
+10
+00:00:46,570 --> 00:00:47,060
+free tier.
+
+11
+00:00:47,500 --> 00:00:49,930
+Now, we will switch to free tier in a moment.
+
+12
+00:00:50,140 --> 00:00:53,860
+But there are some configuration options that are removed when you do that.
+
+13
+00:00:53,860 --> 00:00:56,890
+So, I want to show you first those configuration options.
+
+14
+00:00:57,520 --> 00:00:59,980
+Now, I'm going to call my database Digicloud.
+
+15
+00:01:00,400 --> 00:01:06,280
+I'm going to leave the master username as admin, enter a password, and then confirm that password.
+
+16
+00:01:06,760 --> 00:01:09,880
+You then get some options for the DB instance class.
+
+17
+00:01:09,890 --> 00:01:13,450
+And there's quite a lot of options here, many of which will cost quite a bit of money.
+
+18
+00:01:13,450 --> 00:01:14,650
+So you want to be careful here.
+
+19
+00:01:15,190 --> 00:01:20,680
+We're going to use a t2.micro, but it's not available at this point in time. So, I'll leave it on standard.
+
+20
+00:01:21,160 --> 00:01:22,360
+And we're going to scroll down.
+
+21
+00:01:22,870 --> 00:01:24,940
+Next, you have storage. Now,
+
+22
+00:01:24,940 --> 00:01:31,750
+as you can see, by default, we're going to have a provisioned IOPS SSD io1 volume with 100 GiB
+
+23
+00:01:31,780 --> 00:01:35,170
+allocated and a provisioned IOPS of 3,000.
+
+24
+00:01:35,500 --> 00:01:41,410
+Now this is for this production database, so it's going to change soon when we switch to a free tier
+
+25
+00:01:41,410 --> 00:01:42,010
+database.
+
+26
+00:01:42,100 --> 00:01:47,320
+With RDS, you can auto scale the storage layer and by default, that is enabled.
+
+27
+00:01:48,250 --> 00:01:53,860
+We also have Multi-AZ, which on this production template is also enabled by default.
+
+28
+00:01:54,070 --> 00:01:56,530
+That's going to change when we switch to free tier as well.
+
+29
+00:01:57,340 --> 00:01:59,380
+I'm going to leave it in the default VPC.
+
+30
+00:01:59,890 --> 00:02:04,270
+I'm not going to change the subnet group. Now, for public access,
+
+31
+00:02:04,270 --> 00:02:08,440
+if you want your database to be accessible from the internet, then you would choose
+
+32
+00:02:08,440 --> 00:02:16,000
+yes. If you have instances in EC2 and you want to talk to your database on a private IP, then you
+
+33
+00:02:16,000 --> 00:02:16,480
+would leave it on
+
+34
+00:02:16,480 --> 00:02:16,900
+no.
+
+35
+00:02:17,140 --> 00:02:20,680
+By default, the default security group is added.
+
+36
+00:02:20,950 --> 00:02:24,880
+Now, bear in mind, there might not be a rule that allows the relevant port.
+
+37
+00:02:25,300 --> 00:02:28,360
+The port is 3306 for MySQL.
+
+38
+00:02:28,810 --> 00:02:33,490
+So if you do want to connect an EC2 instance to your database, you'll need to make sure that your
+
+39
+00:02:33,490 --> 00:02:38,950
+security group has a rule allowing 3306 from your application instances.
+
+40
+00:02:39,280 --> 00:02:42,160
+There are three options here for database authentication.
+
+41
+00:02:42,520 --> 00:02:45,040
+The default is password, and we're going to leave it on that one.
+
+42
+00:02:45,490 --> 00:02:52,030
+You can also have a password with IAM database authentication, and you can choose Password and Kerberos,
+
+43
+00:02:52,030 --> 00:02:53,500
+and then you would add a directory.
+
+44
+00:02:54,100 --> 00:02:56,680
+Now we don't have a directory, let's leave it on password.
+
+45
+00:02:56,980 --> 00:02:59,620
+We then have some additional configuration options.
+
+46
+00:02:59,830 --> 00:03:04,180
+Now you can see the estimated monthly cost here, and as you can see, it does cost quite a bit of money
+
+47
+00:03:04,180 --> 00:03:04,870
+this database.
+
+48
+00:03:04,870 --> 00:03:07,480
+So, you certainly don't want to launch this one.
+
+49
+00:03:08,110 --> 00:03:10,840
+Now, let's just expand additional configuration.
+
+50
+00:03:11,230 --> 00:03:13,000
+We do need to provide a name here.
+
+51
+00:03:13,450 --> 00:03:14,860
+I'm going to call it Digicloud.
+
+52
+00:03:15,340 --> 00:03:19,090
+Automated backups are enabled by default with seven-day retention.
+
+53
+00:03:19,450 --> 00:03:24,460
+Now remember, if you don't want to have automated backups, you would put it to zero days and the
+
+54
+00:03:24,460 --> 00:03:26,170
+maximum is 35.
+
+55
+00:03:26,620 --> 00:03:27,850
+We can leave it on seven.
+
+56
+00:03:28,090 --> 00:03:34,420
+You can select a backup window of your preference or leave it on no preference. When using the production
+
+57
+00:03:34,420 --> 00:03:35,020
+template,
+
+58
+00:03:35,200 --> 00:03:40,210
+encryption is enabled by default, and it's using the AWS RDS default key.
+
+59
+00:03:40,840 --> 00:03:42,370
+So, let's just leave that option
+
+60
+00:03:42,370 --> 00:03:47,440
+for now, that is going to be removed when we go to free tier as well. There's then performance insights,
+
+61
+00:03:47,440 --> 00:03:53,650
+which is enabled by default, and that will log more detailed information about performance and you
+
+62
+00:03:53,650 --> 00:03:55,510
+can retain that data and encrypt it.
+
+63
+00:03:57,920 --> 00:04:03,440
+Monitoring, there's another option for monitoring here where you can get more granular, detailed information
+
+64
+00:04:03,680 --> 00:04:09,020
+about things like the threads of your CPU and the granularity can go right down to one second.
+
+65
+00:04:09,620 --> 00:04:10,590
+Under maintenance,
+
+66
+00:04:10,610 --> 00:04:17,149
+we have the auto minor version upgrade enabled. So, that will update automatically for minor database
+
+67
+00:04:17,149 --> 00:04:21,260
+version updates and that will do so during the maintenance window.
+
+68
+00:04:21,529 --> 00:04:23,470
+And we haven't specified a preference here.
+
+69
+00:04:23,870 --> 00:04:28,490
+Deletion protection simply means that you can't delete your database without an extra step.
+
+70
+00:04:30,240 --> 00:04:33,630
+Now, we're going to scroll back up to the top and switch to Free tier.
+
+71
+00:04:34,080 --> 00:04:40,470
+So, back at the top of the page, just scroll down to where the templates are and go to free tier. Now, most
+
+72
+00:04:40,470 --> 00:04:41,760
+of the settings will remain.
+
+73
+00:04:41,760 --> 00:04:49,170
+So, we've still got our database identifier, our admin and password. For burstable classes,
+
+74
+00:04:49,170 --> 00:04:53,060
+we now have a t2.micro option. So that's selected by default.
+
+75
+00:04:54,070 --> 00:04:58,930
+You'll notice that the amount of storage has reduced. Multi-AZ is now greyed out.
+
+76
+00:04:59,140 --> 00:05:04,840
+And when we scroll all the way down to the additional configuration, there's no option here now for
+
+77
+00:05:05,050 --> 00:05:10,540
+encrypting our database. But we're going to get around that in another lesson. So, we can leave now
+
+78
+00:05:10,570 --> 00:05:14,920
+all of these defaults, scroll to the bottom, and then create our database.
+
+79
+00:05:15,250 --> 00:05:17,440
+The database is now in a creating state.
+
+80
+00:05:17,470 --> 00:05:23,050
+Now, it can take quite a while with RDS for creating databases and modifying databases.
+
+81
+00:05:23,380 --> 00:05:27,160
+So, you want to sit back and be patient for a few minutes and then we'll continue.
+
+82
+00:05:27,640 --> 00:05:32,890
+The database creation has now completed and our database is available. Now,
+
+83
+00:05:32,890 --> 00:05:38,440
+you can see a couple of things here, such as the DB identifier and the region and availability zone
+
+84
+00:05:38,680 --> 00:05:40,510
+and the size of the database as well.
+
+85
+00:05:40,930 --> 00:05:43,390
+Now if we actually click on the database on the left,
+
+86
+00:05:44,470 --> 00:05:49,930
+we now get quite a bit more information. You can see here the end point, so this is the end point that
+
+87
+00:05:49,930 --> 00:05:57,280
+you would use in your application to connect to this database. And you would use the port 3306
+
+88
+00:05:57,280 --> 00:05:59,050
+because this is MySQL.
+
+89
+00:06:00,240 --> 00:06:07,110
+You can see which availability zone the database is running in, the VPC, subnet group, subnets, and so on.
+
+90
+00:06:07,740 --> 00:06:10,530
+This particular database is not publicly accessible.
+
+91
+00:06:10,770 --> 00:06:15,700
+You can see the security rules here. Now, as I mentioned before, to connect to this database
+
+92
+00:06:15,720 --> 00:06:20,580
+you'll also need a rule allowing inbound to port 3306.
+
+93
+00:06:20,910 --> 00:06:23,100
+We don't have any replication at this stage.
+
+94
+00:06:23,520 --> 00:06:24,870
+Now let's head up to the top.
+
+95
+00:06:25,410 --> 00:06:30,300
+Under monitoring, we get some relatively basic information about the database.
+
+96
+00:06:30,660 --> 00:06:36,150
+There are also some more advanced options for monitoring, including enhanced monitoring,
+
+97
+00:06:36,450 --> 00:06:42,690
+OS process list and performance insights, but they're not enabled on this database. Under logs
+
+98
+00:06:42,690 --> 00:06:43,380
+and events,
+
+99
+00:06:44,100 --> 00:06:47,040
+we can see where our CloudWatch alarms are if we have any,
+
+100
+00:06:47,520 --> 00:06:50,250
+some of the recent events, and then the log files.
+
+101
+00:06:50,820 --> 00:06:54,000
+Now, if you choose one of these log files, you can click on view
+
+102
+00:06:55,260 --> 00:06:58,080
+and it will actually show you the log file, there's nothing really in this one.
+
+103
+00:06:58,710 --> 00:07:01,560
+So, let's close out of there. Under configuration,
+
+104
+00:07:01,590 --> 00:07:07,560
+you get a summary of the current configuration of the database. And then under maintenance and backups,
+
+105
+00:07:07,980 --> 00:07:10,650
+you can see the backups that have been created.
+
+106
+00:07:10,650 --> 00:07:13,920
+So, we have the automated backups enabled here,
+
+107
+00:07:14,460 --> 00:07:17,100
+we can see a snapshot that's being created at the bottom.
+
+108
+00:07:17,700 --> 00:07:23,310
+Now, if we head over to snapshots on the left here, we have the system generated snapshots and we've
+
+109
+00:07:23,310 --> 00:07:24,000
+already got one.
+
+110
+00:07:24,480 --> 00:07:26,250
+And then we have manual snapshots.
+
+111
+00:07:26,640 --> 00:07:32,850
+So, in here, we can click on take snapshots, choose our database, and I'm going to create a snapshot.
+
+112
+00:07:33,450 --> 00:07:38,130
+I'm going to call it Digicloud unencrypted because this is an unencrypted database,
+
+113
+00:07:38,130 --> 00:07:42,330
+so we're creating a snapshot and that snapshot is going to be unencrypted.
+
+114
+00:07:42,870 --> 00:07:46,450
+So let's take the snapshot. And that task is now going to run.
+
+115
+00:07:46,890 --> 00:07:48,090
+And that would take a few minutes.
+
+116
+00:07:48,600 --> 00:07:54,600
+Let's go back up to databases, choose our database, and we also have the actions menu here.
+
+117
+00:07:55,110 --> 00:08:01,350
+Under actions, you can create a read replica, take a snapshot, restore to a specific point in time
+
+118
+00:08:01,350 --> 00:08:06,960
+using the automated backups, and you can stop, reboot, and delete your database as well.
+
+119
+00:08:07,440 --> 00:08:13,290
+Modify will take you back to the wizard, where you can change options like the DB instance size you're
+
+120
+00:08:13,290 --> 00:08:13,710
+using.
+
+121
+00:08:14,190 --> 00:08:15,570
+Now that's it for this lesson.
+
+122
+00:08:15,810 --> 00:08:21,060
+And what we're going to do in the next hands-on lesson is we're going to create a read replica and enable
+
+123
+00:08:21,060 --> 00:08:21,470
+Multi-AZ.
+

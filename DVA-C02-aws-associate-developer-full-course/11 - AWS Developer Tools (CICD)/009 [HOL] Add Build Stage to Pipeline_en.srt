@@ -1,0 +1,572 @@
+1
+00:00:05,240 --> 00:00:06,480
+In this hands-on lesson,
+
+2
+00:00:06,480 --> 00:00:11,960
+we're going to add a build stage and an approval stage to our CodePipeline.
+
+3
+00:00:12,540 --> 00:00:15,150
+So you've seen this diagram before in the theory lesson.
+
+4
+00:00:15,540 --> 00:00:20,190
+What we're going to do is add the buildspec.yml file to codecommit.
+
+5
+00:00:20,740 --> 00:00:23,290
+And we're also going to modify the index.dot html
+
+6
+00:00:23,290 --> 00:00:27,360
+so we have a different message on our Elastic Beanstalk Application.
+
+7
+00:00:28,000 --> 00:00:32,460
+We're then going to add a stage to the pipeline using AWS CodeBuild.
+
+8
+00:00:32,940 --> 00:00:37,450
+CodeBuild is going to test for the existence of a specific file.
+
+9
+00:00:37,450 --> 00:00:41,490
+So it's going to look for that file and if it's there then the test passes
+
+10
+00:00:41,610 --> 00:00:43,610
+and if it's not there, then it's going to fail.
+
+11
+00:00:44,040 --> 00:00:49,810
+We'll also then have the approval stage so that an approver can say, yep, okay,
+
+12
+00:00:49,810 --> 00:00:53,491
+the test has passed and I'm happy to now push these changes through
+
+13
+00:00:53,515 --> 00:00:54,810
+to the application.
+
+14
+00:00:55,120 --> 00:00:57,030
+Now, there's a couple of files that we're going to use.
+
+15
+00:00:57,040 --> 00:00:59,960
+The first one is the buildspec.yml.
+
+16
+00:01:00,540 --> 00:01:03,440
+So this file has various phases in it.
+
+17
+00:01:03,710 --> 00:01:07,178
+So you can see we have install and then we can run commands,
+
+18
+00:01:07,202 --> 00:01:12,030
+prebuild and then we can run commands then build and our build commands
+
+19
+00:01:12,170 --> 00:01:14,550
+and then post build and our post-build commands.
+
+20
+00:01:14,940 --> 00:01:17,030
+Now we talked about these a bit more in the theory
+
+21
+00:01:17,030 --> 00:01:19,350
+and they're also mentioned a lot more in our cheat sheets.
+
+22
+00:01:19,830 --> 00:01:22,800
+Now, most of these commands are simply echo statements.
+
+23
+00:01:23,240 --> 00:01:27,590
+The one which we've added here that's the actual test for this particular exercise
+
+24
+00:01:28,140 --> 00:01:30,600
+is to find production.txt.
+
+25
+00:01:31,040 --> 00:01:35,980
+So if production.txt is a file that exists in the source code,
+
+26
+00:01:36,180 --> 00:01:37,630
+then this test will pass.
+
+27
+00:01:37,760 --> 00:01:40,110
+If it doesn't exist then the test will fail.
+
+28
+00:01:40,930 --> 00:01:43,910
+Now I've then opened up my index.html.
+
+29
+00:01:43,910 --> 00:01:48,460
+So of course the build spec is in the code download in code developer tools,
+
+30
+00:01:49,040 --> 00:01:53,280
+but the index.html I've actually opened in my repository.
+
+31
+00:01:53,310 --> 00:01:58,060
+So if you go to your developer labs repository and open index.html.
+
+32
+00:01:58,440 --> 00:02:01,270
+And all we're going to do is scroll down to where we have
+
+33
+00:02:01,460 --> 00:02:03,360
+the congratulations message.
+
+34
+00:02:03,850 --> 00:02:08,300
+And I'm going to change this to say production, deployment complete.
+
+35
+00:02:08,538 --> 00:02:09,949
+And I'm going to save that file.
+
+36
+00:02:10,440 --> 00:02:13,920
+So I've saved that file in my repository.
+
+37
+00:02:14,080 --> 00:02:16,590
+And I'm also going to go and copy this file.
+
+38
+00:02:16,590 --> 00:02:21,270
+So copy your file from code developer tools, buildspec.yml
+
+39
+00:02:21,460 --> 00:02:24,060
+into your developer tools repository.
+
+40
+00:02:24,510 --> 00:02:27,420
+So back on the command line here, if I run get status,
+
+41
+00:02:28,040 --> 00:02:33,440
+we should now have two changes. One is we've modified our index.html
+
+42
+00:02:33,610 --> 00:02:37,975
+and the other is that we have an untracked file which is buildspec.yml.
+
+43
+00:02:38,180 --> 00:02:40,030
+So we're not going to change anything there.
+
+44
+00:02:40,040 --> 00:02:41,780
+We're going to leave those as they are.
+
+45
+00:02:41,790 --> 00:02:44,450
+And we're going to go and configure our stages.
+
+46
+00:02:44,840 --> 00:02:46,410
+So let's go back to the console.
+
+47
+00:02:46,410 --> 00:02:50,750
+We're going to create our codebuild project and then add the stages to our pipeline.
+
+48
+00:02:50,930 --> 00:02:53,260
+Back in the console I'm going to choose build.
+
+49
+00:02:53,740 --> 00:02:55,390
+And choose build projects.
+
+50
+00:02:55,630 --> 00:02:59,600
+So now we're working with AWS CodeBuild. Let's create a project.
+
+51
+00:02:59,960 --> 00:03:03,123
+Again, I'm just going to call this Developer Labs just to make things easy.
+
+52
+00:03:03,340 --> 00:03:06,480
+Scroll down. We don't need to make any changes up here.
+
+53
+00:03:06,490 --> 00:03:09,400
+We're just going to choose the source provider as codecommit.
+
+54
+00:03:09,800 --> 00:03:11,970
+The repository is developer labs.
+
+55
+00:03:12,500 --> 00:03:14,630
+The branch is going to be master.
+
+56
+00:03:15,740 --> 00:03:16,960
+Scroll down again.
+
+57
+00:03:17,440 --> 00:03:19,980
+Now it's actually going to use an image in the background.
+
+58
+00:03:19,980 --> 00:03:23,360
+It uses a container and you can choose the operating system.
+
+59
+00:03:23,530 --> 00:03:26,050
+I'll choose Ubuntu. Choose standard.
+
+60
+00:03:26,440 --> 00:03:29,438
+And then I'm going to choose the latest image.
+
+61
+00:03:29,550 --> 00:03:33,060
+Then we have new service role. It's going to create a role for us.
+
+62
+00:03:33,830 --> 00:03:36,090
+Now we have our buildspec.yml.
+
+63
+00:03:36,640 --> 00:03:39,000
+So it's going to say use a buildspec file here.
+
+64
+00:03:39,150 --> 00:03:41,630
+As long as we have that in the directory already,
+
+65
+00:03:41,630 --> 00:03:44,440
+we don't need to specify the buildspec name.
+
+66
+00:03:44,690 --> 00:03:48,460
+We only do that if we have a different name for our buildspec file.
+
+67
+00:03:48,840 --> 00:03:50,360
+So I can leave that as it is.
+
+68
+00:03:51,440 --> 00:03:55,490
+We're not going to add any artifacts. I don't need to log at this stage.
+
+69
+00:03:55,490 --> 00:03:57,560
+So I'm just going to create my build project.
+
+70
+00:03:57,940 --> 00:04:00,110
+So my build project is being created.
+
+71
+00:04:00,360 --> 00:04:02,350
+Now, I'm going to go down to pipeline,
+
+72
+00:04:02,840 --> 00:04:04,060
+choose pipelines,
+
+73
+00:04:04,440 --> 00:04:05,460
+developer labs,
+
+74
+00:04:05,840 --> 00:04:07,250
+and I'm going to click on edit.
+
+75
+00:04:07,740 --> 00:04:11,660
+And now we can add a stage. So I'm going to add a stage between the source
+
+76
+00:04:11,970 --> 00:04:13,045
+and the deployment.
+
+77
+00:04:13,069 --> 00:04:15,560
+So let's add stage. I'm going to call this test.
+
+78
+00:04:15,940 --> 00:04:17,700
+Click on add action group.
+
+79
+00:04:17,899 --> 00:04:20,260
+The action name is going to be Test again.
+
+80
+00:04:20,640 --> 00:04:24,150
+For action provider, we're going to choose AWS CodeBuild.
+
+81
+00:04:24,540 --> 00:04:27,260
+Choose source artifact for the input artifacts.
+
+82
+00:04:28,140 --> 00:04:30,770
+And then for project name it's Developer Labs.
+
+83
+00:04:31,940 --> 00:04:33,760
+And we don't need to change anything else.
+
+84
+00:04:34,240 --> 00:04:35,760
+So let's choose done.
+
+85
+00:04:36,640 --> 00:04:41,260
+We'll now create our approval stage underneath our test stage.
+
+86
+00:04:41,740 --> 00:04:43,220
+I'll simply call this Approval.
+
+87
+00:04:43,340 --> 00:04:44,260
+Add the stage.
+
+88
+00:04:44,640 --> 00:04:46,260
+Click on add action group.
+
+89
+00:04:46,740 --> 00:04:47,940
+Call this approval again.
+
+90
+00:04:48,230 --> 00:04:51,150
+Under action provider, we choose manual approval.
+
+91
+00:04:52,040 --> 00:04:55,650
+And all of the other options here are optional. We're not going to fill those in.
+
+92
+00:04:55,650 --> 00:04:56,860
+Let's just choose done.
+
+93
+00:04:57,340 --> 00:05:01,870
+And that's it. We now have our test stage using AWS CodeBuild
+
+94
+00:05:02,020 --> 00:05:06,250
+and our approval stage using a manual approval process.
+
+95
+00:05:06,640 --> 00:05:09,250
+So going back to the top, we can click on save.
+
+96
+00:05:09,740 --> 00:05:10,790
+And save again.
+
+97
+00:05:10,970 --> 00:05:13,900
+So now let's go back to the command line and we're
+
+98
+00:05:13,900 --> 00:05:17,590
+actually going to push the changes we made to our repository.
+
+99
+00:05:17,710 --> 00:05:23,490
+So back on the command line, what we want to do is run git add -a, git commit,
+
+100
+00:05:24,140 --> 00:05:26,150
+with the message added buildspec.
+
+101
+00:05:26,940 --> 00:05:28,851
+And then I'm going to run git push.
+
+102
+00:05:28,875 --> 00:05:30,903
+So I'm just pushing those changes up.
+
+103
+00:05:30,928 --> 00:05:34,320
+Now, we have not added our production.txt file.
+
+104
+00:05:34,490 --> 00:05:37,260
+That does not exist. If I just clear the screen,
+
+105
+00:05:37,380 --> 00:05:41,170
+run ls, we can see we do not have production.txt.
+
+106
+00:05:41,460 --> 00:05:46,760
+So our testing stage using CodeBuild should fail because our buildspec.yml file
+
+107
+00:05:46,940 --> 00:05:50,360
+is actually looking for the production.txt file.
+
+108
+00:05:50,840 --> 00:05:56,060
+Back in the CodePipeline, we can see that the source code was updated.
+
+109
+00:05:56,440 --> 00:06:00,460
+We can now see that the testing stage is in progress.
+
+110
+00:06:01,040 --> 00:06:04,130
+And it shouldn't take too long. We should find that that fails very quickly.
+
+111
+00:06:04,430 --> 00:06:06,890
+And now we can see that that did indeed fail.
+
+112
+00:06:06,900 --> 00:06:10,750
+So let's go back and we're going to add the production.txt file,
+
+113
+00:06:10,750 --> 00:06:13,440
+push that up to our repository and then we should
+
+114
+00:06:13,440 --> 00:06:16,230
+find that our build stage does pass the test.
+
+115
+00:06:16,660 --> 00:06:20,360
+So back on the command line, I'm going to create the file using touch.
+
+116
+00:06:20,540 --> 00:06:23,060
+Of course if you're using Windows just go in
+
+117
+00:06:23,240 --> 00:06:26,230
+to the directory and create a production.txt file.
+
+118
+00:06:27,040 --> 00:06:30,160
+Then I'm going to add this to our repository.
+
+119
+00:06:30,750 --> 00:06:33,660
+I'm going to commit it to our repository.
+
+120
+00:06:34,140 --> 00:06:37,870
+And then I'm actually going to push that up to our repository.
+
+121
+00:06:37,910 --> 00:06:40,760
+So that's been pushed to AWS CodeCommit.
+
+122
+00:06:40,770 --> 00:06:44,811
+Let's go back to our pipeline and see if our build stage succeeds.
+
+123
+00:06:44,835 --> 00:06:45,940
+Back in our pipeline,
+
+124
+00:06:45,940 --> 00:06:50,280
+we can see that the build stage is currently running, it's in progress.
+
+125
+00:06:50,280 --> 00:06:51,450
+So let's see what happens.
+
+126
+00:06:51,640 --> 00:06:54,936
+And there it is. We can see that our build stage has succeeded.
+
+127
+00:06:54,961 --> 00:06:56,860
+So the test did pass this time.
+
+128
+00:06:57,140 --> 00:07:00,470
+And now the pipeline is waiting for the approval.
+
+129
+00:07:00,730 --> 00:07:03,290
+So I'm going to come in here and just put yes
+
+130
+00:07:04,240 --> 00:07:05,560
+and click on approve.
+
+131
+00:07:06,240 --> 00:07:10,050
+And that's going to now push the changes through to Elastic Beanstalk.
+
+132
+00:07:10,550 --> 00:07:12,860
+So let's go and see what's happening in Beanstalk.
+
+133
+00:07:13,240 --> 00:07:17,138
+And back in Beanstalk we can see that the environment is being updated.
+
+134
+00:07:17,162 --> 00:07:19,260
+And that's completed really quickly.
+
+135
+00:07:19,420 --> 00:07:21,970
+So let's click on the hyperlink again.
+
+136
+00:07:22,160 --> 00:07:25,540
+And this time we can see the message, production deployment complete.
+
+137
+00:07:25,750 --> 00:07:26,730
+And we know
+
+138
+00:07:26,850 --> 00:07:30,760
+that our production deployment code did get pushed through to Elastic Beanstalk.
+
+139
+00:07:31,240 --> 00:07:32,370
+That's it for this lesson.
+
+140
+00:07:32,370 --> 00:07:36,710
+And we have actually finished with this Elastic Beanstalk application now.
+
+141
+00:07:36,740 --> 00:07:41,560
+So feel free to go back and terminate your Elastic Beanstalk Environment.
+
+142
+00:07:41,860 --> 00:07:44,350
+And once you've done that, we're all done for this lesson,
+
+143
+00:07:44,360 --> 00:07:45,460
+I'll see you in the next one.
+

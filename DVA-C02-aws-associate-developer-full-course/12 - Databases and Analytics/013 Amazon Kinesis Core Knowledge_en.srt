@@ -1,0 +1,472 @@
+1
+00:00:05,680 --> 00:00:08,494
+Kinesis always pops up in exam questions.
+
+2
+00:00:08,518 --> 00:00:13,888
+I haven't found recently that there's too much in terms of depth of Kinesis knowledge required.
+
+3
+00:00:14,059 --> 00:00:19,009
+Again, with the Solutions Architect pro, it's often about really understanding when you should use
+
+4
+00:00:19,034 --> 00:00:24,400
+these tools in more complex scenarios than you would get in the other exams, like the associate level.
+
+5
+00:00:25,000 --> 00:00:31,222
+So often, Kinesis will be used in a overall solutions architecture with several other services.
+
+6
+00:00:31,247 --> 00:00:37,585
+And you need to work out based on your understanding of the products, which one is best for a specific
+
+7
+00:00:37,610 --> 00:00:38,706
+customer requirement.
+
+8
+00:00:38,800 --> 00:00:43,824
+Now there's three core products that do come up in the exam, and that's Kinesis Data Streams,
+
+9
+00:00:43,848 --> 00:00:45,951
+Firehose, and Data Analytics.
+
+10
+00:00:45,976 --> 00:00:47,633
+Video streams doesn't really come up.
+
+11
+00:00:48,038 --> 00:00:52,860
+With Kinesis, you have your data sources, and in this case we're talking about streaming data.
+
+12
+00:00:53,560 --> 00:00:56,852
+You can then load that data into Kinesis Data Streams.
+
+13
+00:00:57,100 --> 00:00:58,820
+Data stream is often the front end.
+
+14
+00:00:58,845 --> 00:01:02,714
+This is where you're ingesting your data from your devices.
+
+15
+00:01:02,739 --> 00:01:08,419
+Maybe you're using IoT devices or something like that where you're streaming data into Kinesis.
+
+16
+00:01:09,010 --> 00:01:11,882
+So the data gets ingested into Data Streams.
+
+17
+00:01:12,430 --> 00:01:16,169
+We can then process it with Kinesis Data Analytics.
+
+18
+00:01:16,450 --> 00:01:20,089
+Data Analytics uses Apache Flink for processing Data Streams.
+
+19
+00:01:20,301 --> 00:01:24,160
+Now, with Kinesis Data Analytics, it's all about running SQL.
+
+20
+00:01:24,670 --> 00:01:29,838
+But you then might want to process your data with Lambda to perform some other kind of function
+
+21
+00:01:29,862 --> 00:01:33,010
+and maybe load it into a DynamoDB table, for example.
+
+22
+00:01:34,090 --> 00:01:36,030
+We've then got Kinesis Firehose.
+
+23
+00:01:36,635 --> 00:01:44,721
+Kinesis Firehose will load data straight to destination's and data streams can be a source for firehose.
+
+24
+00:01:45,010 --> 00:01:48,750
+So let's say in this example we're loading the data into Amazon S3.
+
+25
+00:01:49,510 --> 00:01:53,080
+We could then query that data with Amazon Athena, for example.
+
+26
+00:01:53,200 --> 00:01:59,004
+So this would be a good way to take our streaming data, load it into S3 and potentially do some
+
+27
+00:01:59,029 --> 00:02:03,079
+kind of analytics on it and processing of that data on the way there.
+
+28
+00:02:03,104 --> 00:02:09,294
+So we might have Kinesis Data Analytics before we go to Firehose or we might have AWS Lambda in there
+
+29
+00:02:09,318 --> 00:02:11,830
+performing some kind of processing of the data as well.
+
+30
+00:02:12,610 --> 00:02:15,164
+So there's lots of different ways you can use Kinesis.
+
+31
+00:02:15,269 --> 00:02:18,424
+But the key is to remember streaming data use cases.
+
+32
+00:02:18,550 --> 00:02:21,460
+That's when you're going to see Kinesis as being a good fit.
+
+33
+00:02:21,760 --> 00:02:27,657
+Now, you might also load your data into RedShift and query it with business intelligence tools
+
+34
+00:02:27,682 --> 00:02:28,697
+like QuickSight.
+
+35
+00:02:28,960 --> 00:02:33,460
+So we'll look at it in a bit more detail about the various destinations that are supported shortly.
+
+36
+00:02:33,730 --> 00:02:37,544
+So let's go into more detail on Kinesis Data Streams first.
+
+37
+00:02:38,451 --> 00:02:40,133
+With Data Streams, you have producers.
+
+38
+00:02:40,344 --> 00:02:45,832
+They send data to Kinesis and the data gets stored in a Shard for 24 hours.
+
+39
+00:02:46,270 --> 00:02:47,290
+And that's the default.
+
+40
+00:02:47,380 --> 00:02:50,352
+You can keep it there for up to seven days as well.
+
+41
+00:02:51,070 --> 00:02:54,610
+Consumers will then take the data from the Shard and process it.
+
+42
+00:02:54,970 --> 00:02:57,233
+The data can then be saved to another service.
+
+43
+00:02:57,258 --> 00:03:01,270
+So you can then save it out to S3 or RedShift or wherever you want to put it.
+
+44
+00:03:01,720 --> 00:03:06,035
+Kinesis Data Streams is real time, so somewhere around 200 milliseconds.
+
+45
+00:03:06,234 --> 00:03:12,279
+Something that definitely comes up in exam questions is the difference between Data Streams and firehose
+
+46
+00:03:12,491 --> 00:03:16,052
+Data Streams is real-time Firehose is near real time.
+
+47
+00:03:16,077 --> 00:03:17,908
+So watch out for the wording in question.
+
+48
+00:03:18,010 --> 00:03:21,635
+So here we have our streaming data coming from whatever source.
+
+49
+00:03:22,142 --> 00:03:27,190
+The producers are capturing and then sending that data to a stream.
+
+50
+00:03:27,640 --> 00:03:29,499
+And the stream has shards.
+
+51
+00:03:29,770 --> 00:03:34,065
+The data gets captured and stored for processing within the shards.
+
+52
+00:03:34,450 --> 00:03:40,874
+Then we have our consumers and our consumers in this case are EC2 instances.
+
+53
+00:03:41,020 --> 00:03:45,621
+They're going to process the data and then they're going to load it to a destination.
+
+54
+00:03:45,807 --> 00:03:48,550
+And you can see a few of the supported destinations here.
+
+55
+00:03:48,760 --> 00:03:52,630
+And then you can run your analytics against that data if that's what you need to do.
+
+56
+00:03:52,870 --> 00:03:59,395
+So the Kinesis Client Library is part of the software architecture on the EC2 instances that you
+
+57
+00:03:59,420 --> 00:04:02,680
+need to run in order to process data from the streams.
+
+58
+00:04:02,830 --> 00:04:07,270
+So KCL helps you consume and process data from a Kinesis Data Stream.
+
+59
+00:04:07,900 --> 00:04:13,841
+The KCL will enumerate the Shards and instantiate what's called a record processor for each Shard
+
+60
+00:04:13,866 --> 00:04:14,871
+that it manages.
+
+61
+00:04:15,103 --> 00:04:20,880
+KCL workers, which are instances in this case of EC2 running the agent can also have
+
+62
+00:04:20,904 --> 00:04:22,641
+multiple record processors.
+
+63
+00:04:22,756 --> 00:04:25,876
+So each of those is actually getting mapped to a shard.
+
+64
+00:04:26,080 --> 00:04:32,770
+Each shard gets processed by exactly one KCL worker and has exactly one corresponding record processor.
+
+65
+00:04:32,950 --> 00:04:36,670
+One worker can also process any number of shards.
+
+66
+00:04:36,788 --> 00:04:41,535
+So the number of shards can be greater than the number of instances you have to process them.
+
+67
+00:04:42,040 --> 00:04:49,015
+So each shard is processed by exactly one KCL worker and a record processor maps to exactly one shard.
+
+68
+00:04:49,300 --> 00:04:54,775
+Another thing about Kinesis Data Streams is ordering, and this definitely comes up in exam questions.
+
+69
+00:04:55,210 --> 00:04:59,698
+So on the left there, we have some producers and in this case, EC2, and they're just numbered
+
+70
+00:04:59,740 --> 00:05:01,420
+and color coded in this example.
+
+71
+00:05:01,750 --> 00:05:05,555
+On the right, we have our KCL workers with the record processors running.
+
+72
+00:05:05,813 --> 00:05:10,810
+A partition key can be specified with the record API action.
+
+73
+00:05:11,161 --> 00:05:13,841
+And that means that the data can be grouped by Shard.
+
+74
+00:05:14,120 --> 00:05:17,640
+So the data comes across from the producers.
+
+75
+00:05:17,930 --> 00:05:23,360
+And what's happening is the order is actually maintained for the records within a shard.
+
+76
+00:05:23,480 --> 00:05:28,230
+So as the records are added, they will be then processed in the order they went in.
+
+77
+00:05:28,400 --> 00:05:32,760
+They don't just get sort of thrown into some kind of bucket and processed in a random order.
+
+78
+00:05:33,050 --> 00:05:38,885
+So it's key to remember for the exam that you can have your records processed in order with Kinesis,
+
+79
+00:05:39,050 --> 00:05:41,780
+but you have to actually order them by shards.
+
+80
+00:05:41,780 --> 00:05:45,793
+So the ordering is only maintained within a shard, not across shards.
+
+81
+00:05:46,790 --> 00:05:48,800
+So next we have Data Firehose.
+
+82
+00:05:49,010 --> 00:05:52,600
+Again, we have producers sending data to Firehose.
+
+83
+00:05:52,760 --> 00:05:53,993
+There are no shards.
+
+84
+00:05:54,230 --> 00:06:00,313
+And one of the advantages of that is that it's completely automated in terms of scalability, very elastic.
+
+85
+00:06:00,800 --> 00:06:04,950
+With Data Streams, you have to add shards when you need to scale.
+
+86
+00:06:05,090 --> 00:06:06,938
+So that's something that you have to watch out for.
+
+87
+00:06:06,963 --> 00:06:09,442
+You've got to constantly monitor and you pay for the shards.
+
+88
+00:06:09,620 --> 00:06:12,582
+So it's important to get the number of shards correct.
+
+89
+00:06:12,860 --> 00:06:16,790
+Wth Firehose, the data is always loaded directly to the destination.
+
+90
+00:06:16,940 --> 00:06:19,070
+It's not stored within Firehose itself.
+
+91
+00:06:19,430 --> 00:06:25,126
+And optionally you can transform it or process it with AWS Lambda before it's actually stored
+
+92
+00:06:25,150 --> 00:06:26,357
+in the destination.
+
+93
+00:06:26,870 --> 00:06:32,420
+Now, as I mentioned before, you get near real time delivery, so somewhere around 60 seconds latency
+
+94
+00:06:32,630 --> 00:06:34,340
+with Kinesis Data Firehose.
+
+95
+00:06:34,760 --> 00:06:35,835
+So let's look visually.
+
+96
+00:06:35,859 --> 00:06:40,855
+Again, We have some kind of producer and the data is hitting Firehose.
+
+97
+00:06:40,880 --> 00:06:46,490
+It will capture it, potentially transform it, and then load that streaming data into a destination.
+
+98
+00:06:46,790 --> 00:06:48,613
+And here's just a few of the destinations.
+
+99
+00:06:48,638 --> 00:06:50,027
+We'll see some more shortly.
+
+100
+00:06:50,810 --> 00:06:57,282
+So the data gets loaded continuously to the destinations and optionally transformed before it's loaded
+
+101
+00:06:57,307 --> 00:06:58,374
+to the destination.
+
+102
+00:06:58,550 --> 00:07:02,027
+And then again, you can run your analytics tools against that data.
+
+103
+00:07:02,210 --> 00:07:04,867
+So let's have a look at the supported destinations.
+
+104
+00:07:05,030 --> 00:07:12,080
+Firstly, we've got Redshift, we've got ElasticSearch, Amazon S3, Splunk, Datadog, MongoDB,
+
+105
+00:07:12,200 --> 00:07:15,560
+New Relic, and also an HTTP Endpoint as well.
+
+106
+00:07:15,830 --> 00:07:18,643
+The last service we need to cover is Data Analytics.
+
+107
+00:07:18,800 --> 00:07:21,567
+This one doesn't come up in too many exam questions.
+
+108
+00:07:21,830 --> 00:07:27,942
+You've got to remember that data analytics is used when you want to perform real-time SQL processing
+
+109
+00:07:27,968 --> 00:07:29,090
+for the streaming data.
+
+110
+00:07:29,630 --> 00:07:35,600
+It provides analytics for data coming from Data Streams or from Kinesis Data Firehose.
+
+111
+00:07:36,170 --> 00:07:40,960
+The destinations can be Data Streams, Data Firehose or AWS Lambda.
+
+112
+00:07:41,330 --> 00:07:44,210
+So again, we have our data source streaming data.
+
+113
+00:07:44,450 --> 00:07:51,012
+The streaming data hits Kinesis Data Streams and then we can have data analytics running SQL queries
+
+114
+00:07:51,110 --> 00:07:52,880
+on the real-time streaming data.
+
+115
+00:07:53,570 --> 00:07:58,160
+You can then load it to AWS Lambda or you could load it to Kinesis Data Firehose.
+
+116
+00:07:58,160 --> 00:07:59,568
+So that's it for Kinesis.
+
+117
+00:07:59,593 --> 00:08:00,528
+I hope that is useful.
+
+118
+00:08:00,553 --> 00:08:02,000
+I will see you in the next lesson.
+

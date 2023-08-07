@@ -1,0 +1,216 @@
+1
+00:00:05,390 --> 00:00:10,220
+Hi, guys. In this lesson, we're going to create an encrypted copy of our RDS database.
+
+2
+00:00:10,670 --> 00:00:16,610
+Now, as you know, we can't change the status of our existing database in terms of encryption. But
+
+3
+00:00:16,610 --> 00:00:19,610
+we already have a snapshot which is unencrypted.
+
+4
+00:00:19,970 --> 00:00:21,740
+So, we're going to copy that snapshot,
+
+5
+00:00:21,980 --> 00:00:28,190
+enable encryption for the snapshot, and then from the encrypted snapshot we'll create a new database
+
+6
+00:00:28,190 --> 00:00:30,260
+instance that will have its own endpoint.
+
+7
+00:00:30,770 --> 00:00:33,350
+So let's go over to the console. Back RDS,
+
+8
+00:00:33,380 --> 00:00:37,940
+I'm going to go to snapshots and I have my unencrypted snapshot here.
+
+9
+00:00:38,330 --> 00:00:41,990
+I'm going to select the snapshot, go to actions and copy.
+
+10
+00:00:42,410 --> 00:00:44,360
+Now I'm going to keep it in the same region.
+
+11
+00:00:44,870 --> 00:00:46,550
+I'm going to give it a new identifier,
+
+12
+00:00:47,060 --> 00:00:48,470
+Digicloud encrypted.
+
+13
+00:00:48,860 --> 00:00:52,310
+We're going to leave the other defaults and just select encryption.
+
+14
+00:00:52,640 --> 00:00:57,550
+And for encryption we're going to use the standard default AWS RDS key.
+
+15
+00:00:58,100 --> 00:00:59,690
+So let's copy this snapshot.
+
+16
+00:01:00,110 --> 00:01:03,860
+So we can see at the top here that the snapshot copy is being created.
+
+17
+00:01:03,870 --> 00:01:08,900
+So, just give it a few minutes until it's created and then we're going to launch a database from it.
+
+18
+00:01:09,320 --> 00:01:15,290
+My snapshot has been created, so I'm going to select my encrypted snapshot, go to actions, and restore
+
+19
+00:01:15,290 --> 00:01:15,920
+snapshot.
+
+20
+00:01:16,340 --> 00:01:19,070
+We can now provide an instance identifier.
+
+21
+00:01:19,070 --> 00:01:21,680
+I'll call this one Digicloud encrypted.
+
+22
+00:01:22,190 --> 00:01:24,990
+I'm going to leave it in the same VPC. And in fact,
+
+23
+00:01:25,040 --> 00:01:30,130
+I don't need to change any other settings here except for the DB instance class.
+
+24
+00:01:30,130 --> 00:01:35,540
+So, I'm going to go back to burstable classes. And I can't find the t2.micro on this list but I'll
+
+25
+00:01:35,540 --> 00:01:38,180
+choose the t3.micro. So, it's up to you.
+
+26
+00:01:38,180 --> 00:01:42,710
+If you actually launch this instance, there's a possibility it could cost you a small amount of money.
+
+27
+00:01:42,710 --> 00:01:44,480
+But we won't have it running for very long.
+
+28
+00:01:45,290 --> 00:01:47,060
+Now, I'm going to leave the other defaults.
+
+29
+00:01:47,060 --> 00:01:49,400
+We don't need a multi-AZ standby.
+
+30
+00:01:49,970 --> 00:01:51,110
+Scroll down to the bottom.
+
+31
+00:01:51,410 --> 00:01:55,400
+And as you can see, it is an encrypted instance and I can't change that.
+
+32
+00:01:55,400 --> 00:02:01,310
+It's greyed out. And that's exactly what I'd expect because as you know, we can't create an unencrypted
+
+33
+00:02:01,310 --> 00:02:03,470
+database from an encrypted snapshot.
+
+34
+00:02:04,100 --> 00:02:06,230
+So, I'm going to click on restore DB instance.
+
+35
+00:02:06,890 --> 00:02:09,560
+And now I have a new DB Instance being created.
+
+36
+00:02:09,979 --> 00:02:13,460
+If I click on that instance, go to configuration,
+
+37
+00:02:14,270 --> 00:02:19,970
+we can of course see that this is an encrypted database. And it's going to essentially be a copy
+
+38
+00:02:20,180 --> 00:02:21,590
+of our original database.
+
+39
+00:02:22,370 --> 00:02:25,070
+Now it will eventually have its own endpoint and port.
+
+40
+00:02:25,820 --> 00:02:30,890
+So, if you leave this to complete, we're going to have a different endpoint here than our other database.
+
+41
+00:02:31,310 --> 00:02:34,040
+So, we have created a separate database here.
+
+42
+00:02:34,040 --> 00:02:39,770
+We can't ever change the encryption status of the initial database. And I keep mentioning this because
+
+43
+00:02:39,980 --> 00:02:42,650
+it comes up in pretty much every single exam.
+
+44
+00:02:42,920 --> 00:02:44,330
+So, I'm not actually going to wait.
+
+45
+00:02:44,330 --> 00:02:47,510
+I know what's going to happen there in terms of adding the DB endpoint.
+
+46
+00:02:47,840 --> 00:02:51,980
+So, what I'm going to do is just go through and delete all of my databases.
+
+47
+00:02:52,340 --> 00:02:55,370
+Now, you can deselect the option to create a final snapshot.
+
+48
+00:02:55,700 --> 00:03:01,790
+We don't want to retain automated backups, and we just select the acknowledge here. Type delete me
+
+49
+00:03:02,180 --> 00:03:04,640
+and delete. And I'll do that for each database.
+
+50
+00:03:05,210 --> 00:03:07,580
+So, all of my databases are now deleting.
+
+51
+00:03:07,940 --> 00:03:14,540
+Now, the other thing I want to do is go to snapshots. And under manual, I want to go to actions and
+
+52
+00:03:14,540 --> 00:03:16,070
+delete both of my snapshots.
+
+53
+00:03:16,550 --> 00:03:21,980
+If you do get an error like I did because the encrypted snapshot was being used to actually create a
+
+54
+00:03:21,980 --> 00:03:28,070
+database, just go back and wait for your databases to complete deleting and then delete your snapshot.
+

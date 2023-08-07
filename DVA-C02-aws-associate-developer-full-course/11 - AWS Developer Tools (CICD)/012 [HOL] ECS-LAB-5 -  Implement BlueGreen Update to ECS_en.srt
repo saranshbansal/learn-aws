@@ -1,0 +1,352 @@
+1
+00:00:05,140 --> 00:00:08,280
+Hi guys and welcome to the last of the E C S lab,
+
+2
+00:00:08,290 --> 00:00:13,420
+five part series in this one we're going to implement another blue green updates.
+
+3
+00:00:13,430 --> 00:00:14,240
+Pcs
+
+4
+00:00:14,550 --> 00:00:16,170
+and there's a couple of ways we can do this
+
+5
+00:00:16,170 --> 00:00:19,570
+one is to delete our image from the repository.
+
+6
+00:00:19,570 --> 00:00:21,620
+Another option is to modify it.
+
+7
+00:00:21,730 --> 00:00:26,240
+Now I'm just gonna choose to delete our image from the repository and then
+
+8
+00:00:26,250 --> 00:00:30,180
+upload a new one and that's going to trigger a change in our pipeline.
+
+9
+00:00:30,350 --> 00:00:34,300
+So back in the instructions file here, as I mentioned, there's two options,
+
+10
+00:00:34,320 --> 00:00:35,940
+make a change to the source image,
+
+11
+00:00:35,940 --> 00:00:39,360
+You might want to customize it and then push the image up or just
+
+12
+00:00:39,360 --> 00:00:42,390
+delete the image from PcR and then we'll push it back up again.
+
+13
+00:00:42,490 --> 00:00:44,950
+So we're going to do the second option here.
+
+14
+00:00:45,640 --> 00:00:49,050
+So let's go back to the console and delete our image first.
+
+15
+00:00:49,110 --> 00:00:53,510
+So back in the console I'm gonna go to elastic container registry.
+
+16
+00:00:53,580 --> 00:00:55,750
+Let's find our repository.
+
+17
+00:00:56,440 --> 00:01:00,640
+I'm going to go into the repository. I don't want to delete the repository.
+
+18
+00:01:00,650 --> 00:01:05,459
+I want to delete the actual image here. So let's just choose delete
+
+19
+00:01:06,640 --> 00:01:09,010
+And that will get rid of our image nice and fast.
+
+20
+00:01:09,160 --> 00:01:12,850
+And then I'm going to go to my ec two instance
+
+21
+00:01:13,240 --> 00:01:18,650
+and we're going to run the commands that we ran earlier on to push our actual image up.
+
+22
+00:01:18,650 --> 00:01:21,660
+So firstly I might need to use Sudo S. U. For this.
+
+23
+00:01:21,660 --> 00:01:24,460
+So I'm just gonna switch to get some privileges
+
+24
+00:01:24,840 --> 00:01:29,180
+back in our file. You remember what we had to do is run a series of commands.
+
+25
+00:01:29,180 --> 00:01:32,630
+Now we've already tagged our image just to log in again.
+
+26
+00:01:32,630 --> 00:01:37,140
+We're going to need to run this command, the ec are get log in password.
+
+27
+00:01:37,150 --> 00:01:39,860
+So on the command line here I'm going to paste that in
+
+28
+00:01:40,940 --> 00:01:42,160
+that gets us logged in
+
+29
+00:01:42,640 --> 00:01:45,260
+and then I'm gonna run this docker push
+
+30
+00:01:45,740 --> 00:01:47,150
+so we already have the image.
+
+31
+00:01:47,840 --> 00:01:50,260
+We should just be able to push it up to our repository
+
+32
+00:01:51,540 --> 00:01:54,540
+and so it's saying layer already exists but let's
+
+33
+00:01:54,540 --> 00:01:57,660
+go back into our repository and see what's happened.
+
+34
+00:01:58,040 --> 00:02:00,680
+Have we now uploaded a new image? Yes.
+
+35
+00:02:00,910 --> 00:02:03,280
+So let's go back to Codepipeline
+
+36
+00:02:03,560 --> 00:02:04,960
+and let's see what's happening
+
+37
+00:02:06,140 --> 00:02:09,470
+so we can see it happened really fast so we had an update
+
+38
+00:02:09,500 --> 00:02:14,890
+and now it's pushed into the deploy stage we can go to details again
+
+39
+00:02:15,110 --> 00:02:16,850
+and have a look at what's going on
+
+40
+00:02:17,340 --> 00:02:21,350
+and so it's deploying the replacement task set and much like before it's
+
+41
+00:02:21,350 --> 00:02:25,160
+gonna do the same thing it's just gonna make those updates for us.
+
+42
+00:02:25,640 --> 00:02:30,580
+Now another thing you'll notice if you come back to let's just go to E. C. S.
+
+43
+00:02:30,950 --> 00:02:33,480
+You will see here that our task definition
+
+44
+00:02:33,770 --> 00:02:35,510
+now has multiple revisions.
+
+45
+00:02:35,510 --> 00:02:37,620
+Now we didn't make those ourselves that was done
+
+46
+00:02:37,620 --> 00:02:42,050
+for us so those are automatically being updated by codedeploy
+
+47
+00:02:42,740 --> 00:02:46,760
+So let's go back and have a look at our progress so not that one
+
+48
+00:02:47,540 --> 00:02:49,870
+let's come back to here
+
+49
+00:02:50,060 --> 00:02:52,360
+so this is our update that's happening
+
+50
+00:02:52,940 --> 00:02:55,430
+and so obviously that will take a few minutes and we
+
+51
+00:02:55,430 --> 00:03:00,350
+should see our traffic getting rerouted to the target group too.
+
+52
+00:03:00,380 --> 00:03:04,340
+So while that's happening, just coming back to the slides were on the last part here.
+
+53
+00:03:04,350 --> 00:03:06,460
+So this is where we're actually at.
+
+54
+00:03:06,710 --> 00:03:10,250
+And so what we did was we actually deleted and replaced our image.
+
+55
+00:03:10,640 --> 00:03:15,260
+That kicks off the codepipeline and Codepipeline then talks to E C S
+
+56
+00:03:15,410 --> 00:03:16,530
+and the A L B.
+
+57
+00:03:16,710 --> 00:03:21,810
+And it swaps over to target group too. So that's the replacement target group.
+
+58
+00:03:21,810 --> 00:03:22,460
+That's uh
+
+59
+00:03:22,620 --> 00:03:24,480
+that we can actually see in the console.
+
+60
+00:03:24,640 --> 00:03:28,160
+So hopefully that's all work. Let's go back and see where we're at.
+
+61
+00:03:28,440 --> 00:03:29,830
+So it's happening pretty fast.
+
+62
+00:03:29,830 --> 00:03:32,330
+We can see that the rerouting production traffic
+
+63
+00:03:32,330 --> 00:03:35,430
+to the replacement task set has indeed happened.
+
+64
+00:03:35,630 --> 00:03:37,060
+So there we are.
+
+65
+00:03:37,440 --> 00:03:40,950
+And of course if we go back to EC two
+
+66
+00:03:41,410 --> 00:03:44,460
+and let's just go to our elastic load balancer
+
+67
+00:03:45,040 --> 00:03:49,430
+and we should be able to see now. Yes, it's forwarding traffic to target group too.
+
+68
+00:03:49,540 --> 00:03:51,960
+So that is a blue green update.
+
+69
+00:03:51,990 --> 00:03:56,920
+We've now utilized several different components of AWS to make this work.
+
+70
+00:03:56,960 --> 00:04:00,790
+So hopefully that will work well for you and you should see something like this
+
+71
+00:04:01,140 --> 00:04:05,320
+If you leave it now, what will happen is after 15 minutes, it's going to terminate
+
+72
+00:04:05,520 --> 00:04:11,020
+the original task set and then we'll be running on the target group too.
+
+73
+00:04:11,040 --> 00:04:13,860
+So that's it, that's how everything works now,
+
+74
+00:04:13,860 --> 00:04:16,649
+of course we have launched a few things here,
+
+75
+00:04:16,660 --> 00:04:21,660
+so you'll want to go through when you're finished and actually clean things up
+
+76
+00:04:22,019 --> 00:04:25,490
+so the things to clean up of course are are elastic load balancer.
+
+77
+00:04:25,490 --> 00:04:27,060
+Don't forget to take that away.
+
+78
+00:04:27,140 --> 00:04:31,470
+We have an ec two instance running so you can terminate your ec two instance
+
+79
+00:04:32,040 --> 00:04:34,220
+now we have a Fargate cluster running so you'll
+
+80
+00:04:34,220 --> 00:04:37,810
+want to go in and just delete your service.
+
+81
+00:04:37,810 --> 00:04:38,530
+But of course
+
+82
+00:04:38,640 --> 00:04:41,100
+as I showed you before, you'll have to go in and edit
+
+83
+00:04:41,320 --> 00:04:43,310
+knock that down to zero tasks.
+
+84
+00:04:43,410 --> 00:04:47,090
+Once you've updated, you can then remove your service.
+
+85
+00:04:47,210 --> 00:04:49,560
+The Fargate cluster itself doesn't cost you anything
+
+86
+00:04:49,840 --> 00:04:52,300
+and you might want to go and clean out your repository as well.
+
+87
+00:04:52,840 --> 00:04:54,300
+So that's it for this lesson.
+
+88
+00:04:54,310 --> 00:04:57,400
+Hope it will work well for you and I'll see you in the next lesson.
+

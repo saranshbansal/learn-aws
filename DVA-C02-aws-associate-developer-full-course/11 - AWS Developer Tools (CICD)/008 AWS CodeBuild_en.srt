@@ -1,0 +1,260 @@
+1
+00:00:05,240 --> 00:00:08,160
+In this lesson, you'll learn about AWS CodeBuild.
+
+2
+00:00:08,170 --> 00:00:12,270
+So CodeBuild is a fully managed continuous integration service.
+
+3
+00:00:12,530 --> 00:00:15,250
+What it does is it will compile your source code,
+
+4
+00:00:15,300 --> 00:00:19,210
+it can run tests and it can produce software packages that are
+
+5
+00:00:19,210 --> 00:00:20,750
+then ready for deployment.
+
+6
+00:00:21,240 --> 00:00:25,220
+It will scale continuously and process multiple builds concurrently.
+
+7
+00:00:25,410 --> 00:00:29,300
+And you only pay based on the time it takes to actually complete your builds.
+
+8
+00:00:29,940 --> 00:00:34,150
+It integrates with various source code repositories, including GitHub,
+
+9
+00:00:34,160 --> 00:00:37,700
+CodeCommit, CodePipeline, S3, and others.
+
+10
+00:00:37,950 --> 00:00:43,150
+You define your build instructions in code using the buildspec.yml file.
+
+11
+00:00:43,175 --> 00:00:46,700
+And we'll go over some more details about that file a bit later on.
+
+12
+00:00:46,810 --> 00:00:51,740
+Output logs can also be sent to Amazon S3 and Amazon CloudWatch logs.
+
+13
+00:00:51,840 --> 00:00:53,220
+So what are the components?
+
+14
+00:00:53,340 --> 00:00:55,760
+Firstly, you create a build project.
+
+15
+00:00:55,960 --> 00:01:00,510
+And this will define how CodeBuild will run a build and the settings include
+
+16
+00:01:00,640 --> 00:01:04,010
+the location of the source code, the build environment to use,
+
+17
+00:01:04,230 --> 00:01:05,680
+the build commands to run,
+
+18
+00:01:05,900 --> 00:01:08,060
+and where to store the output of the build.
+
+19
+00:01:08,540 --> 00:01:10,116
+Then you have the build environment.
+
+20
+00:01:10,141 --> 00:01:13,398
+Here you specify the operating system, language runtime,
+
+21
+00:01:13,422 --> 00:01:16,360
+and tools that CodeBuild will use for the build.
+
+22
+00:01:17,060 --> 00:01:19,980
+And then lastly here we have the build specification.
+
+23
+00:01:20,250 --> 00:01:22,410
+This is the YAML file that describes
+
+24
+00:01:22,540 --> 00:01:26,050
+the collection of commands and settings for CodeBuild to run a build.
+
+25
+00:01:26,310 --> 00:01:29,760
+And here's an example of a buildspec.yml file.
+
+26
+00:01:29,880 --> 00:01:32,210
+And as you can see, there are phases here.
+
+27
+00:01:32,460 --> 00:01:35,990
+And under the phases, we can see the individual phases themselves.
+
+28
+00:01:36,140 --> 00:01:39,000
+We've got install, then we have a command block,
+
+29
+00:01:39,170 --> 00:01:43,310
+Pre-build, another commands  block, build, and post build.
+
+30
+00:01:43,640 --> 00:01:45,405
+And there's a few more options as well.
+
+31
+00:01:45,429 --> 00:01:47,090
+And as you can see within each of these,
+
+32
+00:01:47,090 --> 00:01:52,060
+we in this case are using a commands block to actually run some commands.
+
+33
+00:01:52,440 --> 00:01:55,940
+In this table, you can see the various options for phases.
+
+34
+00:01:56,310 --> 00:02:01,650
+So firstly, we have run as. This is optional as are all of the phases in this list.
+
+35
+00:02:02,146 --> 00:02:06,876
+With the run as phase, you specify a Linux user that runs the commands.
+
+36
+00:02:07,640 --> 00:02:08,979
+In the on failure phase,
+
+37
+00:02:08,979 --> 00:02:13,630
+you can specify the action to take if failure occurs during the phase,
+
+38
+00:02:13,820 --> 00:02:15,650
+either abort or continue.
+
+39
+00:02:16,100 --> 00:02:20,620
+The finally phase runs commands after commands in the commands block
+
+40
+00:02:20,630 --> 00:02:23,250
+even if the commands in the command block fail.
+
+41
+00:02:23,430 --> 00:02:24,680
+Then we have install.
+
+42
+00:02:24,840 --> 00:02:27,270
+This is the commands to run during install.
+
+43
+00:02:27,280 --> 00:02:30,350
+Pre-build, the commands to run before the build.
+
+44
+00:02:30,840 --> 00:02:34,550
+Build the commands to run during the build and then post build,
+
+45
+00:02:34,560 --> 00:02:37,350
+which is of course the commands to run after the build.
+
+46
+00:02:37,920 --> 00:02:42,160
+So let's have a look at an example CI/CD pipeline with CodeBuild.
+
+47
+00:02:42,540 --> 00:02:44,250
+So we have CodePipeline.
+
+48
+00:02:44,330 --> 00:02:49,150
+We've got CodeCommit and CodeBuild and an Elastic Beanstalk application.
+
+49
+00:02:49,400 --> 00:02:51,090
+We then have our developer.
+
+50
+00:02:51,260 --> 00:02:56,720
+Our developer is going to add the buildspec.yml file to the CodeCommit repository.
+
+51
+00:02:56,990 --> 00:03:00,330
+Then CodeBuild is going to run some tests.
+
+52
+00:03:00,440 --> 00:03:05,150
+Now in our particular example, which we'll actually be performing in the hands-on,
+
+53
+00:03:05,240 --> 00:03:08,750
+we're going to test for the existence of a specific file.
+
+54
+00:03:09,240 --> 00:03:12,540
+Then we'll have an option for manual approval.
+
+55
+00:03:12,570 --> 00:03:17,510
+So nothing will continue until the approver goes in and approves
+
+56
+00:03:17,535 --> 00:03:22,435
+that the code can be deployed to the Elastic Beanstalk application.
+
+57
+00:03:22,900 --> 00:03:26,950
+Then Beanstalk is going to actually deploy the updates to the Node.js app.
+
+58
+00:03:27,540 --> 00:03:31,540
+So that's just one example of using CodeBuild. And in our hands on,
+
+59
+00:03:31,540 --> 00:03:32,480
+that's what we're going do.
+
+60
+00:03:32,480 --> 00:03:34,530
+We'll test for the existence of a file.
+
+61
+00:03:34,640 --> 00:03:36,630
+If it's there, then the build passes.
+
+62
+00:03:36,640 --> 00:03:38,451
+If it's not, the build fails.
+
+63
+00:03:38,475 --> 00:03:42,238
+Of course, in the real world, you'll often use CodeBuild to fully build out
+
+64
+00:03:42,262 --> 00:03:44,050
+your application for deployment.
+
+65
+00:03:44,050 --> 00:03:48,260
+So you could be running a lot more commands than we see in our example here.
+
