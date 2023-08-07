@@ -1,0 +1,80 @@
+1
+00:00:00,340 --> 00:00:02,000
+Hello and welcome to this section.
+
+2
+00:00:02,050 --> 00:00:08,160
+In this section, I'm going to cover two main services. One is AWS cloudformation,
+
+3
+00:00:08,300 --> 00:00:12,060
+that is a service that's used for deploying infrastructure through code.
+
+4
+00:00:12,170 --> 00:00:16,390
+So we define our infrastructure as we want it to be built
+
+5
+00:00:16,500 --> 00:00:19,450
+in a template file and cloud formation takes that
+
+6
+00:00:19,450 --> 00:00:23,320
+file and uses it to then automate the implementation,
+
+7
+00:00:23,320 --> 00:00:25,680
+the creation of those resources.
+
+8
+00:00:26,340 --> 00:00:26,640
+Now,
+
+9
+00:00:26,640 --> 00:00:29,180
+the other service that we're going to look at is elastic
+
+10
+00:00:29,190 --> 00:00:34,160
+beanstalk elastic, beanstalk features quite a lot in the developer associate exam
+
+11
+00:00:34,640 --> 00:00:39,180
+beanstalk is often referred to as a platform as a service or PAAS solution
+
+12
+00:00:39,480 --> 00:00:42,740
+and that's because beanstalk will give you a managed
+
+13
+00:00:42,740 --> 00:00:45,140
+environment onto which you can deploy your code.
+
+14
+00:00:45,300 --> 00:00:46,940
+So it's really great for developers who
+
+15
+00:00:46,940 --> 00:00:49,560
+don't want to manage the underlying infrastructure.
+
+16
+00:00:49,740 --> 00:00:54,200
+That's the low balances and the ec2 instances and even databases
+
+17
+00:00:54,340 --> 00:00:57,150
+that are connected to your applications.
+
+18
+00:00:57,260 --> 00:01:00,930
+So there's lots of coverage of beanstalk in this course and we'll also
+
+19
+00:01:00,930 --> 00:01:04,030
+do quite a few hands on lessons and not just within this section.
+
+20
+00:01:04,040 --> 00:01:08,860
+We'll revisit elastic beanstalk later on when we get to the developer tools as well.
+

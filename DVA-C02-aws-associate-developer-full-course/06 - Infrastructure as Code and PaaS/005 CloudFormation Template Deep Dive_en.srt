@@ -1,0 +1,564 @@
+1
+00:00:05,240 --> 00:00:06,000
+In this lesson,
+
+2
+00:00:06,000 --> 00:00:10,320
+I'm going to deep dive into some of the components of a CloudFormation template.
+
+3
+00:00:10,370 --> 00:00:12,720
+So CloudFormation templates as you know,
+
+4
+00:00:12,730 --> 00:00:17,490
+are YAML or JSON-based templates that are used to describe
+
+5
+00:00:17,500 --> 00:00:22,025
+the end state of the infrastructure that you want to create using CloudFormation.
+
+6
+00:00:22,049 --> 00:00:25,865
+After creating the template, you can then upload it to CloudFormation directly
+
+7
+00:00:25,889 --> 00:00:28,020
+or you can upload it to S3
+
+8
+00:00:28,230 --> 00:00:32,670
+and then use CloudFormation to connect to S3 when you're creating your stack.
+
+9
+00:00:32,680 --> 00:00:35,070
+CloudFormation will read the template and then make
+
+10
+00:00:35,070 --> 00:00:39,050
+the API calls to provision your infrastructure on your behalf.
+
+11
+00:00:39,320 --> 00:00:41,750
+And then the resulting resources are known as a stack.
+
+12
+00:00:41,840 --> 00:00:47,280
+We have logical IDs which are used to reference resources within the template.
+
+13
+00:00:47,890 --> 00:00:51,890
+Then we have physical IDs which are used to identify
+
+14
+00:00:51,900 --> 00:00:56,480
+resources outside the CloudFormation after they've actually been created.
+
+15
+00:00:56,860 --> 00:00:59,460
+Now let's look at some of the functions such as
+
+16
+00:00:59,460 --> 00:01:02,150
+intrinsic functions that we can use in a template.
+
+17
+00:01:02,540 --> 00:01:05,440
+CloudFormation provides several built-in functions
+
+18
+00:01:05,550 --> 00:01:07,250
+that help you to manage your stacks.
+
+19
+00:01:07,740 --> 00:01:10,236
+And these are known as intrinsic functions
+
+20
+00:01:10,261 --> 00:01:13,020
+and they help you to assign values to properties
+
+21
+00:01:13,180 --> 00:01:15,720
+that are not available until runtime.
+
+22
+00:01:15,960 --> 00:01:19,350
+We'll go over some of them in this lesson but there's lots more
+
+23
+00:01:19,440 --> 00:01:22,800
+and you can look at the full list here on the AWS website.
+
+24
+00:01:22,910 --> 00:01:26,111
+So let's start off looking at the intrinsic function called Ref.
+
+25
+00:01:26,136 --> 00:01:30,800
+This returns the value of the specified parameter or resource.
+
+26
+00:01:31,110 --> 00:01:34,670
+When you specify a parameter's logical name, it will return
+
+27
+00:01:34,790 --> 00:01:36,060
+the value of the parameter.
+
+28
+00:01:36,360 --> 00:01:39,530
+And if you specify a resource's logical name,
+
+29
+00:01:39,540 --> 00:01:43,530
+it will return the value that you can typically use to then refer to that resource,
+
+30
+00:01:43,640 --> 00:01:45,350
+such as the physical ID.
+
+31
+00:01:45,550 --> 00:01:47,360
+So let's look at an example.
+
+32
+00:01:47,640 --> 00:01:51,340
+This resource declaration is for an elastic IP address.
+
+33
+00:01:51,540 --> 00:01:55,310
+And it needs the instance ID of an EC2 instance.
+
+34
+00:01:55,380 --> 00:02:00,556
+So it's going to use the Ref function to specify the instance ID of the EC2
+
+35
+00:02:00,643 --> 00:02:01,850
+instance resource.
+
+36
+00:02:01,890 --> 00:02:06,690
+So we can see here we have the property for the Elastic IP address
+
+37
+00:02:06,920 --> 00:02:08,610
+and we need the instance ID.
+
+38
+00:02:08,690 --> 00:02:13,738
+So it's using Ref and it's referencing my EC2 instance which can be found
+
+39
+00:02:13,763 --> 00:02:15,290
+somewhere else in the template.
+
+40
+00:02:15,690 --> 00:02:18,260
+Next we have Fn Get Att.
+
+41
+00:02:18,510 --> 00:02:21,020
+So this is an intrinsic function that returns
+
+42
+00:02:21,020 --> 00:02:24,840
+the value of an attribute from a resource in the template.
+
+43
+00:02:24,850 --> 00:02:29,560
+Here's the full syntax in YAML and here's the short form in YAML.
+
+44
+00:02:29,890 --> 00:02:31,560
+Now, let's have a look at an example.
+
+45
+00:02:32,040 --> 00:02:38,320
+This template will use the get at to actually return certain values for the ELB.
+
+46
+00:02:38,510 --> 00:02:42,520
+Firstly, it's going to return the sourcesecuritygroup.owneralias.
+
+47
+00:02:42,850 --> 00:02:46,660
+So here, within the security group ingress rule,
+
+48
+00:02:46,670 --> 00:02:50,960
+we need to identify the security group owner ID.
+
+49
+00:02:51,240 --> 00:02:56,020
+And so we're going to use get att to find it within the MyELB resource.
+
+50
+00:02:56,380 --> 00:02:58,890
+And the same then for the source security group name.
+
+51
+00:02:59,050 --> 00:03:00,760
+We then have FindinMap.
+
+52
+00:03:00,760 --> 00:03:03,500
+This returns the value corresponding to keys in a
+
+53
+00:03:03,500 --> 00:03:06,760
+two-level map that's declared in the mapping section.
+
+54
+00:03:07,340 --> 00:03:10,760
+Here's the full syntax in YAML and then the short form in YAML.
+
+55
+00:03:10,860 --> 00:03:13,070
+So again, let's have a look at an example.
+
+56
+00:03:13,640 --> 00:03:17,718
+So this example shows how to use finding map for a template
+
+57
+00:03:17,743 --> 00:03:20,500
+with a mapping section that contains a single map.
+
+58
+00:03:20,650 --> 00:03:23,170
+And that's called region map and you can see that here.
+
+59
+00:03:23,430 --> 00:03:26,050
+And within that we have regions defined
+
+60
+00:03:26,220 --> 00:03:29,450
+and then the AMIs for specific architectures.
+
+61
+00:03:29,800 --> 00:03:31,060
+And so we're using
+
+62
+00:03:31,300 --> 00:03:35,880
+the FindInMap down here in resources where we're declaring the my EC2 instance.
+
+63
+00:03:36,240 --> 00:03:39,350
+We've got properties, then we've got image ID,
+
+64
+00:03:39,530 --> 00:03:42,620
+and we need to know the AMI ID for this resource.
+
+65
+00:03:42,800 --> 00:03:44,550
+And so we're going to use FindInMap.
+
+66
+00:03:44,940 --> 00:03:46,730
+Next, we have resources.
+
+67
+00:03:46,850 --> 00:03:49,890
+So the required resources section will declare
+
+68
+00:03:49,890 --> 00:03:52,490
+the AWS resources that you need to include
+
+69
+00:03:52,490 --> 00:03:57,080
+in the stack such as EC2 or S3 buckets or whatever it is you're provisioning.
+
+70
+00:03:57,390 --> 00:03:59,550
+Now this is a mandatory section.
+
+71
+00:04:00,040 --> 00:04:03,420
+Resources are declared and can reference each other.
+
+72
+00:04:03,550 --> 00:04:08,740
+So here we can see an example of an EC2 instance being declared as a resource
+
+73
+00:04:08,740 --> 00:04:09,750
+within the template.
+
+74
+00:04:09,990 --> 00:04:11,460
+Next we have parameters.
+
+75
+00:04:11,620 --> 00:04:16,060
+This is an optional section that you can use to customize your templates.
+
+76
+00:04:16,339 --> 00:04:20,495
+Parameters enable you to input your custom values to your template
+
+77
+00:04:20,690 --> 00:04:22,460
+when you create or update your stack.
+
+78
+00:04:22,840 --> 00:04:25,120
+And they're useful for template reuse.
+
+79
+00:04:25,430 --> 00:04:28,790
+And here's an example where we're using parameters to define the
+
+80
+00:04:28,800 --> 00:04:33,830
+instance types that we want to allow for our EC2 instances.
+
+81
+00:04:34,290 --> 00:04:35,710
+So the type is string,
+
+82
+00:04:35,890 --> 00:04:40,690
+the allowed values are the three different EC2 instance types we want to allow.
+
+83
+00:04:40,840 --> 00:04:42,160
+And then the default here
+
+84
+00:04:42,360 --> 00:04:45,660
+is the one which will be selected by default if you don't change it.
+
+85
+00:04:46,010 --> 00:04:47,770
+Then we have mappings.
+
+86
+00:04:47,930 --> 00:04:50,791
+This is an optional section that matches a key to a
+
+87
+00:04:50,816 --> 00:04:53,710
+corresponding set of named values.
+
+88
+00:04:53,920 --> 00:04:56,860
+So we saw this in another slide just a little while ago.
+
+89
+00:04:57,240 --> 00:04:59,250
+We can see here we have a region map.
+
+90
+00:04:59,640 --> 00:05:03,470
+And within that map we then have us-east-1, us-west-1,
+
+91
+00:05:03,650 --> 00:05:05,850
+and then we've defined the AMIs
+
+92
+00:05:05,850 --> 00:05:08,760
+for specific architectures within each of those regions.
+
+93
+00:05:09,030 --> 00:05:11,430
+Now an exam tip here, with mappings you can
+
+94
+00:05:11,430 --> 00:05:14,140
+set the values based on the region as we can see.
+
+95
+00:05:14,420 --> 00:05:18,173
+And therefore you can create a mapping that uses the region name as a key
+
+96
+00:05:18,326 --> 00:05:22,620
+and contains the values you want to specify for each specific region.
+
+97
+00:05:22,970 --> 00:05:28,286
+So if you're defining, for example a template which deploys EC2 instances
+
+98
+00:05:28,311 --> 00:05:30,350
+and you want to use it across regions,
+
+99
+00:05:30,410 --> 00:05:33,000
+you're going to need to supply different AMI IDs.
+
+100
+00:05:33,300 --> 00:05:36,450
+Therefore you can use region map to solve that issue.
+
+101
+00:05:36,840 --> 00:05:38,250
+We then have output.
+
+102
+00:05:38,250 --> 00:05:41,600
+So this is another optional section where you can declare
+
+103
+00:05:41,610 --> 00:05:45,130
+output values that you want to import to other stacks.
+
+104
+00:05:45,170 --> 00:05:48,590
+And you can also return them in response to certain
+
+105
+00:05:48,590 --> 00:05:51,460
+things like stack calls or view them in the console.
+
+106
+00:05:51,610 --> 00:05:55,650
+So in this example here, we have an output and what this will do
+
+107
+00:05:55,840 --> 00:06:00,750
+is return the idea of a VPC within the value here
+
+108
+00:06:00,960 --> 00:06:03,730
+and then it's going to record that for cross stack referencing.
+
+109
+00:06:03,970 --> 00:06:05,670
+We then have conditions.
+
+110
+00:06:05,760 --> 00:06:09,450
+This is another optional section that contains statements that define
+
+111
+00:06:09,450 --> 00:06:14,230
+the circumstances under which entities are created or configured.
+
+112
+00:06:14,400 --> 00:06:15,400
+For example,
+
+113
+00:06:15,650 --> 00:06:17,860
+in this sample code here, what's going to happen
+
+114
+00:06:18,040 --> 00:06:20,720
+is the resources are only going to be created
+
+115
+00:06:20,940 --> 00:06:25,365
+if the ENV type parameter is equal to prod.
+
+116
+00:06:25,389 --> 00:06:29,900
+So here we've got Ref ENV type, and if it's equal to prod,
+
+117
+00:06:30,050 --> 00:06:33,460
+then the condition will pass and that resource will be created.
+
+118
+00:06:33,750 --> 00:06:36,290
+If it was dead for example of some other value
+
+119
+00:06:36,360 --> 00:06:38,960
+then it would fail and the resources not created.
+
+120
+00:06:39,290 --> 00:06:43,560
+Lastly, we have the transformed section. This is another optional section
+
+121
+00:06:43,720 --> 00:06:50,310
+that specifies one or more macros that CloudFormation uses to process your template.
+
+122
+00:06:50,610 --> 00:06:53,410
+You can use the transform section to actually reference
+
+123
+00:06:53,420 --> 00:06:56,030
+additional code that you might have stored in. S3.
+
+124
+00:06:56,150 --> 00:07:00,820
+It could be code such as lambda code or other snippets of CloudFormation code.
+
+125
+00:07:01,000 --> 00:07:04,020
+Now this one is really important for the exam to understand.
+
+126
+00:07:04,140 --> 00:07:06,680
+It's AWS and then serverless.
+
+127
+00:07:06,930 --> 00:07:10,730
+This transform specifies the version of the AWS
+
+128
+00:07:10,730 --> 00:07:15,010
+serverless application model, AWS SAM to use and we're going
+
+129
+00:07:15,010 --> 00:07:16,950
+to learn a bit more about that later on.
+
+130
+00:07:17,440 --> 00:07:21,230
+This model defines the SAM syntax that you can use
+
+131
+00:07:21,370 --> 00:07:23,640
+and how CloudFormation will process it.
+
+132
+00:07:23,710 --> 00:07:26,870
+Again, we'll look at that in a bit more detail in another lesson.
+
+133
+00:07:27,070 --> 00:07:29,300
+We also have AWS Include.
+
+134
+00:07:29,480 --> 00:07:32,670
+Now, this transform works with template snippets that are stored
+
+135
+00:07:32,670 --> 00:07:35,700
+separately from the main CloudFormation templates.
+
+136
+00:07:36,040 --> 00:07:40,500
+It's always good to look at some examples. So let's have a look at some example code.
+
+137
+00:07:40,610 --> 00:07:45,090
+So here we're using the AWS serverless transform
+
+138
+00:07:45,320 --> 00:07:50,170
+to specify a resource, which is a lambda function.
+
+139
+00:07:50,300 --> 00:07:55,070
+And it's a way of simplifying how we can define our lambda function and its
+
+140
+00:07:55,070 --> 00:08:00,550
+code so we can see what the code is being referenced in the code URI there as an S3.
+
+141
+00:08:00,840 --> 00:08:03,360
+And that's it for this lesson. I will see you in the next one.
+

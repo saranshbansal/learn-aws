@@ -1,0 +1,552 @@
+1
+00:00:05,140 --> 00:00:10,420
+In this lesson, I'm going to cover the deployment options for AWS Elastic Beanstalk.
+
+2
+00:00:10,560 --> 00:00:12,550
+And this is something that comes up on quite a lot
+
+3
+00:00:12,550 --> 00:00:15,130
+of exam questions so you need to know the details here.
+
+4
+00:00:15,400 --> 00:00:18,510
+The first deployment option we have is called all at once.
+
+5
+00:00:19,140 --> 00:00:24,850
+What this does is it will deploy a new version to all instances simultaneously.
+
+6
+00:00:25,220 --> 00:00:29,120
+Now of course, that means it's going to take all of your instances out of action.
+
+7
+00:00:29,120 --> 00:00:31,950
+There's downtime for all instances at the same time.
+
+8
+00:00:32,439 --> 00:00:33,750
+We then have rolling.
+
+9
+00:00:33,910 --> 00:00:37,010
+Here, you get to update a batch of instances
+
+10
+00:00:37,160 --> 00:00:41,060
+and then move on to the next batch once the first batch is healthy.
+
+11
+00:00:41,060 --> 00:00:43,060
+So it avoids having everything offline.
+
+12
+00:00:43,740 --> 00:00:46,440
+We also have rolling with additional batch.
+
+13
+00:00:46,710 --> 00:00:51,030
+It's like rolling but it launches new instances in a batch first.
+
+14
+00:00:51,120 --> 00:00:55,078
+So it ensures that you've got the full capacity for your application available
+
+15
+00:00:55,102 --> 00:00:56,120
+at all times.
+
+16
+00:00:56,300 --> 00:00:57,750
+Then we have immutable.
+
+17
+00:00:58,140 --> 00:01:02,090
+This will launch new instances in a new Auto Scaling group
+
+18
+00:01:02,320 --> 00:01:05,200
+and deploy the version update to these instances before
+
+19
+00:01:05,200 --> 00:01:08,400
+swapping the traffic to these instances once healthy.
+
+20
+00:01:08,700 --> 00:01:10,030
+And then we have blue/green,
+
+21
+00:01:10,030 --> 00:01:13,870
+which isn't exactly an Elastic Beanstalk deployment option itself.
+
+22
+00:01:13,870 --> 00:01:16,950
+It's not something you can configure in Elastic Beanstalk
+
+23
+00:01:17,240 --> 00:01:21,700
+but you can do this to create a new staging environment and then deploy the updates
+
+24
+00:01:21,830 --> 00:01:23,320
+and direct your traffic there.
+
+25
+00:01:23,320 --> 00:01:27,620
+So you have to direct the traffic maybe with AWS Route 53.
+
+26
+00:01:27,770 --> 00:01:29,630
+So let's look at some diagrams.
+
+27
+00:01:29,790 --> 00:01:33,210
+So for all at once here we have two EC2 instances.
+
+28
+00:01:33,450 --> 00:01:37,250
+And what's going to happen is we're moving from version one to version two.
+
+29
+00:01:37,640 --> 00:01:39,950
+Both instances get taken out of action.
+
+30
+00:01:40,150 --> 00:01:43,840
+The update is applied and then our instances are healthy again.
+
+31
+00:01:44,180 --> 00:01:48,210
+So this deploys a new version to all instances at the same time
+
+32
+00:01:48,510 --> 00:01:53,290
+and all instances will be taken out of service while the deployment takes place.
+
+33
+00:01:53,710 --> 00:01:55,360
+This is the fastest option.
+
+34
+00:01:55,740 --> 00:01:59,250
+And it's good for quick iterations in a development environment.
+
+35
+00:01:59,250 --> 00:02:01,230
+You might not want to do this in prod.
+
+36
+00:02:01,350 --> 00:02:03,790
+So absolutely be careful using this one.
+
+37
+00:02:03,790 --> 00:02:08,056
+It's going to be a complete outage of all of your application instances
+
+38
+00:02:08,080 --> 00:02:12,560
+so make sure you're not doing it in prod or for any kind of mission critical system.
+
+39
+00:02:13,040 --> 00:02:14,250
+If the update fails,
+
+40
+00:02:14,250 --> 00:02:18,680
+you need to roll back the changes by redeploying the original version
+
+41
+00:02:18,830 --> 00:02:20,430
+to all of your instances.
+
+42
+00:02:20,780 --> 00:02:24,100
+If the update fails, you need to roll back the changes by
+
+43
+00:02:24,100 --> 00:02:27,980
+redeploying the original version to all of your instances.
+
+44
+00:02:28,400 --> 00:02:31,580
+And there's no additional cost to using an all at once update.
+
+45
+00:02:32,430 --> 00:02:34,340
+Next we have the rolling update.
+
+46
+00:02:34,430 --> 00:02:38,060
+So again, we're moving from version one of our code to version two.
+
+47
+00:02:38,540 --> 00:02:41,970
+What happens here is we have a batch size and in this case the
+
+48
+00:02:41,970 --> 00:02:47,090
+batch size is two so two instances are going to get taken out of action
+
+49
+00:02:47,390 --> 00:02:48,980
+and the update gets deployed.
+
+50
+00:02:49,150 --> 00:02:51,860
+And then the next two instances get taken out of action
+
+51
+00:02:52,040 --> 00:02:53,750
+and now they're updated as well.
+
+52
+00:02:54,140 --> 00:02:55,620
+So bear in mind with this option,
+
+53
+00:02:55,620 --> 00:02:59,925
+you've got to configure your batch size in this case our batch size is two.
+
+54
+00:02:59,949 --> 00:03:02,810
+But we've only got four instances so that's 50%.
+
+55
+00:03:02,810 --> 00:03:05,510
+That means 50% of our capacity
+
+56
+00:03:05,670 --> 00:03:08,800
+for our application has been removed from service for a while.
+
+57
+00:03:08,830 --> 00:03:13,360
+So with rolling update, you're updating a few instances at a time, that's a batch
+
+58
+00:03:13,540 --> 00:03:16,920
+and then you move on to the next batch once the first batch is healthy.
+
+59
+00:03:17,140 --> 00:03:21,560
+So if we had for instance, you know, 15, 20 instances we're going to do two at
+
+60
+00:03:21,560 --> 00:03:24,510
+a time until we've completed all of the instances.
+
+61
+00:03:24,790 --> 00:03:28,360
+Downtime will only ever affect one batch at a time.
+
+62
+00:03:28,800 --> 00:03:31,970
+And the application is running both versions simultaneously.
+
+63
+00:03:31,970 --> 00:03:34,320
+So you've had some that are updated to version two
+
+64
+00:03:34,560 --> 00:03:38,160
+and you've still got some instances that are running version one at the same time.
+
+65
+00:03:38,540 --> 00:03:42,430
+And each batch will get taken out of service while the deployment takes place.
+
+66
+00:03:42,940 --> 00:03:46,270
+Your environment capacity will be reduced by the number of
+
+67
+00:03:46,270 --> 00:03:49,420
+instances in a batch while the deployment takes place.
+
+68
+00:03:49,570 --> 00:03:53,060
+Therefore this is not ideal for performance sensitive systems
+
+69
+00:03:53,060 --> 00:03:55,530
+where you need full capacity for your application.
+
+70
+00:03:55,940 --> 00:03:57,020
+If the update fails,
+
+71
+00:03:57,020 --> 00:04:00,640
+you need to perform an additional rolling update to roll back the changes.
+
+72
+00:04:01,040 --> 00:04:04,390
+And again there's no additional cost to using a rolling update.
+
+73
+00:04:04,660 --> 00:04:08,258
+There's also a long deployment time because you're going through those batches,
+
+74
+00:04:08,282 --> 00:04:11,441
+of course it depends on your batch size and how many instances you've got.
+
+75
+00:04:11,465 --> 00:04:15,330
+But it's going to take longer than for example and all at once update.
+
+76
+00:04:15,660 --> 00:04:18,329
+Next we have rolling with additional batch.
+
+77
+00:04:18,430 --> 00:04:22,160
+So in this case what we've done is launched additional instances
+
+78
+00:04:22,340 --> 00:04:26,490
+before we take out the existing instances out of action.
+
+79
+00:04:26,530 --> 00:04:30,180
+So with this option we're ensuring that we've always got full capacity.
+
+80
+00:04:30,230 --> 00:04:33,420
+So if our normal capacity is four instances,
+
+81
+00:04:33,590 --> 00:04:38,900
+we've got these two to ensure that four are always going to be available so
+
+82
+00:04:38,910 --> 00:04:42,460
+when two are taken out of action there's always going to be four available.
+
+83
+00:04:42,740 --> 00:04:46,530
+This option is like rolling but launches new instances in a batch,
+
+84
+00:04:46,600 --> 00:04:48,480
+ensuring there's full availability.
+
+85
+00:04:48,720 --> 00:04:52,100
+The application is always running at full capacity
+
+86
+00:04:52,340 --> 00:04:54,170
+and you can configure the batch size.
+
+87
+00:04:54,630 --> 00:04:58,530
+The application is again running both versions simultaneously.
+
+88
+00:04:58,870 --> 00:05:02,360
+There is a bit of an additional cost because you've got the extra instances.
+
+89
+00:05:02,740 --> 00:05:06,210
+And the additional batch is removed at the end of the deployment,
+
+90
+00:05:06,250 --> 00:05:08,830
+putting you back to your normal capacity size.
+
+91
+00:05:09,010 --> 00:05:11,670
+Again this is a longer deployment and it is
+
+92
+00:05:11,670 --> 00:05:15,130
+good for production environments because we're not reducing capacity
+
+93
+00:05:15,250 --> 00:05:17,250
+and we're not taking everything out of action.
+
+94
+00:05:17,440 --> 00:05:19,390
+Next we've got the immutable update.
+
+95
+00:05:19,840 --> 00:05:23,856
+With an immutable update, we're deploying a completely new Auto Scaling group
+
+96
+00:05:24,056 --> 00:05:25,870
+with the same number of instances.
+
+97
+00:05:25,870 --> 00:05:29,240
+We're updating those instances and then once they're
+
+98
+00:05:29,240 --> 00:05:32,465
+healthy we can take the old Auto Scaling group out of action
+
+99
+00:05:32,489 --> 00:05:36,520
+after we've actually sort of redirected our traffic to the new ASG.
+
+100
+00:05:36,760 --> 00:05:41,038
+So with immutable, we're launching new instances in a new ASG,
+
+101
+00:05:41,062 --> 00:05:43,733
+deploying the version updates of those instances,
+
+102
+00:05:43,765 --> 00:05:47,260
+and then swapping the traffic to those instances once healthy.
+
+103
+00:05:47,640 --> 00:05:49,090
+There's zero downtime.
+
+104
+00:05:49,200 --> 00:05:52,950
+The new code is deployed to new instances using an ASG.
+
+105
+00:05:53,340 --> 00:05:57,490
+It does have a high cost as you're doubling the number of instances running
+
+106
+00:05:57,610 --> 00:05:59,250
+during the update period.
+
+107
+00:05:59,640 --> 00:06:04,130
+And it also has the long deployment time, it's going to take longer to deploy.
+
+108
+00:06:04,170 --> 00:06:05,776
+So you've got to bear in mind that.
+
+109
+00:06:06,140 --> 00:06:08,700
+There is a quick rollback in case of failures because you just
+
+110
+00:06:08,700 --> 00:06:13,290
+redirect the traffic back to the original instances in the old ASG.
+
+111
+00:06:13,590 --> 00:06:15,855
+This is great for production environments.
+
+112
+00:06:15,879 --> 00:06:20,850
+You're not reducing capacity, you have an easy sort of rollback solution.
+
+113
+00:06:20,930 --> 00:06:23,960
+I mean, the only issue is there's a little bit of an additional cost
+
+114
+00:06:24,140 --> 00:06:25,920
+and the longer deployment time.
+
+115
+00:06:25,920 --> 00:06:29,050
+But that's usually worth it for a production deployment.
+
+116
+00:06:29,190 --> 00:06:31,870
+The next option is a blue/green update.
+
+117
+00:06:32,140 --> 00:06:37,390
+So here we have an environment with V1 of our code, another one with V2.
+
+118
+00:06:37,450 --> 00:06:39,040
+We've got Route 53.
+
+119
+00:06:39,263 --> 00:06:42,980
+And we're using weighted routing policies to send 80% of our
+
+120
+00:06:42,980 --> 00:06:46,920
+traffic to one environment and 20 to the other environments.
+
+121
+00:06:46,920 --> 00:06:49,920
+So V2 is our staging environment at this point in time
+
+122
+00:06:50,140 --> 00:06:51,660
+and we're testing our code there.
+
+123
+00:06:52,240 --> 00:06:56,350
+This is not a feature of Elastic Beanstalk. We're using route 53 here.
+
+124
+00:06:56,740 --> 00:07:00,380
+You create a new staging environment, you deploy your updates there.
+
+125
+00:07:00,490 --> 00:07:04,050
+The new environment, the green one gets validated independently
+
+126
+00:07:04,190 --> 00:07:07,360
+and you can roll back very easily if there are any issues.
+
+127
+00:07:08,040 --> 00:07:12,040
+You're using Route 53 weighted routing policies here to
+
+128
+00:07:12,040 --> 00:07:15,610
+redirect a percentage of traffic to the staging environment.
+
+129
+00:07:15,610 --> 00:07:18,260
+You can configure what that percentage is.
+
+130
+00:07:18,740 --> 00:07:21,950
+Using Elastic Beanstalk, you can then swap the URLs
+
+131
+00:07:21,950 --> 00:07:23,928
+When done with the environment test.
+
+132
+00:07:23,952 --> 00:07:27,830
+So that means the URL is getting swapped across and that we can update
+
+133
+00:07:27,830 --> 00:07:30,250
+our weighted routing policies as we need to.
+
+134
+00:07:30,510 --> 00:07:33,680
+There's also zero downtime with a blue/green update.
+
+135
+00:07:33,970 --> 00:07:35,200
+So that's it for this lesson.
+
+136
+00:07:35,200 --> 00:07:38,530
+Do make sure that you fully understand these different options
+
+137
+00:07:38,740 --> 00:07:41,905
+and the various strengths and weaknesses of each option
+
+138
+00:07:41,929 --> 00:07:45,560
+because that's definitely subjects that you will be tested on in the exam.
+

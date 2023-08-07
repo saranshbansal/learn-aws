@@ -1,0 +1,236 @@
+1
+00:00:05,440 --> 00:00:11,050
+Welcome to the exam cram for infrastructure as code and pass. So let's get into it
+
+2
+00:00:11,540 --> 00:00:12,740
+with cloud formation.
+
+3
+00:00:12,750 --> 00:00:16,990
+Infrastructure patterns are defined in a template file using code.
+
+4
+00:00:17,170 --> 00:00:21,320
+Cloud formation builds your infrastructure according to the template file,
+
+5
+00:00:21,450 --> 00:00:24,090
+template files are Jason or Yamil. Code
+
+6
+00:00:24,840 --> 00:00:28,160
+infrastructure is provisioned consistently with fewer mistakes
+
+7
+00:00:28,160 --> 00:00:29,760
+so less chance of human error.
+
+8
+00:00:30,550 --> 00:00:32,759
+Less time and effort is also expended
+
+9
+00:00:32,920 --> 00:00:35,060
+than configuring resources manually.
+
+10
+00:00:35,640 --> 00:00:39,840
+You can use version control and peer review for your cloud formation templates.
+
+11
+00:00:40,400 --> 00:00:45,690
+It's free to use your only charge for the resources provisioned by cloud formation.
+
+12
+00:00:46,390 --> 00:00:49,380
+It can be used to manage updates and dependencies
+
+13
+00:00:49,700 --> 00:00:53,380
+and it can roll back and delete the entire stack as well.
+
+14
+00:00:54,340 --> 00:00:57,820
+You create update and delete stacks using the templates,
+
+15
+00:00:58,340 --> 00:01:02,990
+stacks are deployed through the management console cli or a P I S.
+
+16
+00:01:03,740 --> 00:01:05,000
+With stacks sets.
+
+17
+00:01:05,010 --> 00:01:05,790
+You can create,
+
+18
+00:01:05,790 --> 00:01:08,950
+update or delete stacks across multiple accounts
+
+19
+00:01:08,950 --> 00:01:11,860
+and regions with a single operation.
+
+20
+00:01:12,440 --> 00:01:17,070
+An administrator account is the account which you use to create the stack set
+
+21
+00:01:17,640 --> 00:01:22,050
+and the stack set is managed by signing into the AWS administrator account
+
+22
+00:01:22,210 --> 00:01:23,600
+in which it was created
+
+23
+00:01:24,530 --> 00:01:29,690
+nested stacks allow re use of cloud formation code for common use cases
+
+24
+00:01:30,740 --> 00:01:33,210
+now make sure you re watch the template deep dive
+
+25
+00:01:33,210 --> 00:01:37,360
+session for important exam knowledge that's a really must watch video
+
+26
+00:01:38,340 --> 00:01:42,930
+AWS elastic beanstalk deploys and manages web applications.
+
+27
+00:01:43,160 --> 00:01:47,570
+It can also deploy the E L B auto scaling and even a database
+
+28
+00:01:47,850 --> 00:01:50,790
+Web servers are standard applications that listen
+
+29
+00:01:50,790 --> 00:01:53,520
+for and then process http requests.
+
+30
+00:01:53,700 --> 00:01:55,350
+Typically over port 80.
+
+31
+00:01:55,530 --> 00:01:57,440
+Workers on the other hand,
+
+32
+00:01:57,450 --> 00:02:02,960
+use a background processing task to listen for messages on an amazon sqs queue
+
+33
+00:02:03,740 --> 00:02:06,880
+beanstalk deployment options are all at once.
+
+34
+00:02:07,010 --> 00:02:10,910
+This deploys the new version to all instances simultaneously.
+
+35
+00:02:11,190 --> 00:02:15,880
+Rolling updates a batch of instances and then moves on to the next batch.
+
+36
+00:02:15,880 --> 00:02:18,160
+Once the first batch is healthy,
+
+37
+00:02:18,840 --> 00:02:21,870
+rolling with additional batches like rolling but it
+
+38
+00:02:21,870 --> 00:02:24,840
+launches new instances in a new batch,
+
+39
+00:02:24,850 --> 00:02:27,960
+ensuring that there's full availability for your application
+
+40
+00:02:29,040 --> 00:02:29,960
+immutable
+
+41
+00:02:30,160 --> 00:02:33,060
+launches new instances with a new auto scaling
+
+42
+00:02:33,060 --> 00:02:36,030
+group and deploys the version update to those instances
+
+43
+00:02:36,140 --> 00:02:39,690
+and then swaps traffic to those instances. Once they're healthy
+
+44
+00:02:40,240 --> 00:02:41,470
+with blue green,
+
+45
+00:02:41,480 --> 00:02:45,660
+you create a new stage environment and then deploy your updates there,
+
+46
+00:02:46,230 --> 00:02:48,690
+elastic beanstalk configuration files.
+
+47
+00:02:48,780 --> 00:02:53,000
+The dot e B extensions can be added to your web application source grade
+
+48
+00:02:53,180 --> 00:02:56,160
+and they're used to customize environment and resources.
+
+49
+00:02:56,540 --> 00:02:59,210
+They are Yamil or Jason formatted documents
+
+50
+00:02:59,210 --> 00:03:01,810
+with a dot config file extension and they
+
+51
+00:03:01,810 --> 00:03:06,860
+get placed in the dot e B extensions folder in your application source code bundle
+
+52
+00:03:07,440 --> 00:03:09,570
+the option underscore setting section of a
+
+53
+00:03:09,570 --> 00:03:13,590
+configuration file defines values for configuration options.
+
+54
+00:03:14,010 --> 00:03:17,600
+The resources section lets you further customize the resources
+
+55
+00:03:17,800 --> 00:03:19,460
+in your application's environment.
+
+56
+00:03:19,940 --> 00:03:24,330
+Ssl TLS certificates can be assigned to an environment elastic load
+
+57
+00:03:24,330 --> 00:03:27,260
+balancer and you can use a c m for the certificate.
+
+58
+00:03:28,040 --> 00:03:32,260
+The connections between clients and the load balancer are then secured.
+
+59
+00:03:32,640 --> 00:03:34,950
+That's it for this lesson. I'll see you in the next one
+

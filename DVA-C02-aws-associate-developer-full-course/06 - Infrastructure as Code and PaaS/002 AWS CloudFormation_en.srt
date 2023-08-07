@@ -1,0 +1,228 @@
+1
+00:00:05,530 --> 00:00:12,040
+AWS CloudFormation is a tool that we can use to build infrastructure according to code.
+
+2
+00:00:12,300 --> 00:00:15,510
+So, you'll often hear the term infrastructure as code.
+
+3
+00:00:15,810 --> 00:00:19,860
+Now what that really means is you define your infrastructure.
+
+4
+00:00:19,980 --> 00:00:26,910
+And by that, we mean anything from a VPC, through to an EC2 instance, through to a serverless application.
+
+5
+00:00:27,630 --> 00:00:34,500
+All of that is defined in code in a template file. And then you supply the template file to Cloud
+
+6
+00:00:34,500 --> 00:00:39,750
+Formation and it will then go and build your infrastructure, build out your entire application for
+
+7
+00:00:39,750 --> 00:00:41,670
+you in an automated fashion.
+
+8
+00:00:41,970 --> 00:00:43,470
+So let's have a look at it visually.
+
+9
+00:00:43,740 --> 00:00:46,020
+With CloudFormation, we have a template file.
+
+10
+00:00:46,380 --> 00:00:49,110
+The template file contains our code.
+
+11
+00:00:49,530 --> 00:00:54,210
+Our code is written in one of two languages either JSON or YAML.
+
+12
+00:00:54,870 --> 00:00:58,950
+So we define our entire application stack in code,
+
+13
+00:00:59,250 --> 00:01:06,000
+we supply that template file to CloudFormation and CloudFormation then goes and builds out our entire
+
+14
+00:01:06,000 --> 00:01:11,040
+infrastructure according to whatever code we've written in that template file.
+
+15
+00:01:11,610 --> 00:01:15,570
+In this case, it's built an entire VPC, public subnets,
+
+16
+00:01:15,690 --> 00:01:21,540
+it's added an auto scaling group with a number of instances, and then it's also provisioned to load balancer.
+
+17
+00:01:22,050 --> 00:01:27,750
+The great thing about CloudFormation is now that we have our template file, we can go and repeatedly
+
+18
+00:01:27,750 --> 00:01:33,780
+deploy the same stack in different locations, maybe in different regions, or even again in the same
+
+19
+00:01:33,780 --> 00:01:36,780
+region by creating an entire new stack in parallel.
+
+20
+00:01:37,230 --> 00:01:40,200
+So, it gives us that repeatability and automation.
+
+21
+00:01:40,380 --> 00:01:42,030
+So let's look at the key benefits.
+
+22
+00:01:42,690 --> 00:01:48,030
+Your infrastructure is provisioned consistently, and that means there are fewer mistakes in terms of
+
+23
+00:01:48,030 --> 00:01:48,930
+human error.
+
+24
+00:01:49,320 --> 00:01:53,880
+Because once you've defined your template and you've made sure it's working correctly, you've tested
+
+25
+00:01:53,880 --> 00:01:54,570
+it thoroughly,
+
+26
+00:01:54,990 --> 00:02:00,870
+from that point on, you can keep using that template file without worrying about there being any mistakes
+
+27
+00:02:00,870 --> 00:02:01,560
+in the code.
+
+28
+00:02:02,100 --> 00:02:06,030
+It takes a lot less time and effort than configuring resources manually.
+
+29
+00:02:06,360 --> 00:02:12,570
+This is especially true if you're repeatedly deploying a very similar set of infrastructure.
+
+30
+00:02:12,960 --> 00:02:19,140
+So if you're deploying VPCs with very similar configurations in the same region or across multiple
+
+31
+00:02:19,140 --> 00:02:24,990
+regions or multiple accounts, it makes a lot of sense to define a CloudFormation template
+
+32
+00:02:25,290 --> 00:02:30,570
+and then from that point on, there's a bit of upfront effort, but from that point on, you can then
+
+33
+00:02:30,570 --> 00:02:34,800
+really save a lot of time, reduce errors, and deploy consistently.
+
+34
+00:02:35,160 --> 00:02:41,250
+CloudFormation includes the ability to have version control and peer review of your templates. And
+
+35
+00:02:41,250 --> 00:02:42,660
+it's totally free to use.
+
+36
+00:02:42,930 --> 00:02:49,020
+CloudFormation doesn't cost anything, but you do pay for the resources that are provisioned by Cloud
+
+37
+00:02:49,020 --> 00:02:49,590
+Formation.
+
+38
+00:02:49,950 --> 00:02:54,030
+So in the previous example, you would still pay for your auto scaling group,
+
+39
+00:02:54,210 --> 00:02:59,430
+you would pay for your EC2 instances and your load balancer, but you wouldn't pay for actually deploying
+
+40
+00:02:59,430 --> 00:03:00,960
+them through CloudFormation.
+
+41
+00:03:01,530 --> 00:03:07,170
+CloudFormation can be used to manage updates and dependencies, and it can be used to rollback and
+
+42
+00:03:07,170 --> 00:03:09,630
+delete the entire stack as well for you,
+
+43
+00:03:09,900 --> 00:03:14,760
+also automated. Let's look at some of the key components of CloudFormation.
+
+44
+00:03:15,150 --> 00:03:21,420
+Firstly, you've got the template file. That's written in JSON or YAML and it contains the instructions
+
+45
+00:03:21,420 --> 00:03:23,730
+for building out the AWS environment.
+
+46
+00:03:24,450 --> 00:03:27,210
+Now when you do that, you create something called a stack.
+
+47
+00:03:27,480 --> 00:03:33,690
+The stack is the actual environment that's defined by the template and created and deployed by Cloud
+
+48
+00:03:33,690 --> 00:03:34,290
+Formation.
+
+49
+00:03:34,650 --> 00:03:36,660
+We then have something called a stack set.
+
+50
+00:03:37,050 --> 00:03:43,620
+When you create a stack set, you deploy stacks across multiple accounts or multiple AWS regions. So,
+
+51
+00:03:43,620 --> 00:03:45,600
+it's extending the core functionality.
+
+52
+00:03:45,900 --> 00:03:52,230
+A change set is a really useful feature for validating and viewing what the changes are going to be
+
+53
+00:03:52,230 --> 00:03:57,700
+to your stack when you've updated your template file. So you can update your template file,
+
+54
+00:03:58,020 --> 00:04:02,820
+load it in as a change set, and then CloudFormation will show you what's going to change.
+
+55
+00:04:03,150 --> 00:04:07,260
+Once you're happy with the changes, you then actually push them into production.
+
+56
+00:04:07,680 --> 00:04:11,160
+CloudFormation is best understood when you really see it in action.
+
+57
+00:04:11,400 --> 00:04:16,050
+So, in the next couple of lessons, we're going to be deploying some stacks in CloudFormation.
+

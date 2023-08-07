@@ -1,0 +1,312 @@
+1
+00:00:05,220 --> 00:00:13,320
+AWS Elastic Beanstalk is a service that can automate the creation and management of web applications
+
+2
+00:00:13,320 --> 00:00:19,560
+running on Amazon EC2. What it would do, is it will actually create the entire environment for you,
+
+3
+00:00:19,800 --> 00:00:26,490
+including Amazon EC2, a web application environment running on top of that, such as Node.js, for
+
+4
+00:00:26,490 --> 00:00:29,730
+example, and also an auto scaling group,
+
+5
+00:00:29,880 --> 00:00:36,240
+load balancer and even Amazon RDS, if you choose as well. It's often referred to as a platform as
+
+6
+00:00:36,240 --> 00:00:37,320
+a service solution.
+
+7
+00:00:37,800 --> 00:00:43,560
+Now it is similar in many ways to AWS CloudFormation, but its scope is different.
+
+8
+00:00:43,980 --> 00:00:45,600
+Its scope is much narrower,
+
+9
+00:00:45,630 --> 00:00:51,180
+just the few services I just mentioned. And it's more about managing that environment for you.
+
+10
+00:00:51,180 --> 00:00:55,390
+So, creating it and then managing it. So you can update your code.
+
+11
+00:00:55,650 --> 00:01:01,020
+You can view operations information from CloudWatch or within the Beanstalk console.
+
+12
+00:01:01,560 --> 00:01:02,700
+So with Beanstalk,
+
+13
+00:01:02,790 --> 00:01:08,880
+think about managing web apps and with CloudFormation, think about building a very, very broad set
+
+14
+00:01:08,880 --> 00:01:09,780
+of infrastructure.
+
+15
+00:01:10,230 --> 00:01:12,150
+So let's have a look at how it works.
+
+16
+00:01:12,750 --> 00:01:19,140
+In this particular example, we have an AWS region, a VPC, couple of availability zones with public
+
+17
+00:01:19,140 --> 00:01:22,890
+subnets, and we've created an Elastic Beanstalk environment.
+
+18
+00:01:23,370 --> 00:01:26,400
+Now, in this case, a developer has some code in a zip file.
+
+19
+00:01:26,760 --> 00:01:29,580
+The developer is going to upload that code to Beanstalk.
+
+20
+00:01:30,120 --> 00:01:34,830
+Now that code contains the information required for the web application.
+
+21
+00:01:35,520 --> 00:01:40,530
+Beanstalk will then provision an auto scaling group, some EC2 instances.
+
+22
+00:01:40,680 --> 00:01:47,070
+It will load the web application onto those instances. And in this case, it's also created an application
+
+23
+00:01:47,070 --> 00:01:50,580
+load balancer in front of those EC2 instances.
+
+24
+00:01:50,850 --> 00:01:56,700
+Everything that you can see there within the EB environment, the Elastic Beanstalk environment is
+
+25
+00:01:56,700 --> 00:01:59,850
+launched and then managed by Elastic Beanstalk.
+
+26
+00:02:00,180 --> 00:02:04,830
+You can actually launch and manage both EC2 instances and Docker containers
+
+27
+00:02:04,830 --> 00:02:13,830
+on ECS using Beanstalk. Elastic Beanstalk supports Java, .net, PHP, Node.js, Python, Ruby, Go and Docker
+
+28
+00:02:13,830 --> 00:02:20,100
+web applications. And it also supports a long list of languages and development stacks which all put
+
+29
+00:02:20,100 --> 00:02:21,210
+on the screen for you here.
+
+30
+00:02:21,630 --> 00:02:25,470
+So you can see from this list, this really is all about web applications.
+
+31
+00:02:25,710 --> 00:02:31,590
+And again, that's what you should think of when you see questions arising around how to deploy and
+
+32
+00:02:31,590 --> 00:02:37,310
+manage a web application environment on Amazon EC2 or just on AWS.
+
+33
+00:02:37,320 --> 00:02:40,380
+It will push you towards Beanstalk as being a good solution.
+
+34
+00:02:40,590 --> 00:02:43,320
+So let's have a look at the components of Beanstalk.
+
+35
+00:02:43,650 --> 00:02:46,050
+There are several layers to Elastic Beanstalk.
+
+36
+00:02:46,380 --> 00:02:48,150
+Firstly, you have the application.
+
+37
+00:02:48,630 --> 00:02:54,510
+The application will contain the environments, the configuration of those environments and the versions
+
+38
+00:02:54,510 --> 00:02:55,950
+of our application code.
+
+39
+00:02:56,610 --> 00:03:00,690
+You can have multiple application versions within your application.
+
+40
+00:03:01,320 --> 00:03:07,440
+So here we can see an example of where we have some code in an Amazon S3 bucket and there are actually
+
+41
+00:03:07,440 --> 00:03:09,570
+four different versions of that code.
+
+42
+00:03:10,080 --> 00:03:14,310
+A version is a specific reference to some deployable code.
+
+43
+00:03:14,670 --> 00:03:17,040
+So it's important to understand each version
+
+44
+00:03:17,040 --> 00:03:22,890
+here is where you've updated your application code and you can always go back to a previous version.
+
+45
+00:03:22,890 --> 00:03:25,560
+It still references all within your application.
+
+46
+00:03:25,830 --> 00:03:29,010
+Typically, the code will be stored in Amazon S3 buckets.
+
+47
+00:03:29,400 --> 00:03:32,250
+A version can be applied to any environment.
+
+48
+00:03:32,760 --> 00:03:34,230
+So what is an environment?
+
+49
+00:03:34,620 --> 00:03:40,560
+Well, in this application here we have multiple environments, we have development and we have production.
+
+50
+00:03:40,890 --> 00:03:47,700
+An environment is essentially an application version that's been deployed on AWS resources. And those
+
+51
+00:03:47,700 --> 00:03:52,590
+resources are deployed and configured by AWS Elastic Beanstalk.
+
+52
+00:03:53,100 --> 00:03:58,860
+Now, the environment is not just the EC2 instances, it's anything else that is provisioned by
+
+53
+00:03:59,070 --> 00:04:05,460
+AWS Elastic Beanstalk, including auto-scaling groups, load balancers and even an RDS database.
+
+54
+00:04:05,850 --> 00:04:08,520
+There are two different types of environments we can deploy.
+
+55
+00:04:08,790 --> 00:04:11,340
+We've got web servers and workers.
+
+56
+00:04:11,340 --> 00:04:19,019
+Now, a web server is a standard application that listens for and processes HTTP requests over port 80 or over
+
+57
+00:04:19,019 --> 00:04:19,950
+a secure port.
+
+58
+00:04:20,490 --> 00:04:23,070
+So a web server is a web application.
+
+59
+00:04:23,460 --> 00:04:24,840
+We then have a worker.
+
+60
+00:04:25,140 --> 00:04:31,020
+A worker is useful for when you need to process information, perform some kind of long running task
+
+61
+00:04:31,020 --> 00:04:32,130
+that's going to take a while.
+
+62
+00:04:32,430 --> 00:04:34,920
+You don't want your web application to perform that.
+
+63
+00:04:35,370 --> 00:04:39,870
+So, what you do is you offload that workload to a worker environment.
+
+64
+00:04:40,230 --> 00:04:46,740
+Now, the worker will listen on an Amazon SQS queue, so it's going to process messages from a queue.
+
+65
+00:04:46,920 --> 00:04:51,960
+So it's really good for any long running tasks, any heavy processing that's going to take quite a while
+
+66
+00:04:51,960 --> 00:04:52,620
+to complete.
+
+67
+00:04:52,950 --> 00:04:54,270
+So let's put that all together.
+
+68
+00:04:54,630 --> 00:04:57,630
+We've got our Elastic Beanstalk application.
+
+69
+00:04:57,630 --> 00:05:02,540
+Here we have a web server environment and a worker environment, and we have our user.
+
+70
+00:05:03,000 --> 00:05:04,350
+The user is sending traffic
+
+71
+00:05:04,460 --> 00:05:11,990
+to the webserver on port 80 or port 443. The webserver is then going to place any information that
+
+72
+00:05:11,990 --> 00:05:16,610
+requires any kind of heavy processing or something that's going to take a long time to complete.
+
+73
+00:05:17,300 --> 00:05:19,790
+It puts that information into an SQS queue.
+
+74
+00:05:20,480 --> 00:05:26,390
+The worker will then process the information in the queue, so it's going to poll the queue, find the
+
+75
+00:05:26,390 --> 00:05:28,610
+message and process that information.
+
+76
+00:05:28,820 --> 00:05:33,710
+All of this is created and managed by Elastic Beanstalk. So, that's it for the theory.
+
+77
+00:05:33,710 --> 00:05:38,540
+In the next lesson, we're going to go into a hands-on and we'll create a web server environment and
+
+78
+00:05:38,540 --> 00:05:39,470
+a worker environment.
+

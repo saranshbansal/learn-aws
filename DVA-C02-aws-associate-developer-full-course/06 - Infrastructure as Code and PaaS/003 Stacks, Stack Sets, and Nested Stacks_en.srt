@@ -1,0 +1,128 @@
+1
+00:00:05,340 --> 00:00:10,350
+Okay. So let's look at Stacks, Stack Sets, and Nested Stacks in a bit more detail.
+
+2
+00:00:11,040 --> 00:00:13,320
+So we have our CloudFormation stacks.
+
+3
+00:00:13,420 --> 00:00:19,050
+Now these are the resources that are deployed based on our CloudFormation templates.
+
+4
+00:00:19,540 --> 00:00:23,480
+You create, update, and delete stacks using templates.
+
+5
+00:00:24,040 --> 00:00:26,860
+Stacks are deployed through the management console,
+
+6
+00:00:26,930 --> 00:00:29,310
+the Command Line Interface or the APIs.
+
+7
+00:00:30,030 --> 00:00:33,150
+Now, sometimes you get creation errors for your stack.
+
+8
+00:00:33,740 --> 00:00:37,390
+Automatic rollback on error is enabled by default.
+
+9
+00:00:37,390 --> 00:00:41,820
+So if it finds an issue it will automatically roll back and attempt to
+
+10
+00:00:41,960 --> 00:00:46,690
+terminate or delete any resources that have been created up to that point.
+
+11
+00:00:46,820 --> 00:00:51,120
+You will get charged for any resources that have been used even if there is an error.
+
+12
+00:00:51,300 --> 00:00:52,800
+Next we have Stacks Sets.
+
+13
+00:00:53,240 --> 00:00:58,100
+This allows you to create, update, or delete stacks across multiple accounts
+
+14
+00:00:58,300 --> 00:01:00,830
+and regions with a single operation.
+
+15
+00:01:00,970 --> 00:01:04,230
+An administrator account is the AWS account
+
+16
+00:01:04,430 --> 00:01:06,730
+in which you then create the stack set.
+
+17
+00:01:07,040 --> 00:01:11,300
+A stack set is managed by signing in to the AWS administrator account
+
+18
+00:01:11,440 --> 00:01:12,700
+in which it was created.
+
+19
+00:01:12,930 --> 00:01:15,920
+The target account is the account into which you create,
+
+20
+00:01:15,920 --> 00:01:19,791
+update or delete one or more stacks in your stack set.
+
+21
+00:01:19,815 --> 00:01:22,340
+Lastly, we have something called nested stacks.
+
+22
+00:01:22,540 --> 00:01:28,340
+Nested stacks allow reuse of cloud formation code for common use cases.
+
+23
+00:01:28,710 --> 00:01:32,650
+So for example, you might have a standard configuration for your load balancers,
+
+24
+00:01:32,650 --> 00:01:36,340
+your web servers, application servers or even VPCs.
+
+25
+00:01:36,640 --> 00:01:39,460
+And you can reuse that across different stacks.
+
+26
+00:01:39,910 --> 00:01:43,710
+So you create a standard template for each common use case
+
+27
+00:01:43,850 --> 00:01:47,190
+and then you reference it from within your CloudFormation template.
+
+28
+00:01:47,330 --> 00:01:50,920
+So here we can see that we have a root stack in this diagram,
+
+29
+00:01:51,040 --> 00:01:52,840
+and then there are various nested stacks.
+
+30
+00:01:52,840 --> 00:01:56,880
+And the are even nested stacks within nested stacks, so they're each calling
+
+31
+00:01:57,000 --> 00:02:03,050
+upon another template, which has a specific resource or set of resources defined,
+
+32
+00:02:03,140 --> 00:02:04,760
+which are standardized.
+

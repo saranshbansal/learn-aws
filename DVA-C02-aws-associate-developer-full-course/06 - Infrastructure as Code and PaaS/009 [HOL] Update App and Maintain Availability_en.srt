@@ -1,0 +1,360 @@
+1
+00:00:05,540 --> 00:00:08,010
+Hi guys, and welcome to another hands-on lesson.
+
+2
+00:00:08,150 --> 00:00:08,870
+In this lesson,
+
+3
+00:00:08,870 --> 00:00:13,080
+we're going to create another Elastic Beanstalk environment and we're going to see
+
+4
+00:00:13,080 --> 00:00:17,360
+how we can update that environment without actually incurring any downtime.
+
+5
+00:00:17,840 --> 00:00:22,550
+So I'm back in Elastic Beanstalk and I'm going to choose my application here.
+
+6
+00:00:22,620 --> 00:00:25,780
+And what we're going to do is create a new environment.
+
+7
+00:00:25,830 --> 00:00:29,610
+It's going to be a web server environment. Click on select.
+
+8
+00:00:29,750 --> 00:00:34,460
+And it gives us a default environment name, I'm happy to accept the defaults there.
+
+9
+00:00:34,840 --> 00:00:37,560
+We don't have our own domain name so I'm going to leave that blank.
+
+10
+00:00:38,040 --> 00:00:42,550
+We're going to use managed platform and we're going to choose Node.js again.
+
+11
+00:00:43,160 --> 00:00:46,720
+And as before, we're going to choose to upload our own source code.
+
+12
+00:00:47,140 --> 00:00:50,470
+So let's upload the original Node.js.zip file.
+
+13
+00:00:51,340 --> 00:00:53,820
+Now, I also want to configure options.
+
+14
+00:00:54,340 --> 00:00:57,660
+And all we need to do here is select custom configuration.
+
+15
+00:00:58,240 --> 00:01:01,780
+Now of course, for high availability we can always use a load balancer
+
+16
+00:01:02,080 --> 00:01:04,530
+and have an Auto Scaling group with instances.
+
+17
+00:01:05,040 --> 00:01:07,160
+But for this example, all we want to do
+
+18
+00:01:07,640 --> 00:01:11,570
+is ensure that there's at least one instance running at all times.
+
+19
+00:01:12,140 --> 00:01:14,070
+So I'm going to click on create environment.
+
+20
+00:01:14,640 --> 00:01:16,960
+And that's going to take a couple of minutes to create.
+
+21
+00:01:17,440 --> 00:01:21,330
+And then what we'll do when it's ready is we're going to update our application and
+
+22
+00:01:21,330 --> 00:01:23,690
+we're going to use rolling with additional batch
+
+23
+00:01:23,700 --> 00:01:26,160
+so that an additional instance is launched.
+
+24
+00:01:26,540 --> 00:01:27,680
+So that took a few minutes.
+
+25
+00:01:27,680 --> 00:01:31,705
+But now my Elastic Beanstalk environment is finished and it's healthy.
+
+26
+00:01:31,729 --> 00:01:35,060
+If I click on the link, it takes me to this landing page.
+
+27
+00:01:35,440 --> 00:01:38,220
+And if I go over to the EC2 console,
+
+28
+00:01:38,220 --> 00:01:42,500
+I can see the instances running. Now, the terminated one is from a previous lesson.
+
+29
+00:01:42,500 --> 00:01:45,360
+So this is the one that's part of this lesson.
+
+30
+00:01:45,800 --> 00:01:49,150
+If I come down to Auto Scaling groups we'll see it's
+
+31
+00:01:49,150 --> 00:01:52,760
+created an Auto Scaling group with a desired capacity of one.
+
+32
+00:01:53,440 --> 00:01:54,660
+So this all looks good.
+
+33
+00:01:55,440 --> 00:02:00,080
+Now what I want to do now for this test is I'm going to choose to upload
+
+34
+00:02:00,370 --> 00:02:05,360
+an application. I'm going to upload the Node.js Blue Zip file that we created earlier.
+
+35
+00:02:05,840 --> 00:02:06,950
+Choose upload.
+
+36
+00:02:08,210 --> 00:02:10,350
+And we have the deployment preferences here.
+
+37
+00:02:10,350 --> 00:02:13,230
+Now, you'll note that earlier on in a previous lab,
+
+38
+00:02:13,230 --> 00:02:17,380
+we didn't actually have these options here and that was because we were not
+
+39
+00:02:17,380 --> 00:02:22,480
+using a custom configuration that just enables certain options for the free tier.
+
+40
+00:02:23,340 --> 00:02:25,510
+Now we should still stay in the free tier anyway.
+
+41
+00:02:25,510 --> 00:02:28,860
+But those options aren't available unless you choose custom.
+
+42
+00:02:29,640 --> 00:02:33,850
+So now we can see the deployment preferences and we've got all at once.
+
+43
+00:02:34,040 --> 00:02:38,360
+Rolling, rolling with additional batch, immutable, and traffic splitting.
+
+44
+00:02:39,040 --> 00:02:42,250
+So what we're going to do is use rolling with additional batch.
+
+45
+00:02:43,240 --> 00:02:47,050
+And we're going to leave the other settings as default and click on deploy.
+
+46
+00:02:48,040 --> 00:02:50,780
+And while that's happening we should have a look in EC2
+
+47
+00:02:50,953 --> 00:02:54,360
+at both the Auto Scaling group and the instances and see what's going on.
+
+48
+00:02:55,040 --> 00:02:59,860
+back in Auto Scaling, we can see that the desired capacity has now changed to two.
+
+49
+00:03:00,240 --> 00:03:04,670
+If we go in and have a look at the activity, we can see that a new instance
+
+50
+00:03:04,780 --> 00:03:05,850
+is being launched.
+
+51
+00:03:06,610 --> 00:03:08,890
+And so if we come back up two instances,
+
+52
+00:03:09,150 --> 00:03:12,260
+then we can also see another running instance now.
+
+53
+00:03:13,240 --> 00:03:16,010
+So the application should still be available.
+
+54
+00:03:16,360 --> 00:03:17,550
+Let's click refresh.
+
+55
+00:03:17,940 --> 00:03:21,190
+And we can still see the old version of the application. It's still green.
+
+56
+00:03:21,190 --> 00:03:22,460
+It hasn't turned blue yet.
+
+57
+00:03:23,240 --> 00:03:28,730
+Once the update is complete, we'll have our blue screen and then the old instance,
+
+58
+00:03:28,730 --> 00:03:31,850
+the previous instance will actually be terminated.
+
+59
+00:03:32,216 --> 00:03:33,930
+So this is a way that we can ensure that
+
+60
+00:03:33,930 --> 00:03:37,650
+there's always an active version of the application running.
+
+61
+00:03:38,740 --> 00:03:42,660
+I can see the message here that the instance deployment completed successfully.
+
+62
+00:03:43,040 --> 00:03:47,590
+So let's come up and refresh our page. That's gone blue as expected.
+
+63
+00:03:47,910 --> 00:03:50,860
+And then if we come back to EC2 and refresh,
+
+64
+00:03:51,170 --> 00:03:53,520
+and we've still got two running instances.
+
+65
+00:03:53,520 --> 00:03:55,850
+But shortly, one of them should be terminated
+
+66
+00:03:56,340 --> 00:04:00,530
+Now while that process is happening, if we come back to Elastic Beanstalk,
+
+67
+00:04:00,720 --> 00:04:03,960
+another place you can make changes is by going to configuration.
+
+68
+00:04:04,740 --> 00:04:09,060
+In configuration, you can see there's lots of settings here that we can modify.
+
+69
+00:04:09,640 --> 00:04:11,540
+For example, we could add a load balancer,
+
+70
+00:04:12,140 --> 00:04:14,560
+you can change the default settings here.
+
+71
+00:04:15,170 --> 00:04:19,053
+For application deployments, we chose rolling with additional batch but you
+
+72
+00:04:19,079 --> 00:04:21,380
+can specify one of these other options here.
+
+73
+00:04:21,540 --> 00:04:22,850
+If I cancel out of there,
+
+74
+00:04:23,340 --> 00:04:27,480
+we've got information about the instances, the software, the X-ray daemon,
+
+75
+00:04:27,670 --> 00:04:28,730
+those kind of settings.
+
+76
+00:04:29,440 --> 00:04:31,190
+And we've got EC2 security here.
+
+77
+00:04:31,190 --> 00:04:32,690
+So for example,
+
+78
+00:04:32,700 --> 00:04:36,660
+we could then choose a key pair if we want to use a key pair with this instance.
+
+79
+00:04:37,440 --> 00:04:39,460
+You can also change the instance profile.
+
+80
+00:04:39,620 --> 00:04:42,340
+Once you've made changes, you can apply the changes and the
+
+81
+00:04:42,340 --> 00:04:45,040
+configuration will be applied for you automatically.
+
+82
+00:04:45,260 --> 00:04:46,530
+Let's go back to EC2.
+
+83
+00:04:46,530 --> 00:04:50,660
+Just give this a refresh and sure enough, one of our instances is shutting down.
+
+84
+00:04:51,240 --> 00:04:53,540
+So if I go back to Auto Scaling groups,
+
+85
+00:04:53,750 --> 00:04:57,360
+yep, now the desired capacity has been reset back to one.
+
+86
+00:04:58,440 --> 00:05:03,750
+So that's it. That's how we can deploy application updates with Elastic Beanstalk.
+
+87
+00:05:04,240 --> 00:05:08,000
+Let's go back to the environment. And I've finished with this environment now.
+
+88
+00:05:08,140 --> 00:05:11,860
+So I'm simply going to go into actions, terminate.
+
+89
+00:05:12,940 --> 00:05:15,460
+Make sure I copy in the environment name
+
+90
+00:05:17,780 --> 00:05:19,360
+and then terminate my environment.
+

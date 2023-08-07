@@ -1,0 +1,476 @@
+1
+00:00:05,540 --> 00:00:06,810
+Hi guys in this lesson,
+
+2
+00:00:06,810 --> 00:00:10,860
+we're going to create an application using AWS Elastic Beanstalk
+
+3
+00:00:10,885 --> 00:00:13,850
+and then we're going to see how we can update that application.
+
+4
+00:00:14,440 --> 00:00:18,163
+I'm logged into AWS and I'm on the Elastic Beanstalk page.
+
+5
+00:00:18,188 --> 00:00:22,060
+And what I'm going to do is use the create application button here.
+
+6
+00:00:23,040 --> 00:00:26,850
+Now what we need to do first is provide an application name.
+
+7
+00:00:27,340 --> 00:00:30,960
+So I'm going to call my application My Beanstalk Test.
+
+8
+00:00:31,840 --> 00:00:36,390
+And if I scroll down a little way, we then have the choose platform.
+
+9
+00:00:36,710 --> 00:00:38,860
+Now I'm going to choose Node.js.
+
+10
+00:00:39,340 --> 00:00:41,180
+I'm going to leave the defaults here.
+
+11
+00:00:41,180 --> 00:00:44,210
+But then I'm going to choose to actually upload my own code.
+
+12
+00:00:44,840 --> 00:00:46,250
+So let's scroll down
+
+13
+00:00:46,800 --> 00:00:48,480
+and I'm going to choose a file.
+
+14
+00:00:49,840 --> 00:00:55,090
+And what I'm gonna do is in my course download, go to the Elastic Beanstalk directory
+
+15
+00:00:55,260 --> 00:00:57,550
+and choose this Node.js.zip.
+
+16
+00:00:58,340 --> 00:00:59,410
+Click on upload.
+
+17
+00:01:00,740 --> 00:01:03,710
+So now we can simply create our application.
+
+18
+00:01:04,140 --> 00:01:07,980
+Now, if you wanted to apply some more advanced configurations,
+
+19
+00:01:08,020 --> 00:01:10,170
+you can choose to configure more options.
+
+20
+00:01:10,800 --> 00:01:16,500
+In here we can define various different things. So firstly we've got some presets.
+
+21
+00:01:16,680 --> 00:01:20,960
+Presets for single instance with free tier eligibility,
+
+22
+00:01:21,440 --> 00:01:24,560
+we can create highly available infrastructure,
+
+23
+00:01:25,040 --> 00:01:28,431
+and we can use high availability with spot and on-demand instances,
+
+24
+00:01:28,455 --> 00:01:30,460
+or our own custom configuration.
+
+25
+00:01:31,140 --> 00:01:35,960
+We can enable things like the X-ray daemon for tracing our application.
+
+26
+00:01:36,440 --> 00:01:39,310
+We can configure information about our instances,
+
+27
+00:01:39,840 --> 00:01:44,240
+the capacity, so what instance types we want to use and the image ID, etc.
+
+28
+00:01:44,940 --> 00:01:46,680
+And of course we can add load balancers.
+
+29
+00:01:46,680 --> 00:01:48,880
+So in a highly available configuration we would
+
+30
+00:01:48,905 --> 00:01:52,285
+have multiple instances and a load balancer.
+
+31
+00:01:53,240 --> 00:01:57,530
+So there's quite a bit you can do there. I'm not going to change any of those settings.
+
+32
+00:01:57,760 --> 00:02:00,560
+Let's just go and create our application.
+
+33
+00:02:01,240 --> 00:02:05,200
+So that's being created and we can see the progress happening on our screen here.
+
+34
+00:02:05,320 --> 00:02:09,060
+And it can take several minutes with Elastic Beanstalk for it to complete.
+
+35
+00:02:09,740 --> 00:02:14,410
+So it's been a few minutes and my application appears to be deployed now.
+
+36
+00:02:14,650 --> 00:02:19,780
+And what I can do to check is we've got this URL here. So I can click on this URL.
+
+37
+00:02:19,970 --> 00:02:24,600
+And it should take me to this landing page, which is the Node.js landing page.
+
+38
+00:02:24,600 --> 00:02:27,160
+So this is a default document that gets shown.
+
+39
+00:02:27,540 --> 00:02:31,760
+So that looks good. That looks like my application has correctly installed.
+
+40
+00:02:32,340 --> 00:02:34,310
+Now, as you can see on the left hand side here,
+
+41
+00:02:34,310 --> 00:02:38,290
+we have a couple of different places that we can configure options.
+
+42
+00:02:38,640 --> 00:02:41,960
+Firstly, we have the application which is here.
+
+43
+00:02:41,990 --> 00:02:44,050
+And you can see the application versions.
+
+44
+00:02:44,060 --> 00:02:46,160
+We only have one at this stage.
+
+45
+00:02:46,840 --> 00:02:50,860
+Then we actually have the environments which are part of the application.
+
+46
+00:02:51,160 --> 00:02:52,783
+So here you can see the environment
+
+47
+00:02:52,808 --> 00:02:55,750
+and the various different configuration options for environment.
+
+48
+00:02:56,340 --> 00:03:01,520
+Now, what we're going to do is we're going to upload a new version of our application
+
+49
+00:03:01,900 --> 00:03:05,760
+and we're going to make a modification to the code that we used before to do that.
+
+50
+00:03:06,440 --> 00:03:11,110
+I'm in the file system of my computer here and looking at the Node.js.zip file.
+
+51
+00:03:11,540 --> 00:03:14,860
+What you need to do is just unzip that file
+
+52
+00:03:15,350 --> 00:03:17,860
+and then go into the Node.js directory.
+
+53
+00:03:19,540 --> 00:03:21,520
+And in here we'll find a few files.
+
+54
+00:03:21,530 --> 00:03:25,900
+Now what I want to do is I'm going to edit the index.html.
+
+55
+00:03:26,060 --> 00:03:27,960
+and I'm going to use visual studio code.
+
+56
+00:03:29,640 --> 00:03:31,030
+So here is my file.
+
+57
+00:03:31,250 --> 00:03:33,960
+Now what I'm going to do is scroll down a little way
+
+58
+00:03:34,340 --> 00:03:40,000
+to the area where I see this background color and it's green.
+
+59
+00:03:40,030 --> 00:03:42,460
+Now, we're going to copy over this
+
+60
+00:03:44,740 --> 00:03:46,230
+and we're going to put in blue.
+
+61
+00:03:46,570 --> 00:03:49,060
+And as we do so we have the option come up here.
+
+62
+00:03:49,540 --> 00:03:51,760
+So that's how I want it to look.
+
+63
+00:03:52,140 --> 00:03:53,880
+I'm going to save my document.
+
+64
+00:03:55,440 --> 00:03:58,590
+and now here's the really important thing. We need to zip this up again.
+
+65
+00:03:59,140 --> 00:04:01,950
+But I don't want you to zip this folder.
+
+66
+00:04:02,260 --> 00:04:05,643
+You must take the files and zip the files.
+
+67
+00:04:05,668 --> 00:04:10,105
+Now I'm on a Mac and the way I do that is I highlight them all and then compress.
+
+68
+00:04:10,129 --> 00:04:13,560
+You might be using Winzip or some other utility on your computer.
+
+69
+00:04:13,940 --> 00:04:16,060
+But just make sure you select the files.
+
+70
+00:04:17,540 --> 00:04:21,050
+So I've got this archive, I'm just going to bring it up to this directory.
+
+71
+00:04:21,440 --> 00:04:25,550
+And I'm going to rename it to Node.js-bue.
+
+72
+00:04:26,240 --> 00:04:30,350
+Back in the Elastic Beanstalk console I'm going to choose upload and deploy,
+
+73
+00:04:30,740 --> 00:04:31,760
+choose a file,
+
+74
+00:04:32,240 --> 00:04:35,180
+choose My Node.js Blue, click on upload.
+
+75
+00:04:35,740 --> 00:04:40,260
+It's going to give it a version label and we can see here it says source-1.
+
+76
+00:04:40,840 --> 00:04:42,460
+So let's click on deploy.
+
+77
+00:04:42,840 --> 00:04:44,520
+And that should just take a few minutes.
+
+78
+00:04:44,810 --> 00:04:48,890
+So remember this is how our web application looks at the moment.
+
+79
+00:04:49,020 --> 00:04:52,050
+And what we're trying to do is change this here to green.
+
+80
+00:04:52,640 --> 00:04:55,090
+So that's taking place, just give it a couple of minutes
+
+81
+00:04:55,230 --> 00:04:56,570
+and then it should be updated.
+
+82
+00:04:57,220 --> 00:04:59,500
+Now in the meantime, if you've got EC2 open,
+
+83
+00:05:00,040 --> 00:05:02,400
+you should be able to find your instance running here.
+
+84
+00:05:02,400 --> 00:05:06,190
+So in EC2, we can see our beanstalk instances.
+
+85
+00:05:06,740 --> 00:05:11,350
+It has a name so mine is named after the environment that we created.
+
+86
+00:05:12,140 --> 00:05:16,390
+So you can interact with your EC2 instances and you can manage them as well.
+
+87
+00:05:16,670 --> 00:05:20,270
+As long as you add a key pair during the creation,
+
+88
+00:05:20,280 --> 00:05:21,980
+which is something we actually didn't do,
+
+89
+00:05:22,110 --> 00:05:24,000
+But if you do do that then you're able to
+
+90
+00:05:24,000 --> 00:05:26,960
+actually use that key pair to access your instance.
+
+91
+00:05:28,840 --> 00:05:32,020
+So let's go back and just watch the status and once it's complete,
+
+92
+00:05:32,030 --> 00:05:34,060
+we'll test our application again.
+
+93
+00:05:35,840 --> 00:05:40,158
+So I've just noticed that it now says instance deployment completed successfully.
+
+94
+00:05:40,516 --> 00:05:43,010
+Hasn't quite got the health information back yet.
+
+95
+00:05:43,020 --> 00:05:46,060
+But if we come back to our web application here,
+
+96
+00:05:46,540 --> 00:05:49,060
+refresh and now it's turned blue.
+
+97
+00:05:49,640 --> 00:05:51,460
+So that's worked as expected.
+
+98
+00:05:52,220 --> 00:05:53,880
+Now back in Beanstalk we should now
+
+99
+00:05:53,880 --> 00:05:57,060
+see that we have these different application versions.
+
+100
+00:05:57,540 --> 00:05:59,160
+And you can see the different code.
+
+101
+00:06:00,340 --> 00:06:03,040
+So if you wanted to, you could now revert back,
+
+102
+00:06:03,040 --> 00:06:06,310
+you can always change back to a different version.
+
+103
+00:06:06,990 --> 00:06:10,950
+So for example I can choose this option, go to deploy,
+
+104
+00:06:11,340 --> 00:06:14,660
+and it's going to actually redeploy the original code.
+
+105
+00:06:15,440 --> 00:06:20,000
+So these exist independently of the actual application that's running.
+
+106
+00:06:20,160 --> 00:06:24,010
+And they're there so that you have a history of the source code
+
+107
+00:06:24,110 --> 00:06:27,460
+that you can always go back to a previous version if something goes wrong.
+
+108
+00:06:28,840 --> 00:06:32,760
+So that should now be updating again. Let's go back to our environment.
+
+109
+00:06:33,650 --> 00:06:35,080
+And that appears to have completed.
+
+110
+00:06:35,080 --> 00:06:38,550
+So let's go back, refresh, and now we're back to where we were.
+
+111
+00:06:39,340 --> 00:06:42,390
+And that's it for this lesson. We've finished with this environment.
+
+112
+00:06:42,390 --> 00:06:47,350
+So what I'm going to do is simply go to actions and terminate environment.
+
+113
+00:06:48,040 --> 00:06:52,560
+Now you do need to then copy the name of the environment and paste that in
+
+114
+00:06:53,040 --> 00:06:54,110
+and then terminate.
+
+115
+00:06:54,120 --> 00:06:57,970
+Now this won't actually delete the application, it deletes the environment.
+
+116
+00:06:57,970 --> 00:06:59,820
+That is the EC2 instance as well.
+
+117
+00:06:59,820 --> 00:07:02,708
+So the EC2 instance will be terminated
+
+118
+00:07:02,733 --> 00:07:05,868
+but the application configuration is there so we can then
+
+119
+00:07:05,893 --> 00:07:09,260
+create new environment. So we will do that later on in this section.
+
