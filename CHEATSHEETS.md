@@ -30,6 +30,10 @@ https://docs.aws.amazon.com/aws-sdk-php/v2/guide/feature-dynamodb-session-handle
 
 https://repost.aws/knowledge-center/dynamodb-create-composite-ke
 
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html
+
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-query-scan.html#QueryAndScanGuidelines.ParallelScan
+
 ## AWS Lambda
 ### Cheatsheet
 https://digitalcloud.training/aws-lambda/
