@@ -7,6 +7,25 @@ https://digitalcloud.training/amazon-ec2/
 ### References
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html
 
+
+## AWS ECS/EKS
+### Cheatsheet
+https://digitalcloud.training/amazon-ecs-and-eks/
+
+### References
+https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_PortMapping.html
+
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-strategies.html
+
+## AWS EBS
+### Cheatsheet
+https://digitalcloud.training/aws-elastic-beanstalk/
+ 
+### References
+https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/applications-sourcebundle.html
+
+https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.rolling-version-deploy.html
+
 ## AWS RDS
 ### Cheatsheet
 https://digitalcloud.training/amazon-rds/
@@ -44,6 +63,8 @@ https://docs.aws.amazon.com/lambda/latest/dg/python-package.html
 https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html
 
 https://docs.aws.amazon.com/lambda/latest/dg/lambda-concurrency.html#calculating-concurrency
+
+https://aws.amazon.com/blogs/compute/upcoming-changes-to-the-python-sdk-in-aws-lambda/
 
 ## AWS Developer Tools
 ### Cheatsheet
