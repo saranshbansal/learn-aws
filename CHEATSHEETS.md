@@ -7,6 +7,20 @@ https://digitalcloud.training/amazon-ec2/
 ### References
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html
 
+## AWS RDS
+### Cheatsheet
+https://digitalcloud.training/amazon-rds/
+
+### References
+https://aws.amazon.com/blogs/compute/using-amazon-rds-proxy-with-aws-lambda/
+
+## AWS Aurora
+### Cheatsheet
+https://digitalcloud.training/amazon-aurora/
+
+### References
+https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Integrating.AutoScaling.html
+
 ## AWS DynamoDB
 ### Cheatsheet
 https://digitalcloud.training/amazon-dynamodb/
@@ -26,13 +40,6 @@ https://docs.aws.amazon.com/lambda/latest/dg/python-package.html
 https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html
 
 https://docs.aws.amazon.com/lambda/latest/dg/lambda-concurrency.html#calculating-concurrency
-
-## AWS Aurora
-### Cheatsheet
-https://digitalcloud.training/amazon-aurora/
-
-### References
-https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Integrating.AutoScaling.html
 
 ## AWS Developer Tools
 ### Cheatsheet
