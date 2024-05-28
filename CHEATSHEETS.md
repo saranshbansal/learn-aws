@@ -94,7 +94,13 @@ https://digitalcloud.training/aws-developer-tools/
 ### References
 https://docs.aws.amazon.com/codedeploy/latest/userguide/deployments.html
 
+https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html
+
+https://docs.aws.amazon.com/codedeploy/latest/userguide/welcome.html
+
 https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html
+
+https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-resources.html
 
 https://docs.aws.amazon.com/codebuild/latest/userguide/sample-docker.html
 
@@ -103,6 +109,16 @@ https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
 https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_ssh-keys.html
 
 https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-java-segment.html
+
+https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html
+
+https://aws.amazon.com/codecommit/
+
+https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/codecommit/AWSCodeCommitClient.html
+
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-type-bluegreen.html
+
+https://docs.aws.amazon.com/amplify/latest/userguide/welcome.html
 
 ## AWS application integration services
 ### Cheatsheet
@@ -174,3 +190,6 @@ https://digitalcloud.training/amazon-kinesis/
 
 ### References
 https://docs.aws.amazon.com/streams/latest/dev/introduction.html
+
+## Miscellaneous
+https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html
