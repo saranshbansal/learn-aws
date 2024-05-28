@@ -6,6 +6,7 @@ https://digitalcloud.training/amazon-ec2/
 
 ### References
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html
+
 https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html
 
 ## AWS ECS/EKS
@@ -22,11 +23,13 @@ https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-strat
 https://digitalcloud.training/aws-elastic-beanstalk/
  
 ### References
+https://aws.amazon.com/elasticbeanstalk/
+
 https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/applications-sourcebundle.html
 
 https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.rolling-version-deploy.html
 
-https://aws.amazon.com/elasticbeanstalk/
+https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.deploy-existing-version.html
 
 ## AWS S3 & Glacier
 ### Cheatsheet
@@ -41,6 +44,7 @@ https://digitalcloud.training/amazon-rds/
 
 ### References
 https://aws.amazon.com/blogs/compute/using-amazon-rds-proxy-with-aws-lambda/
+
 https://aws.amazon.com/rds/postgresql/
 
 ## AWS Aurora
@@ -98,6 +102,8 @@ https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_ssh-keys.html
 
+https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-java-segment.html
+
 ## AWS application integration services
 ### Cheatsheet
 https://digitalcloud.training/aws-application-integration-services/
@@ -145,3 +151,19 @@ https://digitalcloud.training/aws-waf-shield/
 
 ### References
 https://aws.amazon.com/premiumsupport/knowledge-center/waf-allow-block-country-geolocation/
+
+## AWS Certificate Manager
+### Cheatsheet
+https://digitalcloud.training/aws-certificate-manager/
+
+### References
+https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html
+
+https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-api-gateway.html
+
+## AWS SAM
+### Cheatsheet
+https://digitalcloud.training/aws-sam/
+
+### References
+https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html
