@@ -6,6 +6,7 @@ https://digitalcloud.training/amazon-ec2/
 
 ### References
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html
 
 ## AWS ECS/EKS
 ### Cheatsheet
