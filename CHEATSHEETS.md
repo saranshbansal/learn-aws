@@ -167,3 +167,10 @@ https://digitalcloud.training/aws-sam/
 
 ### References
 https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html
+
+## AWS Kinesis
+### Cheatsheet
+https://digitalcloud.training/amazon-kinesis/
+
+### References
+https://docs.aws.amazon.com/streams/latest/dev/introduction.html
