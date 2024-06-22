@@ -1,3 +1,15 @@
+# AWS Account management - Oragnisations, OUs, SCPs
+- Must have AWS account to access servces and create any resources. By default creates a `root` account.
+- Recommended to have multiple accounts for serving different environments like dev, test, prod, sandbox.
+- Managing multiple accounts become cumbersome so can use `AWS Organisations`. One account can become `manager` account and others become `member` accounts.
+- Can have multiple dev, test, prod accounts. All can be logically grouped as `Organisation Units (OUs)` and apply policies and permissions that the members of the OU may share in the organization.
+- You can apply `Service Control Policies (SCPs)`, that act as guard rails on what services can be consumed in each AWS account. Written in `JSON`. SCPs can also restrict which regions those accounts can provision resources in.
+
+### Multiple AWS Accounts strategy
+![alt text](images/image-1.png)
+
+### OUs & SCPs
+![alt text](images/image.png)
 
 # AWS CLI
 ## Pre-requisite
@@ -211,8 +223,6 @@ EFS is file based storage service located outside of AZs (unlike EBS) and can be
 Access to FS is via NFS (Network file system protocol) and is linux only that’s why we have mount points rather than drive letters.
 Can be connected to Corporate on-prem data centre.
 
-
-
 # EC2 User data and Metadata
 ### User data: 
 Allows you to run some code before running instances. Limited to 16kb
@@ -249,4 +259,5 @@ sed "s/AZID/$EC2AZ/" /var/ww/html/index.txt > /var/www/html/index.html
 -	Go back to “Instances” section and you should have a running instance which is your web app. Select and check ip address to access it.
 
 # AWS CloudFormation
- 
+
+![alt text](images/image_aws_cf.png)
