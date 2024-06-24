@@ -1,5 +1,5 @@
 # AWS Account management - Oragnisations, OUs, SCPs
-- Must have AWS account to access servces and create any resources. By default creates a `root` account.
+- Must have AWS account to access services and create any resources. By default creates a `root` account.
 - Recommended to have multiple accounts for serving different environments like dev, test, prod, sandbox.
 - Managing multiple accounts become cumbersome so can use `AWS Organisations`. One account can become `manager` account and others become `member` accounts.
 - Can have multiple dev, test, prod accounts. All can be logically grouped as `Organisation Units (OUs)` and apply policies and permissions that the members of the OU may share in the organization.
@@ -22,7 +22,7 @@ Components - `IAM users` | `IAM groups` | `IAM roles`
 ![alt text](images/image-iam_permissions.png)
 
 ## AWS Cognito
-- For access via apps. 
+- For access via apps and 3rd party systems. 
 
 # AWS CLI
 ## Pre-requisite
@@ -273,4 +273,4 @@ sed "s/AZID/$EC2AZ/" /var/ww/html/index.txt > /var/www/html/index.html
 
 # AWS CloudFormation
 
-![alt text](images/image_aws_cf.png)
+![alt text](images/image-aws_cf.png)
