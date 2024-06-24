@@ -4,12 +4,25 @@
 - Managing multiple accounts become cumbersome so can use `AWS Organisations`. One account can become `manager` account and others become `member` accounts.
 - Can have multiple dev, test, prod accounts. All can be logically grouped as `Organisation Units (OUs)` and apply policies and permissions that the members of the OU may share in the organization.
 - You can apply `Service Control Policies (SCPs)`, that act as guard rails on what services can be consumed in each AWS account. Written in `JSON`. SCPs can also restrict which regions those accounts can provision resources in.
+- One key trick to manage so many accounts by a single user is by using a `Gmail` email id. It allows you to have many sub user accounts which are ultimately linked to a common gmail account. This is achieved by adding a `+` letter in your email address ex. `testawsuser+management@gmail.com, testawsuser+dev@gmail.com, testawsuser+prod@gmail.com...` etc.
 
 ### Multiple AWS Accounts strategy
-![alt text](images/image-1.png)
+![alt text](images/image-aws_accounts.png)
 
 ### OUs & SCPs
-![alt text](images/image.png)
+![alt text](images/image-aws_orgs.png)
+
+# AWS Security - Authentication and Authorisation
+## AWS IAM
+![alt text](images/image_iam.png)
+Components - `IAM users` | `IAM groups` | `IAM roles`
+
+- As best practice, it is advisable not to use the root user account for your day-to-day operations. AWS recommends you create separate individual `IAM users` with enough permissions required to carry out all tasks required to fulfil their job function. AWS IAM allows you to create and configure identities for your AWS account. You can apply permissions to those identities, determining the level of access granted.
+- When granting access to services, you must follow the principle of least privilege (POLP) as recommended by AWS. This ensures that those identities are provided with only the necessary access needed to carry out approved tasks and perform their job functions.
+![alt text](images/image-iam_permissions.png)
+
+## AWS Cognito
+- For access via apps. 
 
 # AWS CLI
 ## Pre-requisite
