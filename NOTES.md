@@ -173,7 +173,7 @@ Internet Gateway is attached to VPC to connect to outside internet.
 | Stateful: any traffic allowed out will automatically be allowed in | Stateless: NACLs need separate outbound rules |
 
 
-# Setup VPC
+### Setup VPC
 1.	Login to IAM account
 2.	Got to VPC service
 3.	Create new VPC by providing a custom range: 10.0.0.0/16
@@ -188,8 +188,7 @@ Internet Gateway is attached to VPC to connect to outside internet.
 12.	Go to route table, select private RT, click add route, and associate a NAT gateway this time like in step 10.
 13.	Create a Security Group Public-Web and add inbound and outbound rules. Keep it all traffic open for now.
 
-
-# Launch EC2 instance
+### Launch EC2 instance
 CLI: aws ec2 run-instances –image-id <value> --instance-type <value> --security-group-ids <value> --subnet-id <value> --key-name <value> --user-data file:// <value>
 Setup your VPC with all the components. You need to create ec2 instances for all the public/private subnets as below:
  
@@ -208,41 +207,6 @@ Setup your VPC with all the components. You need to create ec2 instances for all
 
 7.	Go to AWS CLI and run the command. Your new instance will launch. Rename it to Public 1A. Do the same for other public and private subnets
 
-
-
-
-# EC2 Storage
-## EBS
-Storage service available to connect to EC2 over a network. EBS Volumes are available inside AZ. They are automatically replicated within AZ.
-
-### Types of EBS
- 
--	Performance metrics: IOPS
-Instance store
- 
-
--	Instance store is non-persistent and are physically attached to EC2 servers.
--	They offer high performance and are used for storing data temporarily which doesn’t need replication.
-
-### EBS Snapshot (for backup)
- 
--	Snapshots are created for EC2 Volumes. These are stored outside AZ in S3.
--	Because they are outside AZ, they can be re-used in some other EBS volume in another AZ.
--	They can also be used to create AMIs
-
-# EFS (Elastic File System)
- 
-EFS is file based storage service located outside of AZs (unlike EBS) and can be attached to multiple EC2 instances across AZs. It is a great way to attach a shared storage location between instances across AZs. Supports very large number of instances across many AZs unlike EBS which has certain constraints. EFS > EBS!
-Access to FS is via NFS (Network file system protocol) and is linux only that’s why we have mount points rather than drive letters.
-Can be connected to Corporate on-prem data centre.
-
-# EC2 User data and Metadata
-### User data: 
-Allows you to run some code before running instances. Limited to 16kb
- 
-### Metadata: 
-Data about EC2 instance. By default located at http://<ip-address>/latest/meta-data/<commands>
- 
 ## How to launch an Auto-scaling Web App on EC2
 -	Open EC2 page
 -	Create a new launch template with following changes:
@@ -270,6 +234,37 @@ sed "s/AZID/$EC2AZ/" /var/ww/html/index.txt > /var/www/html/index.html
 -	Make sure your Security Group does have http rule enabled. Select your ASG and check.
 -	If HTTP type rule is not there, edit SG and add it.
 -	Go back to “Instances” section and you should have a running instance which is your web app. Select and check ip address to access it.
+
+# Storage
+### EBS
+Storage service available to connect to EC2 over a network. EBS Volumes are available inside AZ. They are automatically replicated within AZ.
+
+### Instance store
+-	Instance store is non-persistent and are physically attached to EC2 servers.
+-	They offer high performance and are used for storing data temporarily which doesn’t need replication.
+
+### EBS Snapshot (for backup)
+-	Snapshots are created for EC2 Volumes. These are stored outside AZ in S3.
+-	Because they are outside AZ, they can be re-used in some other EBS volume in another AZ.
+-	They can also be used to create AMIs
+
+### EC2 User data and Metadata
+#### User data: 
+Allows you to run some code before running instances. Limited to 16kb
+ 
+#### Metadata: 
+Data about EC2 instance. By default located at http://<ip-address>/latest/meta-data/<commands>
+ 
+### EFS (Elastic File System)
+ 
+EFS is file based storage service located outside of AZs (unlike EBS) and can be attached to multiple EC2 instances across AZs. 
+It is a great way to attach a shared storage location between instances across AZs. - Supports very large number of instances across many AZs unlike EBS which has certain constraints. 
+- EFS > EBS!
+- Access to FS is via NFS (Network file system protocol) and is linux only that’s why we have mount points rather than drive letters.
+- Can be connected to Corporate on-prem data centre.
+
+### S3
+TBD
 
 # AWS CloudFormation
 
