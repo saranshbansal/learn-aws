@@ -99,3 +99,8 @@ Author: [DigitalCloud training](https://digitalcloud.training/)
 - 11 - AWS Developer Tools (CICD)
 - 12 - Databases and Analytics
 - 13 - Management and Security
+
+## AWS notes and cheatsheets
+[NOTES](NOTES.md)
+
+[CHEATSHEETS](CHEATSHEETS.md)
