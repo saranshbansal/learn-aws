@@ -270,46 +270,28 @@ The build specification (`buildspec.yaml`) is a YAML file that lets you choose t
 
 The code sample shows the contents of a `buildspec.yml` file that is being used to build a Docker image and push it to Amazon Elastic Container Registry (ECR):
 
-```json
+```yaml
 version: 0.2
 
 phases:
-
-install:
-
-runtime-versions:
-
-docker: 18
-
-pre_build:
-
-commands:
-
-- echo Logging in to Amazon ECR...
-
-- $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-
-build:
-
-commands:
-
-- echo Build started on `date`
-
-- echo Building the Docker image...
-
-- docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
-
-- docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
-
-post_build:
-
-commands:
-
-- echo Build completed on `date`
-
-- echo Pushing the Docker image...
-
-- docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+  install:
+    runtime-versions:
+    docker: 18
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
 ```
 
 **Useful exam tips**
@@ -330,128 +312,81 @@ Need to choose the compute platform:
 
 The application specification file (`AppSpec` file) is a YAML-formatted, or JSON-formatted file used by CodeDeploy to manage a deployment. Example:
 
-```json
+```yaml
 version: 0.0
 
 os: linux
 
 files:
-
-- source: /
-
-destination: /var/www/html/WordPress
+  - source: /
+  destination: /var/www/html/WordPress
 
 hooks 
-
-BeforeInstall:
-
-- location: scripts/install_dependencies.sh
-
-timeout: 300
-
-runas: root
-
-AfterInstall:
-
-- location: scripts/change_permissions.sh
-
-timeout: 300
-
-runas: root
-
-ApplicationStart:
-
-- location: scripts/start_server.sh
-
-- location: scripts/create_test_db.sh
-
-timeout: 300
-
-runas: root
-
-ApplicationStop:
-
-- location: scripts/stop_server.sh
-
-timeout: 300
-
-runas: root
+  BeforeInstall:
+    - location: scripts/install_dependencies.sh
+    timeout: 300
+    runas: root
+  AfterInstall:
+    - location: scripts/change_permissions.sh
+    timeout: 300
+    runas: root
+  ApplicationStart:
+    - location: scripts/start_server.sh
+    - location: scripts/create_test_db.sh
+    timeout: 300
+    runas: root
+  ApplicationStop:
+    - location: scripts/stop_server.sh
+    timeout: 300
+    runas: root
 ```
 
-Here is an example of an AppSpec file written in YAML for deploying an Amazon ECS service:
+Here is an example of an AppSpec file written in YAML for deploying an **Amazon ECS service**:
 
-```
+```yaml
 version: 0.0
 
 Resources:
-
-- TargetService:
-
-Type: AWS::ECS::Service
-
-Properties:
-
-TaskDefinition: "arn:aws:ecs:us-east-1:111222333444:task-definition/my-task-definition-family-name:1"
-
-LoadBalancerInfo:
-
-ContainerName: "SampleApplicationName"
-
-ContainerPort: 80
-
-# Optional properties
-
-PlatformVersion: "LATEST"
-
-NetworkConfiguration:
-
-AwsvpcConfiguration:
-
-Subnets: ["subnet-1234abcd","subnet-5678abcd"]
-
-SecurityGroups: ["sg-12345678"]
-
-AssignPublicIp: "ENABLED"
+  - TargetService:
+    Type: AWS::ECS::Service
+    Properties:
+      TaskDefinition: "arn:aws:ecs:us-east-1:111222333444:task-definition/my-task-definition-family-name:1"
+      LoadBalancerInfo:
+        ContainerName: "SampleApplicationName"
+        ContainerPort: 80
+      # Optional properties
+      PlatformVersion: "LATEST"
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          Subnets: ["subnet-1234abcd","subnet-5678abcd"]
+          SecurityGroups: ["sg-12345678"]
+          AssignPublicIp: "ENABLED"
 
 Hooks:
-
-- BeforeInstall: "LambdaFunctionToValidateBeforeInstall"
-
-- AfterInstall: "LambdaFunctionToValidateAfterTraffic"
-
-- AfterAllowTestTraffic: "LambdaFunctionToValidateAfterTestTrafficStarts"
-
-- BeforeAllowTraffic: "LambdaFunctionToValidateBeforeAllowingProductionTraffic"
-
-- AfterAllowTraffic: "LambdaFunctionToValidateAfterAllowingProductionTraffic"
+  - BeforeInstall: "LambdaFunctionToValidateBeforeInstall"
+  - AfterInstall: "LambdaFunctionToValidateAfterTraffic"
+  - AfterAllowTestTraffic: "LambdaFunctionToValidateAfterTestTrafficStarts"
+  - BeforeAllowTraffic: "LambdaFunctionToValidateBeforeAllowingProductionTraffic"
+  - AfterAllowTraffic: "LambdaFunctionToValidateAfterAllowingProductionTraffic"
 ```
 
-The format of the AppSpec.yaml file for use with AWS Lambda is as follows:
+The format of the AppSpec.yaml file for use with **AWS Lambda** is as follows:
 
-```json
+```yaml
 version: 0.0
 
 Resources:
-
-- myLambdaFunction:
-
-Type: AWS::Lambda::Function
-
-Properties:
-
-Name: "myLambdaFunction"
-
-Alias: "myLambdaFunctionAlias"
-
-CurrentVersion: "1"
-
-TargetVersion: "2"
+  - myLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Name: "myLambdaFunction"
+      Alias: "myLambdaFunctionAlias"
+      CurrentVersion: "1"
+      TargetVersion: "2"
 
 Hooks:
-
-- BeforeAllowTraffic: "LambdaFunctionToValidateBeforeTrafficShift"
-
-- AfterAllowTraffic: "LambdaFunctionToValidateAfterTrafficShift"
+  - BeforeAllowTraffic: "LambdaFunctionToValidateBeforeTrafficShift"
+  - AfterAllowTraffic: "LambdaFunctionToValidateAfterTrafficShift"
 ```
 
 **Useful exam tips**
