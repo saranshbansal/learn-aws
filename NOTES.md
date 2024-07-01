@@ -38,11 +38,11 @@ As shown in the Figure, we use the example of a developer in the `Identities` Ac
 
 ```json
 {
-  “Version”: “2024-06-17”,
-  “Statement”: {
-    “Effect”: “Allow”,
-    “Action”: “sts:AssumeRole”,
-    “Resource”: “arn:aws:iam::Developer-Account-ID:role/S3AccessRole”
+  "Version": "2024-06-17",
+  "Statement": {
+    "Effect": "Allow",
+    "Action": "sts:AssumeRole",
+    "Resource": "arn:aws:iam::Developer-Account-ID:role/S3AccessRole"
   }
 }
 ```
