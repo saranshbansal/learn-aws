@@ -11,6 +11,7 @@ Developers upload applications and Elastic Beanstalk handles the deployment deta
 - Provides fault tolerance within a single region.
 - By default applications are publicly accessible.
 - Can access logs without logging into application servers.
+- When deploying code to Amazon EC2 using Beanstalk, Elastic Beanstalk must resolve application dependencies which can take a long time. A golden AMI is a method of reducing this time by packaging all dependencies, configuration, and software into the AMI before deploying.
 
 ## Elastic Beanstalk Layers
 There are several layers that make up Elastic Beanstalk and each layer is described below:
@@ -111,11 +112,11 @@ Zero downtime.
 
 The following tables summarizes the different deployment policies:
 
-| Deployment Policy             | Deploy Time             | Zero Downtime | Rollback                | Extra Cost       | Reduction in capacity |
-| ----------------------------- | ----------------------- | ------------- | ----------------------- | ---------------- | --------------------- |
-| All at once                   | Clock                   | NO            | Manual redeploy         | NONE             | YES (total)           |
-| Rolling                       | Clock Clock             | YES           | Manual redeploy         | NONE             | YES (batch size)      |
-| Rolling with additional batch | Clock Clock Clock       | YES           | Manual redeploy         | YES (batch size) | NO                    |
-| Immutable                     | Clock Clock Clock Clock | YES           | Terminate new instances | YES (total)      | NO                    |
-| Blue/green                    | Clock Clock Clock Clock | YES           | Swap URL                | YES (varies)     | NO                    |
+| Deployment Policy             | Deploy Time | Zero Downtime | Rollback                | Extra Cost       | Reduction in capacity |
+| ----------------------------- | ----------- | ------------- | ----------------------- | ---------------- | --------------------- |
+| All at once                   | ★           | NO            | Manual redeploy         | NONE             | YES (total)           |
+| Rolling                       | ★ ★         | YES           | Manual redeploy         | NONE             | YES (batch size)      |
+| Rolling with additional batch | ★ ★ ★       | YES           | Manual redeploy         | YES (batch size) | NO                    |
+| Immutable                     | ★ ★ ★ ★     | YES           | Terminate new instances | YES (total)      | NO                    |
+| Blue/green                    | ★ ★ ★ ★     | YES           | Swap URL                | YES (varies)     | NO                    |
 
