@@ -11,7 +11,7 @@ Developers upload applications and Elastic Beanstalk handles the deployment deta
 - Provides fault tolerance within a single region.
 - By default applications are publicly accessible.
 - Can access logs without logging into application servers.
-- When deploying code to Amazon EC2 using Beanstalk, Elastic Beanstalk must resolve application dependencies which can take a long time. A golden AMI is a method of reducing this time by packaging all dependencies, configuration, and software into the AMI before deploying.
+- When deploying code to Amazon EC2 using Beanstalk, Elastic Beanstalk must resolve application dependencies which can take a long time. A `Golden AMI` is a method of reducing this time by packaging all dependencies, configuration, and software into the AMI before deploying.
 
 ## Elastic Beanstalk Layers
 There are several layers that make up Elastic Beanstalk and each layer is described below:
