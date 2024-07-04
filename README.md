@@ -101,6 +101,8 @@ Author: [DigitalCloud training](https://digitalcloud.training/)
 - 13 - Management and Security
 
 ## AWS notes and cheatsheets
-[NOTES](NOTES.md)
-
 [CHEATSHEETS](CHEATSHEETS.md)
+
+[NOTES - Account, Security, Storage, Dev Tools](NOTES_ACCM_SEC_STOR_DEV.md)
+
+[NOTES - Conpute](NOTES_COMPUTE.md)
