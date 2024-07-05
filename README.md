@@ -105,4 +105,6 @@ Author: [DigitalCloud training](https://digitalcloud.training/)
 
 [NOTES - Account, Security, Storage, Dev Tools](NOTES_ACCM_SEC_STOR_DEV.md)
 
-[NOTES - Conpute](NOTES_COMPUTE.md)
+[NOTES - Conpute - EBS](NOTES_COMPUTE.md)
+
+[NOTES - Serverless concepts - Lambda, AWS SAM](NOTES_SERVERLESS.md)
