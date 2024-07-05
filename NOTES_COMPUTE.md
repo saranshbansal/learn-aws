@@ -26,6 +26,18 @@ You can have multiple application versions held within an application.
 An application version is a very specific reference to a section of deployable code.
 The application version will point typically to an Amazon s3 bucket containing the code.
 
+- Elastic Beanstalk can store at most `1000` application versions.
+
+- To phase out old versions use a lifecycle policy:
+
+    <strong>
+    Time-based – specify max age.
+
+    Count based – specify max number to retain.
+    </strong>
+
+- Versions that are in use will not be deleted.
+
 **Environment:**
 
 ![alt text](images/image-ebs_env.png)
@@ -120,3 +132,32 @@ The following tables summarizes the different deployment policies:
 | Immutable                     | ★ ★ ★ ★     | YES           | Terminate new instances | YES (total)      | NO                    |
 | Blue/green                    | ★ ★ ★ ★     | YES           | Swap URL                | YES (varies)     | NO                    |
 
+## Worker environments
+If an application performs tasks that take a long time to complete (long-running tasks), offload to a worker environment.
+
+- It allows you to decouple your application tiers.
+
+- Can define periodic tasks in the `cron.yaml` file.
+
+![alt text](images/image-ebs_worker.png)
+
+## Elastic Beanstalk Extensions
+You can add AWS Elastic Beanstalk configuration files (`.ebextensions`) to your web application’s source code to configure your environment and customize the AWS resources that it contains.
+
+Customization includes defining packages to install, create Linux users and groups, running shell commands, specifying services to enable, configuring a load balancer, etc.
+
+Configuration files are `YAML-` or `JSON`-formatted documents with a `.config` file extension that you place in a folder named `.ebextensions` and deploy in your application source bundle.
+
+The `.ebextensions` folder must be included in the top-level directory of your application source code bundle.
+
+All the parameters set in the UI can be configured in the code.
+
+### Requirements:
+
+- Must be in the `.ebextensions`/directory of the source code.
+- `YAML` or `JSON` format.
+- `.config` extensions can be included (e.g. `logging.config`).
+- You can modify some default settings using **“option_settings”**.
+- You can add resources such as **`RDS`, `ElastiCache`, and `DynamoDB`**.
+
+Resources managed by `.ebextensions` get deleted if the environment is terminated.
