@@ -271,6 +271,53 @@ aws cloudformation package
 aws cloudformation deploy
 ```
 
+## SAM Template
+The following example shows a YAML-formatted template fragment.
+
+```yaml
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  set of globals
+
+Description:
+  String
+
+Metadata:
+  template metadata
+
+Parameters:
+  set of parameters
+
+Mappings:
+  set of mappings
+
+Conditions:
+  set of conditions
+
+Resources:
+  set of resources
+
+Outputs:
+  set of outputs
+```
+
+**Resources**: Defines AWS resources used in your application (e.g., Lambda functions, API Gateway endpoints, DynamoDB tables).
+
+**Parameters**: Allows customization of your template by passing parameters during deployment (e.g., environment variables, resource names).
+
+**Outputs**: Provides information about your deployed resources (e.g., API endpoint URL) that can be used by other AWS services or users.
+
+**Mappings** (Opt): Optional section for specifying conditional values based on predefined keys (e.g., AMI IDs for different regions).
+
+**Conditions**: Allows you to define conditions that control whether certain resources are created or how they're configured based on input parameters or other conditions.
+
+**Transform**: Specifies transformations that AWS CloudFormation applies to the template, such as SAM transformations to expand SAM-specific syntax into standard CloudFormation syntax.
+
+**Metadata** (Opt): Optional section for adding additional information about your template or resources, such as descriptions or tags.
+
+Overall, AWS SAM templates provide a structured way to define and deploy serverless applications on AWS, leveraging AWS CloudFormation for infrastructure management while simplifying the definition of serverless resources.
+
 ## Key Benefits of AWS SAM
 
 - Works seamlessly with popular integrated development environments (IDEs) like PyCharm, IntelliJ, and VS Code. Also integrates with a comprehensive suite of AWS serverless tools.
@@ -289,3 +336,13 @@ aws cloudformation deploy
 - AWS SAM can be restrictive when it comes to API Gateway configuration. While it simplifies many aspects, it doesn’t offer the same level of flexibility as manual or Serverless Framework configurations.
 
 - Compared to the Serverless Framework, AWS SAM has fewer plugins available.
+
+## AWS SAM templates vs AWS CloudFormation templates
+
+The primary differences between AWS SAM templates and AWS CloudFormation templates are the following:
+
+• `Transform` declaration. The declaration `Transform: AWS::Serverless-2016-10-31` is required for AWS SAM templates. This declaration identifies an AWS CloudFormation template as an AWS SAM template.
+
+• `Globals` section. The `Globals` section is unique to AWS SAM. It defines properties that are common to all your serverless functions and APIs. All the `AWS::Serverless::Function`, `AWS::Serverless::Api`, and `AWS::Serverless::SimpleTable` resources inherit the properties that are defined in the Globals section.
+
+• `Resources` section. In AWS SAM templates the `Resources` section can contain a combination of AWS CloudFormation resources and AWS SAM resources.
