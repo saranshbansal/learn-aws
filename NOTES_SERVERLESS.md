@@ -18,6 +18,14 @@
 - Scheduled events can be configured to run code on a scheduled basis through the AWS Lambda Console.
 
 ## Lambda Functions basics
+
+```javascript
+function handler (event, context) {
+
+}
+```
+
+- The **context** object in a Lambda function provides metadata about the function and the current invocation, including a unique identifier for the request, awsRequestId, which can be used to correlate logs from a specific invocation.
 - Consist of code and any associated dependencies.
 - Configuration information is associated with the function.
 - You specify the configuration information when you create the function.
@@ -27,7 +35,7 @@
     - AWS services running in VPCs (e.g. RedShift, Elasticache, RDS instances).
     - Non-AWS services running on EC2 instances in an AWS VPC.
 - There is a maximum execution timeout.
-    - Max is 15 minutes (900 seconds), default is 3 seconds.
+    - Max is `15 minutes (900 seconds)`, default is `3 seconds`.
     - You pay for the time it runs.
     - Lambda terminates the function at the timeout.
 
@@ -149,11 +157,13 @@ Each runtime looks for libraries in a different location under /opt, depending o
 The functions run in response to CloudFront events, without provisioning or managing servers. You can use Lambda functions to change CloudFront requests and responses at the following points:
 
 ```
-fter CloudFront receives a request from a viewer (viewer request).
+After CloudFront receives a request from a viewer (viewer request).
 Before CloudFront forwards the request to the origin (origin request).
 After CloudFront receives the response from the origin (origin response).
 Before CloudFront forwards the response to the viewer (viewer response).
 ```
+
+> Lambda@Edge functions can only be created in the `us-east-1` Region. If you want to deploy such functions, they must be done in this specific region.
 
 ## Lambda and Amazon VPC
 You can connect a Lambda function to private subnets in a VPC.
