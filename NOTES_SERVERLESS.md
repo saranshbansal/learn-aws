@@ -74,7 +74,7 @@ Services that Lambda reads events from:
 ```
 Amazon Kinesis
 Amazon DynamoDB
-Amazon Simple Queue Service
+Amazon Simple Queue Service (SQS)
 ```
 
 > The configuration of the event source mapping for stream-based services (DynamoDB, Kinesis), and Amazon SQS, is made on the Lambda side.
