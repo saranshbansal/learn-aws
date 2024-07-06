@@ -48,14 +48,22 @@ function handler (event, context) {
 When you invoke a function synchronously, Lambda runs the function and waits for a response.
 To invoke a function synchronously with the AWS CLI, use the `invoke` command.
 
-```console
-$ aws lambda invoke –function-name my-function –payload ‘{ “key”: “value” }’ response.json { “ExecutedVersion”: “$LATEST”, “StatusCode”: 200 }
+```shell
+$ aws lambda invoke -–function-name my-function -–payload ‘{ “key”: “value” }’ 
+
+response.json 
+
+{ “ExecutedVersion”: “$LATEST”, “StatusCode”: 200 }
 ```
 **Asynchronous Invocation**
 For asynchronous invocation, Lambda places the event in a queue and returns a success response without additional information. A separate process reads events from the queue and sends them to your function. To invoke a function asynchronously, set the `invocation type` parameter to `Event`.
 
-```console
-$ aws lambda invoke --function-name my-function --invocation-type Event --payload '{ "key": "value" }' response.json { "StatusCode": 202 }
+```shell
+$ aws lambda invoke --function-name my-function --invocation-type Event --payload '{ "key": "value" }' 
+
+response.json 
+
+{ "StatusCode": 202 }
 ```
 
 If Lambda can’t add the event to the queue, the error message appears in the command output.
