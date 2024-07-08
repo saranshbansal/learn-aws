@@ -194,8 +194,8 @@ A launch configuration:
 
 You can use a launch configuration with multiple Auto Scaling Groups (ASG).
 
-## Auto-Scaling Group
-An Auto Scaling Group (ASG) is a logical grouping of EC2 instances managed by an Auto Scaling Policy.
+## Auto-Scaling Group (ASG)
+An `Auto Scaling Group (ASG)` is a logical grouping of EC2 instances managed by an Auto Scaling Policy.
 
 An ASG can be edited once defined.
 
@@ -214,6 +214,33 @@ You can add a running instance to an ASG if the following conditions are met:
 - The AMI used to launch the instance still exists.
 - The instance is not part of another ASG.
 - The instance is in the same AZs for the ASG.
+
+When you delete an Auto Scaling group all EC2 instances will be terminated.
+
+If Auto Scaling fails to launch instances in a specific AZ it will try other AZs until successful.
+
+All Elastic IPs and EBS volumes are detached from terminated EC2 instances and will need to be manually reattached.
+
+The ASG can be configured to send an Amazon SNS notification when:
+- An instance is launched.
+- An instance is terminated.
+- An instance fails to launch.
+- An instance fails to terminate.
+
+### Merging ASGs.
+
+- Can merge multiple single AZ Auto Scaling Groups into a single multi-AZ ASG.
+- Merging can only be performed by using the CLI.
+- The process is to rezone one of the groups to cover/span the other AZs for the other ASGs and then delete the other ASGs.
+- This can be performed on ASGs with or without ELBs attached to them.
+
+### Cooldown Period:
+
+- The cooldown period is a setting you can configure for your Auto Scaling group that helps to ensure that it doesn’t launch or terminate additional instances before the previous scaling activity takes effect.
+- A default cooldown period of 300 seconds is applied when you create your Auto Scaling group.
+- You can configure the cooldown period when you create the Auto Scaling group.
+- You can override the default cooldown via scaling-specific cooldown.
+- The warm-up period is the period in which a newly launched EC2 instance in an ASG that uses step scaling is not considered toward the ASG metrics.
 
 ## Scaling Options
 
@@ -329,3 +356,22 @@ EC2 Auto Scaling uses health checks to check if instances are healthy and availa
 - The health check grace period is a period of time in which a new instance is allowed to warm up before health check are performed (`300 seconds` by default).
 
 > Note: When using Elastic Load Balancers it is an AWS best practice to enable the `ELB health checks`. If you don’t, EC2 status checks may show an instance as being healthy that the `ELB` has determined is unhealthy. In this case the instance will be removed from service by the ELB but will not be terminated by Auto Scaling.
+
+## Authorization and Access Control
+EC2 Auto Scaling support `identity-based` IAM policies.
+
+Amazon EC2 Auto Scaling does not support `resource-based` policies.
+
+Amazon EC2 Auto Scaling uses `service-linked` roles for the permissions that it requires to call other AWS services on your behalf.
+
+A `service-linked` role is a unique type of IAM role that is linked directly to an AWS service.
+
+There is a default `service-linked` role for your account, named `AWSServiceRoleForAutoScaling`.
+
+This role is automatically assigned to your Auto Scaling groups unless you specify a different `service-linked` role.
+
+Amazon EC2 Auto Scaling also does not support `Access Control Lists (ACLs)`.
+
+You can apply `tag-based`, `resource-level` permissions in the `identity-based` policies that you create for Amazon EC2 Auto Scaling.
+
+This offers better control over which resources a user can create, modify, use, or delete.
