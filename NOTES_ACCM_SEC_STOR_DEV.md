@@ -72,10 +72,10 @@ Internet Gateway is attached to VPC to connect to outside internet.
 **NAT Instance and Gateway:** Provide Internet connection for your EC2 instances in private subnets
 
 ### Security group vs NACL
-|          SG                 |  NACL |
------------------------- | --------------------------
-| Instance level firewall | Subnet level firewall|
-| Allow only rules | Both Allow and Deny rules available |
+| SG                                                                 | NACL                                          |
+| ------------------------------------------------------------------ | --------------------------------------------- |
+| Instance level firewall                                            | Subnet level firewall                         |
+| Allow only rules                                                   | Both Allow and Deny rules available           |
 | Stateful: any traffic allowed out will automatically be allowed in | Stateless: NACLs need separate outbound rules |
 
 # Storage
