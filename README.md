@@ -103,8 +103,10 @@ Author: [DigitalCloud training](https://digitalcloud.training/)
 ## AWS notes and cheatsheets
 [CHEATSHEETS](CHEATSHEETS.md)
 
-[NOTES - Account, Security, Storage, Dev Tools](NOTES_ACCM_SEC_STOR_DEV.md)
+[NOTES - Account, Security, Storage](NOTES_ACCOUNT_SECURITY_STORAGE.md)
 
-[NOTES - Conpute - EBS](NOTES_COMPUTE.md)
+[NOTES - Developer Tools](NOTES_DEVTOOLS.md)
 
-[NOTES - Serverless concepts - Lambda, AWS SAM](NOTES_SERVERLESS.md)
+[NOTES - Compute - EBS, EC2 Auto-Scaling](NOTES_COMPUTE.md)
+
+[NOTES - Serverless - Lambda, AWS SAM](NOTES_SERVERLESS.md)
