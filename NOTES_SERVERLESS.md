@@ -77,7 +77,7 @@ You can use event source mappings to process items from a stream or queue in ser
 
 Applications need permissions to invoke Lambda functions.
 
-Services that Lambda reads events from:
+**Services that Lambda reads events from:**
 
 ```
 Amazon Kinesis

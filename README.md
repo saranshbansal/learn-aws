@@ -107,7 +107,7 @@ Author: [DigitalCloud training](https://digitalcloud.training/)
 
 [NOTES - Developer Tools](NOTES_DEVTOOLS.md)
 
-[NOTES - Compute - EBS, EC2 Auto-Scaling](NOTES_COMPUTE.md)
+[NOTES - Compute - EBS, EC2 Auto-Scaling](NOTES_COMPUTE_EBS_AUTOSCALING.md)
 
 [NOTES - Serverless - Lambda, AWS SAM](NOTES_SERVERLESS.md)
 
