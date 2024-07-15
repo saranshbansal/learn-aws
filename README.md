@@ -111,7 +111,7 @@ Author: [DigitalCloud training](https://digitalcloud.training/)
 
 [NOTES - Serverless - Lambda, AWS SAM](NOTES_SERVERLESS.md)
 
-[NOTES - Containerisation - ECS & EKS](NOTES_CONTAINERISATION_ECS_EKS.md)
+[NOTES - Containerisation - ECS & EKS](NOTES_CONTAINERISATION.md)
 
 [NOTES - Content Delivery - DNS](NOTES_CONTENT_DELIVERY.md)
 
