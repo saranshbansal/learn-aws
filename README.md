@@ -81,9 +81,29 @@ I am an authority in the product, with deep technical understanding who can desi
 **Certification Target**
 - AWS Specialty (Security / Networking / etc) - [AWS Certification - Validate AWS Cloud Skills - Get AWS Certified (amazon.com)](https://aws.amazon.com/certification/?nc2=sb_ce_co)
 
-
 ## AWS Exam guide
-### DVA-C02: AWS Certified Developer Associate - Full Course
+
+### AWS Cheatsheets
+
+[CHEATSHEETS](CHEATSHEETS.md)
+
+### AWS Notes
+
+[Account, Security, Storage](NOTES_ACCOUNT_SECURITY_STORAGE.md)
+
+[Developer Tools](NOTES_DEVTOOLS.md)
+
+[Compute - EBS, EC2 Auto-Scaling](NOTES_COMPUTE_EBS_AUTOSCALING.md)
+
+[Serverless - Lambda, AWS SAM](NOTES_SERVERLESS.md)
+
+[Containerisation - ECS & EKS](NOTES_CONTAINERISATION.md)
+
+[Content Delivery - DNS](NOTES_CONTENT_DELIVERY.md)
+
+[Databases - RDS, Aurora, DynamoDB](NOTES_DB.md)
+
+## DVA-C02: AWS Certified Developer Associate - Full Course
 Author: [DigitalCloud training](https://digitalcloud.training/)
 
 - 01 - Let's Get Started!
@@ -99,20 +119,3 @@ Author: [DigitalCloud training](https://digitalcloud.training/)
 - 11 - AWS Developer Tools (CICD)
 - 12 - Databases and Analytics
 - 13 - Management and Security
-
-## AWS notes and cheatsheets
-[CHEATSHEETS](CHEATSHEETS.md)
-
-[NOTES - Account, Security, Storage](NOTES_ACCOUNT_SECURITY_STORAGE.md)
-
-[NOTES - Developer Tools](NOTES_DEVTOOLS.md)
-
-[NOTES - Compute - EBS, EC2 Auto-Scaling](NOTES_COMPUTE_EBS_AUTOSCALING.md)
-
-[NOTES - Serverless - Lambda, AWS SAM](NOTES_SERVERLESS.md)
-
-[NOTES - Containerisation - ECS & EKS](NOTES_CONTAINERISATION.md)
-
-[NOTES - Content Delivery - DNS](NOTES_CONTENT_DELIVERY.md)
-
-[NOTES - Databases - RDS, Aurora, DynamoDB](NOTES_DB.md)
