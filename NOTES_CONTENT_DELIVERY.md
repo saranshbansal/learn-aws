@@ -1,5 +1,5 @@
 # Amazon Route 53
-Amazon Route 53 is a highly available and scalable Domain Name System (DNS) web service designed to provide highly reliable and cost-effective routing of end users to internet applications.
+Amazon Route 53 is a highly available and scalable `Domain Name System (DNS)` web service designed to provide highly reliable and cost-effective routing of end users to internet applications.
 
 Amazon Route 53 offers the following functions:
 
@@ -22,9 +22,9 @@ There are two types of zones:
 
 **Public host zone** – determines how traffic is routed on the Internet.
 
-**Private hosted zone for VPC** – determines how traffic is routed within VPC (resources are not accessible outside the VPC). 
+**Private hosted zone for VPC** – determines how traffic is routed within `VPC` (resources are not accessible outside the VPC). 
 
-You can associate the Route 53 private hosted zone in one account with a VPC in another account.
+You can associate the Route 53 private hosted zone in one account with a `VPC` in another account.
 
 ## Alias records
 The Alias record is a Route 53 specific record type.
@@ -59,7 +59,7 @@ The following diagram depicts an Amazon Route 53 Simple routing policy configura
 
 ![alt text](images/image-r53_srp.png)
 
-**Failover:**
+### Failover Routing Policy
 
 - Failover to a secondary IP address.
 - Associated with a health check.
