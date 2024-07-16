@@ -146,12 +146,16 @@ Some of the features and benefits of Amazon DynamoDB are summarized in the follo
 | Transaction options                                | Strongly consistent or eventually consistent reads, support for ACID transactions                                                                                                              |
 | Backup                                             | Point-in-time recovery down to the second in last 35 days; On-demand backup and restore                                                                                                        |
 | Global Tables                                      | Fully managed multi-region, multi-master solution                                                                                                                                              |
-## Consistency model of DynamoDB
+## Consistency models in DynamoDB
 When reading data from DynamoDB, users can specify whether they want the read to be eventually consistent or strongly consistent:
 
 - **Eventually consistent reads (the default)** – The eventual consistency option maximizes your read throughput. However, an eventually consistent read might not reflect the results of a recently completed write. All copies of data usually reach consistency within a second. Repeating a read after a short time should return the updated data.
+
 - **Strongly consistent reads** — In addition to eventual consistency, DynamoDB also gives you the flexibility and control to request a strongly consistent read if your application, or an element of your application, requires it. A strongly consistent read returns a result that reflects all writes that received a successful response before the read.
-- **ACID transactions** – DynamoDB transactions provide developers atomicity, consistency, isolation, and durability (`ACID`) across one or more tables within a single AWS account and region. You can use transactions when building applications that require coordinated inserts, deletes, or updates to multiple items as part of a single logical business operation.
+
+- **ACID transactions** – DynamoDB transactions provide developers atomicity, consistency, isolation, and durability (`ACID`) across one or more tables within a single AWS account and region. You can use transactions when building applications that require coordinated inserts, deletes, or updates to multiple items as part of a single logical business operation. DynamoDB performs **two underlying reads or writes of every item in the transaction**: one to prepare the transaction and one to commit the transaction.
+
+
 
 ## Partitions
 Amazon DynamoDB stores data in partitions. A partition is an allocation of storage for a table that is automatically replicated across multiple AZs within an AWS Region. Partition management is handled entirely by DynamoDB—you never have to manage partitions yourself.
@@ -217,52 +221,86 @@ Example: In a table tracking orders, `CustomerId` could be the partition key, an
 - Use a simple primary key when each item in the table has a unique identifier.
 - Use a composite primary key when items have a hierarchical relationship or when you need to query and sort items within a partition.
 
-## Global Secondary Indexes (GSI)
+## Indexes in DynamoDB
+
+### Global Secondary Indexes (GSI)
 DynamoDB also supports `global secondary indexes`. A `GSI` in DynamoDB is a separate data structure that allows you to query the table using an alternative `partition key` (hash key) and optionally a `sort key` (range key), different from the table's primary key.
 
 GSIs enable you to perform queries that wouldn't be efficient using only the primary key, such as querying by different attributes or sorting items differently.
 
-### Key Features of GSI
+#### Key Features of GSI
 
 - **Different Partition and Sort Keys:** Each GSI has its own partition key and optional sort key, distinct from the table's primary key.
 - **Projection:** You can specify which attributes to project into the index (all attributes or just specific ones), optimizing query efficiency by reducing read operations.
 - **Consistency:** GSIs provide `eventual consistency` for non-primary key attributes by default, with an option for `strong consistency`.
 
-### Use Cases of GSI
+#### Use Cases of GSI
 
 - **Query Flexibility:** Allow querying by attributes other than the table’s primary key.
 - **Diverse Access Patterns:** Support different access patterns and query requirements from those provided by the primary key.
 - **Efficiency:** Improve query performance by reducing the need for scans and filters on the base table.
 
-### Considerations and limitations
+#### Considerations and limitations
 
 - **Cost:** GSIs may incur additional costs in terms of storage and read/write capacity units.
 - **Limitations:** Each table can have up to `20 GSIs` (by default), and the attributes chosen as GSI keys must exist in the table.
 
-## Local Secondary Indexes (LSI)
+### Local Secondary Indexes (LSI)
 An LSI is similar to a GSI but with some key differences:
 
 - It shares the same partition key as the table's primary key but allows a different sort key.
 - LSIs are physically stored together with the table data in the same partitions, which means they inherit the partition and sort key attributes from the table's primary key.
 
-### Key Features of LSI
+#### Key Features of LSI
 
 - **Same Partition Key:** Uses the same partition key as the table's primary key, ensuring `strong consistency` for data within the same partition.
 - **Different Sort Key:** Allows querying by a different attribute as the sort key, offering flexibility in sorting items within a partition.
 
-### Use Cases
+#### Use Cases
 
 - **Range Queries:** Perform range queries within a partition using a different sort key.
 - **Cost Efficiency:** LSIs do not incur additional storage costs beyond the base table, unlike GSIs.
 
-### Considerations and limitations
+#### Considerations and limitations
 
 - **Limitations:** Each table can have up to `5 LSIs`.
 - **Design Considerations:** Plan LSIs based on your application’s access patterns and ensure they align with the table’s primary key structure.
 
-## GSI vs LSI
+### GSI vs LSI
 - **Access Patterns:** GSIs offer more flexibility in query patterns compared to LSIs, as they can use different partition and sort keys.
 - **Consistency:** LSIs provide strong consistency for queries within the same partition, whereas GSIs offer eventual consistency by default.
 - **Cost:** LSIs are more cost-effective in terms of storage since they reuse the same partition keys as the base table.
 - **Limitations**: Each table can have up to `5 LSIs` and `30 GSIs`.
+
+## Scan and Query API calls
+
+### Scan
+- The Scan operation returns one or more items and item attributes by accessing every item in a table or a secondary index.
+- A single Scan operation reads up to the maximum number of items set (if using the Limit parameter) or a maximum of `1 MB`.
+- Scan API calls can use a lot of RCUs as they access every item in the table.
+- You can use the ProjectionExpression parameter so that Scan only returns some of the attributes, rather than all of them. If you need to further refine the Scan results, you can optionally provide a filter expression.
+- Scan uses `eventually consistent` reads when accessing the data in a table.
+
+![alt text](images/image-dynamodb_scan.png)
+
+### Query
+- A query operation finds items in your table based on the primary key attribute and a distinct value to search for.
+- You can use an optional `sort key` name and value to refine the results. Results are always sorted by the sort key.
+- By default, queries are `eventually consistent`. To use strongly consistent you need to explicitly set this in the query.
+
+![alt text](images/image-dynamodb_query.png)
+
+### Scan vs Query
+- Query is more efficient than Scan.
+- Scan dumps the entire table, then filters out the values that provide the desired result (removing unwanted data). This adds an extra step of removing the data you don’t want.
+- As the table grows, the scan operation takes longer.
+- A Scan operation on a large table can use up the provisioned throughput for a large table in just a single operation.
+
+### Performance Considerations
+- You can reduce the impact of a query or scan by setting a smaller page size which uses fewer read operations.
+- A larger number of smaller operations will allow other requests to succeed without throttling.
+- Avoid using scan operations if you can: design tables in a way that you can use the `Query`, `Get`, or `BatchGetItem` APIs.
+- By default, a scan operation processes data sequentially and returns data in `1MB` increments before moving on to retrieve the next `1MB` of data. It can only scan 1 partition at a time. You can configure DynamoDB to use `Parallel scans` instead by logically dividing a `table` or `index` into `segments` and scanning each segment in parallel.
+
+> best to avoid parallel scans if your table or index is already incurring heavy read / write activity from other applications.
 
