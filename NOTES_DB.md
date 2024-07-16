@@ -41,6 +41,8 @@ Amazon Aurora (MySQL and PostgreSQL compatible)
 - SSL/TLS encrypted connections
 - IAM database authentication
 
+RDS supports both `identity-based` and `resource-based` policies, giving you flexibility in how you manage access control to your RDS resources based on your specific requirements.
+
 **Monitoring and Metrics:** Amazon RDS provides monitoring and metrics through Amazon CloudWatch, which allows you to monitor database performance metrics such as CPU utilization, storage capacity, and more.
 
 **Backup and Restore:** Automated backups are enabled by default with a retention period of up to 35 days. You can also take manual snapshots for backup and restore purposes.
@@ -110,3 +112,134 @@ DB instances support vertical scaling by changing to a larger instance type with
 **Storage Cost:** Storage for automated backups is managed by Amazon RDS and does not count towards your provisioned storage limit. However, it incurs storage costs based on the volume of data stored.
 
 **Manual Snapshots:** In addition to automated backups, you can manually create DB Snapshots for additional backups or to retain backups for longer periods beyond the automated retention period.
+
+# Amazon Dynamo DB
+Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. It is a non-relational, key-value type of database. A key-value database stores data as a collection of key-value pairs in which a key serves as a unique identifier.
+
+Data is synchronously replicated across **3 facilities (`AZs`) in a region**.
+
+DynamoDB is made up of:
+
+```markdown
+Tables.
+Items.
+Attributes.
+```
+
+`Tables` are a collection of `items` and `items` are made up of `attributes` (columns). `Attributes` consists of a name and a value or set of values.
+
+The aggregate size of an item cannot exceed `400KB` including keys and all attributes.
+
+DynamoDB supports both resource-based and identity-based policies.
+
+## Features of Dynamo DB
+Some of the features and benefits of Amazon DynamoDB are summarized in the following table:
+
+| DynamoDB Feature                                   | Benefit                                                                                                                                                                                        |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Serverless                                         | Fully managed, fault tolerant service                                                                                                                                                          |
+| Highly available                                   | 99.99% Availability SLA – 99.999% for Global tables                                                                                                                                            |
+| NoSQL type of database with Name / Value structure | Flexible Schema, good for when data is not well structured or unpredictable                                                                                                                    |
+| Horizontal scaling                                 | Seamless scalability to any scale with push button scaling or Auto scaling                                                                                                                     |
+| DynamoDB Streams                                   | Captures a time-ordered sequence of item-level modifications in a DynamoDB table and durably stores the information for 24 hours. Often used with Lambda and the Kinesis Client Library (KCL). |
+| DynamoDB Accelerator (DAX)                         | Fully managed in-memory cache for DynamoDB that increases performance (microsecond latency)                                                                                                    |
+| Transaction options                                | Strongly consistent or eventually consistent reads, support for ACID transactions                                                                                                              |
+| Backup                                             | Point-in-time recovery down to the second in last 35 days; On-demand backup and restore                                                                                                        |
+| Global Tables                                      | Fully managed multi-region, multi-master solution                                                                                                                                              |
+## Consistency model of DynamoDB
+When reading data from DynamoDB, users can specify whether they want the read to be eventually consistent or strongly consistent:
+
+- **Eventually consistent reads (the default)** – The eventual consistency option maximizes your read throughput. However, an eventually consistent read might not reflect the results of a recently completed write. All copies of data usually reach consistency within a second. Repeating a read after a short time should return the updated data.
+- **Strongly consistent reads** — In addition to eventual consistency, DynamoDB also gives you the flexibility and control to request a strongly consistent read if your application, or an element of your application, requires it. A strongly consistent read returns a result that reflects all writes that received a successful response before the read.
+- **ACID transactions** – DynamoDB transactions provide developers atomicity, consistency, isolation, and durability (`ACID`) across one or more tables within a single AWS account and region. You can use transactions when building applications that require coordinated inserts, deletes, or updates to multiple items as part of a single logical business operation.
+
+## Partitions
+Amazon DynamoDB stores data in partitions. A partition is an allocation of storage for a table that is automatically replicated across multiple AZs within an AWS Region. Partition management is handled entirely by DynamoDB—you never have to manage partitions yourself.
+
+DynamoDB allocates sufficient partitions to your table so that it can handle your provisioned throughput requirements.
+
+DynamoDB allocates additional partitions to a table in the following situations:
+
+- If you increase the table’s provisioned throughput settings beyond what the existing partitions can support.
+- If an existing partition fills to capacity and more storage space is required.
+
+## Primary Keys in DynamoDB
+In DynamoDB, understanding and correctly utilizing primary keys is fundamental to designing efficient and scalable database schemas. Here’s a detailed look at primary keys in DynamoDB:
+
+### Key Features of Primary Key
+- Every DynamoDB table must have a primary key, which uniquely identifies each item in the table.
+- The primary key can be either simple (`partition key`) or composite (`partition key and sort key`).
+
+#### Partition Key
+- Simple Primary Key consists of a single attribute known as the `partition key`. DynamoDB uses the partition key's value as input to an internal hash function to determine the physical partition in which the item is stored.
+- Items with the same partition key value are stored together and can be retrieved efficiently using simple key-value lookups.
+
+Example: A table storing customer data might use `CustomerId` as the partition key if each customer ID is unique.
+
+#### Composite Primary Key
+- Composite (`Partition Key `and `Sort Key`) consists of two attributes:
+  
+  **Partition Key:** Same as above, used to determine the partition.
+
+  **Sort Key (Range Key):** Specifies the sort order for items with the same partition key. Items within a partition are stored and sorted by the sort key value.
+
+- Composite keys enable efficient querying and sorting of items based on the sort key within each partition.
+
+Example: In a table tracking orders, `CustomerId` could be the partition key, and `OrderId` could be the sort key to enable efficient retrieval of orders for a specific customer or orders within a customer’s history.
+
+### Considerations and limitations
+
+- **Uniqueness:** Values of the partition key must be unique within the table. For composite keys, the combination of partition key and sort key must be unique.
+
+- **Query Flexibility:** Design your primary key to support the types of queries your application needs to perform efficiently. Queries based on equality conditions on the partition key are more efficient than those requiring scans or using filters.
+
+- **Access Patterns:** Understand your application’s access patterns (how you retrieve and manipulate data) to design an appropriate primary key structure.
+
+- **Data Modeling:** Carefully model your data to optimize for query patterns and avoid hot partitions (where a single partition receives disproportionately high read or write activity).
+
+### Choosing Between Simple and Composite Keys:
+- Use a simple primary key when each item in the table has a unique identifier.
+- Use a composite primary key when items have a hierarchical relationship or when you need to query and sort items within a partition.
+
+## Global Secondary Indexes (GSI)
+DynamoDB also supports `global secondary indexes`. A `GSI` in DynamoDB is a separate data structure that allows you to query the table using an alternative `partition key` (hash key) and optionally a `sort key` (range key), different from the table's primary key.
+
+GSIs enable you to perform queries that wouldn't be efficient using only the primary key, such as querying by different attributes or sorting items differently.
+
+### Key Features of GSI
+
+- **Different Partition and Sort Keys:** Each GSI has its own partition key and optional sort key, distinct from the table's primary key.
+- **Projection:** You can specify which attributes to project into the index (all attributes or just specific ones), optimizing query efficiency by reducing read operations.
+- **Consistency:** GSIs provide `eventual consistency` for non-primary key attributes by default, with an option for `strong consistency`.
+
+### Use Cases of GSI
+
+- **Query Flexibility:** Allow querying by attributes other than the table’s primary key.
+- **Diverse Access Patterns:** Support different access patterns and query requirements from those provided by the primary key.
+- **Efficiency:** Improve query performance by reducing the need for scans and filters on the base table.
+
+### Considerations and limitations
+
+- **Cost:** GSIs may incur additional costs in terms of storage and read/write capacity units.
+- **Limitations:** Each table can have up to `20 GSIs` (by default), and the attributes chosen as GSI keys must exist in the table.
+
+## Local Secondary Indexes (LSI)
+An LSI is similar to a GSI but with some key differences:
+
+- It shares the same partition key as the table's primary key but allows a different sort key.
+- LSIs are physically stored together with the table data in the same partitions, which means they inherit the partition and sort key attributes from the table's primary key.
+
+### Key Features of LSI
+
+- **Same Partition Key:** Uses the same partition key as the table's primary key, ensuring strong consistency for data within the same partition.
+- **Different Sort Key:** Allows querying by a different attribute as the sort key, offering flexibility in sorting items within a partition.
+
+### Use Cases
+
+- **Range Queries:** Perform range queries within a partition using a different sort key.
+- **Cost Efficiency:** LSIs do not incur additional storage costs beyond the base table, unlike GSIs.
+
+### Considerations and limitations
+
+- **Limitations:** Each table can have up to `5 LSIs`.
+- **Design Considerations:** Plan LSIs based on your application’s access patterns and ensure they align with the table’s primary key structure.
