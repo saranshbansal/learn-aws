@@ -163,25 +163,41 @@ DynamoDB allocates additional partitions to a table in the following situations:
 - If you increase the table’s provisioned throughput settings beyond what the existing partitions can support.
 - If an existing partition fills to capacity and more storage space is required.
 
+### Performance considerations
+DynamoDB evenly distributes provisioned throughput — `read capacity units (RCUs)` and `write capacity units (WCUs)` among partitions.
+
+If your access pattern exceeds `3000 RCU or 1000 WCU` for a single partition key value, your requests might be throttled.
+
+**Best practices for partition keys:**
+
+- Use high-cardinality attributes – e.g. e-mailid, employee_no, customerid, sessionid, orderid, and so on.
+- Use composite attributes – e.g. customerid+productid+countrycode as the partition key and order_date as the sort key.
+- Cache popular items – use DynamoDB accelerator (DAX) for caching reads.
+- Add random numbers or digits from a predetermined range for write-heavy use cases – e.g. add a random suffix to an invoice number such as INV00023-04593
+
+
 ## Primary Keys in DynamoDB
+
 In DynamoDB, understanding and correctly utilizing primary keys is fundamental to designing efficient and scalable database schemas. Here’s a detailed look at primary keys in DynamoDB:
 
-### Key Features of Primary Key
-- Every DynamoDB table must have a primary key, which uniquely identifies each item in the table.
-- The primary key can be either simple (`partition key`) or composite (`partition key and sort key`).
+Every DynamoDB table must have a primary key, which uniquely identifies each item in the table.
 
-#### Partition Key
+The primary key can be either simple (`partition key`) or composite (`partition key and sort key`).
+
+### Simple Primary Key
+![alt text](images/image-dynamodb_pk.png)
+
 - Simple Primary Key consists of a single attribute known as the `partition key`. DynamoDB uses the partition key's value as input to an internal hash function to determine the physical partition in which the item is stored.
 - Items with the same partition key value are stored together and can be retrieved efficiently using simple key-value lookups.
 
 Example: A table storing customer data might use `CustomerId` as the partition key if each customer ID is unique.
 
-#### Composite Primary Key
-- Composite (`Partition Key `and `Sort Key`) consists of two attributes:
-  
-  **Partition Key:** Same as above, used to determine the partition.
+### Composite Primary Key
+![alt text](images/image-dynamodb_cpk.png)
 
-  **Sort Key (Range Key):** Specifies the sort order for items with the same partition key. Items within a partition are stored and sorted by the sort key value.
+- Composite (`Partition Key `and `Sort Key`) consists of two attributes:
+  - **Partition Key:** Same as above, used to determine the partition.
+  - **Sort Key (Range Key):** Specifies the sort order for items with the same partition key. Items within a partition are stored and sorted by the sort key value.
 
 - Composite keys enable efficient querying and sorting of items based on the sort key within each partition.
 
@@ -231,7 +247,7 @@ An LSI is similar to a GSI but with some key differences:
 
 ### Key Features of LSI
 
-- **Same Partition Key:** Uses the same partition key as the table's primary key, ensuring strong consistency for data within the same partition.
+- **Same Partition Key:** Uses the same partition key as the table's primary key, ensuring `strong consistency` for data within the same partition.
 - **Different Sort Key:** Allows querying by a different attribute as the sort key, offering flexibility in sorting items within a partition.
 
 ### Use Cases
@@ -243,3 +259,10 @@ An LSI is similar to a GSI but with some key differences:
 
 - **Limitations:** Each table can have up to `5 LSIs`.
 - **Design Considerations:** Plan LSIs based on your application’s access patterns and ensure they align with the table’s primary key structure.
+
+## GSI vs LSI
+- **Access Patterns:** GSIs offer more flexibility in query patterns compared to LSIs, as they can use different partition and sort keys.
+- **Consistency:** LSIs provide strong consistency for queries within the same partition, whereas GSIs offer eventual consistency by default.
+- **Cost:** LSIs are more cost-effective in terms of storage since they reuse the same partition keys as the base table.
+- **Limitations**: Each table can have up to `5 LSIs` and `30 GSIs`.
+
