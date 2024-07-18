@@ -155,8 +155,6 @@ When reading data from DynamoDB, users can specify whether they want the read to
 
 - **ACID transactions** – DynamoDB transactions provide developers atomicity, consistency, isolation, and durability (`ACID`) across one or more tables within a single AWS account and region. You can use transactions when building applications that require coordinated inserts, deletes, or updates to multiple items as part of a single logical business operation. DynamoDB performs **two underlying reads or writes of every item in the transaction**: one to prepare the transaction and one to commit the transaction.
 
-
-
 ## Partitions
 Amazon DynamoDB stores data in partitions. A partition is an allocation of storage for a table that is automatically replicated across multiple AZs within an AWS Region. Partition management is handled entirely by DynamoDB—you never have to manage partitions yourself.
 
@@ -167,12 +165,7 @@ DynamoDB allocates additional partitions to a table in the following situations:
 - If you increase the table’s provisioned throughput settings beyond what the existing partitions can support.
 - If an existing partition fills to capacity and more storage space is required.
 
-### Performance considerations
-DynamoDB evenly distributes provisioned throughput — `read capacity units (RCUs)` and `write capacity units (WCUs)` among partitions.
-
-If your access pattern exceeds `3000 RCU or 1000 WCU` for a single partition key value, your requests might be throttled.
-
-**Best practices for partition keys:**
+### Best practices for partition keys
 
 - Use high-cardinality attributes – e.g. e-mailid, employee_no, customerid, sessionid, orderid, and so on.
 - Use composite attributes – e.g. customerid+productid+countrycode as the partition key and order_date as the sort key.
@@ -310,3 +303,8 @@ An LSI is similar to a GSI but with some key differences:
 > best to avoid parallel scans if your table or index is already incurring heavy read / write activity from other applications.
 
 ## Capacity Provisioning in DynamoDB
+With provisioned capacity mode you specify the number of data reads and writes per second that you require for your application. When you create your table you specify your requirements using `Read Capacity Units (RCUs)` and `Write Capacity Units (WCUs)`.
+
+> If your access pattern exceeds `3000 RCU or 1000 WCU` for a single partition key value, your requests might be throttled.
+
+
