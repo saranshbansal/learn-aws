@@ -222,9 +222,14 @@ Example: In a table tracking orders, `CustomerId` could be the partition key, an
 - Use a composite primary key when items have a hierarchical relationship or when you need to query and sort items within a partition.
 
 ## Indexes in DynamoDB
+An index is a data structure which allows you to perform fast queries on specific columns in a table.
+
+There are 2 types of index supported for speeding up queries in DynamoDB:
+- Local Secondary Index.
+- Global Secondary Index.
 
 ### Global Secondary Indexes (GSI)
-DynamoDB also supports `global secondary indexes`. A `GSI` in DynamoDB is a separate data structure that allows you to query the table using an alternative `partition key` (hash key) and optionally a `sort key` (range key), different from the table's primary key.
+A `GSI` in DynamoDB is a separate data structure that allows you to query the table using an alternative `partition key` (hash key) and optionally a `sort key` (range key), different from the table's primary key.
 
 GSIs enable you to perform queries that wouldn't be efficient using only the primary key, such as querying by different attributes or sorting items differently.
 
@@ -304,3 +309,4 @@ An LSI is similar to a GSI but with some key differences:
 
 > best to avoid parallel scans if your table or index is already incurring heavy read / write activity from other applications.
 
+## Capacity Provisioning in DynamoDB
