@@ -146,6 +146,7 @@ Some of the features and benefits of Amazon DynamoDB are summarized in the follo
 | Transaction options                                | Strongly consistent or eventually consistent reads, support for ACID transactions                                                                                                              |
 | Backup                                             | Point-in-time recovery down to the second in last 35 days; On-demand backup and restore                                                                                                        |
 | Global Tables                                      | Fully managed multi-region, multi-master solution                                                                                                                                              |
+
 ## Consistency models in DynamoDB
 When reading data from DynamoDB, users can specify whether they want the read to be eventually consistent or strongly consistent:
 
@@ -170,8 +171,7 @@ DynamoDB allocates additional partitions to a table in the following situations:
 - Use high-cardinality attributes – e.g. e-mailid, employee_no, customerid, sessionid, orderid, and so on.
 - Use composite attributes – e.g. customerid+productid+countrycode as the partition key and order_date as the sort key.
 - Cache popular items – use DynamoDB accelerator (DAX) for caching reads.
-- Add random numbers or digits from a predetermined range for write-heavy use cases – e.g. add a random suffix to an invoice number such as INV00023-04593
-
+- Add random numbers or digits from a predetermined range for write-heavy use cases – e.g. add a random suffix to an invoice number such as `INV00023-04593`
 
 ## Primary Keys in DynamoDB
 
@@ -330,3 +330,32 @@ For example, a standard write request of a `1 KB` item would require one WCU, a 
 **Transactional read/write requests**
 
 In DynamoDB, a transactional read or write differs from a standard read or write because it guarantees that all operations contained in a single transaction set succeed or fail as a set.
+
+## Performance and Throttling
+> Throttling occurs when the configured RCU or WCU are exceeded. May receive the `ProvisionedThroughputExceededException` error.
+
+### Possible causes of performance issues:
+- Hot keys – one partition key is being read too often.
+- Hot partitions – when data access is imbalanced, a “hot” partition can receive a higher volume of read and write traffic compared to other partitions.
+- Large items – large items consume more RCUs and WCUs.
+
+### Resolution:
+- Reduce the frequency of requests and use exponential backoff.
+- Try to design your application for uniform activity across all logical partition keys in the table and its secondary indexes.
+- Use burst capacity effectively – DynamoDB currently retains up to 5 minutes (300 seconds) of unused read and write capacity which can be consumed quickly.
+
+## DynamoDB Accelerator (DAX)
+`Amazon DynamoDB Accelerator (DAX)` is a fully managed, highly available, in-memory cache for DynamoDB that delivers up to a 10x performance improvement.
+
+- `DAX` is a managed service that provides in-memory acceleration for DynamoDB tables.
+- Provides managed cache invalidation, data population, and cluster management.
+- Ideal for read-heavy and bursty workloads such as auction applications, gaming, and retail sites when running special sales / promotions.
+- Pricing is per EC2 node-hour consumed and is dependent on the instance type you select.
+
+### How it works
+
+- DAX is a write-through caching service – this means the data is written to the cache as well as the back-end store at the same time.
+- Allows you to point your DynamoDB API calls at the DAX cluster and if the item is in the cache (cache hit), DAX returns the result to the application.
+- If the item requested is not in the cache (cache miss) then DAX performs an Eventually Consistent GetItem operation against DynamoDB
+- Retrieval of data from DAX reduces the read load on DynamoDB tables.
+- This may result in being able to reduce the provisioned read capacity on the table.
