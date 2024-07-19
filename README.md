@@ -103,6 +103,8 @@ I am an authority in the product, with deep technical understanding who can desi
 
 [Databases - RDS, Aurora, DynamoDB](NOTES_DB.md)
 
+[API Gateway](NOTES_API_GATEWAY.md)
+
 ## DVA-C02: AWS Certified Developer Associate - Full Course
 Author: [DigitalCloud training](https://digitalcloud.training/)
 
