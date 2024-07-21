@@ -142,6 +142,8 @@ https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching
 
 https://docs.aws.amazon.com/apigateway/latest/developerguide/canary-release.html
 
+https://docs.aws.amazon.com/apigateway/latest/developerguide/websocket-api-develop-routes.html
+
 ## AWS CloudWatch
 ### Cheatsheet
 https://digitalcloud.training/amazon-cloudwatch/
@@ -159,6 +161,8 @@ https://digitalcloud.training/amazon-cloudfront/
 
 ### References
 https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-serve-static-website/
+
+https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-s3-amazon-cloudfront-a-match-made-in-the-cloud/
 
 ## AWS KMS
 ### Cheatsheet

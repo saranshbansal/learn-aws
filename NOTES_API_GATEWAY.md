@@ -91,15 +91,15 @@ Mapping templates can be used to:
 - Filter output results (remove unnecessary data).
 
 ## Usage Plans and API Keys
-A usage plan specifies who can access one or more deployed API stages and methods — and how much and how fast they can access them.
-
-You can use a usage plan to configure throttling and quota limits, which are enforced on individual client API keys.
+A usage plan specifies who can access one or more deployed API stages and methods — and how much and how fast they can access them. You can use a usage plan to configure throttling and quota limits, which are enforced on individual client API keys.
 
 The plan uses API keys to identify API clients and meters access to the associated API stages for each key.
 
 It also lets you configure throttling limits and quota limits that are enforced on individual client API keys.
 
-You can use API keys together with usage plans or Lambda authorizers to control access to your APIs.
+You can use API keys together with `usage plans` or `Lambda authorizers` to control access to your APIs.
+
+To associate the newly created key with a usage plan the `CreatUsagePlanKey` API can be called. This creates a usage plan key for adding an existing API key to a usage plan.
 
 ## Custom Domain Names
 The default API endpoint name is randomly generated, difficult to recall, and not user-friendly. Custom domain names are simpler and more intuitive URLs that you can provide to your API users.
