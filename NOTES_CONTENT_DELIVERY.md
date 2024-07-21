@@ -105,3 +105,25 @@ Use for responding to DNS queries with up to eight healthy records selected at r
 The following diagram depicts an Amazon Route 53 Weighted routing policy configuration:
 
 ![alt text](images/image-r53_wrp.png)
+
+# AWS Certificate Management
+Create, store, and renew SSL/TLS X.509 certificates
+
+Single domains, multiple domain names and wildcards
+
+Integrates with several AWS services including:
+
+```json
+Elastic Load Balancing.
+Amazon CloudFront.
+AWS Elastic Beanstalk.
+AWS Nitro Enclaves.
+AWS CloudFormation.
+```
+Public certificates are signed by the AWS public Certificate Authority.
+
+You can also create a Private CA with ACM.
+
+Can then issue private certificates.
+
+You can also import certificates from third-party issuers.
