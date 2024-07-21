@@ -242,6 +242,7 @@ GSIs enable you to perform queries that wouldn't be efficient using only the pri
 
 - **Cost:** GSIs may incur additional costs in terms of storage and read/write capacity units.
 - **Limitations:** Each table can have up to `20 GSIs` (by default), and the attributes chosen as GSI keys must exist in the table.
+- It is essential to ensure the GSI has sufficient `WCUs` (typically, at least as many as the primary table). If writes are throttled on the GSI, the main table will be throttled (even if there’s enough WCUs on the main table). 
 
 ### Local Secondary Indexes (LSI)
 An LSI is similar to a GSI but with some key differences:
@@ -269,6 +270,7 @@ An LSI is similar to a GSI but with some key differences:
 - **Consistency:** LSIs provide strong consistency for queries within the same partition, whereas GSIs offer eventual consistency by default.
 - **Cost:** LSIs are more cost-effective in terms of storage since they reuse the same partition keys as the base table.
 - **Limitations**: Each table can have up to `5 LSIs` and `30 GSIs`.
+- **Throttling**: If writes are throttled on the `GSI`, the main table will be throttled (even if there’s enough `WCUs` on the main table). `LSIs` do not cause any special throttling considerations.
 
 ## Scan and Query API calls
 
