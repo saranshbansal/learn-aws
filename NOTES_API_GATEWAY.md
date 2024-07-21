@@ -123,3 +123,58 @@ The following considerations might impact your use of a custom domain name.
 - You can choose a security policy for your custom domain name. For more information, see Choose a security policy for your REST API custom domain in API Gateway.
 
 - To configure API mappings with multiple levels, you must use a Regional custom domain name and use the TLS 1.2 security policy.
+
+## Identity and Access Management
+here are several mechanisms for controlling and managing access to an API.
+
+These mechanisms include:
+
+- Resource-based policies.
+- Standard IAM Roles and Policies (identity-based policies).
+- IAM Tags.
+- Endpoint policies for interface VPC endpoints.
+- Lambda authorizers.
+- Amazon Cognito user pools.
+
+### IAM `Resource-Based` Policies
+Amazon API Gateway resource policies are JSON policy documents that you attach to an API to control whether a specified principal (typically an IAM user or role) can invoke the API.
+
+You can use API Gateway resource policies to allow your API to be securely invoked by:
+
+- Users from a specified AWS account.
+- Specified source IP address ranges or CIDR blocks.
+- Specified virtual private clouds (VPCs) or VPC endpoints (in any account).
+- You can use resource policies for all API endpoint types in API Gateway: private, edge-optimized, and Regional.
+
+### IAM `Identity-Based` Policies
+Create IAM policies and attach to users / roles
+
+### Lambda authorizers
+Use AWS Lambda to validate the token in the header being passed.
+
+A Lambda authorizer is useful if you want to implement a custom authorization scheme that uses a bearer token authentication strategy such as OAuth or SAML, or that uses request parameters to determine the caller's identity.
+
+When a client makes a request to one of your API's methods, API Gateway calls your Lambda authorizer, which takes the caller's identity as input and returns an IAM policy as output.
+
+There are two types of Lambda authorizers:
+
+• A `token-based` Lambda authorizer (also called a TOKEN authorizer) receives the caller's identity in a bearer token, such as a `JSON Web Token (JWT)` or an `OAuth` token.
+
+• A `request parameter-based` Lambda authorizer (also called a REQUEST authorizer) receives the caller's identity in a combination of headers, query string parameters, `stageVariables`, and `$context` variables.
+
+Option to cache the result of the authentication.
+
+You pay per Lambda invocation.
+
+Good for using OAuth, SAML or 3rd party authentication.
+
+![alt text](images/image-lambda_authoriser.png)
+
+### Cognito User Pools
+Amazon Cognito is a robust AWS service that provides authentication, authorization, and user management for web and mobile applications. A key component of Amazon Cognito is the user pools feature. Here are some notes on Amazon Cognito user pools:
+
+- Sign-up and sign-in services.
+- A built-in, customizable web UI to sign in users.
+- Social sign-in with Facebook, Google, Login with Amazon, and Sign in with Apple, as well as sign-in with SAML identity - providers from your user pool.
+- User directory management and user profiles.
+- Security features such as multi-factor authentication (MFA).
