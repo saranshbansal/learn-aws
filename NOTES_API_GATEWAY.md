@@ -44,3 +44,49 @@ The following table describes some of the core features of Amazon API Gateway.
 - CloudWatch Metrics currently limits dimension names and values to 255 valid XML characters. (For more information, see the CloudWatch User Guide.) Dimension values are a function of user-defined names, including API name, label (stage) name, and resource name. When choosing these names, be careful not to exceed CloudWatch Metrics limits.
 
 - The maximum size of a mapping template is 300 KB.
+
+## Stages and Stage variables
+A stage is a logical reference to a lifecycle state of your REST or WebSocket API (for example, ‘dev’, ‘prod’, ‘beta’, ‘v2’).
+
+API stages are identified by `API ID` and `stage name`.
+
+![alt text](images/image-api_gw_stages.png)
+
+Stage variables are like environment variables for API Gateway.
+
+Stage variables can be used in:
+
+- Lambda function ARN.
+- HTTP endpoint.
+- Parameter mapping templates.
+
+Use cases for stage variables:
+
+- Configure HTTP endpoints your stages talk to (dev, test, prod etc.).
+- Pass configuration parameters to AWS Lambda through mapping templates.
+
+Stage variables are passed to the “context” object in Lambda.
+
+Stage variables are used with Lambda aliases.
+
+You can create a stage variable to indicate the corresponding Lambda alias.
+
+You can create canary deployments for any stage – choose the % of traffic the canary channel receives.
+
+## Mapping Templates
+Mapping templates can be used to: 
+
+- Modify request / responses, Rename parameters.
+
+- Modify body content.
+
+- Add headers.
+
+- Map JSON to XML for sending to backend or back to client.
+
+- Uses Velocity Template Language (VTL).
+
+- Filter output results (remove unnecessary data).
+
+
+
