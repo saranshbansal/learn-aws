@@ -74,6 +74,8 @@ You can create a stage variable to indicate the corresponding Lambda alias.
 You can create canary deployments for any stage – choose the % of traffic the canary channel receives.
 
 ## Mapping Templates
+API Gateway lets you use mapping templates to map the payload from a method request to the corresponding integration request and from an integration response to the corresponding method response.
+
 Mapping templates can be used to: 
 
 - Modify request / responses, Rename parameters.
@@ -84,9 +86,20 @@ Mapping templates can be used to:
 
 - Map JSON to XML for sending to backend or back to client.
 
-- Uses Velocity Template Language (VTL).
+- Uses `Velocity Template Language (VTL)`.
 
 - Filter output results (remove unnecessary data).
+
+## Usage Plans and API Keys
+A usage plan specifies who can access one or more deployed API stages and methods — and how much and how fast they can access them.
+
+You can use a usage plan to configure throttling and quota limits, which are enforced on individual client API keys.
+
+The plan uses API keys to identify API clients and meters access to the associated API stages for each key.
+
+It also lets you configure throttling limits and quota limits that are enforced on individual client API keys.
+
+You can use API keys together with usage plans or Lambda authorizers to control access to your APIs.
 
 ## Custom Domain Names
 The default API endpoint name is randomly generated, difficult to recall, and not user-friendly. Custom domain names are simpler and more intuitive URLs that you can provide to your API users.

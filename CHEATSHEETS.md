@@ -134,7 +134,13 @@ https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-handling-error-con
 https://digitalcloud.training/amazon-api-gateway/
 
 ### References
+https://docs.aws.amazon.com/apigateway/latest/developerguide/stage-variables.html
+
+https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-stages.html
+
 https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html
+
+https://docs.aws.amazon.com/apigateway/latest/developerguide/canary-release.html
 
 ## AWS CloudWatch
 ### Cheatsheet
@@ -193,3 +199,17 @@ https://docs.aws.amazon.com/streams/latest/dev/introduction.html
 
 ## Miscellaneous
 https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html
+
+## Amazon VPC
+### Cheatsheet
+https://digitalcloud.training/amazon-vpc/
+
+### References
+https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html
+
+## Amazon Route 53
+### Cheatsheet
+https://digitalcloud.training/amazon-route-53/
+
+### References
+https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-latency.html
