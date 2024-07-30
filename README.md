@@ -1,4 +1,4 @@
-## AWS Learning guide
+# AWS Learning Guide
 Amazon Web Services (AWS) is the world’s most comprehensive and broadly adopted cloud platform, offering over 200 fully featured services from data centres globally. Millions of customers—including the fastest-growing start-ups, largest enterprises, and leading government agencies—are using AWS to lower costs, become more agile, and innovate faster.
 
 The following page lists resources and certifications targets that will guide engineers on their journey towards expertise in AWS.
@@ -81,31 +81,38 @@ I am an authority in the product, with deep technical understanding who can desi
 **Certification Target**
 - AWS Specialty (Security / Networking / etc) - [AWS Certification - Validate AWS Cloud Skills - Get AWS Certified (amazon.com)](https://aws.amazon.com/certification/?nc2=sb_ce_co)
 
-## AWS Exam guide
+# AWS Exam Preparation
 
 ### AWS Cheatsheets
 
-[CHEATSHEETS](CHEATSHEETS.md)
+[Cheat sheets](CHEATSHEETS.md)
 
 ### AWS Notes
 
-[Account, Security, Storage](NOTES_ACCOUNT_SECURITY_STORAGE.md)
+[Compute - EBS, EC2 Auto-Scaling](NOTES_COMPUTE_EBS_AUTOSCALING.md)
+
+[Account, Security](NOTES_ACCOUNT_SECURITY.md)
+
+[Databases - S3, RDS, Aurora, DynamoDB](NOTES_STORAGE.md)
 
 [Developer Tools](NOTES_DEVTOOLS.md)
 
-[Compute - EBS, EC2 Auto-Scaling](NOTES_COMPUTE_EBS_AUTOSCALING.md)
-
 [Serverless - Lambda, AWS SAM](NOTES_SERVERLESS.md)
 
-[Containerisation - ECS & EKS](NOTES_CONTAINERISATION.md)
+[Monitoring - CloudWatch & CloudTrail](NOTES_MONITORING.md)
+
+[Containerization - ECS & EKS](NOTES_CONTAINERISATION.md)
 
 [Content Delivery - DNS](NOTES_CONTENT_DELIVERY.md)
 
-[Databases - RDS, Aurora, DynamoDB](NOTES_DB.md)
-
 [API Gateway](NOTES_API_GATEWAY.md)
 
-## DVA-C02: AWS Certified Developer Associate - Full Course
+# AWS Exam Learning Resources
+
+### DVA-C02: AWS Certified Developer Associate - Playlist by `sthithapragna`
+https://youtu.be/zca2PBxzwqI?si=S64MVf8meY_WFglJ
+
+### DVA-C02: AWS Certified Developer Associate - Full Course
 Author: [DigitalCloud training](https://digitalcloud.training/)
 
 - 01 - Let's Get Started!
