@@ -78,20 +78,23 @@ Useful API Actions
 
 It is useful to understand the following API actions for the Developer Associate exam. You should check these out and other API actions on the AWS website as well prior to your exam.
 
-GetMetricData
+`GetMetricData`
 
 Retrieve as many as 500 different metrics in a single request.
-PutMetricData
+
+`PutMetricData`
 
 Publishes metric data points to Amazon CloudWatch.
 CloudWatch associates the data points with the specified metric.
 If the specified metric does not exist, CloudWatch creates the metric.
-GetMetricStatistics
+
+`GetMetricStatistics`
 
 Gets statistics for the specified metric.
 CloudWatch aggregates data points based on the length of the period that you specify.
-Maximum number of data points returned from a single call is 1,440.
-PutMetricAlarm
+Maximum number of data points returned from a single call is `1,440`.
+
+`PutMetricAlarm`
 
 Creates or updates an alarm and associates it with the specified metric, metric math expression, or anomaly detection model.
 Alarms based on anomaly detection models cannot have Auto Scaling actions.

@@ -54,6 +54,8 @@ https://digitalcloud.training/amazon-aurora/
 ### References
 https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Integrating.AutoScaling.html
 
+https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Performance.html#Aurora.Managing.Performance.ReadScaling
+
 ## AWS DynamoDB
 ### Cheatsheet
 https://digitalcloud.training/amazon-dynamodb/
@@ -61,7 +63,7 @@ https://digitalcloud.training/amazon-dynamodb/
 ### References
 https://docs.aws.amazon.com/aws-sdk-php/v2/guide/feature-dynamodb-session-handler.html
 
-https://repost.aws/knowledge-center/dynamodb-create-composite-ke
+https://repost.aws/knowledge-center/dynamodb-create-composite-key
 
 https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html
 
@@ -129,6 +131,16 @@ https://docs.aws.amazon.com/step-functions/latest/dg/input-output-resultpath.htm
 
 https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-handling-error-conditions.html
 
+https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html
+
+https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SetQueueAttributes.html
+
+https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html
+
+https://aws.amazon.com/blogs/compute/introducing-aws-lambda-destinations/
+
+https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rule-dlq.html
+
 ## AWS API Gateway
 ### Cheatsheet
 https://digitalcloud.training/amazon-api-gateway/
@@ -154,6 +166,8 @@ https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/put-metric-data.html
 https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/MonitoringLogData.html
 
 https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html
+
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#high-resolution-alarms
 
 ## Amazon CloudFront
 ### Cheatsheet
