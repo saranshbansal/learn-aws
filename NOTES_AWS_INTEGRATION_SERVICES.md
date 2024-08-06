@@ -200,7 +200,7 @@ Deletes the messages in a queue specified by the QueueURL parameter.
 
 Delivers a message to the specified queue.
 
-### ReceiveMessage (aws sqs receive-messsage):
+### ReceiveMessage (aws sqs receive-message):
 
 Retrieves one or more messages (up to 10), from the specified queue.
 Using the WaitTimeSeconds parameter enables long-poll support.
