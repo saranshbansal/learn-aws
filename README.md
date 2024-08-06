@@ -107,6 +107,8 @@ I am an authority in the product, with deep technical understanding who can desi
 
 [API Gateway](NOTES_API_GATEWAY.md)
 
+[AWS Integrated Services - SQS, SNS, SWF](NOTES_AWS_INTEGRATION_SERVICES.md)
+
 # AWS Exam Learning Resources
 
 ### DVA-C02: AWS Certified Developer Associate - Playlist by `sthithapragna`

@@ -39,6 +39,22 @@ function handler (event, context) {
     - You pay for the time it runs.
     - Lambda terminates the function at the timeout.
 
+## Deployment of Lambda
+There are two workable procedures for deploying the Lambda function using a `CloudFormation` template:
+
+**Writing code in CloudFormation template**
+
+Firstly, you can create an `AWS::Lambda::Function` resource in the template, then write the code directly inside the `CloudFormation` template. This is possible for simple functions using `Node.js` or `Python` which allow you to declare the code inline in the `CloudFormation` template. 
+
+For example:
+![alt text](images/image-lambda_cf_direct.png)
+
+**Uploading a ZIP file**
+
+The other option is to upload a `ZIP` file containing the function code to `Amazon S3`, then add a reference to it in an `AWS::Lambda::Function` resource in the template. To declare this in your AWS `CloudFormation` template, you can use the following syntax (within `AWS::Lambda::Function Code`):
+![alt text](images/image-lambda_cf_direct.png)
+
+
 ## Invoking Lambda Functions
 - You can invoke Lambda functions directly with the Lambda console, the Lambda API, the AWS SDK, the AWS CLI, and AWS toolkits.
 - You can also configure other AWS services to invoke your function, or you can configure Lambda to read from a stream or queue and invoke your function.
