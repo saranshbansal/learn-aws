@@ -153,14 +153,14 @@ With Application Auto Scaling, you can create a target tracking scaling policy t
 
 Provisioned concurrency runs continually and is billed in addition to standard invocation costs.
 
-## Dead Letter Queue (DLQ)
+## Dead Letter Queue (DLQ) with Lambda
 A dead-letter queue saves discarded events for further processing. A dead-letter queue acts the same as an on-failure destination in that it is used when an event fails all processing attempts or expires without being processed.
 
 However, a dead-letter queue is part of a function’s version-specific configuration, so it is locked in when you publish a version. On-failure destinations also support additional targets and include details about the function’s response in the invocation record.
 
 You can setup a DLQ by configuring the ‘DeadLetterConfig’ property when creating or updating your Lambda function.
 
-You can provide an SQS queue or an SNS topic as the ‘TargetArn’ for your DLQ, and AWS Lambda will write the event object invoking the Lambda function to this endpoint after the standard retry policy (2 additional retries on failure) is exhausted.
+You can provide an SQS queue or an SNS topic as the `TargetArn` for your DLQ, and AWS Lambda will write the event object invoking the Lambda function to this endpoint after the standard retry policy (2 additional retries on failure) is exhausted.
 
 ## Lambda Layers
 You can configure your Lambda function to pull in additional code and content in the form of layers.
