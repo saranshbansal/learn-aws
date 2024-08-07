@@ -128,3 +128,32 @@ Firehose Destinations include:
 - Amazon Elasticsearch Service.
 - Splunk.
 
+# SQS vs SNS vs Kinesis
+## SQS
+
+- Consumers pull data.
+- Data is deleted after being consumed.
+- Can have as many workers (consumers) as you need.
+- No need to provision throughput.
+- No ordering guarantee (except with FIFO queues).
+- Individual message delay.
+
+## SNS:
+
+- Push data to many subscribers.
+- Up to 10,000,000 subscribers.
+- Data is not persisted (lost if not deleted).
+- Pub/sub.
+- Up to 10,000,000 topics.
+- No need to provision throughput.
+- Integrates with SQS for fan-out architecture pattern.
+
+## Kinesis:
+
+- Consumers pull data.
+- As many consumers as you need.
+- Possible to replay data.
+- Meant for real-time big data, analytics, and ETL.
+- Ordering at the shard level.
+- Data expires after X days.
+- Must provision throughput.
