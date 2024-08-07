@@ -98,14 +98,33 @@ Splitting increases the number of shards in your stream and therefore increases 
 
 Merging reduces the number of shards in your stream and therefore decreases the data capacity—and cost—of the stream.
 
-### Common use cases
-
-- Accelerated log and data feed intake.
-- Real-time metrics and reporting.
-- Real-time data analytics.
-- Complex stream processing.
-
-### Tips
 - When the data rate increases, add more shards to increase the size of the stream.
 - Remove shards when the data rate decreases.
+
+## Kinesis Data Firehose
+Kinesis Data Firehose is the easiest way to load streaming data into data stores and analytics tools.
+
+![image](https://github.com/user-attachments/assets/61d939b7-86e1-439f-a4b1-bbdd80ecbca1)
+
+
+- Enables near real-time analytics with existing business intelligence tools and dashboards.
+- `Kinesis Data Streams` can be used as the source(s) to Kinesis Data Firehose.
+- You can configure Kinesis Data Firehose to transform your data before delivering it.
+- With Kinesis Data Firehose you don’t need to write an application or manage resources.
+- Firehose can batch, compress, and encrypt data before loading it.
+- Firehose synchronously replicates data across `three AZs` as it is transported to destinations.
+- Each delivery stream stores data records for up to `24 hours`.
+- A source is where your streaming data is continuously generated and captured.
+- A delivery stream is the underlying entity of Amazon Kinesis Data Firehose.
+- A record is the data of interest your data producer sends to a delivery stream.
+- The maximum size of a record (before Base64-encoding) is `1000 KB`.
+- A destination is the data store where your data will be delivered.
+- Server-side-encryption can be used if Kinesis Streams is used as the data source.
+- Firehose can invoke an AWS Lambda function to transform incoming data before delivering it to a destination.
+
+Firehose Destinations include:
+- Amazon S3.
+- Amazon Redshift.
+- Amazon Elasticsearch Service.
+- Splunk.
 
