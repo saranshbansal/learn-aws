@@ -263,6 +263,8 @@ EventBridge is designed for complex event-driven architectures with advanced rou
 
 SNS is suited for simpler pub/sub messaging scenarios, providing a straightforward way to publish messages to multiple subscribers. It is ideal for use cases where basic message distribution and notifications are needed.
 
+In essence, use EventBridge for complex event-driven architectures and routing, and SNS for straightforward pub/sub messaging and notifications.
+
 # AWS Step Functions
 
 AWS Step Functions can be used to coordinate the components of distributed applications as a series of steps in a visual workflow.
