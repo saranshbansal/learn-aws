@@ -1,4 +1,5 @@
 # AWS Account management - Organizations, OUs, SCPs
+
 - Must have AWS account to access services and create any resources. By default creates a `root` account.
 - Recommended to have multiple accounts for serving different environments like dev, test, prod, sandbox.
 - Managing multiple accounts become cumbersome so can use `AWS Organisations`. One account can become `manager` account and others become `member` accounts.
