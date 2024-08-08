@@ -1,4 +1,4 @@
-# AWS Account management - Oragnisations, OUs, SCPs
+# AWS Account management - Organizations, OUs, SCPs
 - Must have AWS account to access services and create any resources. By default creates a `root` account.
 - Recommended to have multiple accounts for serving different environments like dev, test, prod, sandbox.
 - Managing multiple accounts become cumbersome so can use `AWS Organisations`. One account can become `manager` account and others become `member` accounts.
@@ -79,23 +79,3 @@ Internet Gateway is attached to VPC to connect to outside internet.
 | Stateful: any traffic allowed out will automatically be allowed in | Stateless: NACLs need separate outbound rules |
 
 # Storage
-## EBS
-Storage service available to connect to EC2 over a network. EBS Volumes are available inside AZ. They are automatically replicated within AZ.
-
-## Instance store
-- Instance store is non-persistent and are physically attached to EC2 servers.
-- They offer high performance and are used for storing data temporarily which doesn’t need replication.
-
-## EBS Snapshot (for backup)
-- Snapshots are created for EC2 Volumes. These are stored outside AZ in S3.
-- Because they are outside AZ, they can be re-used in some other EBS volume in another AZ.
-- They can also be used to create AMIs
-
-## EFS (Elastic File System)
- 
-EFS is file based storage service located outside of AZs (unlike EBS) and can be attached to multiple EC2 instances across AZs. 
-It is a great way to attach a shared storage location between instances across AZs. - Supports very large number of instances across many AZs unlike EBS which has certain constraints. 
-
-- EFS > EBS!
-- Access to FS is via NFS (Network file system protocol) and is linux only that’s why we have mount points rather than drive letters.
-- Can be connected to Corporate on-prem data centre.
