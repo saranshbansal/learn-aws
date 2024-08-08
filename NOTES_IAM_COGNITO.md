@@ -67,6 +67,10 @@ Amazon Cognito identity pools support the following identity providers:
 - SAML Identity Providers (Identity Pools).
 - Developer Authenticated Identities (Identity Pools).
 
+### Developer Authenticated Identities
+With developer authenticated identities, you can register and authenticate users via your own existing authentication process, while still using Amazon Cognito to synchronize user data and access AWS resources.
+Using developer authenticated identities involves interaction between the end user device, your backend for authentication, and Amazon Cognito.
+
 >> **Exam tip:** To make it easier to remember the different between User Pools and Identity Pools, think of Users Pools as being like IAM Users or Active Directory and an Identity Pools as being like an IAM Role.
 
 ## Amazon Cognito Sync
