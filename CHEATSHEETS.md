@@ -1,5 +1,12 @@
 # AWS Cheatsheets
 
+## AWS IAM
+### Cheatsheet
+https://digitalcloud.training/aws-iam/
+
+### References
+https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html
+
 ## AWS EC2
 ### Cheatsheet
 https://digitalcloud.training/amazon-ec2/
@@ -231,3 +238,12 @@ https://digitalcloud.training/amazon-route-53/
 
 ### References
 https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-latency.html
+
+## Amazon Cognito
+### Cheatsheet
+https://digitalcloud.training/amazon-cognito/
+
+### References
+https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html
+
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html
