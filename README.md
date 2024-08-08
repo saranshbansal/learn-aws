@@ -91,11 +91,11 @@ I am an authority in the product, with deep technical understanding who can desi
 
 [Compute - EBS, EC2 Auto-Scaling](NOTES_COMPUTE_EBS_AUTOSCALING.md)
 
-[AWS Authentication & Authorization - IAM, Cognito](NOTES_IAM_COGNITO.md)
+[AWS Authentication & Authorization - IAM & Cognito](NOTES_IAM_COGNITO.md)
 
 [AWS - Account Management](NOTES_ACCOUNT.md)
 
-[AWS - Certificate Manager & KMS](NOTES_AWS_SECURITY.md)
+[AWS - Secrets Manager, Certificate Manager & KMS](NOTES_AWS_SECURITY.md)
 
 [Databases - S3, RDS, Aurora, DynamoDB](NOTES_STORAGE.md)
 
