@@ -225,6 +225,44 @@ DeleteMessageBatch
 ChangeMessageVisibilityBatch
 ```
 
+# Amazon EventBridge
+Amazon EventBridge is a serverless event bus service that allows you to build event-driven architectures. It enables you to connect applications using events (data changes or system notifications), facilitating a decoupled and scalable design.
+
+Automatically discover and manage event schemas for your events, which helps in code generation and validation.
+
+Allows you to replay events that were previously published to an event bus, useful for debugging or reprocessing events.
+
+EventBridge can handle events from multiple AWS accounts.
+
+## Key Concepts
+- **Events**: Represents a state change or notification, such as a new file uploaded to S3 or an EC2 instance state change.
+- **Event Buses**: A pipeline to receive and route events. EventBridge provides a default event bus and allows you to create custom event buses.
+- **Event Sources**: Services or applications that generate events (e.g., AWS services like S3, custom applications).
+- **Event Targets**: AWS resources or services that process or react to events (e.g., Lambda functions, Step Functions, SQS, SNS).
+
+## EventBridge Components
+- **Event Buses:**
+    - *Default Event Bus:* Automatically available and receives events from AWS services.
+    - *Custom Event Buses:* User-defined for custom applications or third-party services.
+    - *Partner Event Buses:* For events from AWS Marketplace and SaaS partners.
+- **Event Rules:** Define how events are filtered and routed to targets. Rules specify event patterns and targets.
+- **Event Patterns:** JSON-based rules to match specific events, allowing fine-grained control over event routing.
+- **Event Targets:** Services that receive and process events (e.g., Lambda, Step Functions, Kinesis Data Streams, SQS).
+
+
+## EventBridge Configuration
+
+- **Creating an Event Bus:** Use the AWS Management Console, CLI (`aws events create-event-bus`), or SDKs.
+- **Setting Up Rules:** Define event patterns and targets using the console, CLI (`aws events put-rule`), or SDKs.
+- **Monitoring and Logging:** Use CloudWatch Logs and metrics to monitor and debug event flows and targets.
+
+## EventBridge vs SNS
+Amazon EventBridge and Amazon Simple Notification Service (SNS) are both AWS services used for messaging and event-driven architectures, but they serve different purposes and offer distinct features. 
+
+EventBridge is designed for complex event-driven architectures with advanced routing, filtering, and schema management. It integrates with multiple AWS services and external systems and is suitable for applications requiring sophisticated event handling.
+
+SNS is suited for simpler pub/sub messaging scenarios, providing a straightforward way to publish messages to multiple subscribers. It is ideal for use cases where basic message distribution and notifications are needed.
+
 # AWS Step Functions
 
 AWS Step Functions can be used to coordinate the components of distributed applications as a series of steps in a visual workflow.
