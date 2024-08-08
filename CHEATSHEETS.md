@@ -6,6 +6,7 @@ https://digitalcloud.training/aws-iam/
 
 ### References
 https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html
+https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
 
 ## AWS EC2
 ### Cheatsheet
@@ -247,3 +248,9 @@ https://digitalcloud.training/amazon-cognito/
 https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html
+
+https://docs.aws.amazon.com/cognito/latest/developerguide/identity-pools.html
+
+https://docs.aws.amazon.com/cognito/latest/developerguide/synchronizing-data.html
+
+https://docs.aws.amazon.com/cognito/latest/developerguide/developer-authenticated-identities.html
