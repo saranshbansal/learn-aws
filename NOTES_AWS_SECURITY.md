@@ -1,3 +1,41 @@
+# AWS Secrets Manager
+AWS Secrets Manager helps you protect secrets needed to access your applications, services, and IT resources.
+
+- The service enables you to easily rotate, manage, and retrieve database credentials, API keys, and other secrets throughout their lifecycle.
+- Users and applications retrieve secrets with a call to Secrets Manager APIs, eliminating the need to hardcode sensitive information in plain text.
+- Secrets Manager offers secret rotation with built-in integration for Amazon RDS, Amazon Redshift, and Amazon DocumentDB.
+- Also, the service is extensible to other types of secrets, including API keys and OAuth tokens. In addition, Secrets Manager enables you to control access to secrets using fine-grained permissions and audit secret rotation centrally for resources in the AWS Cloud, third-party services, and on-premises.
+- AWS Secrets Manager encrypts secrets at rest using encryption keys that you own and store in AWS Key Management Service (KMS).
+- When you retrieve a secret, Secrets Manager decrypts the secret and transmits it securely over TLS to your local environment.
+- Secrets Manager does not write or cache the secret to persistent storage.
+- You can control access to the secret using fine-grained AWS Identity and Access Management (IAM) policies and resource-based policies.
+- You can also tag secrets individually and apply tag-based access controls.
+- With AWS Secrets Manager, you can rotate secrets on a schedule or on demand by using the Secrets Manager console, AWS SDK, or AWS CLI.
+- For example, to rotate a database password, you provide the database type, rotation frequency, and master database credentials when storing the password in Secrets Manager.
+- Secrets Manager natively supports rotating credentials for databases hosted on Amazon RDS and Amazon DocumentDB and clusters hosted on Amazon Redshift.
+- You can extend Secrets Manager to rotate other secrets by modifying sample Lambda functions.
+- AWS Secrets Manager with Amazon RDS
+  ![alt text](images/image-secrets_manager_rds.png)
+
+- You can store and retrieve secrets using the AWS Secrets Manager console, AWS SDK, AWS CLI, or AWS CloudFormation.
+
+- To retrieve secrets, you simply replace plaintext secrets in your applications with code to pull in those secrets programmatically using the Secrets Manager APIs. Secrets Manager provides code samples to call Secrets Manager APIs, also available on the Secrets Manager Resources page.
+
+- You can configure Amazon Virtual Private Cloud (VPC) endpoints to keep traffic between your VPC and Secrets Manager within the AWS network.
+
+- You can also use Secrets Manager client-side caching libraries to improve the availability and reduce the latency of using your secrets.
+
+- AWS Secrets Manager enables you to audit and monitor secrets through integration with AWS logging, monitoring, and notification services.
+
+## Secrets Manager vs Systems Manager Parameter Store
+
+ | Features               | Secrets Manager                                        | SSM Parameter Store                           |
+ | ---------------------- | ------------------------------------------------------ | --------------------------------------------- |
+ | Automatic Key Rotation | Yes, built-in for some services, use Lambda for others | No native key rotation; can use custom Lambda |
+ | Key/Value Type         | String or Binary (encrypted)                           | String, StringList, SecureString (encrypted)  |
+ | Hierarchical Keys      | No                                                     | Yes                                           |
+ | Price                  | Charges apply per secret                               | Free for standard, charges for advanced       |
+
 # AWS Certificate Manager
 
 Service: AWS Certificate Manager (ACM) helps you provision, manage, and deploy SSL/TLS certificates for your AWS-based websites and applications.
