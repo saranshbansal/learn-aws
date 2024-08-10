@@ -343,11 +343,11 @@ The following diagram depicts how you can establish delegated access across two 
 
 As shown in the Figure, we use the example of a developer in the `Identities` Account that needs to access an `S3 bucket` (called `TodoApp`) in the `Development` Account. This is known as `cross-account access`, and the following are the primary steps involved in configuring this:
 
-1. In the Development Account, you must configure a role with a trust policy that identifies the trusted account (in this case, the Identities Account). In this example, we named the IAM Role `IAM-User-S3-AccessRole` as per the diagram. The configuration requires you to provide the ID for Account A.
+1. In the `Development Account`, you must configure a role with a trust policy that identifies the trusted account (in this case, the `Identities Account`). In this example, we named the IAM Role `IAM-User-S3-AccessRole` as per the diagram. The configuration requires you to provide the ID for Account A.
 
-2. You will also need to configure a policy that contains the necessary permissions to perform read/write operations against the TodoApp S3 bucket in Account B.
+2. You will also need to configure a policy that contains the necessary permissions to perform read/write operations against the `TodoApp` S3 bucket in Account B.
 
-3. Finally, in Account A, you need to configure another policy that grants the developer the ability to assume the S3AccessRole created in Account B. You do this by specifying the Account ID of Account B and the role in the policy statement. The policy will grant the sts:AssumeRole permission as per the following JSON script:
+3. Finally, in Account A, you need to configure another policy that grants the developer the ability to assume the `S3AccessRole` created in Account B. You do this by specifying the Account ID of Account B and the role in the policy statement. The policy will grant the `sts:AssumeRole` permission as per the following JSON script:
 
 ```json
 {
