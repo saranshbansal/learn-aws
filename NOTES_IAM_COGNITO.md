@@ -99,13 +99,15 @@ Multi-factor authentication (MFA).
 API keys for programmatic access (CLI).
 ```
 
-IAM users consist of a username, password, and access permissions. Security credentials like access keys and multi-factor authentication (MFA) can be assigned. IAM supports Identity Federation for secure access without creating IAM user accounts and offers MFA to enhance security.
+- In AWS Identity and Access Management (IAM), IAM users are defined by their usernames, passwords, and permissions. They can also be assigned security credentials via access keys and multi-factor authentication (MFA) to enhance security. MFA can be implemented through the AWS Management Console, API, or CLI, and is strongly recommended, especially for users with elevated privileges.
+- IAM supports **Identity Federation**, allowing users to access AWS resources securely without needing separate IAM accounts. 
+- The **root account** in IAM has full administrative access and should be reserved for billing purposes rather than routine management. 
+- **Power user** access grants nearly all permissions except for the ability to manage IAM groups and users. 
+- IAM also supports issuing temporary security credentials, which can be used to access AWS services. 
+- The system operates globally with eventual consistency and data replication across multiple data centers. 
+- For security and compliance reasons, AWS advises using SDKs or the IAM Query API for programmatic access rather than directly managing credentials.
 
-MFA can be used via the AWS Management Console, API, or CLI. It is recommended to use MFA for all users, particularly privileged ones. IAM is universal and operates globally, with eventual consistency and data replication across multiple data centers.
-
-The root account has full admin access and should be used only for billing purposes. Power user access allows all permissions except managing IAM groups and users. IAM can assign temporary security credentials and integrates with various AWS services. For security and compliance, AWS advises using SDKs or the IAM Query API for programmatic access.
-
-## IAM Elements
+## IAM Components
 
 ![alt text](images/image-iam_elements.png)
 
