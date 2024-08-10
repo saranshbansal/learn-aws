@@ -56,6 +56,8 @@ In order to provide a seamless user experience for your application, Cognito use
 
 `Amazon SNS` is used to send a silent push notification to all the devices whenever data stored in the cloud changes.
 
+Supports unauthenticated guest access for users who do not have an account or do not log in.
+
 Amazon Cognito identity pools support the following identity providers:
 ```
 - Public providers: Login with Amazon (Identity Pools), Facebook (Identity Pools), Google (Identity Pools).
