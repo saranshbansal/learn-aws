@@ -12,28 +12,17 @@ With Amazon Cognito, you can focus on building great app experiences instead of 
 
 ![alt text](images/image-cognito.png)
 
-The two main components of AWS Cognito are **user pools** and **identity pools**:
+The two main components of AWS Cognito are **user pools** and **identity pools**.
 
-**User Pools**
+>> **Exam tip:** To make it easier to remember the different between `User Pools` and `Identity Pools`, think of Users Pools as being like `IAM Users` or `Active Directory` and an Identity Pools as being like an `IAM Role`.
 
-- Authentication: User Pools primarily handle user sign-up, sign-in, and user management. They are responsible for authenticating users. 
-- User pools are user directories that provide sign-up and sign-in options for your app users. 
-
-**Identity Pools**
-
-- Authorization: Identity Pools are used for granting temporary AWS credentials to users, allowing them to access AWS resources. 
-- They are primarily focused on authorizing access to AWS services. 
-- Identity pools enable you to grant your users access to other AWS services.
-
-You can use identity pools and user pools separately or together.
-
-No need for the application to embed or store AWS credentials locally on the device and it gives users a seamless experience across all mobile devices.
-
-### User Pools
+### User Pools (Authentication)
 
 ![alt text](images/image-cognito_user_pools.png)
 
-Cognito User Pools are user directories used to manage sign-up and sign-in functionality for mobile and web applications for your app users.
+User Pools primarily handle user sign-up, sign-in, and user management. They are responsible for authenticating users.
+
+Cognito User Pools are user directories used to manage sign-up and sign-in functionality for mobile and web applications for your app users. 
 
 Users can also sign in through social identity providers like Facebook or Amazon, and through SAML identity providers.
 
@@ -51,19 +40,19 @@ User pools provide:
 - Customized workflows and user migration through AWS Lambda triggers.
 - After successfully authenticating a user, Amazon Cognito issues **JSON web tokens (JWT)** that you can use to secure and authorize access to your own APIs, or exchange for AWS credentials.
 
-### Identity Pools
+### Identity Pools (Authorization)
 
 ![alt text](images/image-cognito_identity_pools.png)
 
-Identity Pools enable you to create unique identities for your users and authenticate them with identity providers.
+Identity Pools are used for granting temporary AWS credentials to users, allowing them to access AWS resources. They are primarily focused on authorizing access to AWS services.
 
-With an identity, you can obtain temporary, limited-privilege AWS credentials to access other AWS services.
+Identity Pools enable you to create unique identities for your users and authenticate them with identity providers. With an identity, you can obtain temporary, limited-privilege AWS credentials to access other AWS services.
 
 Cognito tracks the association between user identity and the various different devices they sign-in from.
 
 In order to provide a seamless user experience for your application, Cognito uses Push Synchronization to push updates and synchronize user data across multiple devices.
 
-Amazon SNS is used to send a silent push notification to all the devices whenever data stored in the cloud changes.
+`Amazon SNS` is used to send a silent push notification to all the devices whenever data stored in the cloud changes.
 
 Amazon Cognito identity pools support the following identity providers:
 
@@ -75,9 +64,8 @@ Amazon Cognito identity pools support the following identity providers:
 
 ## Developer Authenticated Identities
 With developer authenticated identities, you can register and authenticate users via your own existing authentication process, while still using Amazon Cognito to synchronize user data and access AWS resources.
-Using developer authenticated identities involves interaction between the end user device, your backend for authentication, and Amazon Cognito.
 
->> **Exam tip:** To make it easier to remember the different between User Pools and Identity Pools, think of Users Pools as being like IAM Users or Active Directory and an Identity Pools as being like an IAM Role.
+Using developer authenticated identities involves interaction between the end user device, your backend for authentication, and Amazon Cognito.
 
 ## Amazon Cognito Sync
 Amazon Cognito Sync is an AWS service and client library that enables cross-device syncing of application-related user data.
