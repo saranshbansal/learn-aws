@@ -324,7 +324,7 @@ You can use the following AWS CLI commands to work with instance profiles in an 
 - Remove a role from an instance profile: `aws iam remove-role-from-instance-profile`
 - Delete an instance profile: `aws iam delete-instance-profile`
 
-# AWS IAM - Cross Account Access
+## AWS IAM - Cross Account Access
 
 ![alt text](images/image-iam_cross_account.png)
 
