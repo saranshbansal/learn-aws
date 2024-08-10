@@ -336,7 +336,7 @@ To make a request in a different account the resource in that account must have 
 
 Or you must assume a role (identity-based policy) within that account with the permissions you need.
 
-## AWS IAM - Access delegation workflow
+### Access delegation workflow
 The following diagram depicts how you can establish delegated access across two AWS accounts:
 
 ![alt text](images/image-iam_delegate_access.png)
