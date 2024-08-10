@@ -260,7 +260,8 @@ The IAM policy simulator is a tool to help you understand, test, and validate th
 
 The Condition element can be used to apply further conditional logic.
 
-### Inline Policies vs Managed Policies
+### Types of Policies
+
 There are 3 types of policies:
 
 - Managed policies.
