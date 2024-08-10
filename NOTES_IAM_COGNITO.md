@@ -239,7 +239,7 @@ Temporary credentials are primarily used with IAM roles and automatically expire
 
 Roles can be assumed temporarily through the console or programmatically with the AWS CLI, Tools for Windows PowerShell, or API.
 
-IAM roles with EC2 instances:
+### IAM roles with EC2 instances:
 
 - IAM roles can be used for granting applications running on EC2 instances permissions to AWS API requests using instance profiles.
 - Only one role can be assigned to an EC2 instance at a time.
@@ -247,7 +247,7 @@ IAM roles with EC2 instances:
 - When using the AWS CLI or API instance profiles must be created manually (it’s automatic and transparent through the console).
 - Applications retrieve temporary security credentials from the instance metadata.
 
-Role Delegation:
+### Role Delegation:
 
 - Create an IAM role with two policies:
   - Permissions policy – grants the user of the role the required permissions on a resource.
@@ -313,7 +313,7 @@ An explicit deny in any policy overrides any allows.
 A few concepts should be known to understand the logic:
 
 - **Identity-based policies –** Identity-based policies are attached to an IAM identity (user, group of users, or role) and grant permissions to IAM entities (users and roles).
-- **Resource-based policies – **Resource-based policies grant permissions to the principal (account, user, role, or federated user) specified as the principal.
+- **Resource-based policies –** Resource-based policies grant permissions to the principal (account, user, role, or federated user) specified as the principal.
 - **IAM permissions boundaries –** Permissions boundaries are an advanced feature that sets the maximum permissions that an identity-based policy can grant to an IAM entity (user or role).
 - **AWS Organizations service control policies (SCPs) –** Organizations SCPs specify the maximum permissions for an organization or organizational unit (OU). Session policies – Session policies are advanced policies that you pass as parameters when you programmatically create a temporary session for a role or federated user.
 
@@ -333,7 +333,28 @@ You can use the following AWS CLI commands to work with instance profiles in an 
 - Remove a role from an instance profile: `aws iam remove-role-from-instance-profile`
 - Delete an instance profile: `aws iam delete-instance-profile`
 
-## AWS Security Token Service (STS)
+# Lambda authorizers
+Use AWS Lambda to validate the token in the header being passed.
+
+A Lambda authorizer is useful if you want to implement a custom authorization scheme that uses a bearer token authentication strategy such as OAuth or SAML, or that uses request parameters to determine the caller's identity.
+
+When a client makes a request to one of your API's methods, API Gateway calls your Lambda authorizer, which takes the caller's identity as input and returns an IAM policy as output.
+
+There are two types of Lambda authorizers:
+
+• A `token-based` Lambda authorizer (also called a TOKEN authorizer) receives the caller's identity in a bearer token, such as a `JSON Web Token (JWT)` or an `OAuth` token.
+
+• A `request parameter-based` Lambda authorizer (also called a REQUEST authorizer) receives the caller's identity in a combination of headers, query string parameters, `stageVariables`, and `$context` variables.
+
+Option to cache the result of the authentication.
+
+You pay per Lambda invocation.
+
+Good for using OAuth, SAML or 3rd party authentication.
+
+![alt text](images/image-lambda_authoriser.png)
+
+# AWS Security Token Service (STS)
 
 The AWS Security Token Service (STS) is a web service that enables you to request temporary, limited-privilege credentials for IAM users or for users that you authenticate (federated users).
 
