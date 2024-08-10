@@ -245,11 +245,11 @@ Roles can be assumed temporarily through the console or programmatically with th
 
 ### IAM roles with EC2 instances:
 
-- IAM roles can be used for granting applications running on EC2 instances permissions to AWS API requests using instance profiles.
+- IAM roles can be used for granting applications running on EC2 instances permissions to AWS API requests using **instance profiles**.
 - Only one role can be assigned to an EC2 instance at a time.
 - A role can be assigned at the EC2 instance creation time or at any time afterwards.
-- When using the AWS CLI or API instance profiles must be created manually (it’s automatic and transparent through the console).
-- Applications retrieve temporary security credentials from the instance metadata.
+- When using the `AWS CLI` or `API`, instance profiles must be created manually. Whereas, it’s automatic and transparent through the console.
+- Applications retrieve temporary security credentials from the **instance metadata**.
 
 ### Role Delegation:
 
