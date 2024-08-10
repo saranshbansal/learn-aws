@@ -29,8 +29,6 @@ You can use identity pools and user pools separately or together.
 
 No need for the application to embed or store AWS credentials locally on the device and it gives users a seamless experience across all mobile devices.
 
-Cognito Identity provides temporary security credentials to access your app’s backend resources in AWS or any service behind Amazon API Gateway.
-
 ### User Pools
 
 ![alt text](images/image-cognito_user_pools.png)
