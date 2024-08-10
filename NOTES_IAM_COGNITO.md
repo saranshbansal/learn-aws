@@ -139,21 +139,6 @@ API keys for programmatic access (CLI).
 - To authenticate from the console, you must sign in with your user name and password.
 - To authenticate from the API or CLI, you must provide your access key and secret key.
 
-### Policies:
-
-- IAM uses values from the request context to check for matching policies and determines whether to allow or deny the request.
-- IAM policies are stored in IAM as JSON documents and specify the permissions that are allowed or denied.
-- IAM policies can be:
-  - User (identity) based policies.
-  - Resource-based policies.
-- IAM checks each policy that matches the context of your request.
-- If a single policy has a deny action IAM denies the request and stops evaluating (explicit deny).
-- Evaluation logic:
-  - By default all requests are denied (implicit deny).
-  - An explicit allow overrides the implicit deny.
-  - An explicit deny overrides any explicit allows.
-- Only the root user has access to all resources in the account by default.
-
 ### Actions:
 
 - Actions are defined by a service.
