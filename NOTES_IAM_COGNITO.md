@@ -14,7 +14,15 @@ With Amazon Cognito, you can focus on building great app experiences instead of 
 
 The two main components of AWS Cognito are **user pools** and **identity pools**:
 
-- User pools are user directories that provide sign-up and sign-in options for your app users.
+**User Pools**
+
+- Authentication: User Pools primarily handle user sign-up, sign-in, and user management. They are responsible for authenticating users. 
+- User pools are user directories that provide sign-up and sign-in options for your app users. 
+
+**Identity Pools**
+
+- Authorization: Identity Pools are used for granting temporary AWS credentials to users, allowing them to access AWS resources. 
+- They are primarily focused on authorizing access to AWS services. 
 - Identity pools enable you to grant your users access to other AWS services.
 
 You can use identity pools and user pools separately or together.
@@ -23,7 +31,7 @@ No need for the application to embed or store AWS credentials locally on the dev
 
 Cognito Identity provides temporary security credentials to access your app’s backend resources in AWS or any service behind Amazon API Gateway.
 
-## User Pools
+### User Pools
 
 ![alt text](images/image-cognito_user_pools.png)
 
@@ -45,7 +53,7 @@ User pools provide:
 - Customized workflows and user migration through AWS Lambda triggers.
 - After successfully authenticating a user, Amazon Cognito issues **JSON web tokens (JWT)** that you can use to secure and authorize access to your own APIs, or exchange for AWS credentials.
 
-## Identity Pools
+### Identity Pools
 
 ![alt text](images/image-cognito_identity_pools.png)
 
@@ -67,7 +75,7 @@ Amazon Cognito identity pools support the following identity providers:
 - SAML Identity Providers (Identity Pools).
 - Developer Authenticated Identities (Identity Pools).
 
-### Developer Authenticated Identities
+## Developer Authenticated Identities
 With developer authenticated identities, you can register and authenticate users via your own existing authentication process, while still using Amazon Cognito to synchronize user data and access AWS resources.
 Using developer authenticated identities involves interaction between the end user device, your backend for authentication, and Amazon Cognito.
 
