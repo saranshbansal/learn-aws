@@ -324,71 +324,7 @@ You can use the following AWS CLI commands to work with instance profiles in an 
 - Remove a role from an instance profile: `aws iam remove-role-from-instance-profile`
 - Delete an instance profile: `aws iam delete-instance-profile`
 
-# Lambda authorizers
-Use AWS Lambda to validate the token in the header being passed.
-
-A Lambda authorizer is useful if you want to implement a custom authorization scheme that uses a bearer token authentication strategy such as OAuth or SAML, or that uses request parameters to determine the caller's identity.
-
-When a client makes a request to one of your API's methods, API Gateway calls your Lambda authorizer, which takes the caller's identity as input and returns an IAM policy as output.
-
-There are two types of Lambda authorizers:
-
-• A `token-based` Lambda authorizer (also called a TOKEN authorizer) receives the caller's identity in a bearer token, such as a `JSON Web Token (JWT)` or an `OAuth` token.
-
-• A `request parameter-based` Lambda authorizer (also called a REQUEST authorizer) receives the caller's identity in a combination of headers, query string parameters, `stageVariables`, and `$context` variables.
-
-Option to cache the result of the authentication.
-
-You pay per Lambda invocation.
-
-Good for using OAuth, SAML or 3rd party authentication.
-
-![alt text](images/image-lambda_authoriser.png)
-
-# AWS Security Token Service (STS)
-
-The AWS Security Token Service (STS) is a web service that enables you to request temporary, limited-privilege credentials for IAM users or for users that you authenticate (federated users).
-
-By default, AWS STS is available as a global service, and all AWS STS requests go to a single endpoint at https://sts.amazonaws.com
-
-You can optionally send your AWS STS requests to endpoints in any region (can reduce latency).
-
-Credentials will always work globally.
-
-STS supports `AWS CloudTrail`, which records AWS calls for your AWS account and delivers log files to an S3 bucket.
-
-Temporary security credentials work almost identically to long-term access key credentials that IAM users can use, with the following differences:
-
-- Temporary security credentials are short-term.
-- They can be configured to last anywhere from a few minutes to several hours.
-- After the credentials expire, AWS no longer recognizes them or allows any kind of access to API requests made with them.
-- Temporary security credentials are not stored with the user but are generated dynamically and provided to the user when requested.
-- When (or even before) the temporary security credentials expire, the user can request new credentials, if the user requesting them still has permission to do so.
-
-### Advantages of STS
-
-- You do not have to distribute or embed long-term AWS security credentials with an application.
-- You can provide access to your AWS resources to users without having to define an AWS identity for them (temporary security credentials are the basis for IAM Roles and ID Federation).
-The temporary security credentials have a limited lifetime, so you do not have to rotate them or explicitly revoke them when they’re no longer needed.
-After temporary security credentials expire, they cannot be reused (you can specify how long the credentials are valid for, up to a maximum limit).
-
-The AWS STS API action returns temporary security credentials that consist of:
-
-- An access key which consists of an access key ID and a secret ID.
-- A session token.
-- Expiration or duration of validity.
-- Users (or an application that the user runs) can use these credentials to access your resources.
-
-With STS you can request a session token using one of the following APIs:
-
-- `AssumeRole` – can only be used by IAM users (can be used for MFA).
-- `AssumeRoleWithSAML` – can be used by any user who passes a SAML authentication response that indicates authentication from a known (trusted) identity provider.
-- `AssumeRoleWithWebIdentity` – can be used by an user who passes a web identity token that indicates authentication from a known (trusted) identity provider.
-- `GetSessionToken` – can be used by an IAM user or AWS account root user (can be used for MFA).
-- `GetFederationToken` – can be used by an IAM user or AWS account root user.
-
-
-## AWS IAM - Cross Account Access
+# AWS IAM - Cross Account Access
 
 ![alt text](images/image-iam_cross_account.png)
 
@@ -447,3 +383,64 @@ To secure AWS resources it is recommended that you follow these best practices:
 - Remove unnecessary credentials.
 - Use policy conditions for extra security.
 - Monitor activity in your AWS account.
+
+# Lambda authorizers
+Use AWS Lambda to validate the token in the header being passed.
+
+A Lambda authorizer is useful if you want to implement a custom authorization scheme that uses a bearer token authentication strategy such as OAuth or SAML, or that uses request parameters to determine the caller's identity.
+
+When a client makes a request to one of your API's methods, API Gateway calls your Lambda authorizer, which takes the caller's identity as input and returns an IAM policy as output.
+
+There are two types of Lambda authorizers:
+
+• A `token-based` Lambda authorizer (also called a TOKEN authorizer) receives the caller's identity in a bearer token, such as a `JSON Web Token (JWT)` or an `OAuth` token.
+
+• A `request parameter-based` Lambda authorizer (also called a REQUEST authorizer) receives the caller's identity in a combination of headers, query string parameters, `stageVariables`, and `$context` variables.
+
+Option to cache the result of the authentication.
+
+You pay per Lambda invocation.
+
+Good for using OAuth, SAML or 3rd party authentication.
+
+![alt text](images/image-lambda_authoriser.png)
+
+# AWS Security Token Service (STS)
+
+The AWS Security Token Service (STS) is a web service that enables you to request temporary, limited-privilege credentials for IAM users or for users that you authenticate (federated users).
+
+By default, AWS STS is available as a global service, and all AWS STS requests go to a single endpoint at https://sts.amazonaws.com. You can optionally send your AWS STS requests to endpoints in any region (can reduce latency).
+
+Credentials will always work globally.
+
+STS supports `AWS CloudTrail`, which records AWS calls for your AWS account and delivers log files to an S3 bucket.
+
+Temporary security credentials work almost identically to long-term access key credentials that IAM users can use, with the following differences:
+
+- Temporary security credentials are short-term.
+- They can be configured to last anywhere from a few minutes to several hours.
+- After the credentials expire, AWS no longer recognizes them or allows any kind of access to API requests made with them.
+- Temporary security credentials are not stored with the user but are generated dynamically and provided to the user when requested.
+- When (or even before) the temporary security credentials expire, the user can request new credentials, if the user requesting them still has permission to do so.
+
+## Advantages of STS
+
+- You do not have to distribute or embed long-term AWS security credentials with an application.
+- You can provide access to your AWS resources to users without having to define an AWS identity for them (temporary security credentials are the basis for IAM Roles and ID Federation).
+- The temporary security credentials have a limited lifetime, so you do not have to rotate them or explicitly revoke them when they’re no longer needed.
+
+## STS APIs
+
+The AWS STS API action returns temporary security credentials that consist of:
+
+- An access key which consists of an access key ID and a secret ID.
+- A session token.
+- Expiration or duration of validity.
+
+With STS you can request a session token using one of the following APIs:
+
+- `AssumeRole` – can only be used by IAM users (can be used for MFA).
+- `AssumeRoleWithSAML` – can be used by any user who passes a SAML authentication response that indicates authentication from a known (trusted) identity provider.
+- `AssumeRoleWithWebIdentity` – can be used by an user who passes a web identity token that indicates authentication from a known (trusted) identity provider.
+- `GetSessionToken` – can be used by an IAM user or AWS account root user (can be used for MFA).
+- `GetFederationToken` – can be used by an IAM user or AWS account root user.
