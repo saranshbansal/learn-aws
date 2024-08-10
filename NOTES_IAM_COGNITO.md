@@ -305,7 +305,8 @@ A few concepts should be known to understand the logic:
 - **Identity-based policies –** Identity-based policies are attached to an IAM identity (user, group of users, or role) and grant permissions to IAM entities (users and roles).
 - **Resource-based policies –** Resource-based policies grant permissions to the principal (account, user, role, or federated user) specified as the principal.
 - **IAM permissions boundaries –** Permissions boundaries are an advanced feature that sets the maximum permissions that an identity-based policy can grant to an IAM entity (user or role).
-- **AWS Organizations service control policies (SCPs) –** Organizations SCPs specify the maximum permissions for an organization or organizational unit (OU). Session policies – Session policies are advanced policies that you pass as parameters when you programmatically create a temporary session for a role or federated user.
+- **AWS Organizations service control policies (SCPs) –** Organizations SCPs specify the maximum permissions for an organization or organizational unit (OU). 
+- **Session policies –** Session policies are advanced policies that you pass as parameters when you programmatically create a temporary session for a role or federated user.
 
 The following flowchart details the IAM policy evaluation logic:
 
