@@ -48,6 +48,8 @@ Identity Pools are used for granting temporary AWS credentials to users, allowin
 
 Identity Pools enable you to create unique identities for your users and authenticate them with identity providers. With an identity, you can obtain temporary, limited-privilege AWS credentials to access other AWS services.
 
+`AWS Security Token Service (STS)` is used to generate temporary credentials.
+
 Cognito tracks the association between user identity and the various different devices they sign-in from.
 
 In order to provide a seamless user experience for your application, Cognito uses Push Synchronization to push updates and synchronize user data across multiple devices.
@@ -55,12 +57,13 @@ In order to provide a seamless user experience for your application, Cognito use
 `Amazon SNS` is used to send a silent push notification to all the devices whenever data stored in the cloud changes.
 
 Amazon Cognito identity pools support the following identity providers:
-
+```
 - Public providers: Login with Amazon (Identity Pools), Facebook (Identity Pools), Google (Identity Pools).
 - Amazon Cognito User Pools.
 - Open ID Connect Providers (Identity Pools).
 - SAML Identity Providers (Identity Pools).
 - Developer Authenticated Identities (Identity Pools).
+```
 
 ## Developer Authenticated Identities
 With developer authenticated identities, you can register and authenticate users via your own existing authentication process, while still using Amazon Cognito to synchronize user data and access AWS resources.
