@@ -1,9 +1,8 @@
-# AWS Learning Guide
 Amazon Web Services (AWS) is the world’s most comprehensive and broadly adopted cloud platform, offering over 200 fully featured services from data centres globally. Millions of customers—including the fastest-growing start-ups, largest enterprises, and leading government agencies—are using AWS to lower costs, become more agile, and innovate faster.
 
 The following page lists resources and certifications targets that will guide engineers on their journey towards expertise in AWS.
 
-### Level 1 - Foundation
+## Level 1 - Foundation
 I know nothing of the product and cannot advise of its features and workings.
 
 **Training**
@@ -17,7 +16,7 @@ I know nothing of the product and cannot advise of its features and workings.
 N/A
 
 
-### Level 2 - Foundation+
+## Level 2 - Foundation+
 I am aware of some of the technology features, but not how to configure them.
 
 **Training**
@@ -30,8 +29,7 @@ I am aware of some of the technology features, but not how to configure them.
 
 [AWS Certified Cloud Practitioner Certification | AWS Certification | AWS (amazon.com)](https://aws.amazon.com/certification/certified-cloud-practitioner/?ch=tile&tile=getstarted)
 
-
-### Level 3 - Proficient
+## Level 3 - Proficient
 I understand the many of the features, can design and build some simple solutions.
 
 **Training**
@@ -52,8 +50,7 @@ I understand the many of the features, can design and build some simple solution
 
 - [AWS Certified Sysops Administrator - Associate Certification (amazon.com)](https://aws.amazon.com/certification/certified-sysops-admin-associate/?ch=tile&tile=getstarted)
 
-
-### Level 4 - Proficient+
+## Level 4 - Proficient+
 I have excellent working knowledge of the product, can design and build complex solutions. Starting to share my knowledge with others.
 
 **Training**
@@ -69,7 +66,7 @@ I have excellent working knowledge of the product, can design and build complex 
 - [AWS Certified DevOps Engineer - Professional Certification | AWS Certification | AWS (amazon.com)](https://aws.amazon.com/certification/certified-devops-engineer-professional/)
 
 
-### Level 5 - Expert / Advanced
+## Level 5 - Expert / Advanced
 I am an authority in the product, with deep technical understanding who can design and build the optimal solution. Widely share my knowledge with the wider organisation and enabling its use.
 
 **Training**
@@ -81,13 +78,17 @@ I am an authority in the product, with deep technical understanding who can desi
 **Certification Target**
 - AWS Specialty (Security / Networking / etc) - [AWS Certification - Validate AWS Cloud Skills - Get AWS Certified (amazon.com)](https://aws.amazon.com/certification/?nc2=sb_ce_co)
 
-# AWS Exam Preparation
+# AWS Exam Learning Material
 
 ### AWS Cheatsheets
 
-[Cheat sheets](CHEATSHEETS.md)
+[Cheat Sheets](CHEATSHEETS.md)
 
 ### AWS Notes
+
+[AWS - VPC, Security Groups, NACLs](NOTES_AWS_VPC.md)
+
+[AWS CloudFormation](NOTES_AWS_CLOUDFORMATION.md)
 
 [Compute - EBS, EC2 Auto-Scaling](NOTES_COMPUTE_EBS_AUTOSCALING.md)
 
@@ -97,7 +98,7 @@ I am an authority in the product, with deep technical understanding who can desi
 
 [AWS - Secrets Manager, Certificate Manager & KMS](NOTES_AWS_SECURITY.md)
 
-[Databases - S3, RDS, Aurora, DynamoDB](NOTES_STORAGE.md)
+[Storage - S3, RDS, Aurora, DynamoDB](NOTES_STORAGE.md)
 
 [Developer Tools](NOTES_DEVTOOLS.md)
 
