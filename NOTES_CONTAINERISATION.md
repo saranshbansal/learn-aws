@@ -220,7 +220,7 @@ Amazon EKS automatically manages availability and scalability of Kubernetes API 
 
 Amazon EKS runs the Kubernetes control plane across three AZs to ensure high availability, and automatically detects and replaces unhealthy control plane nodes.
 
-> Exam tip: The principle use case is when organizations need a consistent control plane for managing containers across hybrid clouds and multicloud environments.
+> **Exam tip:** The principle use case is when organizations need a consistent control plane for managing containers across hybrid clouds and multicloud environments.
 
 # Amazon ECS vs Amazon EKS
 

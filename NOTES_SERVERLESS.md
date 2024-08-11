@@ -203,7 +203,7 @@ Lambda functions provide access only to a single VPC. If multiple subnets are sp
 
 Lambda functions configured to access resources in a particular VPC will not have access to the Internet as a default configuration. If you need access to the internet, you will need to create a `NAT` in your VPC to forward this traffic and configure your security group to allow this outbound traffic.
 
-> Exam tip: If a Lambda function needs to connect to a VPC and needs Internet access, make sure you connect to a private subnet that has a route to a NAT Gateway (the NAT Gateway will be in a public subnet).
+> **Exam tip:** If a Lambda function needs to connect to a VPC and needs Internet access, make sure you connect to a private subnet that has a route to a NAT Gateway (the NAT Gateway will be in a public subnet).
 
 Lambda uses your function’s permissions to create and manage network interfaces. To connect to a VPC, your function’s execution role must have the following permissions:
 
