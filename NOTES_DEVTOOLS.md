@@ -61,7 +61,7 @@ Need to choose the compute platform:
 - `AWS Lambda` - Supports canary, linear, or all-at-once configuration deployment type.
 - `Amazon ECS` - Supports canary, linear, or all-at-once configuration deployment type.
 
-The application specification file (`AppSpec` file) is a YAML-formatted, or JSON-formatted file used by CodeDeploy to manage a deployment. Example:
+The application specification file (`AppSpec.yml` file) is a YAML-formatted, or JSON-formatted file used by CodeDeploy to manage a deployment. Example:
 
 ```yaml
 version: 0.0
@@ -92,7 +92,7 @@ hooks
     runas: root
 ```
 
-Here is an example of an AppSpec file written in YAML for deploying an **Amazon ECS service**:
+Here is an example of an `AppSpec.yml` file written in YAML for deploying an **Amazon ECS service**:
 
 ```yaml
 version: 0.0
@@ -121,7 +121,7 @@ Hooks:
   - AfterAllowTraffic: "LambdaFunctionToValidateAfterAllowingProductionTraffic"
 ```
 
-The format of the AppSpec.yaml file for use with **AWS Lambda** is as follows:
+The format of the `AppSpec.yaml` file for use with **AWS Lambda** is as follows:
 
 ```yaml
 version: 0.0
@@ -147,7 +147,7 @@ Hooks:
 
 > All AWS Lambda and Amazon ECS deployments are `blue/green`. An EC2/On-Premises deployment can be `in-place or blue/green`.
 
-> The hooks in `AppSpec.yaml` file are different for each type of compute platform.
+> The hooks in `AppSpec.yml` file are different for each type of compute platform.
 
 ## **AWS CodePipeline**
 AWS CodePipeline is a fully managed continuous delivery service that helps you automate your release pipelines for fast and reliable application and infrastructure updates. CodePipeline automates the build, test, and deploy phases of your release process every time there is a code change, based on the release model you define.
