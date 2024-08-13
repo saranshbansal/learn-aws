@@ -1,35 +1,70 @@
 # Amazon ECS
-The `Amazon Elastic Container Service (ECS)` is a highly scalable, high performance container management service that supports Docker containers.
-
-Amazon ECS allows you to easily run applications on a managed cluster of Amazon EC2 instances.
-
-Amazon ECS eliminates the need for you to install, operate, and scale your own cluster management infrastructure.
-
-Using API calls you can launch and stop container-enabled applications, query the complete state of clusters, and access features like `security groups`, `Elastic Load Balancing`, `EBS volumes` and `IAM roles`.
+Amazon Elastic Container Service (Amazon ECS) is a fully managed container orchestration service that helps you easily deploy, manage, and scale containerized applications. As a fully managed service, Amazon ECS comes with AWS configuration and operational best practices built-in. It's integrated with both AWS and third-party tools, such as Amazon Elastic Container Registry and Docker. This integration makes it easier for teams to focus on building the applications, not the environment. You can run and scale your container workloads across AWS Regions in the cloud, and on-premises, without the complexity of managing a control plane.
 
 Amazon ECS can be used to schedule the placement of containers across clusters based on resource needs and availability requirements.
 
 There is no additional charge for Amazon ECS. You pay for:
 
-- Resources created with the EC2 Launch Type (e.g. EC2 instances and EBS volumes).
-- The number and configuration of tasks you run for the Fargate Launch Type.
+- Resources created with the `EC2 Launch Type` (e.g. EC2 instances and EBS volumes).
+- The number and configuration of tasks you run for the `Fargate Launch Type`.
 
 It is possible to use Elastic Beanstalk to handle the provisioning of an Amazon ECS cluster, load balancing, auto-scaling, monitoring, and placing your containers across your cluster. Alternatively use ECS directly for more fine-grained control for customer application architectures.
 
-It is possible to associate a service on Amazon ECS to an Application Load Balancer (ALB) for the Elastic Load Balancing (ELB) service.
+ECS (and Lambda) does not support `In-Place` Deployment type.
 
 ## ECS Terminology
 The following table provides an overview of some of the terminology used with Amazon ECS:
 
-| Amazon ECS Term    | Definition                                                                              |
-| ------------------ | --------------------------------------------------------------------------------------- |
-| Cluster            | Logical Grouping of EC2 Instances                                                       |
-| Container Instance | EC2 instance running the ECS agent                                                      |
-| Task Definition    | Blueprint that describes how a docker container should launch                           |
-| Task               | A running container using settings in a Task Definition                                 |
-| Service            | Defines long running tasks – can control task count with Auto Scaling and attach an ELB |
+| Amazon ECS Term    | Definition                                                                                                             |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| Cluster            | Logical Grouping of EC2 Instances                                                                                      |
+| Container Instance | EC2 instance running the ECS agent                                                                                     |
+| Image              | Containers are created from a read-only template that's called an image. Images are typically built from a Dockerfile. |
+| DockerFile         | A Dockerfile is a plaintext file that contains the instructions for building a container.                              |
+| Task Definition    | Blueprint that describes how a docker container should launch                                                          |
+| Task               | A running container using settings in a Task Definition                                                                |
+| Service            | Defines long running tasks – can control task count with Auto Scaling and attach an ELB                                |
 
-## ECS Launch Types
+## ECS Components
+
+There are three layers in Amazon ECS:
+
+### **Capacity** - The infrastructure where your containers run
+
+- **Amazon EC2 instances in the AWS cloud**: You choose the instance type, the number of instances, and manage the capacity.
+
+- **Serverless (AWS Fargate (Fargate)) in the AWS cloud**: Fargate is a serverless, pay-as-you-go compute engine. With Fargate you don't need to manage servers, handle capacity planning, or isolate container workloads for security.
+
+- **On-premises virtual machines (VM) or servers**: Amazon ECS Anywhere provides support for registering an external instance such as an on-premises server or virtual machine (VM), to your Amazon ECS cluster.
+
+### **Controller**
+Deploy and manage your applications that run on the containers
+
+### **Provisioning**
+The tools that you can use to interface with the scheduler to deploy and manage your applications and containers
+
+![alt text](images/image-ecs.png)
+
+## ECS Clusters
+ECS Clusters are a logical grouping of container instances that you can place tasks on.
+
+A default cluster is created but you can then create multiple clusters to separate resources.
+
+ECS allows the definition of a specified number (desired count) of tasks to run in the cluster.
+
+Clusters can contain tasks using the Fargate and EC2 launch type.
+
+For clusters with the EC2 launch type clusters can contain different container instance types.
+
+Each container instance may only be part of one cluster at a time.
+
+“Services” provide auto-scaling functions for ECS.
+
+Clusters are region specific.
+
+You can create IAM policies for your clusters to allow or restrict users’ access to specific clusters.
+
+### ECS Cluster - Launch Types
 
 An Amazon ECS launch type determines the type of infrastructure on which your tasks and services are hosted.
 
@@ -55,29 +90,10 @@ The following diagram shows the two launch types and summarizes some key differe
 
 ![alt text](images/image-launch_type_ec2_fargate.png)
 
-## ECS Clusters
-ECS Clusters are a logical grouping of container instances that you can place tasks on.
-
-A default cluster is created but you can then create multiple clusters to separate resources.
-
-ECS allows the definition of a specified number (desired count) of tasks to run in the cluster.
-
-Clusters can contain tasks using the Fargate and EC2 launch type.
-
-For clusters with the EC2 launch type clusters can contain different container instance types.
-
-Each container instance may only be part of one cluster at a time.
-
-“Services” provide auto-scaling functions for ECS.
-
-Clusters are region specific.
-
-You can create IAM policies for your clusters to allow or restrict users’ access to specific clusters.
-
 ## Images
-Containers are created from a read-only template called an image which has the instructions for creating a Docker container.
+Containers are created from a read-only template called an `image` which has the instructions for creating a Docker container.
 
-Images are built from a Dockerfile.
+Images are built from a `Dockerfile`.
 
 Only Docker containers are currently supported.
 
@@ -91,14 +107,10 @@ ECR supports private Docker repositories with resource-based permissions using A
 
 Developers can use the Docker CLI to push, pull and manage images.
 
-## Tasks and Task Definitions
-A task definition is required to run Docker containers in Amazon ECS.
-
-A task definition is a text file in `JSON` format that describes one or more containers, up to a `maximum of 10`.
+## ECS Tasks
+A running container is called a `task`. A **task definition** is required to run Docker containers in Amazon ECS. A task definition is a text file in `JSON` format that describes one or more containers, up to a `maximum of 10`.
 
 Task definitions use Docker images to launch containers.
-
-You specify the number of tasks to run (i.e. the number of containers).
 
 Some of the parameters you can specify in a task definition include:
 
@@ -113,9 +125,99 @@ Some of the parameters you can specify in a task definition include:
 - Data volumes that should be used with the containers in the task.
 - IAM role the task should use for permissions.
 
-You can use Amazon ECS Run task to run one or more tasks once.
+You can use Amazon ECS `Run task` to run one or more tasks once.
 
-## ECS Container Agent
+### Task LifeCycle
+When a task is started, either manually or as part of a service, it can pass through several states before it finishes on its own or is stopped manually.
+
+The flow chart below shows the task lifecycle flow.
+
+![alt text](images/image-ecs_task.png)
+
+`PROVISIONING`
+
+Amazon ECS has to perform additional steps before the task is launched. For example, for tasks that use the awsvpc network mode, the elastic network interface needs to be provisioned.
+
+`PENDING`
+
+This is a transition state where Amazon ECS is waiting on the container agent to take further action. A task stays in the pending state until there are available resources for the task.
+
+`ACTIVATING`
+
+This is a transition state where Amazon ECS has to perform additional steps after the task is launched but before the task can transition to the RUNNING state. For example, for tasks that have service discovery configured, the service discovery resources must be created. For tasks that are part of a service that's configured to use multiple Elastic Load Balancing target groups, the target group registration occurs during this state.
+
+`RUNNING`
+
+The task is successfully running.
+
+`DEACTIVATING`
+
+This is a transition state where Amazon ECS has to perform additional steps before the task is stopped. For example, for tasks that are part of a service that's configured to use multiple Elastic Load Balancing target groups, the target group deregistration occurs during this state.
+
+`STOPPING`
+
+This is a transition state where Amazon ECS is waiting on the container agent to take further action.
+
+For Linux containers, the container agent will send the SIGTERM signal to notify the application needs to finish and shut down, and then send a SIGKILL after waiting the StopTimeout duration set in the task definition.
+
+`DEPROVISIONING`
+
+Amazon ECS has to perform additional steps after the task has stopped but before the task transitions to the STOPPED state. For example, for tasks that use the awsvpc network mode, the elastic network interface needs to be detached and deleted.
+
+`STOPPED`
+
+The task has been successfully stopped.
+
+If your task stopped because of an error, see Viewing Amazon ECS stopped task errors.
+
+`DELETED`
+
+This is a transition state when a task stops. This state is not displayed in the console, but is displayed in describe-tasks.
+
+### ECS Task placement
+
+>> **Very important for exam**
+
+You can use task placement to configure Amazon ECS to place your tasks on container instances that meet certain criteria, for example an Availability Zone or instance type.
+
+The following are task placement components:
+
+- **Task placement strategy** - The algorithm for selecting container instances for task placement or tasks for termination. For example, Amazon ECS can select container instances at random, or it can select container instances such that tasks are distributed evenly across a group of instances.
+- **Task group** - A group of related tasks, for example database tasks.
+- **Task placement constraint** - These are rules that must be met in order to place a task on a container instance. If the constraint is not met, the task is not placed and remains in the PENDING state. For example, you can use a constraint to place tasks only on a particular instance type.
+
+Amazon ECS has different algorithms for the launch types.
+
+#### EC2 Launch Type Task Placement
+
+For tasks that use the EC2 launch type, Amazon ECS must determine where to place the task based on the requirements specified in the task definition, such as CPU and memory. Similarly, when you scale down the task count, Amazon ECS must determine which tasks to terminate. You can apply task placement strategies and constraints to customize how Amazon ECS places and terminates tasks.
+
+You specify task placement strategies in the service definition, or task definition using the placementStrategy parameter.
+
+```json
+"placementStrategy": [
+    {
+        "field": "The field to apply the placement strategy against",
+        "type": "The placement strategy to use"
+    }
+]
+```
+
+The following table describes the available types and fields. 
+  
+| type    | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Valid field values                                                                                                                                                            |
+| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| binpack | Tasks are placed on container instances so as to leave the least amount of unused CPU or memory. This strategy minimizes the number of container instances in use. <br>  <br> When this strategy is used and a scale-in action is taken, Amazon ECS terminates tasks. It does this based on the amount of resources that are left on the container instance after the task is terminated. The container instance that has the most available resources left after task termination has that task terminated.         | cpu & memory                                                                                                                                                                  |
+| random  | Tasks are placed randomly.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Not used                                                                                                                                                                      |
+| spread  | Tasks are placed evenly based on the specified value. <br>  <br> Service tasks are spread based on the tasks from that service. Standalone tasks are spread based on the tasks from the same task group. For more information about task groups, see Group related Amazon ECS tasks. <br> <br>  When the spread strategy is used and a scale-in action is taken, Amazon ECS selects tasks to terminate that maintain a balance across Availability Zones. Within an Availability Zone, tasks are selected at random. | instanceId (or host, which has the same effect) <br>  <br> any platform or custom attribute that's applied to a container instance, such as `attribute:ecs.availability-zone` |
+
+>> Note: You can create a task placement strategy that uses multiple strategies by creating arrays of strategies in the order that you want them performed. For example, if you want to spread tasks across Availability Zones and then bin pack tasks based on memory within each Availability Zone, specify the Availability Zone strategy followed by the memory strategy.
+
+#### Fargate Launch Type Task Placement
+
+Task placement strategies and constraints aren't supported for tasks using the Fargate launch type. Fargate will try its best to spread tasks across accessible Availability Zones. If the capacity provider includes both Fargate and Fargate Spot, the spread behavior is independent for each capacity provider.
+
+# ECS Container Agent
 The ECS container agent allows container instances to connect to the cluster.
 
 The container agent runs on each infrastructure resource on an ECS cluster.
