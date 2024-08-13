@@ -303,3 +303,16 @@ Provides detailed logs of each step execution.
 - **Execution event history** – AWS Step Functions creates a detailed event log for every execution, so when things do go wrong, you can quickly identify not only where, but why. All of the execution history is available visually and programmatically to quickly troubleshoot and remediate failures.
 - **High availability** – AWS Step Functions has built-in fault tolerance. Step Functions maintains service capacity across multiple Availability Zones in each region to help protect application workflows against individual machine or data center facility failures. There are no maintenance windows or scheduled downtimes.
 - **Administrative security** – AWS Step Functions is integrated with AWS Identity and Access Management (IAM). IAM policies can be used to control access to the Step Functions APIs.
+
+## Step Functions vs AWS SWF
+
+| Feature             | AWS Step Functions                | Amazon SWF                                                  |
+| ------------------- | --------------------------------- | ----------------------------------------------------------- |
+| Workflow Definition | JSON-based Amazon States Language | Code (deciders)                                             |
+| Complexity          | Simpler, more developer-friendly  | More complex, requires more coding effort                   |
+| Execution Model     | Serverless, automatic scaling     | Requires managing and scaling decider and worker components |
+| Task Coordination   | Through state machine definition  | Through decider logic                                       |
+| Pricing Model       | Based on state transitions        | Based on workflow/activity executions and duration          |
+| External Signals    | Not supported                     | Supported                                                   |
+| Child Workflows     | Not supported                     | Supported, can return results to parent workflow            |
+| Recommended For     | New applications                  | Applications requiring external signals or child workflows  |
