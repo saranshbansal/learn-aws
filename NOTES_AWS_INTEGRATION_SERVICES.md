@@ -266,16 +266,18 @@ SNS is suited for simpler pub/sub messaging scenarios, providing a straightforwa
 In essence, use EventBridge for complex event-driven architectures and routing, and SNS for straightforward pub/sub messaging and notifications.
 
 # AWS Step Functions
+With AWS Step Functions, you can create visual workflows, also called *state machines*, to build distributed applications, automate processes, orchestrate microservices, and create data and machine learning pipelines.
 
-AWS Step Functions can be used to coordinate the components of distributed applications as a series of steps in a visual workflow.
+Step Functions is based on *state machines* and *tasks*. In Step Functions, state machines are called *workflows*, which are a series of event-driven steps. Each step in a workflow is called a *state*. 
+For example, a Task *state* represents a unit of work that another AWS service performs, such as calling another AWS service or API. Instances of running workflows performing tasks are called *executions* in Step Functions
 
-You can quickly build and run state machines to execute the steps of your application in a reliable and scalable fashion.
-
-How it works:
+## How it works
 
 - Define the steps of your workflow in the JSON-based Amazon States Language. The visual console automatically graphs each step in the order of execution.
 - Start an execution to visualize and verify the steps of your application are operating as intended. The console highlights the real-time status of each step and provides a detailed history of every execution.
 - AWS Step Functions operates and scales the steps of your application and underlying compute for you to help ensure your application executes reliably under increasing demand.
+
+![alt text](images/image-step_function.png)
 
 It is a managed workflow and orchestration platform.
 
@@ -293,7 +295,7 @@ Provides a visual interface which describes flow and real-time status.
 
 Provides detailed logs of each step execution.
 
-AWS Step Functions features:
+### AWS Step Functions features
 
 - **Built-in error handling** – AWS Step Functions tracks the state of each step, so you can automatically retry failed or timed-out tasks, catch specific errors, and recover gracefully, whether the task takes seconds or months to complete.
 - **Automatic Scaling** – AWS Step Functions automatically scales the operations and underlying compute to run the steps of your application for you in response to changing workloads. Step Functions scales automatically to help ensure the performance of your application workflow remains consistently high as the frequency of requests increases.
