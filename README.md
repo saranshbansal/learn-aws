@@ -90,9 +90,13 @@ I am an authority in the product, with deep technical understanding who can desi
 
 [AWS CloudFormation](NOTES_AWS_CLOUDFORMATION.md)
 
-[Compute - EBS, EC2 Auto-Scaling](NOTES_COMPUTE_EBS_AUTOSCALING.md)
-
 [AWS Authentication & Authorization - IAM & Cognito](NOTES_IAM_COGNITO.md)
+
+[Compute Part 1 - EBS, EC2 Auto-Scaling](NOTES_COMPUTE_EBS_AUTOSCALING.md)
+
+[Compute Part 2 - Containerization - ECS & EKS](NOTES_COMPUTE_ECS_EKS.md)
+
+[Compute Part 3 - Serverless - Lambda, AWS SAM](NOTES_SERVERLESS.md)
 
 [AWS - Account Management](NOTES_ACCOUNT.md)
 
@@ -100,19 +104,17 @@ I am an authority in the product, with deep technical understanding who can desi
 
 [Storage - S3, RDS, Aurora, DynamoDB](NOTES_STORAGE.md)
 
-[Developer Tools](NOTES_DEVTOOLS.md)
-
-[Serverless - Lambda, AWS SAM](NOTES_SERVERLESS.md)
+[Developer Tools - CodeCommit, CodeDeploy, CodePipeline](NOTES_DEVTOOLS.md)
 
 [Monitoring - CloudWatch & CloudTrail](NOTES_MONITORING.md)
-
-[Containerization - ECS & EKS](NOTES_CONTAINERISATION.md)
 
 [Content Delivery - DNS](NOTES_CONTENT_DELIVERY.md)
 
 [AWS API Gateway](NOTES_API_GATEWAY.md)
 
 [AWS Integrated Services - SQS, SNS, Step Functions, EventBridge, SWF](NOTES_AWS_INTEGRATION_SERVICES.md)
+
+[AWS Kinesis](NOTES_AMAZON_KINESIS.md)
 
 # AWS Exam Learning Resources
 

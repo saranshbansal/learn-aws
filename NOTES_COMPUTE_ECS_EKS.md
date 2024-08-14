@@ -217,7 +217,7 @@ The following table describes the available types and fields.
 
 Task placement strategies and constraints aren't supported for tasks using the Fargate launch type. Fargate will try its best to spread tasks across accessible Availability Zones. If the capacity provider includes both Fargate and Fargate Spot, the spread behavior is independent for each capacity provider.
 
-# ECS Container Agent
+## ECS Container Agent
 The ECS container agent allows container instances to connect to the cluster.
 
 The container agent runs on each infrastructure resource on an ECS cluster.
@@ -228,7 +228,7 @@ Linux and Windows based.
 
 For non-AWS Linux instances to be used on AWS you must manually install the ECS container agent.
 
-# Amazon Elastic Container Registry (ECR)
+## Amazon Elastic Container Registry (ECR)
 Amazon Elastic Container Registry (ECR) is a fully managed Docker container registry that makes it easy for developers to store, manage, and deploy Docker container images.
 
 Amazon ECR is integrated with Amazon Elastic Container Service (ECS).
@@ -258,7 +258,7 @@ Pull the image using the docker pull command. The image name format should be re
 
 `docker pull aws_account_id.dkr.ecr.region.amazonaws.com/my-web-app:e9ae3c220b23`
 
-# Security with ECS
+#@ Security with ECS
 Your Amazon ECS `tasks` can have an `IAM role` associated with them. The permissions granted in the IAM role are assumed by the containers running in the task. The following explain the benefits of using IAM roles with your tasks.
 
 • `Credential Isolation`: A container can only retrieve credentials for the IAM role that is defined in the task definition to which it belongs; a container never has access to credentials that are intended for another container that belongs to another task.
@@ -272,7 +272,7 @@ Your Amazon ECS `tasks` can have an `IAM role` associated with them. The permiss
 
 - Access keys are not a secure way of providing authentication. It is better to use IAM roles that obtain temporary security permissions using the `AWS STS` service.
 
-# Auto Scaling in ECS
+## Auto Scaling in ECS
 Amazon EC2 Auto Scaling helps you maintain application availability and allows you to automatically add or remove EC2 instances according to conditions you define. You can use the fleet management features of EC2 Auto Scaling to maintain the health and availability of your fleet.
 
 You can also use the dynamic and predictive scaling features of EC2 Auto Scaling to add or remove EC2 instances. Dynamic scaling responds to changing demand and predictive scaling automatically schedules the right number of EC2 instances based on predicted demand. Dynamic scaling and predictive scaling can be used together to scale faster.
