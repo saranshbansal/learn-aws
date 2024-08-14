@@ -313,6 +313,8 @@ DynamoDB allocates additional partitions to a table in the following situations:
 - If you increase the table’s provisioned throughput settings beyond what the existing partitions can support.
 - If an existing partition fills to capacity and more storage space is required.
 
+>> Note: Even if you have sufficient RCUs, there is still chances of throttling if the data is not partitioned evenly.
+
 ### Best practices for partition keys
 
 - Use high-cardinality attributes – e.g. e-mailid, employee_no, customerid, sessionid, orderid, and so on.
@@ -373,6 +375,8 @@ A `GSI` in DynamoDB is a separate data structure that allows you to query the ta
 
 GSIs enable you to perform queries that wouldn't be efficient using only the primary key, such as querying by different attributes or sorting items differently.
 
+>> Note: GSI can have its own throughput which can be different from base table throughput.
+
 #### Key Features of GSI
 
 - **Different Partition and Sort Keys:** Each GSI has its own partition key and optional sort key, distinct from the table's primary key.
@@ -389,7 +393,7 @@ GSIs enable you to perform queries that wouldn't be efficient using only the pri
 
 - **Cost:** GSIs may incur additional costs in terms of storage and read/write capacity units.
 - **Limitations:** Each table can have up to `20 GSIs` (by default), and the attributes chosen as GSI keys must exist in the table.
-- It is essential to ensure the GSI has sufficient `WCUs` (typically, at least as many as the primary table). If writes are throttled on the GSI, the main table will be throttled (even if there’s enough WCUs on the main table). 
+- It is essential to ensure the GSI has sufficient `WCUs` (typically, at least as many as the primary table). If writes are throttled on the GSI, the main table will be throttled (even if there’s enough WCUs on the main table).
 
 ### Local Secondary Indexes (LSI)
 An LSI is similar to a GSI but with some key differences:
