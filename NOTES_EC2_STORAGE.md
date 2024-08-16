@@ -14,7 +14,7 @@
       - [Hard Disk Drives (HDD)](#hard-disk-drives-hdd)
   - [EBS Multi-Attach - io1/io2 family](#ebs-multi-attach---io1io2-family)
   - [EFS: Elastic File System](#efs-elastic-file-system)
-    - [EFS - Performance & Storage Classes](#efs---performance--storage-classes)
+    - [EFS - Performance \& Storage Classes](#efs---performance--storage-classes)
     - [EFS - Storage Classes](#efs---storage-classes)
     - [EBS vs EFS - Elastic Block Storage](#ebs-vs-efs---elastic-block-storage)
     - [EBS vs EFS - Elastic File System](#ebs-vs-efs---elastic-file-system)
@@ -27,12 +27,6 @@
   - [AMI Overview](#ami-overview)
     - [AMI Process (from an EC2 instance)](#ami-process-from-an-ec2-instance)
   - [EC2 Image Builder](#ec2-image-builder)
-
-- EBS: Elastic Block Store, Volume is a network drive you can attach to your instances while they run
-- EFS: network file system, can be attached to 100s of instances in a region
-- EFS-IA: cost-optimized storage class for infrequent accessed files
-- FSx for Windows: Network File System for Windows servers
-- FSx for Lustre: High Performance Computing Linux file system
 
 ## EBS Volumes
 
@@ -274,7 +268,3 @@
 - => Automate the creation, maintain, validate and test EC2 AMIs
 - Can be run on a schedule (weekly, whenever packages are updated, etc…)
 - Free service (only pay for the underlying resources)
-
-* * *
-
-[👈 EC2: Virtual Machines](./ec2.md)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[Home](../README.md)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[Elastic Load Balancing & Auto Scaling Groups 👉](./elb_asg.md)
