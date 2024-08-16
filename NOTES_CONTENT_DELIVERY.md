@@ -175,7 +175,7 @@ The following diagram depicts an Amazon Route 53 Weighted routing policy configu
 - **Except for Alias records,TTL is mandatory for each DNS record**
 
 
-### Route 53 - Health Checks
+## Route 53 - Health Checks
 
 - HTTP Health Checks are only for **public resources**
 - Health Check => Automated DNS Failover:
@@ -211,39 +211,6 @@ The following diagram depicts an Amazon Route 53 Weighted routing policy configu
 - You can create a **CloudWatch Metric** and associate a **CloudWatch Alarm**, then create a Health Check that checks the alarm itself
 
 ![Private Hosted](../images/private_hosted.png)
-
-### Routing Policies - Failover (Active-Passive)
-
-- A failover routing policy is a routing policy used to route traffic to a primary resource, such as an Amazon Elastic Compute Cloud (EC2) instance, while monitoring a secondary resource as a backup.
-- If the primary resource becomes unavailable, traffic is automatically routed to the secondary resource.
-- This type of routing policy is useful for ensuring high availability of your application by minimizing the impact of a failure of the primary resource.
-- AWS Route 53 service supports failover routing policy, where you can configure a primary resource and a secondary resource and Route 53 will monitor the health of both the resources and route traffic to the healthy resource.
-- This can be done by creating a health check for each resource, and then configuring the routing policy to route traffic to the primary resource as long as it is healthy, and to the secondary resource if the primary resource becomes unhealthy.
-
-![Failover](../images/failover.png)
-
-### Routing Policies - Geolocation
-
-- Different from Latency-based!
-- **This routing is based on user location**
-- Specify location by Continent, Country or by US State (if there’s overlapping, most precise location selected)
-- Should create a **"Default"** record (in case there’s no match on location)
-- Use cases: website localization, restrict content distribution, load balancing, ...
-- Can be associated with Health Checks
-
-![Geolocation](../images/geolocation.png)
-
-### Routing Policies - Geoproximity
-
-- Route traffic to your resources based on the geographic location of users and resources
-- Ability to **shift more traffic to resources based** on the defined bias
-- To change the size of the geographic region, specify bias values:
-  - To expand (1 to 99) – more traffic to the resource
-  - To shrink (-1 to -99) – less traffic to the resource
-- Resources can be:
-  - AWS resources (specify AWS region)
-  - Non-AWS resources (specify Latitude and Longitude)
-- You must use Route 53 **Traffic Flow** to use this feature
 
 ## Route 53 - Traffic flow
 
