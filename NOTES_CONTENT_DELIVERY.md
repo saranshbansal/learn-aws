@@ -17,8 +17,6 @@
 - Name Server: resolves DNS queries (Authoritative or Non-Authoritative) • Top Level Domain (TLD): .com, .us, .in, .gov, .org, ...
 - Second Level Domain (SLD): amazon.com, google.com,...
 
-![domain](../images/domain.png)
-
 ## How DNS Works
 
 - DNS is a system used to map domain names (such as www.example.com) to IP addresses (such as 9.10.11.12).
@@ -34,8 +32,6 @@
   - **TLD DNS Server**: TLD servers are responsible for managing the information for the specific TLDs they are responsible for. For example, a .com TLD server will have information about all the domain names that end in .com. When a request is made to a TLD server, it responds with the IP address of the appropriate second-level domain (SLD) server.
   - **SLD DNS Server**: SLD servers are the final step in the DNS resolution process. They contain information about specific domain names and their associated IP addresses. When a request is made to an SLD server, it responds with the IP address associated with the domain name.
 - Each step of the DNS resolution process is performed in order, starting with the root server and ending with the SLD server. This allows for efficient and accurate resolution of domain names to IP addresses, even as new domain names are added or existing ones change IP addresses.
-
-!['DNS Works'](../images/how_dns_works.png)
 
 # Amazon Route 53
 Amazon Route 53 is a highly available and scalable `Domain Name System (DNS)` web service designed to provide highly reliable and cost-effective routing of end users to internet applications.
@@ -71,6 +67,13 @@ The Alias record is a Route 53 specific record type.
 You can use Alias records to map custom domain names (such as api.example.com) both to API Gateway custom regional APIs and edge-optimized APIs and to Amazon VPC interface endpoints.
 
 An alias record can only point to a `CloudFront distribution, Elastic Beanstalk environment, ELB, S3 bucket as a static website`, or to `another record in the same hosted zone` that you’re creating the alias record in.
+
+- Maps a hostname to an AWS resource
+- An extension to DNS functionality
+- Automatically recognizes changes in the resource’s IP addresses
+- Unlike CNAME, it can be used for the top node of a DNS namespace (Zone Apex), e.g.: example.com Amazon Route 53
+- Alias Record is always of type A/AAAA for AWS resources (IPv4 / IPv6)
+- **You can’t set the TTL**
 
 ### CNAME vs Alias
 
@@ -171,27 +174,6 @@ The following diagram depicts an Amazon Route 53 Weighted routing policy configu
   - Easy to change records
 - **Except for Alias records,TTL is mandatory for each DNS record**
 
-
-### Route 53 - Alias Records
-
-- Maps a hostname to an AWS resource
-- An extension to DNS functionality
-- Automatically recognizes changes in the resource’s IP addresses
-- Unlike CNAME, it can be used for the top node of a DNS namespace (Zone Apex), e.g.: example.com Amazon Route 53
-- Alias Record is always of type A/AAAA for AWS resources (IPv4 / IPv6)
-- **You can’t set the TTL**
-
-### Route 53 - Alias Records Targets
-
-- Elastic Load Balancers
-- CloudFront Distributions
-- API Gateway
-- Elastic Beanstalk environments
-- S3 Websites
-- VPC Interface Endpoints
-- Global Accelerator accelerator
-- Route 53 record in the same hosted zone
-- **You cannot set an ALIAS record for an EC2 DNS name**
 
 ### Route 53 - Health Checks
 
