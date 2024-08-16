@@ -82,7 +82,7 @@ I am an authority in the product, with deep technical understanding who can desi
 
 ### AWS Cheatsheets
 
-[Cheat Sheets](CHEATSHEETS.md)
+[Cheat Sheets](resources/CHEATSHEETS.md)
 
 ### AWS Notes
 
