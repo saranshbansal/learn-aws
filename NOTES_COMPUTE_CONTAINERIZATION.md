@@ -312,23 +312,32 @@ When you associate an ECS Capacity Provider with an ASG and add the Capacity Pro
 # Amazon EKS
 The Amazon Elastic Kubernetes Service (Amazon EKS) is a managed service for running Kubernetes on AWS and on-premises.
 
-Amazon EKS can run on Amazon EC2 or AWS Fargate.
-
-Integrates with Application Load Balancers, AWS IAM for RBA and Amazon VPC.
-
-Amazon EKS provides a scalable and highly available Kubernetes control plane running across multiple AWS Availability Zones (AZs).
-
-Amazon EKS automatically manages availability and scalability of Kubernetes API servers and etcd persistence layer.
-
-Amazon EKS runs the Kubernetes control plane across three AZs to ensure high availability, and automatically detects and replaces unhealthy control plane nodes.
+- Amazon EKS can run on **Amazon EC2** or **AWS Fargate**.
+- Integrates with Application Load Balancers, AWS IAM for RBA and Amazon VPC.
+- Kubernetes is cloud-agnostic (can be used in any cloud – Azure, GCP...)
+- For multiple regions, deploy one EKS cluster per region
+- Amazon EKS provides a scalable and highly available Kubernetes control plane running across multiple AWS Availability Zones (AZs) and automatically detects and replaces unhealthy control plane nodes.
 
 > **Exam tip:** The principle use case is when organizations need a consistent control plane for managing containers across hybrid clouds and multicloud environments.
 
+![alt text](images/image-eks.png)
+
+## Amazon EKS – Node Types
+- **Managed Node Groups**
+  - Creates and manages Nodes (EC2 instances) for you
+  - Nodes are part of an ASG managed by EKS • Supports On-Demand or Spot Instances
+- **Self-Managed Nodes**
+  - Nodes created by you and registered to the EKS cluster and managed by an ASG
+  - You can use prebuilt AMI - Amazon EKS Optimized AMI • Supports On-Demand or Spot Instances
+- **AWS Fargate**
+  - No maintenance required; no nodes managed
+
+## Amazon EKS – Data Volumes
+- Need to specify `StorageClass` manifest on your EKS cluster
+- Leverages a `Container Storage Interface (CSI)` compliant driver
+- Support for: Amazon EBS, Amazon EFS (works with Fargate), Amazon FSx for Lustre, and Amazon FSx for NetApp ONTAP
+
 # Amazon ECS vs Amazon EKS
-
-Amazon also provide the `Elastic Container Service for Kubernetes (Amazon EKS)` which can be used to deploy, manage, and scale containerized applications using Kubernetes on AWS.
-
-The table below describes some of the differences between these services to help you understand when you might choose one over the other:
 
 | Amazon ECS                                                                                       | Amazon EKS                                                                                           |
 | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
@@ -340,7 +349,7 @@ The table below describes some of the differences between these services to help
 | Limited extensibility                                                                            | Extensible via a wide variety of third-party and community add-ons.                                  |
 
 # AWS Copilot
-AWS Copilot is a command line interface (CLI) tool that simplifies the process of building, releasing, and operating containerized applications on Amazon Elastic Container Service (ECS). It is relevant for the AWS Certified Developer - Associate (DVA-C02) exam, as it helps developers deploy and manage applications on ECS, which is a key service covered in the exam. [\[1\]](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-a-clustered-application-to-amazon-ecs-by-using-aws-copilot.html)
+AWS Copilot is a command line interface (CLI) tool that simplifies the process of building, releasing and operating containerized applications on Amazon Elastic Container Service (ECS).
 
 Here are some key points about AWS Copilot from the DVA-C02 exam perspective:
 
@@ -363,8 +372,3 @@ Here are some key points about AWS Copilot from the DVA-C02 exam per
 9.  **Compatibility** : Copilot is compatible with various programming languages and frameworks, as long as the application can be containerized using Docker.
     
 10.  **Best Practices** : Copilot follows AWS best practices for deploying and operating containerized applications on ECS, which is important for the DVA-C02 exam.
-    
-
-To prepare for the DVA-C02 exam, it is recommended to have hands-on experience with AWS Copilot, as well as a solid understanding of Amazon ECS, Docker, and related services like AWS CodePipeline, CodeBuild, and CloudFormation. [\[3\]](https://repost.aws/questions/QUpNo15-WeS-mH8zU_nP0EXA/aws-developer-associate-dva-c02-practice-tests-dumps-pdf-2024)
-
-Sources[\[1\] Deploy a clustered application to Amazon ECS by using AWS Copilot - AWS Prescriptive Guidance](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-a-clustered-application-to-amazon-ecs-by-using-aws-copilot.html)[docs.aws.amazon.comprescriptive-guidancelatest**deploy-a-clustered-application-to-amazon-ecs-by-using-aws-copilot.html**](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-a-clustered-application-to-amazon-ecs-by-using-aws-copilot.html)[\[2\] Creating Amazon ECS resources using the AWS Copilot command line interface - Amazon Elastic Container Service](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Copilot.html)[docs.aws.amazon.comAmazonECSlatest**AWS\_Copilot.html**](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Copilot.html)[\[3\] AWS Developer Associate (DVA-C02) practice tests dumps pdf 2024? | AWS re:Post](https://repost.aws/questions/QUpNo15-WeS-mH8zU_nP0EXA/aws-developer-associate-dva-c02-practice-tests-dumps-pdf-2024)[repost.awsquestionsQUpNo15-WeS-mH8zU\_nP0EXA**aws-developer-associate-dva-c02-practice-tests-dumps-pdf-2024**](https://repost.aws/questions/QUpNo15-WeS-mH8zU_nP0EXA/aws-developer-associate-dva-c02-practice-tests-dumps-pdf-2024)
