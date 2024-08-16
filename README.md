@@ -86,33 +86,39 @@ I am an authority in the product, with deep technical understanding who can desi
 
 ### AWS Notes
 
-[AWS - VPC, Security Groups, NACLs](NOTES_AWS_VPC.md)
+[AWS - EC2](NOTES_EC2.md)
 
-[AWS CloudFormation](NOTES_AWS_CLOUDFORMATION.md)
+[AWS - EC2 Storage - EBS Volume, EFS](NOTES_EC2_STORAGE.md)
+
+[AWS - VPC, Security Groups, NACLs](NOTES_AWS_VPC.md)
 
 [AWS Authentication & Authorization - IAM & Cognito](NOTES_IAM_COGNITO.md)
 
-[Compute Part 1 - EBS, EC2 Auto-Scaling](NOTES_COMPUTE_EBS_AUTOSCALING.md)
+[Compute Part 1 - Elastic BeanStalk, EC2 Auto-Scaling](NOTES_COMPUTE_EBS_AUTOSCALING.md)
 
-[Compute Part 2 - Containerization - ECS & EKS](NOTES_COMPUTE_ECS_EKS.md)
+[Compute Part 2 - Containerization - ECS, EKS, Copilot](NOTES_COMPUTE_CONTAINERIZATION.md)
 
 [Compute Part 3 - Serverless - Lambda, AWS SAM](NOTES_SERVERLESS.md)
 
+[AWS CloudFormation](NOTES_AWS_CLOUDFORMATION.md)
+
+[Amazon CloudFront](NOTES_DNS_CLOUDFRONT.md)
+
 [AWS - Account Management](NOTES_ACCOUNT.md)
 
-[AWS - Secrets Manager, Certificate Manager & KMS](NOTES_AWS_SECURITY.md)
+[AWS - Secrets Manager, KMS, and Certificate Manager](NOTES_AWS_SECURITY.md)
 
-[Storage - S3, RDS, Aurora, DynamoDB](NOTES_STORAGE.md)
+[Databases - S3, RDS, Aurora, DynamoDB](NOTES_S3_AND_DATABASES.md)
 
 [Developer Tools - CodeCommit, CodeDeploy, CodePipeline](NOTES_DEVTOOLS.md)
 
 [Monitoring - CloudWatch & CloudTrail](NOTES_MONITORING.md)
 
-[Content Delivery - DNS](NOTES_CONTENT_DELIVERY.md)
+[AWS - DNS - Route 53](NOTES_CONTENT_DELIVERY.md)
 
 [AWS API Gateway](NOTES_API_GATEWAY.md)
 
-[AWS Integrated Services - SQS, SNS, Step Functions, EventBridge, SWF](NOTES_AWS_INTEGRATION_SERVICES.md)
+[AWS Integrated Services - SQS, SNS, EventBridge, Step Functions, SWF](NOTES_AWS_INTEGRATION_SERVICES.md)
 
 [AWS Kinesis](NOTES_AMAZON_KINESIS.md)
 
