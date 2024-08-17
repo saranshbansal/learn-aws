@@ -261,6 +261,7 @@ DB instances support vertical scaling by changing to a larger instance type with
 **Manual Snapshots:** In addition to automated backups, you can manually create DB Snapshots for additional backups or to retain backups for longer periods beyond the automated retention period.
 
 # Amazon Dynamo DB
+
 Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. It is a non-relational, key-value type of database. A key-value database stores data as a collection of key-value pairs in which a key serves as a unique identifier.
 
 Data is synchronously replicated across **3 facilities (`AZs`) in a region**.
@@ -512,3 +513,63 @@ In DynamoDB, a transactional read or write differs from a standard read or write
 - If the item requested is not in the cache (cache miss) then DAX performs an Eventually Consistent GetItem operation against DynamoDB
 - Retrieval of data from DAX reduces the read load on DynamoDB tables.
 - This may result in being able to reduce the provisioned read capacity on the table.
+
+# Amazon ElastiCache
+ElastiCache is a web service that makes it easy to deploy and run `Memcached` or `Redis` protocol-compliant server nodes in the cloud.
+
+- In-memory key/value store – not persistent in the traditional sense.
+- Best for scenarios where the DB load is based on `Online Analytics Processing (OLAP)` transactions.
+- ElastiCache can be used for storing session state.
+- Applications connect to ElastiCache clusters using endpoints. An endpoint is a node or cluster’s unique address.
+- ElastiCache EC2 nodes cannot be accessed from the Internet, nor can they be accessed by EC2 instances in other VPCs.
+- Cached information may include the results of I/O-intensive database queries or the results of computationally intensive calculations.
+- Can be **on-demand** or **reserved** instances too (but not **Spot** instances).
+- ElastiCache nodes are deployed in clusters and can span more than one subnet of the same subnet group.
+
+The following table describes a few typical use cases for ElastiCache:
+
+| Use Case                  | Benefit                                                                                                                                                                     |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Web session store         | In cases with load-balanced web servers, store web session information in Redis so if a server is lost, the session info is not lost, and another web server can pick it up |
+| Database caching          | Use Memcached in front of AWS RDS to cache popular queries to offload work from RDS and return results faster to users                                                      |
+| Leaderboards              | Use Redis to provide a live leaderboard for millions of users of your mobile app                                                                                            |
+| Streaming data dashboards | Provide a landing spot for streaming sensor data on the factory floor, providing live real-time dashboard displays                                                          |
+
+>> **Exam tip:** the key use cases for ElastiCache are offloading reads from a database and storing the results of computations and session state. Also, remember that ElastiCache is an in-memory database and it’s a managed service (so you can’t run it on EC2).
+
+## Types of ElastiCache
+
+There are two types of ElastiCache engine:
+
+- **Memcached** – simplest model, can run large nodes with multiple cores/threads, can be scaled in and out, can cache objects such as DBs.
+- **Redis** – complex model, supports encryption, master / slave replication, cross AZ (HA), automatic failover and backup/restore.
+
+The table below describes the requirements that would determine whether to use the Memcached or Redis engine:
+
+| Feature                         | Memcached                                                    | Redis (cluster mode disabled)                               | Redis (cluster mode enabled)                                |
+| ------------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| Data persistence                | No                                                           | Yes                                                         | Yes                                                         |
+| Data types                      | Simple                                                       | Complex                                                     | Complex                                                     |
+| Data partitioning               | Yes                                                          | No                                                          | Yes                                                         |
+| Encryption                      | No                                                           | Yes                                                         | Yes                                                         |
+| High availability (replication) | No                                                           | Yes                                                         | Yes                                                         |
+| Multi-AZ                        | Yes, place nodes in multiple AZs. No failover or replication | Yes, with auto-failover. Uses read replicas (0-5 per shard) | Yes, with auto-failover. Uses read replicas (0-5 per shard) |
+| Scaling                         | Up (node type); out (add nodes)                              | Single shard (can add replicas)                             | Add shards                                                  |
+| Multithreaded                   | Yes                                                          | No                                                          | No                                                          |
+| Backup and restore              | No (and no snapshots)                                        | Yes, automatic and manual snapshots                         | Yes, automatic and manual snapshots                         |
+
+## Caching strategies
+
+### Lazy Loading
+- Loads the data into the cache only when necessary (if a cache miss occurs).
+- Lazy loading avoids filling up the cache with data that won’t be requested.
+- If requested data is in the cache, ElastiCache returns the data to the application.
+- If the data is not in the cache or has expired, ElastiCache returns a null.
+- The application then fetches the data from the database and writes the data received into the cache so that it is available for next time.
+- Data in the cache can become stale if Lazy Loading is implemented without other strategies (such as TTL).
+
+### Write-Through
+- When using a write-through strategy, the cache is updated whenever a new write or update is made to the underlying database.
+- Allows cache data to remain up to date.
+- This can add wait time to write operations in your application.
+- Without a TTL you can end up with a lot of cached data that is never read.
