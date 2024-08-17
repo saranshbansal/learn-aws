@@ -1,247 +1,446 @@
-# AWS Secrets Manager
-AWS Secrets Manager helps you protect secrets needed to access your applications, services, and IT resources.
+# Amazon Cognito
+Amazon Cognito is a service provided by AWS that simplifies user authentication, authorization, and user management for web and mobile applications.
 
-- The service enables you to easily rotate, manage, and retrieve database credentials, API keys, and other secrets throughout their lifecycle.
-- Users and applications retrieve secrets with a call to Secrets Manager APIs, eliminating the need to hardcode sensitive information in plain text.
-- Secrets Manager offers secret rotation with built-in integration for Amazon RDS, Amazon Redshift, and Amazon DocumentDB.
-- Also, the service is extensible to other types of secrets, including API keys and OAuth tokens. In addition, Secrets Manager enables you to control access to secrets using fine-grained permissions and audit secret rotation centrally for resources in the AWS Cloud, third-party services, and on-premises.
-- AWS Secrets Manager encrypts secrets at rest using encryption keys that you own and store in AWS Key Management Service (KMS).
-- When you retrieve a secret, Secrets Manager decrypts the secret and transmits it securely over TLS to your local environment.
-- Secrets Manager does not write or cache the secret to persistent storage.
-- You can control access to the secret using fine-grained AWS Identity and Access Management (IAM) policies and resource-based policies.
-- You can also tag secrets individually and apply tag-based access controls.
-- With AWS Secrets Manager, you can rotate secrets on a schedule or on demand by using the Secrets Manager console, AWS SDK, or AWS CLI.
-- For example, to rotate a database password, you provide the database type, rotation frequency, and master database credentials when storing the password in Secrets Manager.
-- Secrets Manager natively supports rotating credentials for databases hosted on Amazon RDS and Amazon DocumentDB and clusters hosted on Amazon Redshift.
-- You can extend Secrets Manager to rotate other secrets by modifying sample Lambda functions.
-- AWS Secrets Manager with Amazon RDS
-  ![alt text](images/image-secrets_manager_rds.png)
+- Your users can sign in directly with a user name and password, or through a third party such as Facebook, Amazon, or Google.
+- Users can sign-up and sign-in using email, phone number, or user name.
+- End users of an application can also sign in with SMS-based MFA.
+- There is an import tool for migrating users into an Amazon Cognito User Pool.
 
-- You can store and retrieve secrets using the AWS Secrets Manager console, AWS SDK, AWS CLI, or AWS CloudFormation.
+With Amazon Cognito, you can focus on building great app experiences instead of managing complex authentication and authorization code. It scales to millions of users and is available in multiple AWS regions worldwide.
 
-- To retrieve secrets, you simply replace plaintext secrets in your applications with code to pull in those secrets programmatically using the Secrets Manager APIs. Secrets Manager provides code samples to call Secrets Manager APIs, also available on the Secrets Manager Resources page.
+## User Pools and Identity Pools
 
-- You can configure Amazon Virtual Private Cloud (VPC) endpoints to keep traffic between your VPC and Secrets Manager within the AWS network.
+![alt text](images/image-cognito.png)
 
-- You can also use Secrets Manager client-side caching libraries to improve the availability and reduce the latency of using your secrets.
+The two main components of AWS Cognito are **user pools** and **identity pools**.
 
-- AWS Secrets Manager enables you to audit and monitor secrets through integration with AWS logging, monitoring, and notification services.
+>> **Exam tip:** To make it easier to remember the different between `User Pools` and `Identity Pools`, think of Users Pools as being like `IAM Users` or `Active Directory` and an Identity Pools as being like an `IAM Role`.
 
-## Secrets Manager vs Systems Manager Parameter Store
+### User Pools (Authentication)
 
- | Features               | Secrets Manager                                        | SSM Parameter Store                           |
- | ---------------------- | ------------------------------------------------------ | --------------------------------------------- |
- | Automatic Key Rotation | Yes, built-in for some services, use Lambda for others | No native key rotation; can use custom Lambda |
- | Key/Value Type         | String or Binary (encrypted)                           | String, StringList, SecureString (encrypted)  |
- | Hierarchical Keys      | No                                                     | Yes                                           |
- | Price                  | Charges apply per secret                               | Free for standard, charges for advanced       |
+![alt text](images/image-cognito_user_pools.png)
 
-# AWS Certificate Manager
+User Pools primarily handle user sign-up, sign-in, and user management. They are responsible for authenticating users.
 
-Service: AWS Certificate Manager (ACM) helps you provision, manage, and deploy SSL/TLS certificates for your AWS-based websites and applications.
+Cognito User Pools are user directories used to manage sign-up and sign-in functionality for mobile and web applications for your app users. 
 
-Purpose: Ensures secure communication between clients and servers by encrypting data transmitted over networks.
+Users can also sign in through social identity providers like Facebook or Amazon, and through SAML identity providers.
 
-## Key Concepts
+Whether users sign-in directly or through a third party, all members of the user pool have a directory profile that you can access through an SDK.
 
-- SSL/TLS Certificates: Certificates used to secure network communications by encrypting data between a client and server.
-- Certificate Management: ACM automates the process of obtaining, renewing, and deploying certificates, reducing manual overhead.
+Cognito acts as an **Identity Broker** between the **ID provider** and **AWS**.
 
-## Features
+User pools provide:
 
-- Certificate Issuance: ACM provides free public and private SSL/TLS certificates.
-  - Public Certificates: Used to secure websites accessible from the internet.
-  - Private Certificates: Used for internal applications within an organization (requires AWS Private CA).
+- Sign-up and sign-in services.
+- A built-in, customizable web UI to sign in users.
+- Social sign-in with *Facebook*, *Google*, and *Login with Amazon*, as well as sign-in with SAML identity providers from your user pool.
+- User directory management and user profiles.
+- Security features such as multi-factor authentication (MFA), checks for compromised credentials, account takeover protection, and phone and email verification.
+- Customized workflows and user migration through AWS Lambda triggers.
+- After successfully authenticating a user, Amazon Cognito issues **JSON web tokens (JWT)** that you can use to secure and authorize access to your own APIs, or exchange for AWS credentials.
 
-- Automatic Renewal: ACM automatically renews certificates before they expire, reducing the risk of service disruptions due to expired certificates.
-- Certificate Deployment: Easily deploy certificates to various AWS services like Elastic Load Balancers (ELBs), Amazon
-- CloudFront distributions, and APIs via API Gateway.
-- Certificate Validation: Supports two methods for validating domain ownership:
-    - DNS Validation: ACM provides a CNAME record to add to your DNS configuration.
-    - Email Validation: ACM sends validation emails to domain registrants.
+### Identity Pools (Authorization)
 
-## ACM vs. AWS Private CA
+![alt text](images/image-cognito_identity_pools.png)
 
-- ACM: Manages public certificates and integrates with AWS services for SSL/TLS.
-- AWS Private CA: For organizations needing internal certificates. ACM Private CA offers additional features for managing private certificates and their lifecycle.
+Identity Pools are used for granting temporary AWS credentials to users, allowing them to access AWS resources. They are primarily focused on authorizing access to AWS services.
 
-## Using ACM with AWS Services
+Identity Pools enable you to create unique identities for your users and authenticate them with identity providers. With an identity, you can obtain temporary, limited-privilege AWS credentials to access other AWS services.
 
-- Elastic Load Balancer (ELB): Associate ACM certificates with your ELBs to enable HTTPS traffic.
-- Amazon CloudFront: Deploy ACM certificates to secure content delivery with CloudFront.
-- Amazon API Gateway: Use ACM certificates to secure APIs exposed via API Gateway.
-- Amazon Elastic Beanstalk: Integrate ACM certificates for secure communication with applications deployed on Elastic Beanstalk.
+`AWS Security Token Service (STS)` is used to generate temporary credentials.
 
-## Steps to Request and Deploy a Certificate
+Cognito tracks the association between user identity and the various different devices they sign-in from.
 
-### Request a Certificate:
-- Navigate to the ACM console.
-- Choose "Request a certificate" and select either public or private.
-- Enter domain names and select validation method.
+In order to provide a seamless user experience for your application, Cognito uses Push Synchronization to push updates and synchronize user data across multiple devices.
 
-### Validate Domain:
-- Follow the instructions for DNS or email validation.
-- For DNS validation, add the CNAME record to your DNS provider.
-- For email validation, follow the link in the validation email.
+`Amazon SNS` is used to send a silent push notification to all the devices whenever data stored in the cloud changes.
 
-### Deploy the Certificate:
-Once validated, choose the appropriate AWS service (e.g., ELB, CloudFront) to deploy the certificate.
+Supports unauthenticated guest access for users who do not have an account or do not log in.
 
-## Managing Certificates
-
-- Monitoring: Use the ACM console to view certificate status and expiration dates.
-- Renewal: ACM automatically handles renewal, but ensure DNS records or email settings remain valid to avoid disruptions.
-- Revocation: You can manually revoke certificates from the ACM console if needed.
-
-## Best Practices
-
-- Use DNS Validation: Prefer DNS validation over email validation for automation and reliability.
-- Monitor Expiration: Regularly check for certificate expirations and ensure automatic renewal is working.
-- Minimize Exposure: Use ACM for SSL/TLS on public-facing services and AWS Private CA for internal communications.
-- Secure Key Storage: ACM handles private key storage securely, reducing the risk of exposure.
-
-## Exam Tips
-
-- Understand Validation Methods: Be familiar with DNS and email validation processes.
-- Know Deployment Scenarios: Understand how to deploy certificates with various AWS services.
-- Familiarize with ACM Console: Practice navigating the ACM console and managing certificates.
-
-# AWS KMS
-AWS Key Management Store (KMS) is a managed service that enables you to easily encrypt your data.
-
-AWS KMS provides a highly available key storage, management, and auditing solution for you to encrypt data within your own applications and control the encryption of stored data across AWS services.
-
-AWS KMS allows you to centrally manage and securely store your keys. These are known as AWS KMS keys (formerly known as customer master keys (CMKs).
-
->> **Exam Tip:** KMS is for encryption at rest only (not in transit, use SSL).
-
->> **Exam Tip:** Encryption keys are regional.
-
->> **Exam Tip:** KMS differs from Secrets Manager as its purpose-built for encryption key management.
-
-## AWS KMS Keys
-A KMS key consists of:
-
+Amazon Cognito identity pools support the following identity providers:
 ```
-Alias.
-Creation date.
-Description.
-Key state.
-Key material (either customer provided or AWS provided).
+- Public providers: Login with Amazon (Identity Pools), Facebook (Identity Pools), Google (Identity Pools).
+- Amazon Cognito User Pools.
+- Open ID Connect Providers (Identity Pools).
+- SAML Identity Providers (Identity Pools).
+- Developer Authenticated Identities (Identity Pools).
 ```
 
-KMS keys are the primary resources in AWS KMS.
+## Developer Authenticated Identities
+With developer authenticated identities, you can register and authenticate users via your own existing authentication process, while still using Amazon Cognito to synchronize user data and access AWS resources.
 
-The KMS key includes metadata, such as the key ID, creation date, description, and key state.
+Using developer authenticated identities involves interaction between the end user device, your backend for authentication, and Amazon Cognito.
 
-The KMS key also contains the key material used to encrypt and decrypt data.
+## Amazon Cognito Sync
+Amazon Cognito Sync is an AWS service and client library that enables cross-device syncing of application-related user data.
 
-AWS KMS supports symmetric and asymmetric KMS keys.
+You can use it to synchronize user profile data across mobile devices and the web without requiring your own backend.
 
-KMS keys are created in AWS KMS. Symmetric KMS keys and the private keys of asymmetric KMS keys never leave AWS KMS unencrypted.
+The client libraries cache data locally so your app can read and write data regardless of device connectivity status.
 
-By default, AWS KMS creates the key material for a KMS key.
+When the device is online, you can synchronize data, and if you set up push sync, notify other devices immediately that an update is available.
 
-A KMS key can encrypt data up to 4KB in size.
+>> **Exam tip:** AWS AppSync is a similar service that has additional capabilities. With AppSync you can synchronize mobile app data across devices and users (Cognito Sync cannot synchronize across users, only devices), it has support for additional devices and data types, and is based on GraphQL.
 
-A KMS key can generate, encrypt, and decrypt Data Encryption Keys (DEKs).
+# AWS IAM
+AWS Identity and Access Management (IAM) provides centralized control of an AWS account, allowing the creation of users with specific permissions to access AWS resources. By default, new IAM users have no access to services and can only log in to the AWS console. Permissions must be explicitly granted for service access.
 
-A KMS key can never be exported from KMS (CloudHSM allows this).
+IAM can be used to manage:
 
-You set usage policies on the keys that determine which users can use them to encrypt and decrypt data and under which conditions.
+```
+Users.
+Groups.
+Access policies.
+Roles.
+User credentials.
+User password policies.
+Multi-factor authentication (MFA).
+API keys for programmatic access (CLI).
+```
 
-You can generate KMS keys in KMS, in an AWS CloudHSM cluster, or import them from your own key management infrastructure.
+- In AWS Identity and Access Management (IAM), IAM users are defined by their usernames, passwords, and permissions. They can also be assigned security credentials via access keys and multi-factor authentication (MFA) to enhance security. MFA can be implemented through the AWS Management Console, API, or CLI, and is strongly recommended, especially for users with elevated privileges.
+- IAM supports **Identity Federation**, allowing users to access AWS resources securely without needing separate IAM accounts. 
+- The **root account** in IAM has full administrative access and should be reserved for billing purposes rather than routine management. 
+- **Power user** access grants nearly all permissions except for the ability to manage IAM groups and users. 
+- IAM also supports issuing temporary security credentials, which can be used to access AWS services. 
+- The system operates globally with eventual consistency and data replication across multiple data centers. 
+- For security and compliance reasons, AWS advises using SDKs or the IAM Query API for programmatic access rather than directly managing credentials.
 
-KMS is tightly integrated into many AWS services like Lambda, S3, EBS, EFS, DynamoDB, SQS etc.
+## IAM Components
 
-### AWS Managed KMS keys:
-AWS managed KMS keys are KMS keys in your account that are created, managed, and used on your behalf by an AWS service that is integrated with AWS KMS.
+![alt text](images/image-iam_elements.png)
 
-- KMS keys are used by AWS services that interact with KMS to encrypt data.
-- They can only be used by the service that created them within a particular region.
-- They are created on the first time you implement encryption using that service.
-- You cannot manage these KMS keys, rotate them, or change their key policies.
-- You do not pay a monthly fee for AWS managed KMS keys. They can be subject to fees for use in excess of the free tier, but some AWS services cover these costs for you.
+### Principals:
 
-### Customer managed KMS keys:
-Customer managed KMS keys are KMS keys in your AWS account that you create, own, and manage.
+- An entity that can take an action on an AWS resource.
+- Your administrative IAM user is your first principal.
+- You can allow users and services to assume a role.
+- IAM supports federated users.
+- IAM supports programmatic access to allow an application to access your AWS account.
+- IAM users, roles, federated users, and applications are all AWS principals.
 
-- You have full control over these KMS keys, including establishing and maintaining their key policies, IAM policies, and grants, enabling and disabling them, rotating their cryptographic material, adding tags, creating aliases that refer to the KMS key, and scheduling the KMS keys for deletion.
-- You are able to enable and disable the key when it is no longer required.
-- Customer managed KMS keys incur a monthly fee and a fee for use in excess of the free tier.
+### Requests:
 
-### AWS Owned KMS Keys
-AWS owned KMS keys are a collection of KMS keys that an AWS service owns and manages for use in multiple AWS accounts.
+- Principals send requests via the Console, CLI, SDKs, or APIs.
+- Requests are:
+  - Actions (or operations) that the principal wants to perform.
+  - Resources upon which the actions are performed.
+  - Principal information including the environment from which the request was made.
+- Request context – AWS gathers the request information:
+  - Principal (requester).
+  - Aggregate permissions associated with the principal.
+  - Environment data, such as IP address, user agent, SSL status etc.
+  - Resource data, or data that is related to the resource being requested.
 
-Although AWS owned KMS keys are not in your AWS account, an AWS service can use its AWS owned KMS keys to protect the resources in your account.
+### Authentication:
 
-You do not need to create or manage the AWS owned KMS keys.
+- A principal sending a request must be authenticated to send a request to AWS.
+- To authenticate from the console, you must sign in with your user name and password.
+- To authenticate from the API or CLI, you must provide your access key and secret key.
 
-However, you cannot view, use, track, or audit them.
+### Actions:
 
-You are not charged a monthly fee or usage fee for AWS owned KMS keys and they do not count against the AWS KMS quotas for your account.
+- Actions are defined by a service.
+- Actions are the things you can do to a resource such as viewing, creating, editing, deleting.
+- Any actions on resources that are not explicitly allowed are denied.
+- To allow a principal to perform an action you must include the necessary actions in a policy that applies to the principal or the affected resource.
 
-### Data Encryption Keys
-Data keys are encryption keys that you can use to encrypt data, including large amounts of data and other data encryption keys.
+### Resources:
 
-You can use AWS KMS keys to generate, encrypt, and decrypt data keys.
+- A resource is an entity that exists within a service.
+- E.g. EC2 instances, S3 buckets, IAM users, and DynamoDB tables.
+- Each AWS service defines a set of actions that can be performed on the resource.
+- After AWS approves the actions in your request, those actions can be performed on the related resources within your account.
 
-AWS KMS does not store, manage, or track your data keys, or perform cryptographic operations with data keys.
+## IAM Users
 
-You must use and manage data keys outside of AWS KMS.
+![alt text](images/image-iam_user.png)
 
-The `GenerateDataKey` API can be used to create a data encryption key using a KMS key:
+An IAM user is an entity that represents a person or service.
 
-![alt text](images/image-kms.png)
+By default users cannot access anything in your account.
 
-## AWS KMS API’s
-The following APIs are useful to know for the exam:
+IAM users can be created to represent applications, and these are known as **“service accounts”**.
 
-### Encrypt (`aws kms encrypt`):
+You can have up to 5000 users per AWS account.
 
-Encrypts plaintext into ciphertext by using a customer master key (KMS key).
-You can encrypt small amounts of arbitrary data, such as  a  personal identifier or database password, or other sensitive information.
-You can use the Encrypt operation to move encrypted data from one AWS region to another.
+Each user account has a friendly name and an ARN which uniquely identifies the user across AWS.
 
-### Decrypt (`aws kms decrypt`):
+A unique ID is also created which is returned only when you create the user using the API, Tools for Windows PowerShell, or the AWS CLI.
 
-Decrypts ciphertext that was encrypted by an AWS KMS key using any of the following operations:
-Encrypt
-GenerateDataKey
-GenerateDataKeyPair
-GenerateDataKeyWithoutPlaintext
-GenerateDataKeyPairWithoutPlaintext
+### Root users
 
-### Re-encrypt (`aws kms re-encrypt`):
+The account root user credentials are the email address used to create the account and a password.
 
-Decrypts ciphertext and then re-encrypts it entirely within AWS KMS.
-You can use this operation to change the customer master  key  (KMS key)  under which  data  is  encrypted,  such  as when you manually rotate a KMS key or change the KMS key that protects a ciphertext.
-You can also use it to re-encrypt  ciphertext  under the same KMS key, such as to change the encryption context of a ciphertext.
+The root account has full administrative permissions, and these cannot be restricted.
 
-### Enable-key-rotation:
+Best practice for root accounts:
 
-Enables  automatic  rotation of the key material for the specified symmetric customer master key (KMS key).
-You cannot perform this operation  on a KMS key in a different AWS account.
+- Don’t use the root user credentials.
+- Don’t share the root user credentials.
+- Enable MFA.
+- You should create individual IAM accounts for users (best practice not to share accounts).
 
-### GenerateDataKey (`aws kms generate-data-key`):
+### Credentials
 
-Enables  automatic  rotation of the key material for the specified symmetric customer master key (KMS key).
-You cannot perform this operation  on a KMS key in a different AWS account.
+All IAM users can be assigned:
+- An access key ID and secret access key for programmatic access to the AWS API, CLI, SDK, and other development tools.
+- A password for access to the management console.
 
-### GenerateDataKeyWithoutPlaintext (`generate-data-key-without-plaintext`):
+The Access Key ID and Secret Access Key are not the same as a password and cannot be used to login to the AWS console.
 
-Generates  a  unique  symmetric data key.
-This operation returns a data key that is encrypted under a customer master key (KMS key) that you  specify.
-To request an asymmetric data key pair, use the  GenerateDataKeyPair or  GenerateDataKeyPairWithoutPlaintext operations.
+The Access Key ID and Secret Access Key can only be generated once and must be regenerated if lost.
 
-## Limits
-You can create up to **1000 KMS keys per account per region**.
+A password policy can be defined for enforcing password length, complexity etc. (applies to all users).
 
-As both enabled and disabled KMS keys count towards the limit, AWS recommend deleting disabled keys that you no longer use.
+You can allow or disallow the ability to change passwords using an IAM policy.
 
-AWS managed master keys created on your behalf for use within supported AWS services do not count against this limit.
+Access keys and passwords should be changed regularly.
 
-There is no limit to the number of data keys that can be derived using a master key and used in your application or by AWS services to encrypt data on your behalf.
+## Groups
 
+![alt text](images/image-iam_group.png)
 
+Groups are collections of users and have policies attached to them.
 
+A group is not an identity and cannot be identified as a principal in an IAM policy.
+
+Use the principal of least privilege (POLP) when assigning permissions.
+
+You cannot nest groups (groups within groups).
+
+## Roles
+
+![alt text](images/image-iam_roles.png)
+
+Roles are created and then **“assumed”** by trusted entities and define a set of permissions for making AWS service requests.
+
+With IAM Roles you can delegate permissions to resources for users and services without using permanent credentials (e.g. user name and password).
+
+IAM users or AWS services can assume a role to obtain temporary security credentials that can be used to make AWS API calls.
+
+IAM users can temporarily assume a role to take on permissions for a specific task.
+
+A role can be assigned to a federated user who signs in using an external identity provider.
+
+Temporary credentials are primarily used with IAM roles and automatically expire.
+
+Roles can be assumed temporarily through the console or programmatically with the AWS CLI, Tools for Windows PowerShell, or API.
+
+### IAM roles with EC2 instances:
+
+- IAM roles can be used for granting applications running on EC2 instances permissions to AWS API requests using **instance profiles**.
+- Only one role can be assigned to an EC2 instance at a time.
+- A role can be assigned at the EC2 instance creation time or at any time afterwards.
+- When using the `AWS CLI` or `API`, instance profiles must be created manually. Whereas, it’s automatic and transparent through the console.
+- Applications retrieve temporary security credentials from the **instance metadata**.
+
+### Role Delegation:
+
+- Create an IAM role with two policies:
+  - Permissions policy – grants the user of the role the required permissions on a resource.
+  - Trust policy – specifies the trusted accounts that are allowed to assume the role.
+- Wildcards (*) cannot be specified as a principal.
+- A permissions policy must also be attached to the user in the trusted account.
+
+## Policies
+
+![alt text](images/image-iam_policies.png)
+
+Policies are documents that define permissions and can be applied to users, groups, and roles.
+
+Policy documents are written in JSON (key value pair that consists of an attribute and a value).
+
+All permissions are implicitly denied by default.
+
+The most restrictive policy is applied.
+
+The IAM policy simulator is a tool to help you understand, test, and validate the effects of access control policies.
+
+The Condition element can be used to apply further conditional logic.
+
+### Types of Policies
+
+There are 3 types of policies:
+
+- Managed policies.
+- Customer managed policies.
+- Inline policies.
+
+#### Managed Policy:
+
+- Created and administered by AWS.
+- Used for common use cases based on job function.
+- Save you having to create policies yourself.
+- Can be attached to multiple users, groups, or roles within and across AWS accounts.
+- Cannot change the permissions assigned.
+
+#### Customer Managed Policy:
+
+- Standalone policy that you create and administer in your own AWS account.
+- Can be attached to multiple users, groups, and roles – but only within your own account.
+- Can be created by copying an existing managed policy and then customizing it.
+- Recommended for use cases where the existing AWS Managed Policies don’t meet the needs of your environment.
+
+#### Inline Policy:
+
+- Inline policies are embedded within the user, group, or role to which it is applied.
+- Strict 1:1 relationship between the entity and the policy.
+- When you delete the user, group, or role in which the inline policy is embedded, the policy will also be deleted.
+- In most cases, AWS recommends using Managed Policies instead of inline policies.
+- Inline policies are useful when you want to be sure that the permissions in a policy are not inadvertently assigned to any other user, group, or role.
+
+## IAM Policy Evaluation Logic
+By default, all requests are implicitly denied. (Alternatively, by default, the AWS account root user has full access).
+
+An explicit allow in an identity-based or resource-based policy overrides this default.
+
+If a permissions boundary, Organizations SCP, or session policy is present, it might override the allow with an implicit deny.
+
+An explicit deny in any policy overrides any allows.
+
+A few concepts should be known to understand the logic:
+
+- **Identity-based policies –** Identity-based policies are attached to an IAM identity (user, group of users, or role) and grant permissions to IAM entities (users and roles).
+- **Resource-based policies –** Resource-based policies grant permissions to the principal (account, user, role, or federated user) specified as the principal.
+- **IAM permissions boundaries –** Permissions boundaries are an advanced feature that sets the maximum permissions that an identity-based policy can grant to an IAM entity (user or role).
+- **AWS Organizations service control policies (SCPs) –** Organizations SCPs specify the maximum permissions for an organization or organizational unit (OU). 
+- **Session policies –** Session policies are advanced policies that you pass as parameters when you programmatically create a temporary session for a role or federated user.
+
+The following flowchart details the IAM policy evaluation logic:
+
+![alt text](images/image-iam_policy_evaluation.png)
+
+## IAM Instance Profiles
+An IAM Instance Profile is a container that passes an IAM Role to an Amazon EC2 instance. It allows you to associate an IAM Role with an EC2 instance, granting the instance the permissions defined by the policies attached to that role.
+
+You can use the following AWS CLI commands to work with instance profiles in an AWS account:
+
+- Create an instance profile: `aws iam create-instance-profile`
+- Add a role to an instance profile: `aws iam add-role-to-instance-profile`
+- List instance profiles: `aws iam list-instance-profiles, aws iam list-instance-profiles-for-role`
+- Get information about an instance profile: `aws iam get-instance-profile`
+- Remove a role from an instance profile: `aws iam remove-role-from-instance-profile`
+- Delete an instance profile: `aws iam delete-instance-profile`
+
+## AWS IAM - Cross Account Access
+
+![alt text](images/image-iam_cross_account.png)
+
+Lets users from one AWS account access resources in another.
+
+Useful for situations where an AWS customer has separate AWS account – for example for development and production resources.
+
+To make a request in a different account the resource in that account must have an attached resource-based policy with the permissions you need.
+
+Or you must assume a role (identity-based policy) within that account with the permissions you need.
+
+### Access delegation workflow
+The following diagram depicts how you can establish delegated access across two AWS accounts:
+
+![alt text](images/image-iam_delegate_access.png)
+
+As shown in the Figure, we use the example of a developer in the `Identities` Account that needs to access an `S3 bucket` (called `TodoApp`) in the `Development` Account. This is known as `cross-account access`, and the following are the primary steps involved in configuring this:
+
+1. In the `Development Account`, you must configure a role with a trust policy that identifies the trusted account (in this case, the `Identities Account`). In this example, we named the IAM Role `IAM-User-S3-AccessRole` as per the diagram. The configuration requires you to provide the ID for Account A.
+
+2. You will also need to configure a policy that contains the necessary permissions to perform read/write operations against the `TodoApp` S3 bucket in Account B.
+
+3. Finally, in Account A, you need to configure another policy that grants the developer the ability to assume the `S3AccessRole` created in Account B. You do this by specifying the Account ID of Account B and the role in the policy statement. The policy will grant the `sts:AssumeRole` permission as per the following JSON script:
+
+```json
+{
+  "Version": "2024-06-17",
+  "Statement": {
+    "Effect": "Allow",
+    "Action": "sts:AssumeRole",
+    "Resource": "arn:aws:iam::Developer-Account-ID:role/S3AccessRole"
+  }
+}
+```
+
+4. Once the above configuration is in place, the developers can switch roles and access the TodoApp S3 bucket in AWS Account B.
+
+>> **Note:** With the new IAM Identity Center Service (previously known as AWS Single Sign On), you may not need to use cross-account access extensively for IAM users. This is because the IAM Identity Center offers an alternative approach to granting your workforce users access to multiple out-of-the-box accounts in your AWS Organizations. These users can be from AWS Identity Providers as well as external providers. 
+
+## IAM Best Practices
+
+To secure AWS resources it is recommended that you follow these best practices:
+
+- Lock away your AWS account root user access keys.
+- Use roles to delegate permissions.
+- Grant least privilege.
+- Get started using permissions with AWS managed policies.
+- Validate your policies.
+- Use customer managed policies instead of inline policies.
+- Use access levels to review IAM permissions.
+- Configure a strong password policy for your users.
+- Enable MFA.
+- Use roles for applications that run on Amazon EC2 instances.
+- Do not share access keys.
+- Rotate credentials regularly.
+- Remove unnecessary credentials.
+- Use policy conditions for extra security.
+- Monitor activity in your AWS account.
+
+# Lambda authorizers
+Use AWS Lambda to validate the token in the header being passed.
+
+A Lambda authorizer is useful if you want to implement a custom authorization scheme that uses a bearer token authentication strategy such as OAuth or SAML, or that uses request parameters to determine the caller's identity.
+
+When a client makes a request to one of your API's methods, API Gateway calls your Lambda authorizer, which takes the caller's identity as input and returns an IAM policy as output.
+
+There are two types of Lambda authorizers:
+
+• A `token-based` Lambda authorizer (also called a TOKEN authorizer) receives the caller's identity in a bearer token, such as a `JSON Web Token (JWT)` or an `OAuth` token.
+
+• A `request parameter-based` Lambda authorizer (also called a REQUEST authorizer) receives the caller's identity in a combination of headers, query string parameters, `stageVariables`, and `$context` variables.
+
+Option to cache the result of the authentication.
+
+You pay per Lambda invocation.
+
+Good for using OAuth, SAML or 3rd party authentication.
+
+![alt text](images/image-lambda_authoriser.png)
+
+# AWS Security Token Service (STS)
+
+The AWS Security Token Service (STS) is a web service that enables you to request temporary, limited-privilege credentials for IAM users or for users that you authenticate (federated users).
+
+By default, AWS STS is available as a global service, and all AWS STS requests go to a single endpoint at https://sts.amazonaws.com. You can optionally send your AWS STS requests to endpoints in any region (can reduce latency).
+
+Credentials will always work globally.
+
+STS supports `AWS CloudTrail`, which records AWS calls for your AWS account and delivers log files to an S3 bucket.
+
+Temporary security credentials work almost identically to long-term access key credentials that IAM users can use, with the following differences:
+
+- Temporary security credentials are short-term.
+- They can be configured to last anywhere from a few minutes to several hours.
+- After the credentials expire, AWS no longer recognizes them or allows any kind of access to API requests made with them.
+- Temporary security credentials are not stored with the user but are generated dynamically and provided to the user when requested.
+- When (or even before) the temporary security credentials expire, the user can request new credentials, if the user requesting them still has permission to do so.
+
+## Advantages of STS
+
+- You do not have to distribute or embed long-term AWS security credentials with an application.
+- You can provide access to your AWS resources to users without having to define an AWS identity for them (temporary security credentials are the basis for IAM Roles and ID Federation).
+- The temporary security credentials have a limited lifetime, so you do not have to rotate them or explicitly revoke them when they’re no longer needed.
+
+## STS APIs
+
+The AWS STS API action returns temporary security credentials that consist of:
+
+- An access key which consists of an access key ID and a secret ID.
+- A session token.
+- Expiration or duration of validity.
+
+With STS you can request a session token using one of the following APIs:
+
+- `AssumeRole` – can only be used by IAM users (can be used for MFA).
+- `AssumeRoleWithSAML` – can be used by any user who passes a SAML authentication response that indicates authentication from a known (trusted) identity provider.
+- `AssumeRoleWithWebIdentity` – can be used by an user who passes a web identity token that indicates authentication from a known (trusted) identity provider.
+- `GetSessionToken` – can be used by an IAM user or AWS account root user (can be used for MFA).
+- `GetFederationToken` – can be used by an IAM user or AWS account root user.

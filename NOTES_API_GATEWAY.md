@@ -26,24 +26,35 @@ The following table describes some of the core features of Amazon API Gateway.
 | Operations Monitoring                             | API Gateway provides a metrics dashboard to monitor calls to services.                                                                                                                                                               |
 | Lifecycle Management                              | Operate multiple API versions and multiple stages for each version simultaneously so that existing applications can continue to call previous versions after new API versions are published.                                         |
 | AWS Authorization                                 | Support for signature version 4 for REST APIs and WebSocket APIs, IAM access policies, and authorization with bearer tokens (e.g., JWT, SAML) using Lambda functions.                                                                |
+| Caching                                           | One can add caching to API calls by provisioning an Amazon API Gateway cache and specifying its size in gigabytes. Caching allows you to cache the endpoint’s response.                                                              |
 
 ## API End Points
 
+An API endpoint type is a hostname for an API in API Gateway that is deployed to a specific region.
+
+The hostname is of the form `{api-id}.execute-api.{region}.amazonaws.com`.
+
+The API endpoint type can be `edge-optimized`, `regional`, or `private`, depending on where most of your API traffic originates from.
+
 ![alt text](images/image-api_gw_end_point.png)
 
-## Amazon API Gateway important notes for REST and WebSocket APIs
+### Edge-Optimized Endpoint
+- An edge-optimized API endpoint is best for **geographically distributed clients**. API requests are routed to the nearest CloudFront Point of Presence (POP). This is the default endpoint type for API Gateway REST APIs.
+- Edge-optimized APIs capitalize the names of HTTP headers (for example, Cookie).
+- CloudFront sorts HTTP cookies in natural order by cookie name before forwarding the request to your origin. For more information about the way CloudFront processes cookies, see Caching Content Based on Cookies.
+- Any custom domain name that you use for an edge-optimized API applies across all regions.
 
-- API Gateway does not support sharing a custom domain name across REST and WebSocket APIs.
+### Regional Endpoint
+- A regional API endpoint is intended for **clients in the same region**.
+- When a client running on an EC2 instance calls an API in the same region, or when an API is intended to serve a small number of clients with high demands, a regional API reduces connection overhead.
+- For a regional API, any custom domain name that you use is specific to the region where the API is deployed.
+- If you deploy a regional API in multiple regions, it can have the same custom domain name in all regions.
+- You can use custom domains together with Amazon Route 53 to perform tasks such as latency-based routing.
+- Regional API endpoints pass all header names through as-is.
 
-- Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is 128 characters.
-
-- The /ping and /sping paths are reserved for the service health check. Use of these for API root-level resources with custom domains will fail to produce the expected result.
-
-- API Gateway currently limits log events to 1024 bytes. Log events larger than 1024 bytes, such as request and response bodies, will be truncated by API Gateway before submission to CloudWatch Logs.
-
-- CloudWatch Metrics currently limits dimension names and values to 255 valid XML characters. (For more information, see the CloudWatch User Guide.) Dimension values are a function of user-defined names, including API name, label (stage) name, and resource name. When choosing these names, be careful not to exceed CloudWatch Metrics limits.
-
-- The maximum size of a mapping template is 300 KB.
+### Private Endpoint
+- A private API endpoint is an API endpoint that can only be accessed from your Amazon Virtual Private Cloud (VPC) using an interface VPC endpoint, which is an endpoint network interface (ENI) that you create in your VPC.
+- Private API endpoints pass all header names through as-is.
 
 ## Stages and Stage variables
 A stage is a logical reference to a lifecycle state of your REST or WebSocket API (for example, ‘dev’, ‘prod’, ‘beta’, ‘v2’).
@@ -120,19 +131,75 @@ With custom domain names, you can set up your API's `hostname`, and choose a bas
 The following considerations might impact your use of a custom domain name.
 
 - Custom domain names are not supported for private APIs.
-
 - You can disable the default endpoint for your API. Clients can still connect to your default endpoint, but they will receive a 403 Forbidden status code.
-
 - A Regional custom domain name can be can be associated with REST APIs and HTTP APIs. You can use the API Gateway Version 2 APIs to create and manage Regional custom domain names for REST APIs.
-
 - A custom domain name must be unique within a Region across all AWS accounts.
-
 - You can migrate your custom domain name between edge-optimized and Regional endpoints.
-
 - You must create or update your DNS provider's resource record to map to your API endpoint. Without such a mapping, API requests bound for the custom domain name cannot reach API Gateway.
-
 - You can support an almost infinite number of domain names without exceeding the default quota by using a wildcard certificate. For more information, see Wildcard custom domain names.
-
 - You can choose a security policy for your custom domain name. For more information, see Choose a security policy for your REST API custom domain in API Gateway.
-
 - To configure API mappings with multiple levels, you must use a Regional custom domain name and use the TLS 1.2 security policy.
+
+## Amazon API Gateway APIs
+### API Gateway REST API
+- A collection of HTTP resources and methods that are integrated with backend HTTP endpoints, Lambda functions, or other AWS services.
+- This collection can be deployed in one or more stages.
+- Typically, API resources are organized in a resource tree according to the application logic.
+- Each API resource can expose one or more API methods that have unique HTTP verbs supported by API Gateway.
+
+The following diagram depicts the structure of an API:
+
+![alt text](images/image-api_gw_rest.png)
+
+### API Gateway WebSocket API
+- A collection of WebSocket routes and route keys that are integrated with backend HTTP endpoints, Lambda functions, or other AWS services.
+- The collection can be deployed in one or more stages.
+- API methods are invoked through frontend WebSocket connections that you can associate with a registered custom domain name.
+
+## Caching
+You can add caching to API calls by provisioning an Amazon API Gateway cache and specifying its size in gigabytes.Caching allows you to cache the endpoint’s response.Caching can reduce the number of calls to the backend and improve the latency of requests to the API.
+
+- API Gateway caches responses for a specific amount of time (time to live or `TTL`).
+- The default TTL is `300 seconds (min 0, max 3600)`.
+- Caches are defined per stage.
+- You can encrypt caches.
+- The cache capacity is between `0.5GB to 237GB`.
+- It is possible to override cache settings for specific methods.
+- You can flush the entire cache (invalidate it) immediately if required.
+- Clients can invalidate the cache with the header: `Cache-Control: max-age=0`.
+
+## API throttling
+API Gateway sets a limit on a steady-state rate and a burst of request submissions against all APIs in your account.
+
+### Limits:
+
+- By default API Gateway limits the steady-state request rate to `10,000 requests per second`.
+- The maximum **concurrent requests** is `5,000 requests` across all APIs within an AWS account.
+- If you go over 10,000 requests per second or 5,000 concurrent requests you will receive a `429 Too Many Requests` error response.
+
+Upon catching such exceptions, the client can resubmit the failed requests in a way that is rate-limiting, while complying with the API Gateway throttling limits.
+
+Amazon API Gateway provides two basic types of throttling-related settings:
+
+- **Server-side** throttling limits are applied across all clients. These limit settings exist to prevent your API—and your account—from being overwhelmed by too many requests.
+- **Per-client** throttling limits are applied to clients that use API keys associated with your usage policy as a client identifier.
+
+API Gateway throttling-related settings are applied in the following order:
+
+1. **Per-client per-method** throttling limits that you set for an API stage in a usage plan.
+2. **Per-client** throttling limits that you set in a usage plan.
+3. **Default per-method** limits and individual per-method limits that you set in API stage settings.
+4. **Account-level** throttling.
+
+## Important points
+- API Gateway does not support sharing a custom domain name across `REST` and `WebSocket` APIs.
+
+- Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is `128 characters`.
+
+- The `/ping` and `/sping` paths are reserved for the service health check. Use of these for API root-level resources with custom domains will fail to produce the expected result.
+
+- API Gateway currently limits log events to 1024 bytes. Log events larger than 1024 bytes, such as request and response bodies, will be truncated by API Gateway before submission to CloudWatch Logs.
+
+- CloudWatch Metrics currently limits dimension names and values to 255 valid XML characters. (For more information, see the CloudWatch User Guide.) Dimension values are a function of user-defined names, including API name, label (stage) name, and resource name. When choosing these names, be careful not to exceed CloudWatch Metrics limits.
+
+- The maximum size of a mapping template is `300 KB`.

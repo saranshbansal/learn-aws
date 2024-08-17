@@ -92,7 +92,7 @@ I am an authority in the product, with deep technical understanding who can desi
 
 [AWS - VPC, Security Groups, NACLs](NOTES_AWS_VPC.md)
 
-[AWS Authentication & Authorization - IAM & Cognito](NOTES_IAM_COGNITO.md)
+[AWS Security - Authentication & Authorization - IAM, Cognito, STS](NOTES_AWS_SECURITY.md)
 
 [Compute Part 1 - Elastic BeanStalk, EC2 Auto-Scaling](NOTES_COMPUTE_EBS_AUTOSCALING.md)
 
@@ -106,7 +106,7 @@ I am an authority in the product, with deep technical understanding who can desi
 
 [AWS - Account Management](NOTES_ACCOUNT.md)
 
-[AWS - Secrets Manager, KMS, and Certificate Manager](NOTES_AWS_SECURITY.md)
+[AWS - Secrets Manager, KMS, and Certificate Manager](NOTES_AWS_ENCRYPTION.md)
 
 [Databases - S3, RDS, Aurora, DynamoDB](NOTES_S3_AND_DATABASES.md)
 

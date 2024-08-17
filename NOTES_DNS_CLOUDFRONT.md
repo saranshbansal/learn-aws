@@ -1,32 +1,5 @@
 # Amazon CloudFront
-
-- [Amazon CloudFront](#amazon-cloudfront)
-  - [CloudFront](#cloudfront)
-  - [CloudFront - Origins](#cloudfront---origins)
-    - [Restrict access to S3](#restrict-access-to-s3)
-  - [CloudFront vs S3 Cross Region Replication](#cloudfront-vs-s3-cross-region-replication)
-  - [CloudFront Caching](#cloudfront-caching)
-  - [What is CloudFront Cache Key?](#what-is-cloudfront-cache-key)
-  - [CloudFront Policies - Cache Policy](#cloudfront-policies---cache-policy)
-    - [CloudFront Caching - Cache Policy HTTP Headers](#cloudfront-caching---cache-policy-http-headers)
-    - [CloudFront Cache - Cache Policy Query Strings](#cloudfront-cache---cache-policy-query-strings)
-    - [CloudFront Policies - Origin Request Policy](#cloudfront-policies---origin-request-policy)
-  - [Cache Policy vs. Origin Request Policy](#cache-policy-vs-origin-request-policy)
-  - [CloudFront - Cache Invalidations](#cloudfront---cache-invalidations)
-  - [CloudFront - Cache Behaviors](#cloudfront---cache-behaviors)
-    - [CloudFront - Cache Behaviors - Sign In Page](#cloudfront---cache-behaviors---sign-in-page)
-  - [CloudFront Geo Restriction](#cloudfront-geo-restriction)
-  - [CloudFront Signed URL / Signed Cookies](#cloudfront-signed-url--signed-cookies)
-    - [CloudFront Signed URL vs S3 Pre-Signed URL](#cloudfront-signed-url-vs-s3-pre-signed-url)
-    - [CloudFront Signed URL Process](#cloudfront-signed-url-process)
-  - [CloudFront - Pricing](#cloudfront---pricing)
-    - [CloudFront – Price Classes](#cloudfront--price-classes)
-  - [CloudFront - Multiple Origin](#cloudfront---multiple-origin)
-  - [CloudFront - Origin Groups](#cloudfront---origin-groups)
-  - [CloudFront - Field Level Encryption](#cloudfront---field-level-encryption)
-  - [CloudFront - Real Time Logs](#cloudfront---real-time-logs)
-
-## CloudFront
+CloudFront is a web service that gives businesses and web application developers an easy and cost-effective way to distribute content with low latency and high data transfer speeds.
 
 - Content Delivery Network (CDN)
 - **Improved read performance by caching the static content at the edge locations**
@@ -66,18 +39,18 @@
 ## CloudFront Caching
 
 - The cache lives at each CloudFront **Edge Location**
-- CloudFront identifies each object in the cache using the **Cache Key** (see next slide)
+- CloudFront identifies each object in the cache using the **Cache Key** (see next section)
 - You want to maximize the Cache Hit ratio to minimize requests to the origin
 - You can invalidate part of the cache using the **CreateInvalidation** API
 
-## What is CloudFront Cache Key?
+### What is CloudFront Cache Key?
 
 - A unique identifier for every object in the cache
 - By default, consists of **hostname + resource portion of the URL**
 - If you have an application that serves up content that varies based on user, device, language, location...
 - You can add other elements (HTTP headers, cookies, query strings) to the Cache Key using **CloudFront Cache Policies**
 
-## CloudFront Policies - Cache Policy
+### CloudFront Policies - Cache Policy
 
 - Cache based on:
   - **HTTP Headers:** None – Whitelist
@@ -87,7 +60,7 @@
 - Create your own policy or use Predefined Managed Policies
 - **All HTTP headers, cookies, and query strings that you include in the Cache Key are automatically included in origin requests**
 
-### CloudFront Caching - Cache Policy HTTP Headers
+#### CloudFront Caching - Cache Policy HTTP Headers
 
 - **None:**
   - Don’t include any headers in the Cache Key (except default)
@@ -97,7 +70,7 @@
   - **only specified headers** included in the Cache Key
   - Specified headers are also forwarded to Origin
 
-### CloudFront Cache - Cache Policy Query Strings
+#### CloudFront Cache - Cache Policy Query Strings
 
 - **None**
   - Don’t include any query strings in the Cache Key • Query strings are not forwarded
@@ -112,7 +85,7 @@
   - All query strings are forwarded
   - Worst caching performance
 
-### CloudFront Policies - Origin Request Policy
+#### CloudFront Policies - Origin Request Policy
 
 - Specify values that you want to include in origin requests **without including them in the Cache Key (no duplicated cached content)**
 - You can include:
@@ -122,7 +95,7 @@
 - Ability to add CloudFront HTTP headers and Custom Headers to an origin request that were not included in the viewer request
 - Create your own policy or use Predefined Managed Policies
 
-## Cache Policy vs. Origin Request Policy
+### Cache Policy vs. Origin Request Policy
 
 | Category            | Cache Policy                                                 | Origin Request Policy                                         |
 | ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------- |
@@ -135,7 +108,7 @@
 
 Overall, Cache Policy controls how content is cached and served by CloudFront, while Origin Request Policy controls which requests are forwarded to the origin server. Both policies can be customized and provide various levels of control over caching and request handling.
 
-## CloudFront - Cache Invalidations
+### CloudFront - Cache Invalidations
 
 - In case you update the back-end origin, CloudFront doesn’t know about it and will only get the refreshed content after the TTL has expired
 - However, you can force an entire or partial cache refresh (thus bypassing the TTL) by performing a **CloudFront Invalidation**
@@ -143,7 +116,7 @@ Overall, Cache Policy controls how content is cached and served by CloudFront, w
 
 ![Cache Invalidations](../images/cache-invalidations.png)
 
-## CloudFront - Cache Behaviors
+### CloudFront - Cache Behaviors
 
 - Configure different settings for a given URL path pattern
 - Example: one specific cache behavior to **images/*.jpg** files on your origin web server
@@ -253,7 +226,3 @@ Overall, Cache Policy controls how content is cached and served by CloudFront, w
 - Allows you to choose:
   - Sampling Rate – percentage of requests for which you want to receive
   - Specific fields and specific Cache Behaviors (path patterns)
-
-* * *
-
-[👈  Advanced S3](./advanced-s3.md)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[Home](../README.md)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[CloudFront 👉](./cloudfront.md)
