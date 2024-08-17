@@ -11,7 +11,7 @@ There are four types of Kinesis service, and these are detailed below.
 ![image](https://github.com/user-attachments/assets/ceb1cf3c-228b-4f9f-8d78-3f691788326f)
 
 ## Kinesis Video Streams
->> Kinesis Video Streams does not appear much on AWS exams.
+> Kinesis Video Streams does not appear much on AWS exams.
 
 Kinesis Video Streams makes it easy to securely stream video from connected devices to AWS for analytics, machine learning (ML), and other processing.
 
@@ -86,7 +86,7 @@ Partition keys are used to group data by shard within a stream. Kinesis Streams 
 
 To read from or write to an encrypted stream the producer and consumer applications must have permission to access the master key.
 
-### Resharding
+### Re-sharding
 
 Kinesis Data Streams supports resharding, which lets you adjust the number of shards in your stream to adapt to changes in the rate of data flow through the stream.
 
@@ -128,7 +128,7 @@ Firehose Destinations include:
 - Amazon Elasticsearch Service.
 - Splunk.
 
-# Kinesis Client Library (KCL)
+## Kinesis Client Library (KCL)
 Kinesis Client Library is a Java library that helps read records from a Kinesis Stream with distributed applications sharing the read workload.
 
 The KCL is different from the Kinesis Data Streams API that is available in the AWS SDKs.
@@ -173,6 +173,17 @@ Scaling out consumers:
 However, one worker can process multiple shards.
 
 Records are read in order at the shard level.
+
+## Kinesis Producer Library (KPL)
+An Amazon Kinesis Data Streams `producer` is an application that puts user data records into a Kinesis data stream (also called *data ingestion*). The `Kinesis Producer Library (KPL)` simplifies producer application development, allowing developers to achieve high write throughput to a Kinesis data stream.
+
+The KPL is an easy-to-use, highly configurable library that helps you write to a Kinesis data stream. It acts as an intermediary between your producer application code and the Kinesis Data Streams API actions. The KPL performs the following primary tasks:
+
+- Writes to one or more Kinesis data streams with an automatic and configurable retry mechanism
+- Collects records and uses PutRecords to write multiple records to multiple shards per request
+- Aggregates user records to increase payload size and improve throughput
+- Integrates seamlessly with the `Kinesis Client Library (KCL)` to de-aggregate batched records on the consumer
+- Submits Amazon CloudWatch metrics on your behalf to provide visibility into producer performance
 
 # SQS vs SNS vs Kinesis
 ## SQS

@@ -9,6 +9,7 @@
 - AWS Lambda stores code in `Amazon S3` and encrypts it at rest.
 - Lambda scales concurrently executing functions up to your default limit (`1000`).
 - Lambda functions are serverless and independent, `1 event = 1 function`.
+- You can't create a VPC endpoint for AWS Lambda. You can, however, connect a Lambda function to a VPC.
 
 ## Use cases of Lambda Functions
 
@@ -187,7 +188,7 @@ After CloudFront receives the response from the origin (origin response).
 Before CloudFront forwards the response to the viewer (viewer response).
 ```
 
-> Lambda@Edge functions can only be created in the `us-east-1` Region. If you want to deploy such functions, they must be done in this specific region.
+> **Exam note:** `Lambda@Edge` functions can only be created in the `us-east-1` Region. If you want to deploy such functions, they must be done in this specific region.
 
 ## Lambda and Amazon VPC
 You can connect a Lambda function to private subnets in a VPC.

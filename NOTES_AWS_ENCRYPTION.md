@@ -113,11 +113,11 @@ AWS KMS provides a highly available key storage, management, and auditing soluti
 
 AWS KMS allows you to centrally manage and securely store your keys. These are known as AWS KMS keys (formerly known as customer master keys (CMKs).
 
->> **Exam Tip:** KMS is for encryption at rest only (not in transit, use SSL).
+> **Exam Tip:** KMS is for encryption at rest only (not in transit, use SSL).
 
->> **Exam Tip:** Encryption keys are regional.
+> **Exam Tip:** Encryption keys are regional.
 
->> **Exam Tip:** KMS differs from Secrets Manager as its purpose-built for encryption key management.
+> **Exam Tip:** KMS differs from Secrets Manager as its purpose-built for encryption key management.
 
 ## AWS KMS Keys
 A KMS key consists of:

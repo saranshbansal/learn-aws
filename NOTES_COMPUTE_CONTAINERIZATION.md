@@ -176,7 +176,7 @@ This is a transition state when a task stops. This state is not displayed in the
 
 ### ECS Task placement
 
->> **Very important for exam**
+> **Very important for exam**
 
 You can use task placement to configure Amazon ECS to place your tasks on container instances that meet certain criteria, for example an Availability Zone or instance type.
 
@@ -211,7 +211,7 @@ The following table describes the available types and fields.
 | random  | Tasks are placed randomly.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Not used                                                                                                                                                                      |
 | spread  | Tasks are placed evenly based on the specified value. <br>  <br> Service tasks are spread based on the tasks from that service. Standalone tasks are spread based on the tasks from the same task group. For more information about task groups, see Group related Amazon ECS tasks. <br> <br>  When the spread strategy is used and a scale-in action is taken, Amazon ECS selects tasks to terminate that maintain a balance across Availability Zones. Within an Availability Zone, tasks are selected at random. | instanceId (or host, which has the same effect) <br>  <br> any platform or custom attribute that's applied to a container instance, such as `attribute:ecs.availability-zone` |
 
->> Note: You can create a task placement strategy that uses multiple strategies by creating arrays of strategies in the order that you want them performed. For example, if you want to spread tasks across Availability Zones and then bin pack tasks based on memory within each Availability Zone, specify the Availability Zone strategy followed by the memory strategy.
+> Note: You can create a task placement strategy that uses multiple strategies by creating arrays of strategies in the order that you want them performed. For example, if you want to spread tasks across Availability Zones and then bin pack tasks based on memory within each Availability Zone, specify the Availability Zone strategy followed by the memory strategy.
 
 #### Fargate Launch Type Task Placement
 

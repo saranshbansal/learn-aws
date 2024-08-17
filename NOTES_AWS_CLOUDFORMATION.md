@@ -92,7 +92,7 @@ Use the *optional* `Parameters` section to customize your templates. Parameters 
 
 The following example declares a parameter named `InstanceTypeParameter`. This parameter lets you specify the Amazon EC2 instance type for the stack to use when you create or update the stack.
 
->> Note: the `InstanceTypeParameter` has a default value of `t2.micro`. This is the value that AWS CloudFormation uses to provision the stack unless another value is provided.
+> Note: the `InstanceTypeParameter` has a default value of `t2.micro`. This is the value that AWS CloudFormation uses to provision the stack unless another value is provided.
 
 ```yaml
 Parameters: 
@@ -152,7 +152,7 @@ Resources:
 ```
 
 
->> **Exam tip:** with mappings you can, for example, set values based on a region. You can create a mapping that uses the region name as a key and contains the values you want to specify for each specific region.
+> **Exam tip:** with mappings you can, for example, set values based on a region. You can create a mapping that uses the region name as a key and contains the values you want to specify for each specific region.
 
 ## Outputs
 The *optional* `Outputs` section declares output values that you can import into other stacks (to create cross-stack references), return in response (to describe stack calls), or view on the AWS CloudFormation console.
@@ -212,7 +212,7 @@ For example:
 ## Intrinsic Functions
 AWS CloudFormation provides several built-in functions that help you manage your stacks. Use intrinsic functions in your templates to assign values to properties that are not available until runtime.
 
->> **Exam tip:** At a minimum, know the intrinsic functions listed below for the exam. The full list can be found at: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html
+> **Exam tip:** At a minimum, know the intrinsic functions listed below for the exam. The full list can be found at: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html
 
 ### Ref
 

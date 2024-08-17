@@ -165,19 +165,12 @@ Resources managed by `.ebextensions` get deleted if the environment is terminate
 # Amazon EC2 Auto Scaling
 Amazon EC2 Auto Scaling helps you ensure that you have the correct number of Amazon EC2 instances available to handle the load for your application.
 
-Auto Scaling is a region-specific service.
-
-Auto Scaling can span multiple AZs within the same AWS region.
-
-Auto Scaling can be configured from the Console, CLI, SDKs and APIs.
-
-Auto Scaling works with ELB, CloudWatch and CloudTrail.
-
-You can determine which subnets Auto Scaling will launch new instances into.
-
-Auto Scaling will try to distribute EC2 instances evenly across AZs.
-
-Amazon EC2 Auto Scaling offers high availability (HA) when instances are launched into at least two Availability Zones.
+- Auto Scaling is a region-specific service.
+- Auto Scaling can span multiple AZs within the same AWS region.
+- Auto Scaling can be configured from the Console, CLI, SDKs and APIs.
+- Auto Scaling works with ELB, CloudWatch and CloudTrail.
+- Auto Scaling will try to distribute EC2 instances evenly across AZs.
+- Amazon EC2 Auto Scaling offers high availability (HA) when instances are launched into at least two Availability Zones.
 
 ## Launch Configuration
 Launch configuration is the template used to create new EC2 instances and includes parameters such as instance family, instance type, AMI, key pair, and security groups.
@@ -246,14 +239,13 @@ The ASG can be configured to send an Amazon SNS notification when:
 
 The scaling options define the triggers and when instances should be provisioned/de-provisioned.
 
-There are four scaling options:
+There are five scaling options:
 
 - `Maintain` – keep a specific or minimum number of instances running.
 - `Manual` – use maximum, minimum, or a specific number of instances.
 - `Scheduled` – increase or decrease the number of instances based on a schedule.
 - `Dynamic` – scale based on real-time system metrics (e.g. `CloudWatch metrics`).
 - `Predictive` – machine learning to schedule the right number of EC2 instances in anticipation of approaching traffic changes.
-
 
 The following table describes the scaling options available and when to use them:
 

@@ -14,7 +14,7 @@ With Amazon Cognito, you can focus on building great app experiences instead of 
 
 The two main components of AWS Cognito are **user pools** and **identity pools**.
 
->> **Exam tip:** To make it easier to remember the different between `User Pools` and `Identity Pools`, think of Users Pools as being like `IAM Users` or `Active Directory` and an Identity Pools as being like an `IAM Role`.
+> **Exam tip:** To make it easier to remember the different between `User Pools` and `Identity Pools`, think of Users Pools as being like `IAM Users` or `Active Directory` and an Identity Pools as being like an `IAM Role`.
 
 ### User Pools (Authentication)
 
@@ -81,7 +81,7 @@ The client libraries cache data locally so your app can read and write data rega
 
 When the device is online, you can synchronize data, and if you set up push sync, notify other devices immediately that an update is available.
 
->> **Exam tip:** AWS AppSync is a similar service that has additional capabilities. With AppSync you can synchronize mobile app data across devices and users (Cognito Sync cannot synchronize across users, only devices), it has support for additional devices and data types, and is based on GraphQL.
+> **Exam tip:** AWS AppSync is a similar service that has additional capabilities. With AppSync you can synchronize mobile app data across devices and users (Cognito Sync cannot synchronize across users, only devices), it has support for additional devices and data types, and is based on GraphQL.
 
 # AWS IAM
 AWS Identity and Access Management (IAM) provides centralized control of an AWS account, allowing the creation of users with specific permissions to access AWS resources. By default, new IAM users have no access to services and can only log in to the AWS console. Permissions must be explicitly granted for service access.
@@ -362,7 +362,7 @@ As shown in the Figure, we use the example of a developer in the `Identities` Ac
 
 4. Once the above configuration is in place, the developers can switch roles and access the TodoApp S3 bucket in AWS Account B.
 
->> **Note:** With the new IAM Identity Center Service (previously known as AWS Single Sign On), you may not need to use cross-account access extensively for IAM users. This is because the IAM Identity Center offers an alternative approach to granting your workforce users access to multiple out-of-the-box accounts in your AWS Organizations. These users can be from AWS Identity Providers as well as external providers. 
+> **Note:** With the new IAM Identity Center Service (previously known as AWS Single Sign On), you may not need to use cross-account access extensively for IAM users. This is because the IAM Identity Center offers an alternative approach to granting your workforce users access to multiple out-of-the-box accounts in your AWS Organizations. These users can be from AWS Identity Providers as well as external providers. 
 
 ## IAM Best Practices
 

@@ -314,7 +314,7 @@ DynamoDB allocates additional partitions to a table in the following situations:
 - If you increase the table’s provisioned throughput settings beyond what the existing partitions can support.
 - If an existing partition fills to capacity and more storage space is required.
 
->> Note: Even if you have sufficient RCUs, there is still chances of throttling if the data is not partitioned evenly.
+> Note: Even if you have sufficient RCUs, there is still chances of throttling if the data is not partitioned evenly.
 
 ### Best practices for partition keys
 
@@ -376,7 +376,7 @@ A `GSI` in DynamoDB is a separate data structure that allows you to query the ta
 
 GSIs enable you to perform queries that wouldn't be efficient using only the primary key, such as querying by different attributes or sorting items differently.
 
->> Note: GSI can have its own throughput which can be different from base table throughput.
+> Note: GSI can have its own throughput which can be different from base table throughput.
 
 #### Key Features of GSI
 
@@ -514,6 +514,18 @@ In DynamoDB, a transactional read or write differs from a standard read or write
 - Retrieval of data from DAX reduces the read load on DynamoDB tables.
 - This may result in being able to reduce the provisioned read capacity on the table.
 
+## DynamoDB Security using IAM
+In DynamoDB, you have the option to specify conditions when granting permissions using an IAM policy. For example, you can:
+
+- Grant permissions to allow users `read-only` access to certain items and attributes in a table or a secondary index.
+- Grant permissions to allow users `write-only` access to certain attributes in a table, based upon the identity of that user.
+
+To implement this kind of fine-grained access control, you write an IAM permissions policy that specifies conditions for accessing security credentials and the associated permissions. You then apply the policy to IAM users, groups, or roles that you create using the IAM console. 
+
+- Your IAM policy can restrict access to individual items in a table, access to the attributes in those items, or both at the same time.
+- You use the IAM `Condition` element to implement a fine-grained access control policy. By adding a Condition element to a permissions policy, you can allow or deny access to items and attributes in DynamoDB tables and indexes, based upon your particular business requirements.
+- You can also grant permissions on a table, but restrict access to specific items in that table based on certain primary key values.
+
 # Amazon ElastiCache
 ElastiCache is a web service that makes it easy to deploy and run `Memcached` or `Redis` protocol-compliant server nodes in the cloud.
 
@@ -535,7 +547,7 @@ The following table describes a few typical use cases for ElastiCache:
 | Leaderboards              | Use Redis to provide a live leaderboard for millions of users of your mobile app                                                                                            |
 | Streaming data dashboards | Provide a landing spot for streaming sensor data on the factory floor, providing live real-time dashboard displays                                                          |
 
->> **Exam tip:** the key use cases for ElastiCache are offloading reads from a database and storing the results of computations and session state. Also, remember that ElastiCache is an in-memory database and it’s a managed service (so you can’t run it on EC2).
+> **Exam tip:** the key use cases for ElastiCache are offloading reads from a database and storing the results of computations and session state. Also, remember that ElastiCache is an in-memory database and it’s a managed service (so you can’t run it on EC2).
 
 ## Types of ElastiCache
 
