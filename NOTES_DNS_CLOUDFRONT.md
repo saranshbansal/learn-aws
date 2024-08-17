@@ -37,11 +37,47 @@ CloudFront is a web service that gives businesses and web application developers
 | **Great for static content that must be available everywhere** | Read only, **Great for dynamic content that needs to be available at low-latency in few regions** |
 
 ## CloudFront Caching
+Allows you to configure a variety of CloudFront functionality for a given URL path pattern. For each cache behavior you can configure the following functionality:
 
+- The path pattern (e.g. `/images/*.jpg`, `/images*.php`).
+- The origin to forward requests to (if there are multiple origins).
+- Whether to forward query strings.
+- Whether to require signed URLs.
+- Allowed HTTP methods.
+- Minimum amount of time to retain the files in the CloudFront cache (regardless of the values of any cache-control headers).
+- The default cache behavior only allows a path pattern of `/*`.
 - The cache lives at each CloudFront **Edge Location**
 - CloudFront identifies each object in the cache using the **Cache Key** (see next section)
 - You want to maximize the Cache Hit ratio to minimize requests to the origin
 - You can invalidate part of the cache using the **CreateInvalidation** API
+
+### Restricting access to Cache
+
+You can restrict access to content using the following methods:
+
+- Restrict access to content using **signed cookies or signed URLs**.
+- Restrict access to objects in your S3 bucket.
+
+A special type of user called an `Origin Access Identity (OAI)` can be used to restrict access to content in an Amazon S3 bucket. By using an OAI you can restrict users so they cannot access the content directly using the S3 URL, they must connect via CloudFront.
+
+### Field-Level Encryption:
+
+- Field-level encryption adds an additional layer of security on top of HTTPS that lets you protect specific data so that it is only visible to specific applications.
+- Field-level encryption allows you to securely upload user-submitted sensitive information to your web servers.
+- The sensitive information is encrypted at the edge closer to the user and remains encrypted throughout application processing.
+
+### Origin policy:
+
+- HTTPS only.
+- Match viewer – CloudFront matches the protocol with your custom origin.
+- Use match viewer only if you specify Redirect HTTP to HTTPS or HTTPS only for the viewer protocol policy.
+- CloudFront caches the object once even if viewers make requests using HTTP and HTTPS.
+
+### Object invalidation:
+
+- You can remove an object from the cache by invalidating the object.
+- You cannot cancel an invalidation after submission.
+- You cannot invalidate media files in the Microsoft Smooth Streaming format when you have enabled Smooth Streaming for the corresponding cache behavior.
 
 ### What is CloudFront Cache Key?
 
