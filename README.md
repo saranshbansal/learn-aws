@@ -108,7 +108,7 @@ I am an authority in the product, with deep technical understanding who can desi
 
 [AWS - Secrets Manager, KMS, and Certificate Manager](NOTES_AWS_ENCRYPTION.md)
 
-[Databases - S3, RDS, Aurora, DynamoDB](NOTES_S3_AND_DATABASES.md)
+[Databases - S3, RDS, Aurora, DynamoDB, ElastiCache](NOTES_S3_AND_DATABASES.md)
 
 [Developer Tools - CodeCommit, CodeDeploy, CodePipeline](NOTES_DEVTOOLS.md)
 
