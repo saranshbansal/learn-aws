@@ -56,11 +56,11 @@ CodeDeploy is a deployment service that automates application deployments to Ama
 CodeDeploy provides two deployment type options – `in-place and blue/green`.
 
 Need to choose the compute platform:
-
-- `EC2/On-premises` - Supports in-place or blue/green deployment type.
-- `AWS Lambda` - Supports canary, linear, or all-at-once configuration deployment type.
-- `Amazon ECS` - Supports canary, linear, or all-at-once configuration deployment type.
-
+- **EC2** - In-Place, Blue/Green
+- **On Premises** - In-place
+- **Lambda** - Blue/Green
+- **ECS** - Blue/Green
+  
 The application specification file (`AppSpec.yml` file) is a YAML-formatted, or JSON-formatted file used by CodeDeploy to manage a deployment. Example:
 
 ```yaml
