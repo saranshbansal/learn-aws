@@ -127,6 +127,8 @@ I am an authority in the product, with deep technical understanding who can desi
 
 [AWS Kinesis](NOTES_AMAZON_KINESIS.md)
 
+[More...](https://jaimax.notion.site/Notes-0ee580f6b0f4460faefd3376e24977dd)
+
 ## Courses
 
 **DVA-C02: AWS Certified Developer Associate - Full Course by DigitalOcean**
