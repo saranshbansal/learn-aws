@@ -206,6 +206,12 @@ Common HTTP response codes:
 - Reserving concurrency is free, but Provisioned concurrency is charged for
 - Lambda@Edge functions can only be created in `us-east-1` region. Lambda will replicate your function in locations all around the world.
     - If you try to create a Lambda@Edge function via CloudFormation in a region other than `us-east-1`, the stack creation will **FAIL**
+- **Lambda Throttling**: The following are the recommended solutions to handle throttling issues:
+  - **Configure reserved concurrency** – by default, there are `900` unreserved concurrencies shared across all functions in a region. To prevent other functions from consuming the available concurrent executions, reserve a portion of it to your Lambda function based on the demand of your current workload.
+  - **Use exponential backoff in your app** – a technique that uses progressively longer waits between retries for consecutive error responses. This can be used to handle throttling issues by preventing collision between simultaneous requests.
+  - **Use a dead-letter queue** – If you’re using Amazon S3 and Amazon EventBridge (Amazon CloudWatch Events), configure your function with a dead letter queue to catch any events that are discarded due to constant throttles. This can protect your data if you’re seeing significant throttling.
+  - **Request a service quota increase** – you can reach AWS support to request for a higher service quota for concurrent executions.
+- **Step Functions** - If you want to manage multiple Lambda functions that invoke one another, use `Step Functions` which use `State Machine`, a technique in modeling systems whose output depends on the entire history of their inputs, not just on the most recent input. In this case, the Lambda functions invoke one another, creating a large state machine.
 
 ## DynamoDB
 

@@ -371,3 +371,80 @@ The primary differences between AWS SAM templates and AWS CloudFormation templat
 • `Globals` section. The `Globals` section is unique to AWS SAM. It defines properties that are common to all your serverless functions and APIs. All the `AWS::Serverless::Function`, `AWS::Serverless::Api`, and `AWS::Serverless::SimpleTable` resources inherit the properties that are defined in the Globals section.
 
 • `Resources` section. In AWS SAM templates the `Resources` section can contain a combination of AWS CloudFormation resources and AWS SAM resources.
+
+# AWS Step Functions
+With AWS Step Functions, you can create visual workflows, also called *state machines*, to build distributed applications, automate processes, orchestrate microservices, and create data and machine learning pipelines.
+
+Step Functions is based on *state machines* and *tasks*. In Step Functions, state machines are called *workflows*, which are a series of event-driven steps. Each step in a workflow is called a *state*. 
+For example, a Task *state* represents a unit of work that another AWS service performs, such as calling another AWS service or API. Instances of running workflows performing tasks are called *executions* in Step Functions
+
+## How it works
+
+- Define the steps of your workflow in the JSON-based Amazon States Language. The visual console automatically graphs each step in the order of execution.
+- Start an execution to visualize and verify the steps of your application are operating as intended. The console highlights the real-time status of each step and provides a detailed history of every execution.
+- AWS Step Functions operates and scales the steps of your application and underlying compute for you to help ensure your application executes reliably under increasing demand.
+
+![alt text](images/image-step_function.png)
+
+It is a managed workflow and orchestration platform.
+
+It is scalable and highly available.
+
+You define your app as a state machine.
+
+Create tasks, sequential steps, parallel steps, branching paths or timers.
+
+Uses Amazon State Language declarative JSON.
+
+Apps can interact and update the stream via Step Function API.
+
+Provides a visual interface which describes flow and real-time status.
+
+Provides detailed logs of each step execution.
+
+### AWS Step Functions features
+
+- **Built-in error handling** – AWS Step Functions tracks the state of each step, so you can automatically retry failed or timed-out tasks, catch specific errors, and recover gracefully, whether the task takes seconds or months to complete.
+- **Automatic Scaling** – AWS Step Functions automatically scales the operations and underlying compute to run the steps of your application for you in response to changing workloads. Step Functions scales automatically to help ensure the performance of your application workflow remains consistently high as the frequency of requests increases.
+- **Pay per use** – With AWS Step Functions, you pay only for the transition from one step of your application workflow to the next, called a state transition. Billing is metered by state transition, regardless of how long each state persists (up to one year).
+- **Execution event history** – AWS Step Functions creates a detailed event log for every execution, so when things do go wrong, you can quickly identify not only where, but why. All of the execution history is available visually and programmatically to quickly troubleshoot and remediate failures.
+- **High availability** – AWS Step Functions has built-in fault tolerance. Step Functions maintains service capacity across multiple Availability Zones in each region to help protect application workflows against individual machine or data center facility failures. There are no maintenance windows or scheduled downtimes.
+- **Administrative security** – AWS Step Functions is integrated with AWS Identity and Access Management (IAM). IAM policies can be used to control access to the Step Functions APIs.
+
+## Workflow in AWS Step Functions
+A Step Functions execution receives a `JSON` text as input and passes that input to the first state in the workflow. Individual states receive JSON as input and usually pass JSON as output to the next state. Understanding how this information flows from state to state and learning how to filter and manipulate this data is key to effectively designing and implementing workflows in AWS Step Functions.
+
+![alt text](image.png)
+
+In the `Amazon States Language (ASL)`, these fields filter and control the flow of JSON from state to state:
+
+```
+– InputPath
+
+– OutputPath
+
+– ResultPath
+
+– Parameters
+```
+
+Both the `InputPath` and `Parameters` fields provide a way to manipulate JSON as it moves through your workflow. `InputPath` can limit the input that is passed by filtering the JSON notation by using a path. The `Parameters` field enables you to pass a collection of key-value pairs, where the values are either static values that you define in your state machine definition, or that are selected from the input using a path.
+
+AWS Step Functions applies the `InputPath` field first, and then the `Parameters` field. You can first filter your raw input to a selection you want using `InputPath`, and then apply `Parameters` to manipulate that input further, or add new values.
+
+The output of a state can be a copy of its input, the result it produces (for example, the output from a Task state’s Lambda function), or a combination of its input and result. Use `ResultPath` to control which combination of these is passed to the state output.
+
+`OutputPath` enables you to select a portion of the state output to pass to the next state. This enables you to filter out unwanted information, and pass only the portion of JSON that you care about.
+
+## Step Functions vs AWS SWF
+
+| Feature             | AWS Step Functions                | Amazon SWF                                                  |
+| ------------------- | --------------------------------- | ----------------------------------------------------------- |
+| Workflow Definition | JSON-based Amazon States Language | Code (deciders)                                             |
+| Complexity          | Simpler, more developer-friendly  | More complex, requires more coding effort                   |
+| Execution Model     | Serverless, automatic scaling     | Requires managing and scaling decider and worker components |
+| Task Coordination   | Through state machine definition  | Through decider logic                                       |
+| Pricing Model       | Based on state transitions        | Based on workflow/activity executions and duration          |
+| External Signals    | Not supported                     | Supported                                                   |
+| Child Workflows     | Not supported                     | Supported, can return results to parent workflow            |
+| Recommended For     | New applications                  | Applications requiring external signals or child workflows  |
