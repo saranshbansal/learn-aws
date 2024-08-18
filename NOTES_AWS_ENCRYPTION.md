@@ -36,6 +36,107 @@ AWS Secrets Manager helps you protect secrets needed to access your applications
  | Hierarchical Keys      | No                                                     | Yes                                           |
  | Price                  | Charges apply per secret                               | Free for standard, charges for advanced       |
 
+# AWS Systems Manager Parameter Store
+Parameter Store, a capability of `AWS Systems Manager`, provides secure, hierarchical storage for configuration data management and secrets management. You can store data such as passwords, database strings, Amazon Machine Image (AMI) IDs, and license codes as parameter values. 
+
+You can store values as plain text or encrypted data. You can reference Systems Manager parameters in your scripts, commands, SSM documents, and configuration and automation workflows by using the unique name that you specified when you created the parameter. 
+
+## Benefits of using Parameter Store
+Parameter Store offers these benefits:
+
+- Use a secure, scalable, hosted secrets management service with no servers to manage.
+- Improve your security posture by separating your data from your code.
+- Store configuration data and encrypted strings in hierarchies and track versions.
+- Control and audit access at granular levels.
+- Store parameters reliably because Parameter Store is hosted in multiple Availability Zones in an AWS Region.
+
+## Features
+### Change notification
+
+You can configure change notifications and invoke automated actions for both parameters and parameter policies. For more information, see Setting up notifications or triggering actions based on Parameter Store events.
+
+### Organize parameters
+
+You can tag your parameters individually to help you identify one or more parameters based on the tags you've assigned to them. For example, you can tag parameters for specific environments or departments.
+
+### Label versions
+
+You can associate an alias for versions of your parameter by creating labels. Labels can help you remember the purpose of a parameter version when there are multiple versions.
+
+### Data validation
+
+You can create parameters that point to an `Amazon Elastic Compute Cloud (Amazon EC2)` instance and Parameter Store validates these parameters to make sure that it references expected resource type, that the resource exists, and that the customer has permission to use the resource. 
+
+For example, you can create a parameter with `Amazon Machine Image (AMI) ID` as a value with `aws:ec2:image` data type, and Parameter Store performs an asynchronous validation operation to make sure that the parameter value meets the formatting requirements for an AMI ID, and that the specified AMI is available in your AWS account.
+
+### Reference secrets
+
+Parameter Store is integrated with `AWS Secrets Manager` so that you can retrieve Secrets Manager secrets when using other AWS services that already support references to Parameter Store parameters.
+
+### Share parameters with other accounts
+
+You can optionally centralize configuration data in a single AWS account and share parameters with other accounts that need to access them.
+
+### Accessible from other AWS services
+
+You can use Parameter Store parameters with other Systems Manager capabilities and AWS services to retrieve secrets and configuration data from a central store. Parameters work with Systems Manager capabilities such as Run Command, Automation, and State Manager, capabilities of AWS Systems Manager. You can also reference parameters in a number of other AWS services, including the following:
+
+```
+Amazon Elastic Compute Cloud (Amazon EC2)
+
+Amazon Elastic Container Service (Amazon ECS)
+
+AWS Secrets Manager
+
+AWS Lambda
+
+AWS CloudFormation
+
+AWS CodeBuild
+
+AWS CodePipeline
+
+AWS CodeDeploy
+```
+
+### Integrate with other AWS services
+
+Configure integration with the following AWS services for encryption, notification, monitoring, and auditing:
+
+- AWS Key Management Service (AWS KMS)
+- Amazon Simple Notification Service (Amazon SNS)
+- Amazon CloudWatch
+- Amazon EventBridge
+- AWS CloudTrail
+
+## What is a parameter?
+
+A Parameter Store parameter is any piece of data that is saved in Parameter Store, such as a block of text, a list of names, a password, an AMI ID, a license key, and so on. You can centrally and securely reference this data in your scripts, commands, and SSM documents.
+
+When you reference a parameter, you specify the parameter name by using the following convention.
+`{{ssm:parameter-name}}`
+
+> **Note: **Parameters can't be referenced or nested in the values of other parameters. You can't include `{{}}` or `{{ssm:parameter-name}}` in a parameter value.
+
+Parameter Store provides support for three types of parameters: **`String, StringList, and SecureString`**.
+
+### Parameter tiers
+Parameter Store includes `standard parameters` and `advanced parameters`. You individually configure parameters to use either the standard-parameter tier (the default tier) or the advanced-parameter tier.
+
+The following table describes the differences between the tiers.
+
+|                                                                     | Standard             | Advanced      |
+| ------------------------------------------------------------------- | -------------------- | ------------- |
+| Total number of parameters allowed (per AWS account and AWS Region) | 10,000               | 100,000       |
+| Maximum size of a parameter value                                   | 4 KB                 | 8 KB          |
+| Parameter policies available                                        | No                   | Yes           |
+| Cost                                                                | No additional charge | Charges apply |
+
+### Parameter Policies
+Parameter policies help you manage a growing set of parameters by allowing you to assign specific criteria to a parameter, such as an expiration date or time to live. Parameter policies are especially helpful in forcing you to update or delete passwords and configuration data stored in Parameter Store, a capability of AWS Systems Manager.
+
+You can assign multiple policies to a parameter. For example, you can assign `Expiration` and `ExpirationNotification` policies so that the system initiates an `EventBridge` event to notify you about the impending deletion of a parameter. The `Expiration` policy lets you delete a parameter at a specified time while the `ExpirationNotification` policy is used to notify when a parameter is about to expire. These features are only available for `Advanced Parameters` in the AWS Systems Manager Parameter Store.
+
 # AWS Certificate Manager
 
 Service: AWS Certificate Manager (ACM) helps you provision, manage, and deploy SSL/TLS certificates for your AWS-based websites and applications.

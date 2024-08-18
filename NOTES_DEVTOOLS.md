@@ -236,3 +236,11 @@ X-Ray should not be used as an audit or compliance tool because it does not guar
 Key / value pairs, not indexed and not used for searching.
 
 **Exam tip:** Remember that annotations can be used for adding system or user-defined data to segments and subsegments that you want to index for search. Metadata is not indexed and cannot be used for searching.
+
+## AWS AppConfig 
+
+It is a specialized service that enables developers to create, manage, and deploy application configurations quickly and efficiently. It also provides the functionality to **manage feature flags**, a powerful technique that allows developers to test and control new features in live environments without affecting all users. 
+
+With `AWS AppConfig`, developers can gradually introduce new features, control who can access them based on specific criteria such as user role or location, and easily update or revert features without deploying new code. This capability helps developers seamlessly control the visibility and access of new features while keeping them hidden until they’re ready for release.
+
+It also enables you to define different environments, such as production, development, and testing. You can also create configuration profiles and deployment strategies using this tool.
