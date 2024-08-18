@@ -60,6 +60,8 @@ Need to choose the compute platform:
 - **On Premises** - In-place
 - **Lambda** - Blue/Green
 - **ECS** - Blue/Green
+
+You can configure CodeDeploy to auto-update on boot by setting the `AUTOUPDATE` variable to true.
   
 The application specification file (`AppSpec.yml` file) is a YAML-formatted, or JSON-formatted file used by CodeDeploy to manage a deployment. Example:
 
@@ -145,7 +147,7 @@ Hooks:
 
 > `in-place` deployment strategy works only in `EC2/On-Premises` deployments.
 
-> All AWS Lambda and Amazon ECS deployments are `blue/green`. An EC2/On-Premises deployment can be `in-place or blue/green`.
+> All AWS Lambda and Amazon ECS deployments only support `blue/green`. An EC2/On-Premises deployment can be `in-place or blue/green`.
 
 > The hooks in `AppSpec.yml` file are different for each type of compute platform.
 
@@ -167,6 +169,7 @@ A workflow that describes how software changes go through the release process.
 - Each stage can have sequential actions and or parallel actions.
 - Stage examples would be build, test, deploy, load test etc.
 - Manual approval can be defined at any stage.
+- Approval actions can't be added to `Source stages`. Source stages can contain only source actions.
 
 `Actions:`
 Stages contain at least one action, these actions take some action on artifacts and will have artifacts as either an input, and output, or both.
