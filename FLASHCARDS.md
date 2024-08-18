@@ -47,13 +47,11 @@ Common HTTP response codes:
 
 ## S3
 
-- Transfer acceleration requires DNS complaint name, it must not contain periods
+- Transfer acceleration requires DNS compliant name, it must not contain periods
 - Use multipart upload API when object size exceeds 100MB
 - When using SSE-C, S3 stores a randomly salted HMAC value of the encryption key you provide.
 - If you lose the encryption key, you lose the object.
 - When trying to upload a large file to your S3 bucket with an upload request that includes an AWS KMS key, then you have to confirm that you have permission to perform `kms:Decrypt` actions on the AWS KMS key that you’re using to encrypt the object.
-
-![1000046605.jpg](https://prod-files-secure.s3.us-west-2.amazonaws.com/c346038d-1e9e-4e4d-a8fc-79d3b615fc35/198683bb-e379-42a3-94cf-50ae5dea4f76/1000046605.jpg)
 
 - To enable the cross-region replication feature in S3, the following items should be met:
     - The source and destination buckets must have **versioning** enabled.

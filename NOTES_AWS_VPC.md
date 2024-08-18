@@ -126,6 +126,7 @@ ach subnet in your VPC must be associated with a network ACL. If you don’t do 
 - With NACLs you can have **permit** and **deny** rules.
 - Network ACLs are `stateless`, so responses are subject to the rules for the direction of traffic.
 - NACLs only apply to traffic that is ingress or egress to the subnet not to traffic within the subnet.
+- The default NACL allows all inbound and outbound traffic by default
 
 NACL is the first line of defense, the security group is the second line.
 
