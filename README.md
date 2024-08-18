@@ -127,13 +127,10 @@ I am an authority in the product, with deep technical understanding who can desi
 
 [AWS Kinesis](NOTES_AMAZON_KINESIS.md)
 
-# AWS Exam Learning Resources
+## Courses
 
-## DVA-C02: AWS Certified Developer Associate - Exam dumps
-*Youtube playlist by `sthithapragna`*
-https://youtu.be/zca2PBxzwqI?si=S64MVf8meY_WFglJ
+**DVA-C02: AWS Certified Developer Associate - Full Course by DigitalOcean**
 
-## DVA-C02: AWS Certified Developer Associate - Full Course by DigitalOcean
 *Author: [DigitalCloud training](https://digitalcloud.training/)*
 
 - 01 - Let's Get Started!
@@ -150,8 +147,10 @@ https://youtu.be/zca2PBxzwqI?si=S64MVf8meY_WFglJ
 - 12 - Databases and Analytics
 - 13 - Management and Security
 
-### DVA-C02: AWS Certified Developer Associate - Practice Exams
+## Dumps
 
-[AWS Certified Developer Associate Practice Exams DVA-C02 by Neal Davis](https://www.udemy.com/course/aws-developer-associate-practice-exams/) 
+[DVA-C02: AWS Certified Developer Associate - Youtube playlist by `sthithapragna`](https://youtu.be/zca2PBxzwqI?si=S64MVf8meY_WFglJ)
 
-[AWS Certified Developer Associate DVA-C02 Practice Exams 2024 by Jon Bonso](https://portal.tutorialsdojo.com/courses/aws-certified-developer-associate-practice-exams/)
+[AWS Certified Developer Associate Practice Exams DVA-C02 by `Neal Davis`](https://www.udemy.com/course/aws-developer-associate-practice-exams/) 
+
+[AWS Certified Developer Associate DVA-C02 Practice Exams 2024 by `Jon Bonso`](https://portal.tutorialsdojo.com/courses/aws-certified-developer-associate-practice-exams/)
