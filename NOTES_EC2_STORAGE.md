@@ -1,46 +1,6 @@
-# EC2 Instance Storage
+# EBS Volumes
 
-- [EC2 Instance Storage](#ec2-instance-storage)
-  - [EBS Volumes](#ebs-volumes)
-    - [What’s an EBS Volume?](#whats-an-ebs-volume)
-    - [EBS Volume](#ebs-volume)
-    - [EBS - Delete on Termination attribute](#ebs---delete-on-termination-attribute)
-    - [EBS Snapshots](#ebs-snapshots)
-    - [EBS Snapshots Features](#ebs-snapshots-features)
-  - [EBS Volume Types](#ebs-volume-types)
-    - [EBS Volume Types Use cases](#ebs-volume-types-use-cases)
-      - [General Purpose SSD](#general-purpose-ssd)
-      - [Provisioned IOPS (PIOPS) SSD](#provisioned-iops-piops-ssd)
-      - [Hard Disk Drives (HDD)](#hard-disk-drives-hdd)
-  - [EBS Multi-Attach - io1/io2 family](#ebs-multi-attach---io1io2-family)
-  - [EFS: Elastic File System](#efs-elastic-file-system)
-    - [EFS - Performance \& Storage Classes](#efs---performance--storage-classes)
-    - [EFS - Storage Classes](#efs---storage-classes)
-    - [EBS vs EFS - Elastic Block Storage](#ebs-vs-efs---elastic-block-storage)
-    - [EBS vs EFS - Elastic File System](#ebs-vs-efs---elastic-file-system)
-  - [EFS Infrequent Access (EFS-IA)](#efs-infrequent-access-efs-ia)
-  - [Amazon FSx - Overview](#amazon-fsx---overview)
-    - [Amazon FSx for Windows File Server](#amazon-fsx-for-windows-file-server)
-    - [Amazon FSx for Lustre](#amazon-fsx-for-lustre)
-  - [EC2 Instance Store](#ec2-instance-store)
-  - [Shared Responsibility Model for EC2 Storage](#shared-responsibility-model-for-ec2-storage)
-  - [AMI Overview](#ami-overview)
-    - [AMI Process (from an EC2 instance)](#ami-process-from-an-ec2-instance)
-  - [EC2 Image Builder](#ec2-image-builder)
-
-## EBS Volumes
-
-### What’s an EBS Volume?
-
-- An EBS (Elastic Block Store) Volume is a network drive you can attach to your instances while they run
-- It allows your instances to persist data, even after their termination
-- They can only be mounted to one instance at a time (at the CCP level)
-- They are bound to a specific availability zone
-- Analogy: Think of them as a “network USB stick”
-- Free tier: 30 GB of free EBS storage of type General Purpose (SSD) or Magnetic per month
-
-### EBS Volume
-
+## What’s an EBS Volume?
 - It’s a network drive (i.e. not a physical drive)
   - It uses the network to communicate the instance, which means there might be a bit of latency
   - It can be detached from an EC2 instance and attached to another one quickly
@@ -51,7 +11,7 @@
   - You get billed for all the provisioned capacity
   - You can increase the capacity of the drive over time
 
-### EBS - Delete on Termination attribute
+## EBS - Delete on Termination attribute
 
 - Controls the EBS behaviour when an EC2 instance terminates
   - By default, the root EBS volume is deleted (attribute enabled)
@@ -59,13 +19,13 @@
 - This can be controlled by the AWS console / AWS CLI
 - Use case: preserve root volume when instance is terminated
 
-### EBS Snapshots
+## EBS Snapshots
 
 - Make a backup (snapshot) of your EBS volume at a point in time
 - Not necessary to detach volume to do snapshot, but recommended
 - Can copy snapshots across AZ or Region
 
-### EBS Snapshots Features
+## EBS Snapshots Features
 
 - EBS Snapshot Archive
   - Move a Snapshot to an ”archive tier” that is 75% cheaper
@@ -136,7 +96,7 @@
 - **Up to 16 EC2 Instances at a time**
 - Must use a file system that’s cluster-aware (not XFS, EX4, etc..)
 
-## EFS: Elastic File System
+# EFS: Elastic File System
 
 - Managed NFS (network file system) that can be mounted on 100s of EC2
 - EFS works with Linux EC2 instances in multi-AZ
@@ -149,7 +109,7 @@
 - POSIX file system (~Linux) that has a standard file API
 - File system scales automatically, pay-per-use, no capacity planning!
 
-### EFS - Performance & Storage Classes
+## EFS - Performance & Storage Classes
 
 - EFS Scale
   - 1000s of concurrent NFS clients, 10 GB+ /s throughput
@@ -161,7 +121,7 @@
   - Bursting (1 TB = 50MiB/s + burst of up to 100MiB/s)
   - Provisioned: set your throughput regardless of storage size, ex: 1 GiB/s for 1 TB storage
 
-### EFS - Storage Classes
+## EFS - Storage Classes
 
 - Storage Tiers (lifecycle management feature – move file after N days)
   - Standard: for frequently accessed files
@@ -171,7 +131,7 @@
   - One Zone: One AZ, great for dev, backup enabled by default, compatible with IA (EFS One Zone-IA)
 - Over 90% in cost savings
 
-### EBS vs EFS - Elastic Block Storage
+## EBS vs EFS - Elastic Block Storage
 
 - EBS volume
   - can be attached to only one instance at a time
@@ -184,7 +144,7 @@
   - EBS backups use IO and you shouldn’t run them while your application is handling a lot of traffic
 - Root EBS Volumes of instances get terminated by default if the EC2 instance gets terminated. (you can disable that)
 
-### EBS vs EFS - Elastic File System
+## EBS vs EFS - Elastic File System
 
 - Mounting 100s of instances across AZ
 - EFS share website files (WordPress)
@@ -201,30 +161,7 @@
 - Example: move files that are not accessed for 60 days to EFS-IA
 - Transparent to the applications accessing EFS
 
-## Amazon FSx - Overview
-
-- Launch 3rd party high-performance file systems on AWS
-- Fully managed service
-  - FSx for Lustre
-  - FSx for Windows File Server
-  - FSx for NetApp ONTAP
-
-### Amazon FSx for Windows File Server
-
-- A fully managed, highly reliable, and scalable Windows native shared file system
-- Built on Windows File Server
-- Supports SMB protocol & Windows NTFS
-- Integrated with Microsoft Active Directory
-- Can be accessed from AWS or your on-premise infrastructure
-
-### Amazon FSx for Lustre
-
-- A fully managed, high-performance, scalable file storage for High Performance Computing (HPC)
-- The name Lustre is derived from “Linux” and “cluster”
-- Machine Learning, Analytics, Video Processing, Financial Modeling
-- Scales up to 100s GB/s, millions of IOPS, sub-ms latencies
-
-## EC2 Instance Store
+# EC2 Instance Store
 
 - EBS volumes are network drives with good but “limited” performance
 - **If you need a high-performance hardware disk, use EC2 Instance Store**
@@ -243,7 +180,7 @@
 | Replacing faulty hardware                         | Responsibility of any data on the drives           |
 | Ensuring their employees cannot access your data  | Understanding the risk of using EC2 Instance Store |
 
-## AMI Overview
+# AMI Overview
 
 - AMI = Amazon Machine Image
 - AMI are a customization of an EC2 instance
@@ -254,17 +191,3 @@
   - A Public AMI: AWS provided
   - Your own AMI: you make and maintain them yourself
   - An AWS Marketplace AMI: an AMI someone else made (and potentially sells)
-
-### AMI Process (from an EC2 instance)
-
-- Start an EC2 instance and customize it
-- Stop the instance (for data integrity)
-- Build an AMI – this will also create EBS snapshots
-- Launch instances from other AMIs
-
-## EC2 Image Builder
-
-- Used to automate the creation of Virtual Machines or container images
-- => Automate the creation, maintain, validate and test EC2 AMIs
-- Can be run on a schedule (weekly, whenever packages are updated, etc…)
-- Free service (only pay for the underlying resources)
