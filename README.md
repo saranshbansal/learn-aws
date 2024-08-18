@@ -91,6 +91,8 @@ I am an authority in the product, with deep technical understanding who can desi
 
 ## AWS Notes
 
+[FLASHCARDS](FLASHCARDS.md)
+
 [AWS - EC2](NOTES_EC2.md)
 
 [AWS - EC2 Storage - EBS Volume, EFS](NOTES_EC2_STORAGE.md)
@@ -126,8 +128,6 @@ I am an authority in the product, with deep technical understanding who can desi
 [AWS Integrated Services - SQS, SNS, EventBridge, Step Functions, SWF](NOTES_AWS_INTEGRATION_SERVICES.md)
 
 [AWS Kinesis](NOTES_AMAZON_KINESIS.md)
-
-[More...](https://jaimax.notion.site/Notes-0ee580f6b0f4460faefd3376e24977dd)
 
 ## Courses
 
