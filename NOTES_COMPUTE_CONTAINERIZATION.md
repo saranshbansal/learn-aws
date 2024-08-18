@@ -39,6 +39,7 @@ The following table provides an overview of some of the terminology used with Am
 - **Images** are typically built from a `Dockerfile`, a plain text file that specifies all of the components that are included in the container. These images are then stored in a **registry** from which they can be downloaded and run on your cluster.
 - When you launch a **container instance**, you have the option of passing **user data** to the instance. **The data can be used to perform common automated configuration tasks and even run scripts when the instance boots.**
 - **Docker Volumes** can be a local instance store volume, EBS volume, or EFS volume. Connect your Docker containers to these volumes using Docker drivers and plugins.
+- **Instance metadata** is the data about your instance that you can use to configure or manage the running instance. Instance metadata is divided into categories, for example, hostname, events, and security groups. To view all categories of instance metadata from within a running instance, use the `http://169.254.169.254/latest/meta-data/` URI.
 
 ### Task Definition
 **Task definitions** specify various parameters for your application. It is a text file, in JSON format, that describes one or more containers, up to a **maximum of 10**, that form your application.
