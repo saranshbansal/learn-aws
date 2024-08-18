@@ -1,7 +1,11 @@
 # Amazon ECS
-Amazon Elastic Container Service (Amazon ECS) is a fully managed container orchestration service that helps you easily deploy, manage, and scale containerized applications. As a fully managed service, Amazon ECS comes with AWS configuration and operational best practices built-in. It's integrated with both AWS and third-party tools, such as Amazon Elastic Container Registry and Docker. This integration makes it easier for teams to focus on building the applications, not the environment. You can run and scale your container workloads across AWS Regions in the cloud, and on-premises, without the complexity of managing a control plane.
+Amazon Elastic Container Service (Amazon ECS) is a fully managed container orchestration service that helps you easily deploy, manage, and scale containerized applications.
 
-Amazon ECS can be used to schedule the placement of containers across clusters based on resource needs and availability requirements.
+- A container management service to run, stop and manage Docker containers on a cluster.
+- ECS can be used to create a consistent deployment and build experience, manage, and scale batch and Extract-Transform-Load (ETL) workloads, and build sophisticated application architectures on a microservices model.
+- Amazon ECS is a regional service.
+- Amazon ECS can be used to schedule the placement of containers across clusters based on resource needs and availability requirements.
+- After a cluster is up and running, you can define task definitions and services that specify which Docker container images to run across your clusters.
 
 There is no additional charge for Amazon ECS. You pay for:
 
@@ -10,7 +14,7 @@ There is no additional charge for Amazon ECS. You pay for:
 
 It is possible to use Elastic Beanstalk to handle the provisioning of an Amazon ECS cluster, load balancing, auto-scaling, monitoring, and placing your containers across your cluster. Alternatively use ECS directly for more fine-grained control for customer application architectures.
 
-ECS (and Lambda) does not support `In-Place` Deployment type.
+> **Exam note:** ECS tasks only supports `Rolling` and `Blue/Green` Deployment types.
 
 ## ECS Terminology
 The following table provides an overview of some of the terminology used with Amazon ECS:
@@ -27,107 +31,55 @@ The following table provides an overview of some of the terminology used with Am
 
 ## ECS Components
 
-There are three layers in Amazon ECS:
-
-### **Capacity** - The infrastructure where your containers run
-
-- **Amazon EC2 instances in the AWS cloud**: You choose the instance type, the number of instances, and manage the capacity.
-
-- **Serverless (AWS Fargate (Fargate)) in the AWS cloud**: Fargate is a serverless, pay-as-you-go compute engine. With Fargate you don't need to manage servers, handle capacity planning, or isolate container workloads for security.
-
-- **On-premises virtual machines (VM) or servers**: Amazon ECS Anywhere provides support for registering an external instance such as an on-premises server or virtual machine (VM), to your Amazon ECS cluster.
-
-### **Controller**
-Deploy and manage your applications that run on the containers
-
-### **Provisioning**
-The tools that you can use to interface with the scheduler to deploy and manage your applications and containers
-
 ![alt text](images/image-ecs.png)
 
-## ECS Clusters
-ECS Clusters are a logical grouping of container instances that you can place tasks on.
+### Containers and Images
+- Your application components must be architected to run in **containers** ー containing everything that your software application needs to run: code, runtime, system tools, system libraries, etc.
+- Containers are created from a read-only template called an **image**.
+- **Images** are typically built from a `Dockerfile`, a plain text file that specifies all of the components that are included in the container. These images are then stored in a **registry** from which they can be downloaded and run on your cluster.
+- When you launch a **container instance**, you have the option of passing **user data** to the instance. **The data can be used to perform common automated configuration tasks and even run scripts when the instance boots.**
+- **Docker Volumes** can be a local instance store volume, EBS volume, or EFS volume. Connect your Docker containers to these volumes using Docker drivers and plugins.
 
-A default cluster is created but you can then create multiple clusters to separate resources.
+### Task Definition
+**Task definitions** specify various parameters for your application. It is a text file, in JSON format, that describes one or more containers, up to a **maximum of 10**, that form your application.
 
-ECS allows the definition of a specified number (desired count) of tasks to run in the cluster.
+Task definitions are split into separate parts:
+- **Task family** – the name of the task, and each family can have multiple revisions.
+- **IAM task role** – specifies the permissions that containers in the task should have.
+- **Network mode** – determines how the networking is configured for your containers.
+- **Container definitions** – specify which image to use, how much CPU and memory the container is allocated, and many more options.
+- **Volumes** – allow you to share data between containers and even persist the data on the container instance when the containers are no longer running.\Task placement constraints – lets you customize how your tasks are placed within the infrastructure.
+- **Launch types** – determines which infrastructure your tasks use - **EC2** or **Fargate**
 
-Clusters can contain tasks using the Fargate and EC2 launch type.
+#### Task Definitions for EC2 Launch Type
+- Create task definitions that group the containers that are used for a common purpose, and separate the different components into multiple task definitions.
+- After you have your task definitions, you can create services from them to maintain the availability of your desired tasks.
+- For EC2 tasks, the following are the types of data volumes that can be used:
+  - Docker volumes
+  - Bind mounts
+- Private repositories are only supported by the EC2 Launch Type.
 
-For clusters with the EC2 launch type clusters can contain different container instance types.
+#### Task Definitions for Fargate Launch Type
+- Fargate task definitions require that the network mode is set to **awsvpc**. The **awsvpc** network mode provides each task with its own elastic network interface.
+- Fargate task definitions require that you specify CPU and memory at the task level.
+- Fargate task definitions only support the **awslogs** log driver for the log configuration. This configures your Fargate tasks to send log information to `Amazon CloudWatch Logs`.
+- Task storage is **ephemeral**. After a Fargate task stops, the storage is deleted.
+- Amazon ECS tasks running on both Amazon EC2 and AWS Fargate can mount `Amazon Elastic File System (EFS)` file systems.
+- Put multiple containers in the same task definition if:
+  - Containers share a common lifecycle.
+  - Containers are required to be run on the same underlying host.
+  - You want your containers to share resources.
+  - Your containers share data volumes.
+- Otherwise, define your containers in separate task definitions so that you can scale, provision, and de-provision them separately.
 
-Each container instance may only be part of one cluster at a time.
+### Tasks and Scheduling
 
-“Services” provide auto-scaling functions for ECS.
+#### Tasks
+A **task** is the instantiation of a **task definition** within a cluster. After you have created a task definition for your application, you can specify the number of tasks that will run on your cluster.
 
-Clusters are region specific.
+> Each task that uses the **Fargate** launch type has its own isolation boundary and does not share the underlying kernel, CPU resources, memory resources, or elastic network interface with another task.
 
-You can create IAM policies for your clusters to allow or restrict users’ access to specific clusters.
-
-### ECS Cluster - Launch Types
-
-An Amazon ECS launch type determines the type of infrastructure on which your tasks and services are hosted.
-
-There are two launch types, and the table below describes some of the differences between the two launch types:
-
-| Amazon EC2                                                   | Amazon Fargate                                                           |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| You can explicitly provision EC2 instances                   | The control plan asks for resources and Fargate automatically provisions |
-| You’re responsible for upgrading, patching, care of EC2 pool | Fargate provisions compute as needed                                     |
-| You must handle cluster optimization                         | Fargate handles customer optimizations                                   |
-| More granular control over infrastructure                    | Limited control, as infrastructure is automated                          |
-
-### Fargate Launch Type
-The Fargate launch type allows you to run your containerized applications without the need to provision and manage the backend infrastructure. Just register your task definition and Fargate launches the container for you.
-Fargate Launch Type is a serverless infrastructure managed by AWS.
-Fargate only supports container images hosted on Elastic Container Registry (ECR) or Docker Hub.
-
-### EC2 Launch Type
-The EC2 launch type allows you to run your containerized applications on a cluster of Amazon EC2 instances that you manage.
-Private repositories are only supported by the EC2 Launch Type.
-
-The following diagram shows the two launch types and summarizes some key differences:
-
-![alt text](images/image-launch_type_ec2_fargate.png)
-
-## Images
-Containers are created from a read-only template called an `image` which has the instructions for creating a Docker container.
-
-Images are built from a `Dockerfile`.
-
-Only Docker containers are currently supported.
-
-An image contains the instructions for creating a Docker container.
-
-Images are stored in a registry such as DockerHub or AWS Elastic Container Registry (ECR).
-
-ECR is a managed AWS Docker registry service that is secure, scalable, and reliable.
-
-ECR supports private Docker repositories with resource-based permissions using AWS IAM to access repositories and images.
-
-Developers can use the Docker CLI to push, pull and manage images.
-
-## ECS Tasks
-A running container is called a `task`. A **task definition** is required to run Docker containers in Amazon ECS. A task definition is a text file in `JSON` format that describes one or more containers, up to a `maximum of 10`.
-
-Task definitions use Docker images to launch containers.
-
-Some of the parameters you can specify in a task definition include:
-
-- Which Docker images to use with the containers in your task.
-- How much CPU and memory to use with each container.
-- Whether containers are linked together in a task.
-- The Docker networking mode to use for the containers in your task.
-- What (if any) ports from the container are mapped to the host container instances.
-- Whether the task should continue if the container finished or fails.
-- The commands the container should run when it is started.
-- Environment variables that should be passed to the container when it starts.
-- Data volumes that should be used with the containers in the task.
-- IAM role the task should use for permissions.
-
-You can use Amazon ECS `Run task` to run one or more tasks once.
-
-### Task LifeCycle
+#### Task LifeCycle
 When a task is started, either manually or as part of a service, it can pass through several states before it finishes on its own or is stopped manually.
 
 The flow chart below shows the task lifecycle flow.
@@ -174,6 +126,16 @@ If your task stopped because of an error, see Viewing Amazon ECS stopped task er
 
 This is a transition state when a task stops. This state is not displayed in the console, but is displayed in describe-tasks.
 
+#### Task Scheduler
+The **task scheduler** is responsible for placing tasks within your cluster. There are several different scheduling options available.
+
+- **REPLICA** — places and maintains the desired number of tasks across your cluster. By default, the service scheduler **spreads** tasks across Availability Zones. You can use **task placement strategies** and **constraints** to customize task placement decisions.
+- **DAEMON** — deploys exactly one task on each active container instance that meets all of the task placement constraints that you specify in your cluster. When using this strategy, there is no need to specify a desired **number of tasks**, a **task placement strategy**, or use **Service Auto Scaling policies**.
+
+You can upload a new version of your application task definition, and the ECS scheduler automatically starts new containers using the updated image and stop containers running the previous version.
+
+> Amazon ECS tasks running on both Amazon EC2 and AWS Fargate can mount **Amazon Elastic File System (EFS)** file systems.
+
 ### ECS Task placement
 
 > **Very important for exam**
@@ -184,7 +146,7 @@ The following are task placement components:
 
 - **Task placement strategy** - The algorithm for selecting container instances for task placement or tasks for termination. For example, Amazon ECS can select container instances at random, or it can select container instances such that tasks are distributed evenly across a group of instances.
 - **Task group** - A group of related tasks, for example database tasks.
-- **Task placement constraint** - These are rules that must be met in order to place a task on a container instance. If the constraint is not met, the task is not placed and remains in the PENDING state. For example, you can use a constraint to place tasks only on a particular instance type.
+- **Task placement constraint** - These are rules that must be met in order to place a task on a container instance. If the constraint is not met, the task is not placed and remains in the `PENDING` state. For example, you can use a constraint to place tasks only on a particular instance type.
 
 Amazon ECS has different algorithms for the launch types.
 
@@ -217,16 +179,64 @@ The following table describes the available types and fields.
 
 Task placement strategies and constraints aren't supported for tasks using the Fargate launch type. Fargate will try its best to spread tasks across accessible Availability Zones. If the capacity provider includes both Fargate and Fargate Spot, the spread behavior is independent for each capacity provider.
 
-## ECS Container Agent
-The ECS container agent allows container instances to connect to the cluster.
+### Clusters
+When you run tasks using ECS, you place them in a **cluster**, which is a logical grouping of resources.
 
-The container agent runs on each infrastructure resource on an ECS cluster.
+- Clusters are Region-specific.
+- A default cluster is created but you can then create multiple clusters to separate resources.
+- Clusters can contain tasks using both the **Fargate** and **EC2 launch types**.
+  - When using the Fargate launch type with tasks within your cluster, ECS manages your cluster resources.
+  - When using the EC2 launch type, then your clusters are a group of container instances you manage. These clusters can contain multiple different container instance types, but each container instance may only be part of one cluster at a time.
+- Before you can delete a cluster, you must delete the services and deregister the container instances inside that cluster.
+- Enabling managed Amazon ECS cluster auto-scaling allows ECS to manage the *scale-in* and *scale-out* actions of the Auto Scaling group. On your behalf, Amazon ECS creates an AWS Auto Scaling scaling plan with a target tracking scaling policy based on the target capacity value that you specify.
+- You can create IAM policies for your clusters to allow or restrict users’ access to specific clusters.
 
-The ECS container agent is included in the Amazon ECS optimized AMI and can also be installed on any EC2 instance that supports the ECS specification (only supported on EC2 instances).
+#### ECS Cluster - Launch Types
 
-Linux and Windows based.
+An Amazon ECS launch type determines the type of infrastructure on which your tasks and services are hosted. 
 
-For non-AWS Linux instances to be used on AWS you must manually install the ECS container agent.
+##### Fargate Launch Type
+The Fargate launch type allows you to run your containerized applications without the need to provision and manage the backend infrastructure. Just register your task definition and Fargate launches the container for you.
+Fargate Launch Type is a serverless infrastructure managed by AWS.
+Fargate only supports container images hosted on Elastic Container Registry (ECR) or Docker Hub.
+
+##### EC2 Launch Type
+The EC2 launch type allows you to run your containerized applications on a cluster of Amazon EC2 instances that you manage.
+Private repositories are only supported by the EC2 Launch Type.
+
+The following diagram shows the two launch types and summarizes some key differences:
+
+![alt text](images/image-launch_type_ec2_fargate.png)
+
+### Services
+ECS allows you to run and maintain a specified number of instances of a *task definition* simultaneously in a cluster.
+
+- In addition to maintaining the desired count of tasks in your service, you can optionally run your service behind a load balancer.
+- There are two deployment strategies in ECS:
+  - **Rolling Update**
+    - This involves the service scheduler replacing the currently running version of the container with the latest version.
+    - The number of tasks ECS adds or removes from the service during a rolling update is controlled by the deployment configuration, which consists of the minimum and maximum number of tasks allowed during service deployment.
+  - **Blue/Green Deployment with AWS CodeDeploy**
+    - This deployment type allows you to verify a new deployment of a service before sending production traffic to it.
+    - The service must be configured to use either an Application Load Balancer or Network Load Balancer.
+
+### Container Agent
+The **container agent** runs on each infrastructure resource within an ECS cluster.
+
+It sends information about the resource’s current running tasks and resource utilization to ECS, and starts and stops tasks whenever it receives a request from ECS.
+The container agent is only supported on Amazon EC2 instances.
+
+### Service Load Balancing
+
+- Amazon ECS services support the **Application Load Balancer**, **Network Load Balancer**, and **Classic Load Balancer** ELBs. 
+  - Application Load Balancers are used to route HTTP/HTTPS (or layer 7) traffic. 
+  - Network Load Balancers are used to route TCP or UDP (or layer 4) traffic. 
+  - Classic Load Balancers are used to route TCP traffic.
+- You can attach multiple target groups to your Amazon ECS services that are running on either Amazon EC2 or AWS Fargate. This allows you to maintain a single ECS service that can serve traffic from both internal and external load balancers and support multiple path-based routing rules and applications that need to expose more than one port.
+- The *Classic Load Balancer* **doesn’t allow** you to run multiple copies of a task on the same instance. You must statically map port numbers on a container instance. However, an *Application Load Balancer* uses dynamic port mapping, so you **can run multiple tasks** from a single service on the same container instance.
+- If a service’s task fails the load balancer health check criteria, the task is stopped and restarted. This process continues until your service reaches the number of desired running tasks.
+
+> Services with tasks that use the **awsvpc network mode**, such as those with the Fargate launch type, do not support Classic Load Balancers. You must use NLB instead of TCP. 
 
 ## Amazon Elastic Container Registry (ECR)
 Amazon Elastic Container Registry (ECR) is a fully managed Docker container registry that makes it easy for developers to store, manage, and deploy Docker container images.
@@ -277,10 +287,7 @@ Amazon EC2 Auto Scaling helps you maintain application availability and allows y
 
 You can also use the dynamic and predictive scaling features of EC2 Auto Scaling to add or remove EC2 instances. Dynamic scaling responds to changing demand and predictive scaling automatically schedules the right number of EC2 instances based on predicted demand. Dynamic scaling and predictive scaling can be used together to scale faster.
 
-## Launch Configuration
-A launch configuration is an instance configuration template that an Auto Scaling group uses to launch EC2 instances. When you create a launch configuration, you specify information for the instances. Include the ID of the Amazon Machine Image (AMI), the instance type, a key pair, one or more security groups, and a block device mapping. If you've launched an EC2 instance before, you specified the same information in order to launch the instance.
-
-## Service Auto Scaling
+### Service Auto Scaling
 Amazon ECS service can optionally be configured to use Service Auto Scaling to adjust the desired task count up or down automatically.
 
 Service Auto Scaling leverages the Application Auto Scaling service to provide this functionality.
@@ -296,7 +303,7 @@ Amazon ECS Service Auto Scaling supports the following types of scaling policies
 
 ![alt text](images/image-ecs_autoscaling.png)
 
-## Cluster Auto Scaling
+### Cluster Auto Scaling
 Uses an Amazon ECS resource type called a `Capacity Provider`.
 
 A Capacity Provider can be associated with an `EC2 Auto Scaling Group (ASG)`.
