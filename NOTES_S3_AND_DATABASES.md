@@ -419,13 +419,15 @@ An LSI is similar to a GSI but with some key differences:
 
 - **Limitations:** Each table can have up to `5 LSIs`.
 - **Design Considerations:** Plan LSIs based on your application’s access patterns and ensure they align with the table’s primary key structure.
+- It's not possible to create a LSI on an existing table in DynamoDB.
 
 ### GSI vs LSI
 - **Access Patterns:** GSIs offer more flexibility in query patterns compared to LSIs, as they can use different partition and sort keys.
 - **Consistency:** LSIs provide strong consistency for queries within the same partition, whereas GSIs offer eventual consistency by default.
 - **Cost:** LSIs are more cost-effective in terms of storage since they reuse the same partition keys as the base table.
-- **Limitations**: Each table can have up to `5 LSIs` and `30 GSIs`.
+- **Limitations**: Each table can have up to `5 LSIs` and `20 GSIs`.
 - **Throttling**: If writes are throttled on the `GSI`, the main table will be throttled (even if there’s enough `WCUs` on the main table). `LSIs` do not cause any special throttling considerations.
+- **Flexibility**: It's not possible to create a LSI on an existing table in DynamoDB. In contrast, GSI can be added/removed to an existing DynamoDB table using the `UpdateTable` operation.
 
 ## Scan and Query API calls
 
