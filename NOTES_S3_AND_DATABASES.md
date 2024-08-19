@@ -499,7 +499,7 @@ In DynamoDB, a transactional read or write differs from a standard read or write
 - Use burst capacity effectively – DynamoDB currently retains up to 5 minutes (300 seconds) of unused read and write capacity which can be consumed quickly.
 
 ## DynamoDB Accelerator (DAX)
-`Amazon DynamoDB Accelerator (DAX)` is a fully managed, highly available, in-memory cache for DynamoDB that delivers up to a 10x performance improvement.
+`Amazon DynamoDB Accelerator (DAX)` is a fully managed, highly available, in-memory **cache** for DynamoDB that delivers up to a 10x performance improvement.
 
 - `DAX` is a managed service that provides in-memory acceleration for DynamoDB tables.
 - Provides managed cache invalidation, data population, and cluster management.
@@ -508,8 +508,8 @@ In DynamoDB, a transactional read or write differs from a standard read or write
 
 ### How it works
 
-- DAX is a write-through caching service – this means the data is written to the cache as well as the back-end store at the same time.
-- Allows you to point your DynamoDB API calls at the DAX cluster and if the item is in the cache (cache hit), DAX returns the result to the application.
+- `DAX` is a *write-through* caching service – this means the data is written to the cache as well as the back-end store at the same time.
+- Allows you to point your DynamoDB API calls at the `DAX cluster` and if the item is in the cache (cache hit), DAX returns the result to the application.
 - If the item requested is not in the cache (cache miss) then DAX performs an Eventually Consistent GetItem operation against DynamoDB
 - Retrieval of data from DAX reduces the read load on DynamoDB tables.
 - This may result in being able to reduce the provisioned read capacity on the table.
