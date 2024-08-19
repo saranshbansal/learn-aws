@@ -120,7 +120,10 @@ Once you have enabled static hosting, your S3 bucket will be accessible via a we
 #### Amazon S3 Transfer Acceleration
 Amazon S3 Transfer Acceleration is a bucket feature that when enabled allows end users to upload objects to the S3 bucket via a local Edge location enabling fast transfer speeds over the AWS backbone network.
 
-An important point to note is that your bucket names must not contain any dots `(.)` and be DNS compliant. In addition, transfer Acceleration is only supported on `virtual-hosted` style requests. You must either be the bucket owner to configure transfer acceleration or assign the `s3:PutAccelerateConfiguration` to another user to delegate this capability.
+- You must either be the bucket owner to configure transfer acceleration or assign the `s3:PutAccelerateConfiguration` to another user to delegate this capability.
+- In addition, transfer Acceleration is only supported on `virtual-hosted` style requests. 
+
+> **Exam note:** An important point to note is that your bucket names must not contain any dots `(.)` and be DNS compliant. 
 
 #### Amazon S3 Event Notification
 Amazon S3 can create a notification based on the following events that occur:

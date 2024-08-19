@@ -201,6 +201,7 @@ You can integrate an `API method` in your API Gateway with a custom HTTP endpoin
 - Additionally, for the Lambda proxy integration, the value is `AWS_PROXY`. 
 - For the Lambda custom integration and all other AWS integrations, it is `AWS`.
 - For the mock integration, the type value is `MOCK`.
+- By using `AWS_IAM` as the method authorization type, it ensures that the API can only be accessed by IAM identities such as IAM users or IAM roles.
 
 ## Important points
 - API Gateway does not support sharing a custom domain name across `REST` and `WebSocket` APIs.
