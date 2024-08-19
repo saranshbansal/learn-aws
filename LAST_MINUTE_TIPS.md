@@ -177,6 +177,7 @@ Common HTTP response codes:
 - Standard resolution metrics have 1 minute granularity
 - You can alert with High-Resolution Alarms, as frequently as 10-second periods.
 - To associate the CMK with an existing log group, you can use the `associate-kms-key` command.
+- By default doesn't track memory utilization metric of instances.
 
 ## CloudTrail
 
