@@ -97,10 +97,11 @@ Common HTTP response codes:
 - If your environment connects to a decoupled RDS database, remove the database’s security group rule that allows ingress from ASG’s security group.
 - Include `env.yaml` in the root of your application source bundle to configure the environment name, solution stack and environment links to use when creating your environment.
 - `Dockerrun.aws.json` - for creating multicontainer docker environment.
-- Immutable deployment creates a new set of instances, while Blue/Green deployment creates a new environment. Use swap environment URL option in console
+- `Immutable` deployment creates a new set of instances, while Blue/Green deployment creates a new environment. Use swap environment URL option in console
 - If you terminate instances from the failed deployment, Elastic Beanstalk replaces them with instances running the application version from the most recent successful deployment.
-- Application revision / version quota (1000) is applied to all applications within a region
-- Immutable is the longest deployment, AllAtOnce is the fastest
+- Application revision / version quota (`1000`) is applied to all applications within a region
+- `Immutable` is the longest deployment, `AllAtOnce` is the fastest.
+- Only supports `zip` or `war` files for deployment. NOT `tar`.
 
 ## ECS
 
