@@ -191,6 +191,17 @@ API Gateway throttling-related settings are applied in the following order:
 3. **Default per-method** limits and individual per-method limits that you set in API stage settings.
 4. **Account-level** throttling.
 
+## Integrating with API Gateway
+You can integrate an `API method` in your API Gateway with a custom HTTP endpoint of your application in two ways:
+
+- **HTTP proxy integration**: With proxy integration, the setup is simple. You only need to set the HTTP method and the HTTP endpoint URI, according to the backend requirements, if you are not concerned with content encoding or caching.
+
+- **HTTP custom integration**: With custom integration, setup is more involved. In addition to the proxy integration setup steps, you need to specify how the incoming request data is mapped to the integration request and how the resulting integration response data is mapped to the method response. API Gateway supports the following endpoint ports: `80, 443 and 1024-65535`.
+
+- Additionally, for the Lambda proxy integration, the value is `AWS_PROXY`. 
+- For the Lambda custom integration and all other AWS integrations, it is `AWS`.
+- For the mock integration, the type value is `MOCK`.
+
 ## Important points
 - API Gateway does not support sharing a custom domain name across `REST` and `WebSocket` APIs.
 
