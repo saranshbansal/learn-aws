@@ -56,8 +56,8 @@ Task definitions are split into separate parts:
 - Create task definitions that group the containers that are used for a common purpose, and separate the different components into multiple task definitions.
 - After you have your task definitions, you can create services from them to maintain the availability of your desired tasks.
 - For EC2 tasks, the following are the types of data volumes that can be used:
-  - Docker volumes
-  - Bind mounts
+  - **Docker volumes**
+  - **Bind mounts**
 - Private repositories are only supported by the EC2 Launch Type.
 
 #### Task Definitions for Fargate Launch Type
@@ -130,7 +130,7 @@ This is a transition state when a task stops. This state is not displayed in the
 #### Task Scheduler
 The **task scheduler** is responsible for placing tasks within your cluster. There are several different scheduling options available.
 
-- **REPLICA** — places and maintains the desired number of tasks across your cluster. By default, the service scheduler **spreads** tasks across Availability Zones. You can use **task placement strategies** and **constraints** to customize task placement decisions.
+- **REPLICA** — places and maintains the desired number of tasks across your cluster. By default, the service scheduler **spreads** tasks across `Availability Zones`. You can use **task placement strategies** and **constraints** to customize task placement decisions.
 - **DAEMON** — deploys exactly one task on each active container instance that meets all of the task placement constraints that you specify in your cluster. When using this strategy, there is no need to specify a desired **number of tasks**, a **task placement strategy**, or use **Service Auto Scaling policies**.
 
 You can upload a new version of your application task definition, and the ECS scheduler automatically starts new containers using the updated image and stop containers running the previous version.
@@ -178,7 +178,9 @@ The following table describes the available types and fields.
 
 #### Fargate Launch Type Task Placement
 
-Task placement strategies and constraints aren't supported for tasks using the Fargate launch type. Fargate will try its best to spread tasks across accessible Availability Zones. If the capacity provider includes both Fargate and Fargate Spot, the spread behavior is independent for each capacity provider.
+- Task placement strategies and constraints **aren't supported** for tasks using the Fargate launch type. 
+- By default, Fargate tasks are spread across Availability Zones. Fargate will try its best to spread tasks across accessible Availability Zones. 
+- If the capacity provider includes both `Fargate` and `Fargate Spot`, the spread behavior is independent for each capacity provider.
 
 ### Clusters
 When you run tasks using ECS, you place them in a **cluster**, which is a logical grouping of resources.
