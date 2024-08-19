@@ -292,18 +292,45 @@ The `SAM CLI` is a vital tool for local development and testing of serverless ap
 - SAM seamlessly transforms and expands this syntax into AWS CloudFormation syntax, facilitating faster and more efficient construction of serverless applications. 
 - AWS SAM supports all AWS CloudFormation template items such as `Outputs`, `Mappings`, `Parameters`, providing developers with the comprehensive tooling needed to build robust and scalable serverless applications.
 
-### Commands
-```yaml
-# Only two commands are required to package and deploy to AWS.
+### SAM Commands
 
-sam package
-sam deploy
+>**Note:** `sam deploy` now implicitly performs the functionality of `sam package`. You can use the `sam deploy` command directly to package and deploy your application.
+
+All SAM commands:
+
+```yaml
+sam build # resolve dependencies and construct deployment artifacts for all functions and layers in the SAM template.
+sam delete
+sam deploy # deploy the application with a specified CloudFormation stack
+sam init # creating a new SAM project
+sam list
+sam local generate-event
+sam local invoke
+sam local start-api
+sam local start-lambda
+sam logs
+sam package (DECOMMISSIONED)
+sam pipeline bootstrap
+sam pipeline init
+sam publish # publish applications to the AWS Serverless Application Repository
+sam remote invoke
+sam remote test-event
+sam sync # quick syncing of local changes to AWS, more suitable for rapid development testing not for production.
+sam traces
+sam validate
+```
+Only two commands are required to package and deploy serverless apps in AWS.
+
+```yaml
+sam build > sam package (decommissioned) / sam deploy
 
 # OR
 
 aws cloudformation package
 aws cloudformation deploy
 ```
+
+
 
 ## SAM Template
 The following example shows a YAML-formatted template fragment.
