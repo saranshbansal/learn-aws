@@ -185,7 +185,7 @@ Common HTTP response codes:
 ## API Gateway
 
 - To invalidate API cache, the client must have **`execute-api:InvalidateCache`** permission
-- Integration max timeout is 29s. After that APIGW returns `504 gateway timeout` error
+- Integration max timeout is `29s`. After that APIGW returns `504 gateway timeout` error.
 - CloudWatch metrics -
     - IntegrationLatency
     - Latency
@@ -193,7 +193,10 @@ Common HTTP response codes:
     - CacheHitCount (when API cache is enabled)
     - CacheMissCount (when API cache is enabled)
 - Your account is charged for accessing method-level CloudWatch metrics, but not the API-level or stage-level metrics.
-- In access logging, only $context variables are supported
+- In access logging, only `$context` variables are supported.
+- The following are the Gateway response types which are associated with the HTTP 504 error in API Gateway:
+  - **INTEGRATION_FAILURE** – The gateway response for an integration failed error. If the response type is unspecified, this response defaults to the `DEFAULT_5XX` type.
+  - **INTEGRATION_TIMEOUT** – The gateway response for an integration timed-out error. If the response type is unspecified, this response defaults to the `DEFAULT_5XX` type.
 
 ## Lambda
 
