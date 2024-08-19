@@ -17,7 +17,7 @@ CloudFront is a web service that gives businesses and web application developers
   - OAC is replacing Origin Access Identity(OAI)
   - CloudFront can be used as an ingress (to upload files to S3)
 - **Custom Origin (HTTP)**
-  - Application Load Balancer
+  - Application Load Balancer (ALB)
   - EC2 instance
   - S3 website (must first enable the bucket as a static S3 website)
   - Any HTTP backend you want
@@ -262,3 +262,10 @@ Overall, Cache Policy controls how content is cached and served by CloudFront, w
 - Allows you to choose:
   - Sampling Rate – percentage of requests for which you want to receive
   - Specific fields and specific Cache Behaviors (path patterns)
+
+## CloudFront - Personalization using Http headers
+You can configure CloudFront to add specific HTTP headers to the requests that CloudFront receives from viewers and forwards to your `origin` or `edge function`. The values of these HTTP headers are based on the characteristics of the viewer or the viewer request. The headers provide information about the `viewer’s device type, IP address, geographic location, request protocol (HTTP or HTTPS), HTTP version, TLS connection details, and JA3 fingerprint`.
+
+With these headers, your origin or your `edge function` can receive information about the viewer without the need for you to write your own code to determine this information. If your origin returns different responses based on the information in these headers, you can include them in the *cache* key so that CloudFront caches the responses separately. 
+
+For example, your origin might respond with content in a specific language based on the country that the viewer is in or with content tailored to a specific device type. Your origin might also write these headers to log files, which you can use to determine information about where your viewers are, which device types they’re on, and more.
