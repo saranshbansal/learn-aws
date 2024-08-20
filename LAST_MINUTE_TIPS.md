@@ -47,9 +47,10 @@ Common HTTP response codes:
 
 ## S3
 
-- Transfer acceleration requires DNS compliant name, it must not contain periods
-- Use multipart upload API when object size exceeds 100MB
-- When using SSE-C, S3 stores a randomly salted HMAC value of the encryption key you provide.
+- Transfer acceleration requires DNS compliant name, **it must not contain periods**
+- Use **multipart upload** API when object size exceeds `100MB`
+- Use `Amazon S3 Object Lambda` to redact PII before it is returned to the application.
+- When using `SSE-C`, S3 stores a randomly salted `HMAC` value of the encryption key you provide.
 - If you lose the encryption key, you lose the object.
 - When trying to upload a large file to your S3 bucket with an upload request that includes an AWS KMS key, then you have to confirm that you have permission to perform `kms:Decrypt` actions on the AWS KMS key that you’re using to encrypt the object.
 
@@ -60,23 +61,26 @@ Common HTTP response codes:
 - Replication
     - Lifecycle actions are not replicated, and if you want the same lifecycle configuration applied to both source and destination buckets, enable the same lifecycle configuration on both.
     - Same-Region Replication (SRR) and Cross-Region Replication (CRR) can be configured at the S3 bucket level, a shared prefix level, or an object level using S3 object tags
-- Headers for SSE-S3
-    - x-amz-server-side-encryption: AES256
-- Headers for SSE-KMS
-    - x-amz-server-side-encryption: aws:kms
-- Headers for SSE-C
-    - x-amz-server-side-encryption-customer-algorithm: AES256
-    - x-amz-server-side-encryption-customer-key
-    - x-amz-server-side-encryption-customer-key-MD5
-- ACLs are service policies that allow you to control which principals in another account can access a resource
-- By default, when other AWS accounts upload objects to your bucket, the objects remain owned by the uploading account. With S3 Object Ownership, any new objects that are written by other accounts with the bucket-owner-full-control canned access control list (ACL) automatically become owned by the bucket owner, who then has full control of the objects.
-    
-    S3 Object Ownership has two settings: 1. Object writer – The uploading account will own the object. 2. Bucket owner preferred – The bucket owner will own the object if the object is uploaded with the `bucket-owner-full-control` canned ACL. Without this setting and canned ACL, the object is uploaded and remains owned by the uploading account.
-    
+- Headers for `SSE-S3`
+    - `x-amz-server-side-encryption: AES256`
+- Headers for `SSE-KMS`
+    - `x-amz-server-side-encryption: aws:kms`
+- Headers for `SSE-C`
+    - `x-amz-server-side-encryption-customer-algorithm: AES256`
+    - `x-amz-server-side-encryption-customer-key`
+    - `x-amz-server-side-encryption-customer-key-MD5`
+
+- `ACLs` are service policies that allow you to control which principals in another account can access a resource
+- By default, when other AWS accounts upload objects to your bucket, the objects remain owned by the uploading account. 
+- With S3 Object Ownership, any new objects that are written by other accounts with the bucket-owner-full-control canned access control list (ACL) automatically become owned by the bucket owner, who then has full control of the objects.
+- S3 Object Ownership has two settings: 
+  - **Object writer** – The uploading account will own the object. 
+  - **Bucket owner preferred** – The bucket owner will own the object if the object is uploaded with the `bucket-owner-full-control` canned ACL. Without this setting and canned ACL, the object is uploaded and remains owned by the uploading account.
 - If two writes are made to a single non-versioned object at the same time, it is possible that only a single event notification will be sent. If you want to ensure that an event notification is sent for every successful write, you can enable versioning on your bucket. With versioning, every successful write will create a new version of your object and will also send event notification.
+
 - **S3 Consistency Model**
     - Bucket configurations have an **eventual** consistency model. If you delete a bucket and immediately list all buckets, the deleted bucket might still appear in the list.
-    - Amazon S3 provides **strong** read-after-write consistency for PUTs and DELETEs of objects in your Amazon S3 bucket in all AWS Regions. This applies to both writes to new objects as well as PUTs that overwrite existing objects and DELETEs.
+    - Amazon S3 provides **strong** `read-after-write` consistency for `PUTs` and `DELETEs` of objects in your Amazon S3 bucket in all AWS Regions. This applies to both writes to new objects as well as `PUTs` that overwrite existing objects and `DELETEs`.
     - If you enable versioning on a bucket for the first time, it might take a short amount of time for the change to be fully propagated. We recommend that you wait for 15 minutes after enabling versioning before issuing write operations (PUT or DELETE requests) on objects in the bucket.
 
 ## CloudFront
@@ -170,6 +174,20 @@ Common HTTP response codes:
 
 - X-RAY daemon uses `AWSXRayDaemonWriteAccess` policy to upload traces
 - `AWSXRayReadOnlyAccess` for viewing traces in the console
+- Enabling tracing on various computes:
+    | Type              | Method                                                                                                                                |
+    | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+    | ECS Cluster       | Create a **Docker image** that runs the X-Ray daemon                                                                                  |
+    | Elastic BeanStalk | Enable the X-Ray daemon by including the `xray-daemon.config` configuration file in the `.ebextensions` directory of your source code |
+    | EC2 instances     | Using a **user data script** to run the daemon automatically                                                                          |
+    | Lambda            | update the lambda function and add `--tracing-config Mode=Active`                                                                     |
+
+- AWS Lambda uses environment variables to facilitate communication with the X-Ray daemon and configure the X-Ray SDK.
+  - **_X_AMZN_TRACE_ID**: Contains the tracing header, which includes the `sampling decision`, `trace ID`, and `parent segment ID`. If Lambda receives a tracing header when your function is invoked, that header will be used to populate the _X_AMZN_TRACE_ID environment variable. If a tracing header was not received, Lambda will generate one for you.
+
+  - **AWS_XRAY_CONTEXT_MISSING**: The X-Ray SDK uses this variable to determine its behavior in the event that your function tries to record X-Ray data, but a tracing header is not available. Lambda sets this value to `LOG_ERROR` by default.
+
+  - **AWS_XRAY_DAEMON_ADDRESS**: This environment variable exposes the X-Ray daemon’s address in the following format: IP_ADDRESS:PORT. You can use the X-Ray daemon’s address to send trace data to the X-Ray daemon directly without using the X-Ray SDK.
 
 ## CloudWatch
 
@@ -178,6 +196,10 @@ Common HTTP response codes:
 - You can alert with High-Resolution Alarms, as frequently as 10-second periods.
 - To associate the CMK with an existing log group, you can use the `associate-kms-key` command.
 - By default doesn't track memory utilization metric of instances.
+- When you create an alarm, you specify three settings to enable CloudWatch to evaluate when to change the alarm state:
+  - **Period** is the length of time to evaluate the metric or expression to create each individual data point for an alarm. It is expressed in seconds. If you choose one minute as the period, there is one datapoint every minute.
+  - **Evaluation Period** is the number of the most recent periods, or data points, to evaluate when determining alarm state.
+  - **Datapoints to Alarm** is the number of data points within the evaluation period that must be breaching to cause the alarm to go to the ALARM state. The breaching data points do not have to be consecutive, they just must all be within the last number of data points equal to Evaluation Period.
 
 ## CloudTrail
 
@@ -186,6 +208,8 @@ Common HTTP response codes:
 ## API Gateway
 
 - To invalidate API cache, the client must have **`execute-api:InvalidateCache`** permission
+- The client must send a request that contains the `Cache-Control: max-age=0` header to invalidate the cache.
+- Ticking the `Require authorization` checkbox ensures that not every client can invalidate the API cache.
 - Integration max timeout is `29s`. After that APIGW returns `504 gateway timeout` error.
 - CloudWatch metrics -
     - IntegrationLatency

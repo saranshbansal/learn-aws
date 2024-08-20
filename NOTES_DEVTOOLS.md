@@ -184,59 +184,6 @@ With AWS CodeStar, you can set up your entire continuous delivery toolchain in m
 
 **Exam tip:** If an exam scenario requires a unified development toolchain, and mentions collaboration between team members, synchronization, and centralized management of the CI/CD pipeline this will be CodeStar rather than CodePipeline or CodeCommit.
 
-## AWS X-Ray
-![alt text](images/image-xray.png)
-
-AWS X-Ray helps developers analyze and debug production, distributed applications, such as those built using a microservices architecture.
-
-With X-Ray, you can understand how your application and its underlying services are performing to identify and troubleshoot the root cause of performance issues and errors.
-
-X-Ray provides an end-to-end view of requests as they travel through your application and shows a map of your application’s underlying components.
-
-**Key X-Ray terminology**
-`Trace:`
-
-An X-Ray trace is a set of data points that share the same trace ID.
-
-`Segments:`
-
-An X-Ray segment encapsulates all the data points for a single component (for example, authorization service) of the distributed application.
-
-Segments include system-defined and user-defined data in the form of annotations and are composed of one or more sub-segments that represent remote calls made from the service.
-
-`Subsegments:`
-
-Subsegments provide more granular timing information and details about downstream calls that your application made to fulfill the original request.
-
-A subsegment can contain additional details about a call to an AWS service, an external HTTP API, or an SQL database.
-You can even define arbitrary subsegments to instrument specific functions or lines of code in your application.
-For services that don’t send their own segments, like Amazon DynamoDB, X-Ray uses subsegments to generate inferred segments and downstream nodes on the service map.
-
-This lets you see all your downstream dependencies, even if they don’t support tracing, or are external.
-
-`Annotations:`
-
-An X-Ray annotation is system-defined, or user-defined data associated with a segment.
-
-System-defined annotations include data added to the segment by AWS services, whereas user-defined annotations are metadata added to a segment by a developer.
-
-A segment can contain multiple annotations. These are key / value pairs used to index traces and use with filters.
-
-Use annotations to record information on segments or subsegments that you want indexed for search.
-
-`Sampling:`
-
-To provide a performant and cost-effective experience, X-Ray does not collect data for every request that is sent to an application.
-
-Instead, it collects data for a statistically significant number of requests.
-X-Ray should not be used as an audit or compliance tool because it does not guarantee data completeness.
-
-`Metadata:`
-
-Key / value pairs, not indexed and not used for searching.
-
-**Exam tip:** Remember that annotations can be used for adding system or user-defined data to segments and subsegments that you want to index for search. Metadata is not indexed and cannot be used for searching.
-
 ## AWS AppConfig 
 
 It is a specialized service that enables developers to create, manage, and deploy application configurations quickly and efficiently. It also provides the functionality to **manage feature flags**, a powerful technique that allows developers to test and control new features in live environments without affecting all users. 
