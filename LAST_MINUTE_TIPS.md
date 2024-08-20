@@ -162,13 +162,18 @@ Common HTTP response codes:
 
 ## ElastiCache
 
-- All the nodes in a Redis cluster (cluster mode enabled or cluster mode disabled) must reside in the same region.
+- All the nodes in a Redis cluster (cluster mode enabled or cluster mode disabled) must reside in the **same region**.
 - While using Redis with cluster mode enabled, there are some limitations:
     - You cannot manually promote any of the replica nodes to primary.
     - Multi-AZ is required.
     - You can only change the structure of a cluster, the node type, and the number of nodes by restoring from a backup.
 - When you add a read replica to a cluster, all of the data from the primary is copied to the new node. From that point on, whenever data is written to the primary, the changes are asynchronously propagated to all the read replicas, for both the Redis offerings (cluster mode enabled or cluster mode disabled).
 - If you have no replicas and a node fails, you experience loss of all data in that node's shard, when using Redis with cluster mode enabled. If you have no replicas and the node fails, you experience total data loss in Redis with cluster mode disabled.
+- You can choose `Memcached` over `Redis` if you have the following requirements:
+  - You need the simplest model possible.
+  - You need to run large nodes with **multiple cores or threads**.
+  - You need the ability to scale out and in, adding and removing nodes as demand on your system increases and decreases.
+  - You need to cache objects, such as a database.
 
 ## X-RAY
 
@@ -319,3 +324,6 @@ Common HTTP response codes:
 ## SAM
 
 - To deploy an application that contains one or more nested applications, you must include the `CAPABILITY_AUTO_EXPAND` capability in the sam deploy command.
+
+## Miscellaneous
+- If you have resources that are running inside AWS that need programmatic access to various AWS services, then the best practice is always to use IAM roles. However, applications running outside of an AWS environment will need access keys for programmatic access to AWS resources. For example, monitoring tools running on-premises and third-party automation tools will need access keys.
