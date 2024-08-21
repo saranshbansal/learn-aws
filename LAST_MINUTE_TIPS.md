@@ -121,7 +121,7 @@ Common HTTP response codes:
 - `ECS_ENABLE_TASK_IAM_ROLE` ****- This configuration item is used to enable IAM roles for tasks for containers with the bridge and default network modes.
 - Amazon ECS metric data is automatically sent to CloudWatch in 1-minute periods. Also, any Amazon ECS service using the Fargate launch type has CloudWatch CPU and memory utilization metrics automatically, so you don't need to take any manual steps.
 - Amazon ECR users require permission to call `ecr:GetAuthorizationToken` before they can authenticate to a registry and push or pull any images from any Amazon ECR repository.
-- When a container instance is terminated in the stopped state, the container instance is not automatically deregistered from the cluster.
+- If you terminate a container instance in the `RUNNING` state, that container instance is automatically removed or deregistered from the cluster. However, if you terminate a container instance in the `STOPPED` state, that container instance isn’t automatically removed from the cluster.
 
 ## SQS
 
@@ -242,11 +242,11 @@ Common HTTP response codes:
 - Lambda function needs `AWSLambdaDynamoDBExecutionRole` to poll records from a DynamoDB stream
 - Lambda functions that use multi-architecture container images are **NOT** supported. They must target a single architecture
 - Provisioned concurrency can be auto-scaled on a schedule
-- Lambda Environment variables must not exceed 4 KB
-- Max memory (RAM) is 10240MB (10GB)
+- Lambda Environment variables must not exceed `4 KB`
+- Max memory (RAM) is `10240MB (10GB)`
 - Provisioned Concurrency cannot be used with the `$LATEST` version.
 - Reserving concurrency is free, but Provisioned concurrency is charged for
-- Lambda@Edge functions can only be created in `us-east-1` region. Lambda will replicate your function in locations all around the world.
+- `Lambda@Edge` functions can only be created in `us-east-1` region. Lambda will replicate your function in locations all around the world.
     - If you try to create a Lambda@Edge function via CloudFormation in a region other than `us-east-1`, the stack creation will **FAIL**
 - **Lambda Throttling**: The following are the recommended solutions to handle throttling issues:
   - **Configure reserved concurrency** – by default, there are `900` unreserved concurrencies shared across all functions in a region. To prevent other functions from consuming the available concurrent executions, reserve a portion of it to your Lambda function based on the demand of your current workload.
@@ -254,6 +254,10 @@ Common HTTP response codes:
   - **Use a dead-letter queue** – If you’re using Amazon S3 and Amazon EventBridge (Amazon CloudWatch Events), configure your function with a dead letter queue to catch any events that are discarded due to constant throttles. This can protect your data if you’re seeing significant throttling.
   - **Request a service quota increase** – you can reach AWS support to request for a higher service quota for concurrent executions.
 - **Step Functions** - If you want to manage multiple Lambda functions that invoke one another, use `Step Functions` which use `State Machine`, a technique in modeling systems whose output depends on the entire history of their inputs, not just on the most recent input. In this case, the Lambda functions invoke one another, creating a large state machine.
+- There are two types of authorization available for Lambda function URLs:
+  - **AWS_IAM**  – the function URL can only be invoked by an IAM user or role with the necessary permissions. This can be useful in cases where you need to restrict access to the Lambda function to a specific set of users or roles within your organization.
+  - **NONE** – anyone can invoke the Lambda function using the URL. This approach can be useful in cases where you want to make the Lambda function publicly accessible and do not require any additional authentication or authorization beyond the URL. However, you may still need to validate the incoming requests in the Lambda function to ensure that the request comes from a trusted source.
+
 
 ## DynamoDB
 
@@ -323,6 +327,19 @@ Common HTTP response codes:
 - SSM Parameters do not support resource based policies. Advanced tier parameters support parameter policies
 - Symmetric keys with imported key material cannot be automatically rotated. Keys with AWS generated key material can be.
 - AWS KMS establishes quotas for the number of API operations requested in each second. This could lead to throttling of otherwise functional setup.
+
+### Options provided by KMS
+- Create symmetric and asymmetric keys where the key material is only ever used within the service
+- Create symmetric keys where the key material is generated and used within a custom key store under your control.
+- Import your own symmetric key for use within the service.
+- Create both symmetric and asymmetric data key pairs for local use within your applications.
+- Define which IAM users and roles can manage keys.
+- Define which IAM users and roles can use keys to encrypt and decrypt data.
+- Choose to have keys that were generated by the service to be automatically rotated on an annual basis.
+- Temporarily disable keys so they cannot be used by anyone.
+- Re-enable disabled keys.
+- Schedule the deletion of keys that you no longer use.
+- Audit the use of keys by inspecting logs in `AWS CloudTrail`.
 
 ## Route 53
 
