@@ -25,6 +25,8 @@ Common HTTP response codes:
     - Set the AWS Region you wish to import to.
     - Import the public SSH key into the new Region.
 - A Reserved Instance billing benefit can apply to a maximum of 3600 seconds (one hour) of instance usage per clock-hour. You can run multiple instances concurrently, but can only receive the benefit of the Reserved Instance discount for a total of 3600 seconds per clock-hour; instance usage that exceeds 3600 seconds in a clock-hour is billed at the On-Demand rate.
+- A `launch template` is an instance configuration template that an Auto Scaling group uses to launch EC2 instances. Modifying an existing launch template is not possible.
+- Run custom shell scripts while launching EC2 instance: use `user data` while launching EC2
 
 ## EBS
 
@@ -77,6 +79,7 @@ Common HTTP response codes:
   - **Object writer** – The uploading account will own the object. 
   - **Bucket owner preferred** – The bucket owner will own the object if the object is uploaded with the `bucket-owner-full-control` canned ACL. Without this setting and canned ACL, the object is uploaded and remains owned by the uploading account.
 - If two writes are made to a single non-versioned object at the same time, it is possible that only a single event notification will be sent. If you want to ensure that an event notification is sent for every successful write, you can enable versioning on your bucket. With versioning, every successful write will create a new version of your object and will also send event notification.
+- `Retention` option can be set while defining S3 lifecycle options for limiting old artifacts versions by number or age. This can prevent deleting source bundle.
 
 - **S3 Consistency Model**
     - Bucket configurations have an **eventual** consistency model. If you delete a bucket and immediately list all buckets, the deleted bucket might still appear in the list.
@@ -86,14 +89,16 @@ Common HTTP response codes:
 ## CloudFront
 
 - CloudFront has a default SSL certificate when using CloudFront provided domain (for HTTPS between the viewer and CloudFront)
-- Cloudfront functions support JavaScript, can be invoked at viewer request / response
-- Lambda@Edge functions support Python and JavaScript, can be invoked at both origin and viewer request / response
+- Cloudfront functions support `JavaScript`, can be invoked at viewer request / response
+- `Lambda@Edge` functions support `Python` and `JavaScript`, can be invoked at both origin and viewer request / response
 - Use versioned file names in S3 to update the files without cache invalidation
-- Signed URL / Cookie
-    - CloudFront key pairs can be created by root account only. Max 2 key-pairs. Can only be created from the console
+- **Signed URL / Cookie**
+    - CloudFront key pairs can be created by root account only. **Max 2 key-pairs**. Can only be created from the console
     - Signed URLs take precedence over signed cookies
 - CloudFront routes all incoming requests to the primary origin, even when a previous request failed over to the secondary origin. CloudFront only sends requests to the secondary origin after a request to the primary origin fails.
-- CloudFront fails over to the secondary origin only when the HTTP method of the viewer request is GET, HEAD, or OPTIONS. CloudFront does not failover when the viewer sends a different HTTP method (for example POST, PUT, and so on).
+- CloudFront fails over to the secondary origin only when the HTTP method of the viewer request is **GET, HEAD, or OPTIONS**. CloudFront does not failover when the viewer sends a different HTTP method (for example POST, PUT, and so on).
+- **Update images/objects in CloudFront - General -** Update the images by invalidating them from the edge caches.
+- **Update images/objects in CloudFront - Cost-effective -** With **versioning**, you don’t have to wait for an object in cache to expire before CloudFront begins to serve a new version of it, and you don’t have to pay for object invalidation.
 
 ## Elastic Beanstalk
 
@@ -116,6 +121,7 @@ Common HTTP response codes:
 - `ECS_ENABLE_TASK_IAM_ROLE` ****- This configuration item is used to enable IAM roles for tasks for containers with the bridge and default network modes.
 - Amazon ECS metric data is automatically sent to CloudWatch in 1-minute periods. Also, any Amazon ECS service using the Fargate launch type has CloudWatch CPU and memory utilization metrics automatically, so you don't need to take any manual steps.
 - Amazon ECR users require permission to call `ecr:GetAuthorizationToken` before they can authenticate to a registry and push or pull any images from any Amazon ECR repository.
+- When a container instance is terminated in the stopped state, the container instance is not automatically deregistered from the cluster.
 
 ## SQS
 
@@ -193,6 +199,7 @@ Common HTTP response codes:
   - **AWS_XRAY_CONTEXT_MISSING**: The X-Ray SDK uses this variable to determine its behavior in the event that your function tries to record X-Ray data, but a tracing header is not available. Lambda sets this value to `LOG_ERROR` by default.
 
   - **AWS_XRAY_DAEMON_ADDRESS**: This environment variable exposes the X-Ray daemon’s address in the following format: IP_ADDRESS:PORT. You can use the X-Ray daemon’s address to send trace data to the X-Ray daemon directly without using the X-Ray SDK.
+- Use **annotations** to record data that you want to use to group traces. Also, use it for filtering traces as it is indexed.
 
 ## CloudWatch
 
@@ -205,6 +212,7 @@ Common HTTP response codes:
   - **Period** is the length of time to evaluate the metric or expression to create each individual data point for an alarm. It is expressed in seconds. If you choose one minute as the period, there is one datapoint every minute.
   - **Evaluation Period** is the number of the most recent periods, or data points, to evaluate when determining alarm state.
   - **Datapoints to Alarm** is the number of data points within the evaluation period that must be breaching to cause the alarm to go to the ALARM state. The breaching data points do not have to be consecutive, they just must all be within the last number of data points equal to Evaluation Period.
+  - CloudWatch **doesn't cover memory** usage by default. It only captures CPU usage for EC2 instances. To enable memory usage metric, install CW agent in EC2 instances.
 
 ## CloudTrail
 
@@ -256,10 +264,16 @@ Common HTTP response codes:
 - `BatchWriteItem` cannot update items, i.e. doesn't support `UpdateItem` operation
 - `BatchGetItem` returns failed reads as `UnprocessedKeys`
 - DynamoDB has two built-in backup methods (On-demand, Point-in-time recovery) that write to Amazon S3, but you will **NOT** have access to the S3 buckets that are used for these backups.
+- In DynamoDB, you can control access to individual data items, indexes and attributes in a table using IAM policy. You use the `IAM Condition` element to implement a fine-grained access control policy.
+  - `dynamodb:LeadingKeys` condition key in IAM policy for restricting access to records belonging to specific partition key ex. UserId.
+  - `dynamodb:Attributes` condition key in IAM policy for restricting access to attributes.
+  - `dynamodb:Select`: for specifying attributes to be returned in the result of a Query or Scan request
+  - `dynamodb:ReturnValues`: used for getting the item attributes as they appear before or after they are updated.
 
 ## Cognito
 
 - User pool integrates with API Gateway and Application Load Balancer
+- When your mobile app authenticates with the Identity Provider (IdP) using Amazon Cognito, the token returned from the IdP is passed to Amazon Cognito, which then returns a **Cognito ID** for the user. This **Cognito ID** is used to provide a set of temporary, limited-privilege AWS credentials through the Cognito Identity Pool.
 
 ## Step Functions
 
@@ -271,6 +285,9 @@ Common HTTP response codes:
 ## CodeCommit
 
 - `codecommit:GitPull` and `codecommit:GitPush` IAM permissions are for git client and not for API actions. They are used for git clone, git fetch, git pull and git push.
+- You can authenticate with CodeCommit (**HTTPS**) in two ways:
+  1. Set-up a **Git credential helper** using your access key credentials specified in your **AWS credential profile**.
+  2. Generate HTTPS Git credentials for AWS CodeCommit. Specify the credentials in the **Git Credential Manager**.
 
 ## CodeBuild
 
@@ -305,6 +322,7 @@ Common HTTP response codes:
 - AWS Encryption SDK encrypts your data using a **symmetric** key algorithm
 - SSM Parameters do not support resource based policies. Advanced tier parameters support parameter policies
 - Symmetric keys with imported key material cannot be automatically rotated. Keys with AWS generated key material can be.
+- AWS KMS establishes quotas for the number of API operations requested in each second. This could lead to throttling of otherwise functional setup.
 
 ## Route 53
 
@@ -320,6 +338,14 @@ Common HTTP response codes:
 ## CDK
 
 - Supported languages - JavaScript/TypeScript, Python, Java, and .NET
+- CDK constructs come in three levels of abstraction:
+  - **L1 constructs (also called CFN resources)** are low-level constructs that map directly to components that are available in `CloudFormation`. For example, a security group, S3 bucket, or a DynamoDB table.
+  - **L2 constructs** provide the same functionality as CloudFormation resources but with added convenience by including the default settings, repetitive code, and connecting logic that you would otherwise have to write with a native CloudFormation resource.
+  - **L3 constructs (also called patterns)** define infrastructure that follows best practices and conventions, which can help you improve the structure and maintainability of your CDK apps. For example, you can easily build an API Gateway API backed by a Lambda function using the `aws-apigateway.LambdaRestApi` construct.
+- CDK popular commands:
+  - `cdk synth`: Prepare an AWS environment for CDK deployments by deploying the CDK bootstrap stack, named CDKToolkit, into the AWS environment.
+  - `cdk bootstrap`: Synthesize a CDK app to produce a cloud assembly, including an AWS CloudFormation template for each stack.
+  - `cdk context`: Manage cached context values for your CDK application.
 
 ## SAM
 
