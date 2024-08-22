@@ -235,6 +235,9 @@ Common HTTP response codes:
 - The following are the Gateway response types which are associated with the HTTP 504 error in API Gateway:
   - **INTEGRATION_FAILURE** – The gateway response for an integration failed error. If the response type is unspecified, this response defaults to the `DEFAULT_5XX` type.
   - **INTEGRATION_TIMEOUT** – The gateway response for an integration timed-out error. If the response type is unspecified, this response defaults to the `DEFAULT_5XX` type.
+- **Lambda Authorisers**: A Lambda authorizer is an API Gateway feature that uses a Lambda function to control access to your API. When a client makes a request to one of your API’s methods, API Gateway calls your Lambda authorizer, which takes the caller’s identity as input and returns an IAM policy as output. There are two types of Lambda authorizers:
+  - A **token-based** Lambda authorizer (also called a **TOKEN authorizer**) receives the caller’s identity in a bearer token, such as a JSON Web Token (JWT) or an OAuth token.
+  - A **request parameter-based** Lambda authorizer (also called a **REQUEST authorizer**) receives the caller’s identity in a combination of headers, query string parameters, stageVariables, and $context variables.
 
 ## Lambda
 
@@ -278,6 +281,11 @@ Common HTTP response codes:
 - User pool integrates with API Gateway and Application Load Balancer
 - When your mobile app authenticates with the Identity Provider (IdP) using Amazon Cognito, the token returned from the IdP is passed to Amazon Cognito, which then returns a **Cognito ID** for the user. This **Cognito ID** is used to provide a set of temporary, limited-privilege AWS credentials through the Cognito Identity Pool.
 - With **adaptive authentication**, you can configure your user pool to block suspicious sign-ins or add second factor authentication in response to an increased risk level. For each sign-in attempt, Amazon Cognito generates a risk score for how likely the sign-in request is to be from a compromised source. This risk score is based on factors that include device and user information.
+- Amazon Cognito **identity pools** enable you to create unique identities and assign permissions for users. Your identity pool can include:
+  - Users in an Amazon Cognito user pool
+  - Users who authenticate with external identity providers such as Facebook, Google, or a SAML-based identity provider
+  - Users authenticated via your own existing authentication process
+- a **user pool** is just a user directory in Amazon Cognito. 
 
 ## Step Functions
 - Max execution duration

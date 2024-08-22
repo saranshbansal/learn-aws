@@ -112,6 +112,18 @@ You can use API keys together with `usage plans` or `Lambda authorizers` to cont
 
 To associate the newly created key with a usage plan the `CreatUsagePlanKey` API can be called. This creates a usage plan key for adding an existing API key to a usage plan.
 
+## Lambda Authorizers
+A Lambda authorizer is an API Gateway feature that uses a Lambda function to control access to your API. When a client makes a request to one of your API’s methods, API Gateway calls your Lambda authorizer, which takes the caller’s identity as input and returns an IAM policy as output. 
+
+![alt text](images/image-lambda_authoriser.png)
+
+There are two types of Lambda authorizers:
+
+- A **token-based** Lambda authorizer (also called a **TOKEN authorizer**) receives the caller’s identity in a bearer token, such as a JSON Web Token (JWT) or an OAuth token.
+- A **request parameter-based** Lambda authorizer (also called a **REQUEST authorizer**) receives the caller’s identity in a combination of headers, query string parameters, stageVariables, and $context variables.
+
+It is possible to use an AWS Lambda function from an AWS account that is different from the one in which you created your Lambda authorizer function by using a **Cross-Account Lambda Authorizer**.
+
 ## Custom Domain Names
 The default API endpoint name is randomly generated, difficult to recall, and not user-friendly. Custom domain names are simpler and more intuitive URLs that you can provide to your API users.
 
