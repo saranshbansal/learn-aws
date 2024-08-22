@@ -319,26 +319,26 @@ sam sync # quick syncing of local changes to AWS, more suitable for rapid develo
 sam traces
 sam validate
 ```
-Only two commands are required to package and deploy serverless apps in AWS.
+- Only two commands are required to package and deploy serverless apps in AWS.
+  ```yaml
+  sam build > sam package (decommissioned) / sam deploy
 
-```yaml
-sam build > sam package (decommissioned) / sam deploy
+  # OR
 
-# OR
-
-aws cloudformation package
-aws cloudformation deploy
-```
-
+  aws cloudformation package
+  aws cloudformation deploy
+  ```
 
 
 ## SAM Template
 The following example shows a YAML-formatted template fragment.
 
 ```yaml
-Transform: AWS::Serverless-2016-10-31
+AWSTemplateFormatVersion: 1.1 # required
 
-Globals:
+Transform: AWS::Serverless-2016-10-31 # required
+
+Globals: # optional but recommended
   set of globals
 
 Description:
@@ -356,24 +356,28 @@ Mappings:
 Conditions:
   set of conditions
 
-Resources:
+Resources: # required
   set of resources
 
 Outputs:
   set of outputs
 ```
 
-**Resources**: Defines AWS resources used in your application (e.g., Lambda functions, API Gateway endpoints, DynamoDB tables).
+**AWSTemplateFormatVersion**: This specifies the AWS CloudFormation template version that the SAM template is based on.
 
-**Parameters**: Allows customization of your template by passing parameters during deployment (e.g., environment variables, resource names).
+**Resources**: This is the most important section, where you define the AWS resources that make up your serverless application. This includes Lambda functions, API Gateway APIs, DynamoDB tables, and other resources. In AWS SAM templates the Resources section can contain a combination of AWS CloudFormation resources and AWS SAM resources.
 
-**Outputs**: Provides information about your deployed resources (e.g., API endpoint URL) that can be used by other AWS services or users.
+**Parameters** (Opt): Allows customization of your template by passing parameters during deployment (e.g., environment variables, resource names).
 
-**Mappings** (Opt): Optional section for specifying conditional values based on predefined keys (e.g., AMI IDs for different regions).
+**Outputs** (Opt): This section defines output values that can be returned after the application is deployed. These outputs can be used to reference resource attributes or other values.
 
-**Conditions**: Allows you to define conditions that control whether certain resources are created or how they're configured based on input parameters or other conditions.
+**Mappings** (Opt): This section is used to define reusable mappings of keys and values that can be referenced in other parts of the template.
 
-**Transform**: Specifies transformations that AWS CloudFormation applies to the template, such as SAM transformations to expand SAM-specific syntax into standard CloudFormation syntax.
+**Conditions** (Opt): This section defines conditions that can be used to control the creation of resources based on certain criteria.
+
+**Transform**: This declaration identifies an AWS CloudFormation template file as an AWS SAM template file. 
+
+**Globals** (Opt but recommended): This section is **unique to SAM** and defines global settings that apply to all resources in the template, such as function memory size, timeout, or environment variables.
 
 **Metadata** (Opt): Optional section for adding additional information about your template or resources, such as descriptions or tags.
 
@@ -447,10 +451,37 @@ Provides detailed logs of each step execution.
 - **High availability** – AWS Step Functions has built-in fault tolerance. Step Functions maintains service capacity across multiple Availability Zones in each region to help protect application workflows against individual machine or data center facility failures. There are no maintenance windows or scheduled downtimes.
 - **Administrative security** – AWS Step Functions is integrated with AWS Identity and Access Management (IAM). IAM policies can be used to control access to the Step Functions APIs.
 
+
 ## Workflow in AWS Step Functions
 A Step Functions execution receives a `JSON` text as input and passes that input to the first state in the workflow. Individual states receive JSON as input and usually pass JSON as output to the next state. Understanding how this information flows from state to state and learning how to filter and manipulate this data is key to effectively designing and implementing workflows in AWS Step Functions.
 
 ![alt text](images/image-step_function_workflow.png)
+
+### Elements of Workflow
+
+#### State Machine
+
+A state machine is a collection of states that define the workflow. It's defined using the Amazon States Language (ASL), which is a JSON-based language.
+
+#### States
+
+States are the building blocks of a state machine. There are different types of states:
+
+**Task State** : Represents a single unit of work that can be performed by an AWS service, a Lambda function, or an activity worker.
+
+**Choice State** : Allows you to branch your workflow based on certain conditions.
+
+**Wait State** : Delays the workflow execution for a specified period or until a specified condition is met.
+
+**Parallel State** : Allows you to execute multiple branches of your workflow in parallel.
+
+**Map State** : Allows you to run a set of steps for each element of an input array in parallel.
+
+**Succeed State** : Stops the execution of the workflow successfully.
+
+**Fail State** : Stops the execution of the workflow with a failure.
+
+#### Inputs and Outputs
 
 In the `Amazon States Language (ASL)`, these fields filter and control the flow of JSON from state to state:
 
