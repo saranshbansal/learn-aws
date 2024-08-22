@@ -394,3 +394,6 @@ Common HTTP response codes:
 - Effectively manage the updates on same CF template across all AWS accounts with minimal effort - Update the stacks on multiple AWS accounts using CloudFormation **StackSets**.
 - ECS features that support Grouped container instances by certain attributes such as Availability Zone, instance type, or custom metadata - **Cluster Query Language**. **Task Constraint** is wrong as it does not provide the actual expressions which are used to group those container instances.
 - Use OpenTelemetry over X-ray if there is an option as X-ray is vendor locked while OpenTelementry is not. Also, OT has ability to send traces to multiple different tracing backends without having to re-instrument your code which is not there in X-ray.
+- Detailed monitoring in CloudWatch **DOES NOT** allow memory utilization tracking. It just makes logging more granular at 1min period. Only **Amazon CloudWatch Logs agent** can log memory data.
+- SQS: For **delay queues**, a message is hidden when it is first added to the queue, whereas for **visibility timeouts** a message is hidden only after it is consumed from the queue.
+
