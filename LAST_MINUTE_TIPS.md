@@ -277,6 +277,7 @@ Common HTTP response codes:
 
 - User pool integrates with API Gateway and Application Load Balancer
 - When your mobile app authenticates with the Identity Provider (IdP) using Amazon Cognito, the token returned from the IdP is passed to Amazon Cognito, which then returns a **Cognito ID** for the user. This **Cognito ID** is used to provide a set of temporary, limited-privilege AWS credentials through the Cognito Identity Pool.
+- With **adaptive authentication**, you can configure your user pool to block suspicious sign-ins or add second factor authentication in response to an increased risk level. For each sign-in attempt, Amazon Cognito generates a risk score for how likely the sign-in request is to be from a compromised source. This risk score is based on factors that include device and user information.
 
 ## Step Functions
 - Max execution duration
@@ -381,3 +382,4 @@ Common HTTP response codes:
 ## Miscellaneous
 - If you have resources that are running inside AWS that need programmatic access to various AWS services, then the best practice is always to use **IAM roles**. However, applications running outside of an AWS environment will need access keys for programmatic access to AWS resources. For example, monitoring tools running on-premises and third-party automation tools will need **access keys**.
 - You can also provision stack using **CloudFormation** but it only works with **JSON or YAML**. If you want to define your stack in some other language, use **CDK** which works with many familiar languages like Python, Ruby, Java, JavaScript etc.
+- Enforce MFA only on users with suspicious login attempts - **Enable Adaptive Authentication for the User Pool.**
