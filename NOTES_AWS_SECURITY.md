@@ -440,7 +440,7 @@ The AWS STS API action returns temporary security credentials that consist of:
 With STS you can request a session token using one of the following APIs:
 
 - `AssumeRole` – can only be used by IAM users (can be used for MFA).
-- `AssumeRoleWithSAML` – can be used by any user who passes a SAML authentication response that indicates authentication from a known (trusted) identity provider.
-- `AssumeRoleWithWebIdentity` – can be used by an user who passes a web identity token that indicates authentication from a known (trusted) identity provider.
+- `AssumeRoleWithSAML` – can be used by any user who passes a SAML authentication response that indicates authentication from a known (trusted) identity provider. This API does not support MFA.
+- `AssumeRoleWithWebIdentity` – can be used by an user who passes a web identity token that indicates authentication from a known (trusted) identity provider. This API does not support MFA.
 - `GetSessionToken` – can be used by an IAM user or AWS account root user (can be used for MFA).
-- `GetFederationToken` – can be used by an IAM user or AWS account root user.
+- `GetFederationToken` – can be used by an IAM user or AWS account root user. This API does not support MFA.
