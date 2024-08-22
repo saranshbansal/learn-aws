@@ -253,7 +253,6 @@ Common HTTP response codes:
   - **Use exponential backoff in your app** – a technique that uses progressively longer waits between retries for consecutive error responses. This can be used to handle throttling issues by preventing collision between simultaneous requests.
   - **Use a dead-letter queue** – If you’re using Amazon S3 and Amazon EventBridge (Amazon CloudWatch Events), configure your function with a dead letter queue to catch any events that are discarded due to constant throttles. This can protect your data if you’re seeing significant throttling.
   - **Request a service quota increase** – you can reach AWS support to request for a higher service quota for concurrent executions.
-- **Step Functions** - If you want to manage multiple Lambda functions that invoke one another, use `Step Functions` which use `State Machine`, a technique in modeling systems whose output depends on the entire history of their inputs, not just on the most recent input. In this case, the Lambda functions invoke one another, creating a large state machine.
 - There are two types of authorization available for Lambda function URLs:
   - **AWS_IAM**  – the function URL can only be invoked by an IAM user or role with the necessary permissions. This can be useful in cases where you need to restrict access to the Lambda function to a specific set of users or roles within your organization.
   - **NONE** – anyone can invoke the Lambda function using the URL. This approach can be useful in cases where you want to make the Lambda function publicly accessible and do not require any additional authentication or authorization beyond the URL. However, you may still need to validate the incoming requests in the Lambda function to ensure that the request comes from a trusted source.
@@ -280,11 +279,11 @@ Common HTTP response codes:
 - When your mobile app authenticates with the Identity Provider (IdP) using Amazon Cognito, the token returned from the IdP is passed to Amazon Cognito, which then returns a **Cognito ID** for the user. This **Cognito ID** is used to provide a set of temporary, limited-privilege AWS credentials through the Cognito Identity Pool.
 
 ## Step Functions
-
 - Max execution duration
     - Standard - 365d
     - Express - 5min
 - Express Workflows do not support activities, job-run (.sync), and Callback patterns.
+- Include a `Catch` block in state machine to capture the errors. Then use `ResultPath` block to include each node's input data with its output.
 
 ## CodeCommit
 
@@ -380,4 +379,5 @@ Common HTTP response codes:
 - To deploy an application that contains one or more nested applications, you must include the `CAPABILITY_AUTO_EXPAND` capability in the sam deploy command.
 
 ## Miscellaneous
-- If you have resources that are running inside AWS that need programmatic access to various AWS services, then the best practice is always to use IAM roles. However, applications running outside of an AWS environment will need access keys for programmatic access to AWS resources. For example, monitoring tools running on-premises and third-party automation tools will need access keys.
+- If you have resources that are running inside AWS that need programmatic access to various AWS services, then the best practice is always to use **IAM roles**. However, applications running outside of an AWS environment will need access keys for programmatic access to AWS resources. For example, monitoring tools running on-premises and third-party automation tools will need **access keys**.
+- You can also provision stack using **CloudFormation** but it only works with **JSON or YAML**. If you want to define your stack in some other language, use **CDK** which works with many familiar languages like Python, Ruby, Java, JavaScript etc.

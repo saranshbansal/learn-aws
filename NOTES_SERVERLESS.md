@@ -503,6 +503,12 @@ The output of a state can be a copy of its input, the result it produces (for ex
 
 `OutputPath` enables you to select a portion of the state output to pass to the next state. This enables you to filter out unwanted information, and pass only the portion of JSON that you care about.
 
+#### Error Handling
+You can use a Include a `Catch` block in state machine to capture the errors in a Task or Parallel State. A catcher contains following fields:
+- `ErrorEquals` - array of strings with error names
+- `Next` - A string that must match exactly one of the state names
+- `ResultPath` - a path that determines what input was sent to the state specified in `Next` field.
+
 ## Step Functions vs AWS SWF
 
 | Feature             | AWS Step Functions                | Amazon SWF                                                  |
