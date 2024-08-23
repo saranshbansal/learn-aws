@@ -416,3 +416,6 @@ Parameter **policies** help you manage a growing set of parameters by allowing y
 - `EC2 + X-ray`: Use a user data script to install the X-Ray daemon and Add managed policy to instance profile role.
 - `Elastic Beanstalk` vs `ECS`: Choose **EBS over ECS** for spinning up containerized apps and managing containers if **"easier management & provisioning is mentioned"**.
 - Ensure that the global secondary index's provisioned WCU is **equal or greater than** the WCU of the base table.
+- **Deployment Types in CodeDeploy**: ECS and Lambda - B/G | EC2/On-Premises compute - InPlace and B/G both
+- You can detach an Amazon EBS volume from an instance explicitly or by terminating the instance. However, **if the instance is running**, you must first unmount the volume from the instance. 
+- If an EBS volume is the **root device** of an instance, you must **stop the instance before you can detach the volume.**
