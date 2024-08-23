@@ -158,7 +158,7 @@ Common HTTP response codes:
 ## RDS
 
 - RDS supports using **`Transparent Data Encryption (TDE`)** to encrypt stored data on your DB instances running Microsoft SQL Server. TDE automatically encrypts data before it is written to storage, and automatically decrypts data when the data is read from storage.
-- Enhanced Monitoring - Provides metrics (CPU bandwidth, memory consumed etc) for different processes running on RDS DB instance
+- **Enhanced Monitoring** - Provides metrics (CPU bandwidth, memory consumed etc) for different processes running on RDS DB instance
 - Read Replica data replication is asynchronous
 - PostgreSQL, MySQL, Aurora, MariaDB support IAM auth
 - RDS applies OS updates by performing maintenance on the standby, then promoting the standby to primary and finally performing maintenance on the old primary, which becomes the new standby
@@ -411,4 +411,7 @@ Parameter **policies** help you manage a growing set of parameters by allowing y
 - No managed policy named `AWSXRayElasticBeanstalkWriteAccess`.
 - Integrate the on-premises Lightweight Directory Access Protocol (LDAP) directory service to their AWS VPC using IAM - **Create a custom identity broker application in your on-premises data center and use `STS` to issue short-lived AWS credentials**
 - **AWS IAM Identity Center** does not support **non-SAML** authentication methods.
-
+- `AppSync` vs `Cognito Sync`: Same use case but the key difference is that, it also extends these capabilities by allowing **multiple users to synchronize and collaborate in real time on shared data.**
+- `S3 Select` vs `Athena` - Go for S3 Select for simple cost-effective use case. Else Athena.
+- `EC2 + X-ray`: Use a user data script to install the X-Ray daemon and Add managed policy to instance profile role.
+- `Elastic Beanstalk` vs `ECS`: Choose **EBS over ECS** for spinning up containerized apps and managing containers if **"easier management & provisioning is mentioned"**.
