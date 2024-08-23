@@ -55,6 +55,9 @@ For example:
 The other option is to upload a `ZIP` file containing the function code to `Amazon S3`, then add a reference to it in an `AWS::Lambda::Function` resource in the template. To declare this in your AWS `CloudFormation` template, you can use the following syntax (within `AWS::Lambda::Function Code`):
 ![alt text](images/image-lambda_cf_direct.png)
 
+## Execution Context
+
+The execution context is a temporary runtime environment that initializes any external dependencies of your Lambda function code, such as database connections or HTTP endpoints. This affords subsequent invocations better performance because there is no need to “cold-start” or initialize those external dependencies. After a Lambda function is executed, AWS Lambda maintains the execution context for some time in anticipation of another Lambda function invocation. In effect, the service freezes the execution context after a Lambda function completes, and thaws the context for reuse, if AWS Lambda chooses to reuse the context when the Lambda function is invoked again.
 
 ## Invoking Lambda Functions
 - You can invoke Lambda functions directly with the Lambda console, the Lambda API, the AWS SDK, the AWS CLI, and AWS toolkits.

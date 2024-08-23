@@ -78,7 +78,7 @@ Common HTTP response codes:
 - S3 Object Ownership has two settings: 
   - **Object writer** – The uploading account will own the object. 
   - **Bucket owner preferred** – The bucket owner will own the object if the object is uploaded with the `bucket-owner-full-control` canned ACL. Without this setting and canned ACL, the object is uploaded and remains owned by the uploading account.
-- If two writes are made to a single non-versioned object at the same time, it is possible that only a single event notification will be sent. If you want to ensure that an event notification is sent for every successful write, you can enable versioning on your bucket. With versioning, every successful write will create a new version of your object and will also send event notification.
+- If two writes are made to a single non-versioned object at the same time, it is possible that only a single event notification will be sent. If you want to ensure that an event notification is sent for every successful write, you can enable **versioning** on your bucket. With versioning, every successful write will create a new version of your object and will also send event notification.
 - `Retention` option can be set while defining S3 lifecycle options for limiting old artifacts versions by number or age. This can prevent deleting source bundle.
 
 - **S3 Consistency Model**
@@ -157,7 +157,7 @@ Common HTTP response codes:
 
 ## RDS
 
-- RDS supports using Transparent Data Encryption (TDE) to encrypt stored data on your DB instances running Microsoft SQL Server. TDE automatically encrypts data before it is written to storage, and automatically decrypts data when the data is read from storage.
+- RDS supports using **`Transparent Data Encryption (TDE`)** to encrypt stored data on your DB instances running Microsoft SQL Server. TDE automatically encrypts data before it is written to storage, and automatically decrypts data when the data is read from storage.
 - Enhanced Monitoring - Provides metrics (CPU bandwidth, memory consumed etc) for different processes running on RDS DB instance
 - Read Replica data replication is asynchronous
 - PostgreSQL, MySQL, Aurora, MariaDB support IAM auth
@@ -396,4 +396,7 @@ Common HTTP response codes:
 - Use OpenTelemetry over X-ray if there is an option as X-ray is vendor locked while OpenTelementry is not. Also, OT has ability to send traces to multiple different tracing backends without having to re-instrument your code which is not there in X-ray.
 - Detailed monitoring in CloudWatch **DOES NOT** allow memory utilization tracking. It just makes logging more granular at 1min period. Only **Amazon CloudWatch Logs agent** can log memory data.
 - SQS: For **delay queues**, a message is hidden when it is first added to the queue, whereas for **visibility timeouts** a message is hidden only after it is consumed from the queue.
+- You can add a manual approval step in CodePipeline ex. for adding code review approval action. Configure **SNS** for approval action in pipeline configurations. **SQS** is not an option.
+- IAM managed policy for X-ray - `AWSXRayDaemonWriteAccess`.
+- No managed policy named `AWSXRayElasticBeanstalkWriteAccess`.
 
