@@ -49,7 +49,8 @@ Task definitions are split into separate parts:
 - **IAM task role** – specifies the permissions that containers in the task should have.
 - **Network mode** – determines how the networking is configured for your containers.
 - **Container definitions** – specify which image to use, how much CPU and memory the container is allocated, and many more options.
-- **Volumes** – allow you to share data between containers and even persist the data on the container instance when the containers are no longer running.\Task placement constraints – lets you customize how your tasks are placed within the infrastructure.
+- **Volumes** – allow you to share data between containers and even persist the data on the container instance when the containers are no longer running.
+- **Task placement constraints** – lets you customize how your tasks are placed within the infrastructure.
 - **Launch types** – determines which infrastructure your tasks use - **EC2** or **Fargate**
 
 #### Task Definitions for EC2 Launch Type

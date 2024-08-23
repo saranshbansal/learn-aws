@@ -387,6 +387,16 @@ Common HTTP response codes:
 
 - To deploy an application that contains one or more nested applications, you must include the `CAPABILITY_AUTO_EXPAND` capability in the sam deploy command.
 
+## System Parameter Store
+
+Parameter **policies** help you manage a growing set of parameters by allowing you to assign specific criteria to a parameter, such as an expiration date or time to live. Parameter policies are especially helpful in forcing you to update or delete passwords and configuration data stored in Parameter Store, a capability of AWS Systems Manager.
+
+- Policies:
+  - **Expiration** – deletes the parameter at a specific date
+  - **ExpirationNotification** – sends an event to Amazon EventBridge (Amazon CloudWatch Events) when the specified expiration time is reached.
+  - **NoChangeNotification** – sends an event to Amazon EventBridge (Amazon CloudWatch Events) when a parameter has not been modified for a specified period of time. 
+- Take note that parameter policies are only available for parameters in the **Advanced tier**.
+
 ## Miscellaneous
 - If you have resources that are running inside AWS that need programmatic access to various AWS services, then the best practice is always to use **IAM roles**. However, applications running outside of an AWS environment will need access keys for programmatic access to AWS resources. For example, monitoring tools running on-premises and third-party automation tools will need **access keys**.
 - You can also provision stack using **CloudFormation** but it only works with **JSON or YAML**. If you want to define your stack in some other language, use **CDK** which works with many familiar languages like Python, Ruby, Java, JavaScript etc.
@@ -399,4 +409,6 @@ Common HTTP response codes:
 - You can add a manual approval step in CodePipeline ex. for adding code review approval action. Configure **SNS** for approval action in pipeline configurations. **SQS** is not an option.
 - IAM managed policy for X-ray - `AWSXRayDaemonWriteAccess`.
 - No managed policy named `AWSXRayElasticBeanstalkWriteAccess`.
+- Integrate the on-premises Lightweight Directory Access Protocol (LDAP) directory service to their AWS VPC using IAM - **Create a custom identity broker application in your on-premises data center and use `STS` to issue short-lived AWS credentials**
+- **AWS IAM Identity Center** does not support **non-SAML** authentication methods.
 
