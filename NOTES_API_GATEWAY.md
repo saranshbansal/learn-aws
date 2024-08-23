@@ -203,27 +203,24 @@ API Gateway throttling-related settings are applied in the following order:
 3. **Default per-method** limits and individual per-method limits that you set in API stage settings.
 4. **Account-level** throttling.
 
-## Integrating with API Gateway
+## Integraton methods with API Gateway
+
 You can integrate an `API method` in your API Gateway with a custom HTTP endpoint of your application in two ways:
+- **HTTP proxy integration** (`HTTP_PROXY`): With proxy integration, the setup is simple. You only need to set the HTTP method and the HTTP endpoint URI, according to the backend requirements, if you are not concerned with content encoding or caching.
+- **HTTP custom integration** (`HTTP`): With custom integration, setup is more involved. In addition to the proxy integration setup steps, you need to specify how the incoming request data is mapped to the integration request and how the resulting integration response data is mapped to the method response. API Gateway supports the following endpoint ports: `80, 443 and 1024-65535`.
 
-- **HTTP proxy integration**: With proxy integration, the setup is simple. You only need to set the HTTP method and the HTTP endpoint URI, according to the backend requirements, if you are not concerned with content encoding or caching.
+You can also integrate an `API method` in your API Gateway with AWS or Lambda in two ways:
+- **Lambda proxy integration** (`AWS_PROXY`): In Lambda proxy integration, the setup is simple. If your API does not require content encoding or caching, you only need to set the integration’s HTTP method to POST, the integration endpoint URI to the ARN of the Lambda function invocation action of a specific Lambda function, and the credential to an IAM role with permissions to allow API Gateway to call the Lambda function on your behalf.
+- **Lambda custom integration** (`AWS`): In Lambda non-proxy (or custom) integration, in addition to the proxy integration setup steps, you also specify how the incoming request data is mapped to the integration request and how the resulting integration response data is mapped to the method response.
 
-- **HTTP custom integration**: With custom integration, setup is more involved. In addition to the proxy integration setup steps, you need to specify how the incoming request data is mapped to the integration request and how the resulting integration response data is mapped to the method response. API Gateway supports the following endpoint ports: `80, 443 and 1024-65535`.
-
-- Additionally, for the Lambda proxy integration, the value is `AWS_PROXY`. 
-- For the Lambda custom integration and all other AWS integrations, it is `AWS`.
-- For the mock integration, the type value is `MOCK`.
-- By using `AWS_IAM` as the method authorization type, it ensures that the API can only be accessed by IAM identities such as IAM users or IAM roles.
+- Additionally, for the mock integration, the type value is `MOCK`.
 
 ## Important points
+
 - API Gateway does not support sharing a custom domain name across `REST` and `WebSocket` APIs.
-
 - Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is `128 characters`.
-
 - The `/ping` and `/sping` paths are reserved for the service health check. Use of these for API root-level resources with custom domains will fail to produce the expected result.
-
 - API Gateway currently limits log events to 1024 bytes. Log events larger than 1024 bytes, such as request and response bodies, will be truncated by API Gateway before submission to CloudWatch Logs.
-
 - CloudWatch Metrics currently limits dimension names and values to 255 valid XML characters. (For more information, see the CloudWatch User Guide.) Dimension values are a function of user-defined names, including API name, label (stage) name, and resource name. When choosing these names, be careful not to exceed CloudWatch Metrics limits.
-
 - The maximum size of a mapping template is `300 KB`.
+- By using `AWS_IAM` as the method authorization type, it ensures that the API can only be accessed by IAM identities such as IAM users or IAM roles.

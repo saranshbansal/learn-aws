@@ -415,3 +415,4 @@ Parameter **policies** help you manage a growing set of parameters by allowing y
 - `S3 Select` vs `Athena` - Go for S3 Select for simple cost-effective use case. Else Athena.
 - `EC2 + X-ray`: Use a user data script to install the X-Ray daemon and Add managed policy to instance profile role.
 - `Elastic Beanstalk` vs `ECS`: Choose **EBS over ECS** for spinning up containerized apps and managing containers if **"easier management & provisioning is mentioned"**.
+- Ensure that the global secondary index's provisioned WCU is **equal or greater than** the WCU of the base table.
