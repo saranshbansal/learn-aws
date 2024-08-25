@@ -3,7 +3,7 @@ Amazon Web Services (AWS) is the world’s most comprehensive and broadly adopte
 
 The following page lists resources and certifications targets that will guide engineers on their journey towards expertise in AWS.
 
-### Level 1 - Foundation
+#### Level 1 - Foundation
 I know nothing of the product and cannot advise of its features and workings.
 
 **Training**
@@ -17,7 +17,7 @@ I know nothing of the product and cannot advise of its features and workings.
 N/A
 
 
-### Level 2 - Foundation+
+#### Level 2 - Foundation+
 I am aware of some of the technology features, but not how to configure them.
 
 **Training**
@@ -30,7 +30,7 @@ I am aware of some of the technology features, but not how to configure them.
 
 [AWS Certified Cloud Practitioner Certification | AWS Certification | AWS (amazon.com)](https://aws.amazon.com/certification/certified-cloud-practitioner/?ch=tile&tile=getstarted)
 
-### Level 3 - Proficient
+#### Level 3 - Proficient
 I understand the many of the features, can design and build some simple solutions.
 
 **Training**
@@ -50,7 +50,7 @@ I understand the many of the features, can design and build some simple solution
 
 - [AWS Certified Sysops Administrator - Associate Certification (amazon.com)](https://aws.amazon.com/certification/certified-sysops-admin-associate/?ch=tile&tile=getstarted)
 
-### Level 4 - Proficient+
+#### Level 4 - Proficient+
 I have excellent working knowledge of the product, can design and build complex solutions. Starting to share my knowledge with others.
 
 **Training**
@@ -66,7 +66,7 @@ I have excellent working knowledge of the product, can design and build complex 
 - [AWS Certified DevOps Engineer - Professional Certification | AWS Certification | AWS (amazon.com)](https://aws.amazon.com/certification/certified-devops-engineer-professional/)
 
 
-### Level 5 - Expert / Advanced
+#### Level 5 - Expert / Advanced
 I am an authority in the product, with deep technical understanding who can design and build the optimal solution. Widely share my knowledge with the wider organisation and enabling its use.
 
 **Training**
@@ -77,7 +77,11 @@ I am an authority in the product, with deep technical understanding who can desi
 **Certification Target**
 - AWS Specialty (Security / Networking / etc) - [AWS Certification - Validate AWS Cloud Skills - Get AWS Certified (amazon.com)](https://aws.amazon.com/certification/?nc2=sb_ce_co)
 
-# AWS Exam Learning Material
+# AWS Certified Developer Associate - DVA-C02
+
+![certificate](resources/aws-certified-developer-associate.png)
+
+[Badge - Saransh Bansal](https://www.credly.com/badges/a12c9ce8-8e00-4161-b85b-1d136ae8c40b/public_url)
 
 ## Exam Guide
 
@@ -91,7 +95,7 @@ I am an authority in the product, with deep technical understanding who can desi
 
 ## AWS Notes
 
-[FLASHCARDS](FLASHCARDS.md)
+[DVA - C02 - Last Minute Tips](LAST_MINUTE_TIPS.md)
 
 [AWS - EC2](NOTES_EC2.md)
 
@@ -151,8 +155,8 @@ I am an authority in the product, with deep technical understanding who can desi
 
 ## Dumps
 
+[AWS Certified Developer Associate DVA-C02 Practice Exams 2024 by `Jon Bonso`](https://portal.tutorialsdojo.com/courses/aws-certified-developer-associate-practice-exams/)
+
 [DVA-C02: AWS Certified Developer Associate - Youtube playlist by `sthithapragna`](https://youtu.be/zca2PBxzwqI?si=S64MVf8meY_WFglJ)
 
 [AWS Certified Developer Associate Practice Exams DVA-C02 by `Neal Davis`](https://www.udemy.com/course/aws-developer-associate-practice-exams/) 
-
-[AWS Certified Developer Associate DVA-C02 Practice Exams 2024 by `Jon Bonso`](https://portal.tutorialsdojo.com/courses/aws-certified-developer-associate-practice-exams/)
